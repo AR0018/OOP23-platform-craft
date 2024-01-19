@@ -1,4 +1,4 @@
-package it.unibo.Model.Level.API;
+package it.unibo.model.level.api;
 
 public interface Level {
     
