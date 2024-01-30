@@ -7,7 +7,7 @@ package it.unibo.common
     enum TypeObject{
         CHARACTER,
         TRAP,
-        ENEMIES,
-        MAPELENET
+        ENEMY,
+        MAP_ELENET
 
     }
