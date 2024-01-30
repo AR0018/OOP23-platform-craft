@@ -8,6 +8,6 @@ package it.unibo.common
         CHARACTER,
         TRAP,
         ENEMY,
-        MAP_ELENET
+        MAP_ELEMENT
 
     }
