@@ -9,7 +9,8 @@ public interface Physics {
      * Calculates the movement of the GameObject in the specified direction,
      * modifying its position accordingly.
      * This method also takes into account the state of the collision of the GameObject
-     * (if there is a collision in the specified direction, it stops the object).
+     * (if there is a collision in a certain direction, it sets the object's speed in that direction to 0).
+     * @param dir the direction of the movement
      */
-    void calculateMovement(); //TODO: add enum Direction as a parameter
+    void calculateMovement(Direction dir);
 }

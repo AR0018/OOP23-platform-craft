@@ -1,14 +1,13 @@
-package it.unibo.common
+package it.unibo.common; 
 
 /**
- * Model the concept of object type present in the game
+ * Models the concept of the type of an entity present in the game
  * 
  */
-    enum TypeObject{
-        CHARACTER,
-        TRAP,
-        ENEMY,
-        MAP_ELEMENT,
-        FINISH_LOCATION
-
-    }
+public enum ObjectType {
+    CHARACTER,
+    TRAP,
+    ENEMY,
+    MAP_ELEMENT,
+    FINISH_LOCATION;
+}

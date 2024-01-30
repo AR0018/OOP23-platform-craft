@@ -26,8 +26,9 @@ public interface CollisionBox {
 
     /**
      * Returns the informations about all the current collisions of the object.
+     * @return a set containing all the current collisions of the object.
      */
-    Set<Collision> getCollisions(); //TODO: create collision info and add it as an output of this method
+    Set<Collision> getCollisions();
 
     /*TODO: add method that returns the dimensions of the CollisionBox */
 }
