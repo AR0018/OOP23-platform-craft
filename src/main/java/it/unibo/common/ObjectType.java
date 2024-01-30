@@ -8,6 +8,7 @@ package it.unibo.common
         CHARACTER,
         TRAP,
         ENEMY,
-        MAP_ELEMENT
+        MAP_ELEMENT,
+        FINISH_LOCATION
 
     }
