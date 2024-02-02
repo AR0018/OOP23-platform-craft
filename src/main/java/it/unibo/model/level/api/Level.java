@@ -2,6 +2,8 @@ package it.unibo.model.level.api;
 
 import java.util.Set;
 
+import org.locationtech.jts.geom.CoordinateXY;
+
 import it.unibo.model.entities.api.GameObject;
 
 //TODO: add description of a level
@@ -24,7 +26,10 @@ public interface Level {
      */
     void computeChanges();
 
-    void addFinishLocation(); //TODO: add a 2D Position as an input
+    /**
+     * @param position
+     */
+    void addFinishLocation(CoordinateXY position);
 
     /**
      * @return the current state of the game
