@@ -9,11 +9,6 @@ import org.locationtech.jts.geom.CoordinateXY;
 public interface GameObject {
 
     /**
-     * Updates the state of the object, according to its desired behaviour.
-     */
-    void updateState();
-
-    /**
      * Sets the position of the character to the given input.
      * @param position the input position
      */
