@@ -29,6 +29,9 @@ public interface CollisionBox {
      * @return a set containing all the current collisions of the object.
      */
     Set<Collision> getCollisions();
-
-    /*TODO: add method that returns the dimensions of the CollisionBox */
+    
+    /**
+     * @return the boundaries of this CollisionBox
+     */
+    Boundaries getBoundaries();
 }
