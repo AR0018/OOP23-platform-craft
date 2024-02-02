@@ -7,12 +7,6 @@ import it.unibo.model.entities.api.Character;
 public class CharacterImpl implements Character{
 
     @Override
-    public void updateState() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateState'");
-    }
-
-    @Override
     public void setPosition(CoordinateXY position) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'setPosition'");
