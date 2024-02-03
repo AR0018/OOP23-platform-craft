@@ -6,7 +6,10 @@ import org.locationtech.jts.geom.CoordinateXY;
 
 import it.unibo.model.entities.api.GameObject;
 
-//TODO: add description of a level
+/**
+ * Models the concept of a Level in the game.
+ * A Level consists of a series of GameObjects which interact together in the game.
+ */
 public interface Level {
 
     /**

@@ -2,7 +2,6 @@ package it.unibo.model.engine.api;
 
 import java.util.Set;
 
-import it.unibo.common.ObjectType;
 import it.unibo.common.SimpleEntiete;
 import it.unibo.model.level.api.GameState;
 
@@ -31,7 +30,7 @@ public interface Engine {
      * @param pos the position of the object inside the Level
      * @return true if the object can be added, false otherwise
      */
-    boolean addGameObject(SimpleEntiete entiete /*,Position pos */); //TODO: choose whether to use a couple of doubles or a CoordinateXY as an input parameter
+    boolean addGameObject(SimpleEntiete entiete);
 
     //boolean removeGameObject(Position pos) TODO:decide how to find the specified object in the configuration (either by position or something else)
 
