@@ -27,19 +27,20 @@ public interface Engine {
     boolean createLevel();
 
     /**
-     * Adds an object to the configuration of the Level.
-     * @param type the type of the object
-     * @param pos the position of the object inside the Level
-     * @return true if the object can be added, false otherwise
+     * Adds an entity to the configuration of the Level.
+     * @param type the type of the entity
+     * @param pos the position of the entity inside the Level
+     * @return true if the entity can be added, false otherwise
      */
-    boolean addGameObject(SimpleEntiete entiete);
+    boolean addGameEntity(SimpleEntiete entiete);
 
     /**
-     * Removes the GameObject whose CollisionBox contains the specified position
-     * @param position the specified position
+     * Removes the GameEntity whose CollisionBox contains the specified position
+     * @param x the position on X-asis of the Entity to be removed 
+     * @param y the position on Y-asis of the Entity to be removed
      * @return true if the object has been removed, false otherwise
      */
-    boolean removeGameObject(CoordinateXY position);
+    boolean removeGameEntity(double x, double y);
 
     /**
      * Updates the current Level.

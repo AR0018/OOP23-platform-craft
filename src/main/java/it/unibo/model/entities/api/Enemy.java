@@ -10,6 +10,4 @@ public interface Enemy extends GameEntity{
      */
     void enemyType(); //TODO: return EnemyType
 
-    //Usare Factory o Build nella impl
-
 }
