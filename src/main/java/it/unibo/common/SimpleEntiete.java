@@ -1,11 +1,20 @@
  package it.unibo.common;
 
-import org.locationtech.jts.geom.CoordinateXY;
-
 public interface SimpleEntiete {
 
+    /**
+     * @return the type of entity
+     */
     EntityType getType();
 
-    CoordinateXY getPosition();
+    /**
+     * @return the X coordinate of the entity
+     */
+    double getX();
+
+    /**
+     * @return the Y coordinate of the entity
+     */
+    double getY();
 
 }
