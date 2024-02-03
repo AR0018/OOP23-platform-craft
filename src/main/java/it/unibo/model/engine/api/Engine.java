@@ -2,8 +2,6 @@ package it.unibo.model.engine.api;
 
 import java.util.Set;
 
-import org.locationtech.jts.geom.CoordinateXY;
-
 import it.unibo.common.SimpleEntiete;
 import it.unibo.model.level.api.GameState;
 
@@ -14,7 +12,7 @@ import it.unibo.model.level.api.GameState;
  * which contains a simple representation of all the objects that will be in the Level.
  */
 public interface Engine {
-    
+
     /**
      * Creates a runnable Level based on the current configuration.
      * The Level is created only if the configuration is valid.
@@ -28,14 +26,13 @@ public interface Engine {
 
     /**
      * Adds an entity to the configuration of the Level.
-     * @param type the type of the entity
-     * @param pos the position of the entity inside the Level
+     * @param entity the entity to be added
      * @return true if the entity can be added, false otherwise
      */
-    boolean addGameEntity(SimpleEntiete entiete);
+    boolean addGameEntity(SimpleEntiete entity);
 
     /**
-     * Removes the GameEntity whose CollisionBox contains the specified position
+     * Removes the GameEntity whose CollisionBox contains the specified position.
      * @param x the position on X-asis of the Entity to be removed 
      * @param y the position on Y-asis of the Entity to be removed
      * @return true if the object has been removed, false otherwise

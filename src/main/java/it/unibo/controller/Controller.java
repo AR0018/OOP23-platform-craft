@@ -1,12 +1,12 @@
 package it.unibo.controller;
 
 /**
- * The Controller of this application that starts the game
+ * The Controller of this application that starts the game.
  */
 public interface Controller {
-    
+
     /**
-     * Launch the application
+     * Launch the application.
      */
     void start();
 

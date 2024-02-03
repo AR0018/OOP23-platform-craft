@@ -22,7 +22,7 @@ public interface GameEntity {
     CoordinateXY getPosition();
 
     /**
-     * Check if the entity is alive or not
+     * Check if the entity is alive or not.
      * @return true if the entity is dead
      */
     boolean isAlive();

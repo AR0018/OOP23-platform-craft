@@ -18,14 +18,14 @@ public interface Level {
     Set<GameEntity> getGameObjects();
 
     /**
-     * Adds a GameObject to the level
+     * Adds a GameObject to the level.
      * @param object the GameObject to add
      */
     void addGameObject(GameEntity object);
 
     /**
      * Updates the level, modifying the state of every GameObject
-     * and updating the state of the game in case of a win/loss
+     * and updating the state of the game in case of a win/loss.
      */
     void computeChanges();
 

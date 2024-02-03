@@ -39,6 +39,9 @@ dependencies {
     // JTS Topology Suite for geometry concepts
     implementation("org.locationtech.jts:jts-core:1.19.0")
 
+    //Jackson for JSON serialization
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.16.1")
+
     // JUnit API and testing engine
     val jUnitVersion = "5.10.1"
     // when dependencies share the same version, grouping in a val helps to keep them in sync

@@ -9,7 +9,7 @@ import it.unibo.model.entities.api.GameEntity;
  * of the boundaries of the object in a 2D space.
  */
 public interface CollisionBox {
-    
+
     /**
      * Checks if the current object is colliding with any of the objects in the set, 
      * and modifies the state of the collision accordingly.

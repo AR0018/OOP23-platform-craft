@@ -4,7 +4,7 @@ import org.locationtech.jts.geom.CoordinateXY;
 import org.locationtech.jts.geom.Polygon;
 
 /**
- * Models the geometric boundaries of a CollisionBox
+ * Models the geometric boundaries of a CollisionBox.
  */
 public interface Boundaries {
 

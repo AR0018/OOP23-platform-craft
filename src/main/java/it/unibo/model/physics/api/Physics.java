@@ -23,12 +23,12 @@ public interface Physics {
     void setMovement(Direction direction);
 
     /**
-     * Sets the speed on the X axis to 0
+     * Sets the speed on the X axis to 0.
      */
     void stopOnX();
 
     /**
-     * Sets the speed on the Y axis to 0
+     * Sets the speed on the Y axis to 0.
      */
     void stopOnY();
 }
