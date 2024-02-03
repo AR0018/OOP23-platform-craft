@@ -29,7 +29,7 @@ public interface CollisionBox {
      * @return a set containing all the current collisions of the object.
      */
     Set<Collision> getCollisions();
-    
+   
     /**
      * @return the boundaries of this CollisionBox
      */
