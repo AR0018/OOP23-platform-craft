@@ -3,17 +3,13 @@ package it.unibo.model.entities.api;
 /**
  * Interface that model the concept of an enemy
  */
-public interface Enemy extends GameObject{
-    
-    /**
-     * Updates the state of the object, according to its desired behaviour.
-     */
-    void updateState();
+public interface Enemy extends GameEntity{
 
     /**
-     * Check if the enemy is alive or not
-     * @return true if the enemy is dead
+     * Return the what type of enemy is present
      */
-    boolean isAlive();
+    void enemyType(); //TODO: return EnemyType
+
+    //Usare Factory o Build nella impl
 
 }

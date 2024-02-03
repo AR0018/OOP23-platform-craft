@@ -1,6 +1,6 @@
 package it.unibo.model.collisions.api;
 
-import it.unibo.model.entities.api.GameObject;
+import it.unibo.model.entities.api.GameEntity;
 import it.unibo.model.physics.api.Direction;
 
 /**
@@ -17,6 +17,6 @@ public interface Collision {
     /**
      * Returns the GameObject that caused the collision
      */
-    GameObject getGameObject();
+    GameEntity getGameObject();
 
 }

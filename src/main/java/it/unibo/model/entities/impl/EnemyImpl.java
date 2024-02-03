@@ -29,5 +29,13 @@ public class EnemyImpl implements Enemy{
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'isAlive'");
     }
+
+    @Override
+    public void enemyType() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'enemyType'");
+    }
     
+
+    //TODO: isPlayerInRange()
 }

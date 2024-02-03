@@ -2,7 +2,7 @@ package it.unibo.model.collisions.api;
 
 import java.util.Set;
 
-import it.unibo.model.entities.api.GameObject;
+import it.unibo.model.entities.api.GameEntity;
 
 /**
  * Models the collision box of a GameObject, which is a representation
@@ -16,13 +16,13 @@ public interface CollisionBox {
      * 
      * @param objects the set of objects that need to be checked
      */
-    void checkCollisions(Set<GameObject> objects);
+    void checkCollisions(Set<GameEntity> objects);
 
     /**
      * @param object
      * @return true if there is a collision between the current object and the input object
      */
-    boolean isCollidingWith(GameObject object);
+    boolean isCollidingWith(GameEntity object);
 
     /**
      * Returns the informations about all the current collisions of the object.

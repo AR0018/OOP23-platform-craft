@@ -23,5 +23,17 @@ public class CharacterImpl implements Character{
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'move'");
     }
+
+    @Override
+    public boolean isAlive() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'isAlive'");
+    }
+
+    @Override
+    public void updateState() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'updateState'");
+    }
     
 }

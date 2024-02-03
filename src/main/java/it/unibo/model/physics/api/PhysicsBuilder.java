@@ -1,6 +1,6 @@
 package it.unibo.model.physics.api;
 
-import it.unibo.model.entities.api.GameObject;
+import it.unibo.model.entities.api.GameEntity;
 
 /**
  * This builder is used to configure an instance of Physics with the desired behaviour.
@@ -15,7 +15,7 @@ public interface PhysicsBuilder {
      * @return this builder, for method chaining
      * @param obj the GameObject
      */
-    PhysicsBuilder setGameObject(GameObject obj);
+    PhysicsBuilder setGameObject(GameEntity obj);
 
     /**
      * Sets the speed of movement on the X axis to the desired configuration.

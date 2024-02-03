@@ -4,7 +4,7 @@ import java.util.Set;
 
 import org.locationtech.jts.geom.CoordinateXY;
 
-import it.unibo.model.entities.api.GameObject;
+import it.unibo.model.entities.api.GameEntity;
 
 /**
  * Models the concept of a Level in the game.
@@ -15,13 +15,13 @@ public interface Level {
     /**
      * @return every GameObject in the level
      */
-    Set<GameObject> getGameObjects();
+    Set<GameEntity> getGameObjects();
 
     /**
      * Adds a GameObject to the level
      * @param object the GameObject to add
      */
-    void addGameObject(GameObject object);
+    void addGameObject(GameEntity object);
 
     /**
      * Updates the level, modifying the state of every GameObject
