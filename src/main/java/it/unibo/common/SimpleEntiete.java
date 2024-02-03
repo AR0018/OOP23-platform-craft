@@ -4,7 +4,7 @@ import org.locationtech.jts.geom.CoordinateXY;
 
 public interface SimpleEntiete {
 
-    ObjectType getType();
+    EntityType getType();
 
     CoordinateXY getPosition();
 

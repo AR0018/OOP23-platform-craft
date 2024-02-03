@@ -2,6 +2,8 @@ package it.unibo.model.engine.api;
 
 import java.util.Set;
 
+import org.locationtech.jts.geom.CoordinateXY;
+
 import it.unibo.common.SimpleEntiete;
 import it.unibo.model.level.api.GameState;
 
@@ -32,7 +34,12 @@ public interface Engine {
      */
     boolean addGameObject(SimpleEntiete entiete);
 
-    //boolean removeGameObject(Position pos) TODO:decide how to find the specified object in the configuration (either by position or something else)
+    /**
+     * Removes the GameObject whose CollisionBox contains the specified position
+     * @param position the specified position
+     * @return true if the object has been removed, false otherwise
+     */
+    boolean removeGameObject(CoordinateXY position);
 
     /**
      * Updates the current Level.
@@ -44,5 +51,5 @@ public interface Engine {
      */
     GameState getGameState();
 
-    Set<SimpleEntiete> getLevelEntities();
+    Set<SimpleEntiete> getLevelEntities(); //TODO:add documetation
 }

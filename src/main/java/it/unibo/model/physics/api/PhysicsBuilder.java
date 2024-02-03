@@ -23,7 +23,7 @@ public interface PhysicsBuilder {
      * @param speed
      * @return this builder, for method chaining
      */
-    PhysicsBuilder setSpeedOnX(Speed speed); //TODO: review design for Speed
+    PhysicsBuilder setSpeedOnX(SpeedLevels speed);
 
     /**
      * Sets the speed of movement on the Y axis to the desired configuration.
@@ -31,7 +31,7 @@ public interface PhysicsBuilder {
      * @param speed
      * @return this builder, for method chaining
      */
-    PhysicsBuilder setSpeedOnY(Speed speed); //TODO: review design for Speed
+    PhysicsBuilder setSpeedOnY(SpeedLevels speed);
 
     /**
      * Sets the Physics so that the movement on the X axis is accelerated.
