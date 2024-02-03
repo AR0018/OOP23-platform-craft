@@ -1,7 +1,7 @@
 package it.unibo.model.physics.api;
 
 /**
- * Models the concept of movement in 4 dimensions
+ * Models the concept of direction in 4 dimensions
  */
 public interface Direction {
     
