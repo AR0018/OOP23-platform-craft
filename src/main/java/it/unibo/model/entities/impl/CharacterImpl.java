@@ -16,7 +16,7 @@ import it.unibo.model.physics.api.PhysicsBuilder;
 public class CharacterImpl implements Character {
 
     private final Physics physic;
-    private CollisionBox box;     //TODO: final
+    private CollisionBox box;
     private PhysicsBuilder physicsBuilder;
     private CoordinateXY position;
     private PlayerCondition condition;
