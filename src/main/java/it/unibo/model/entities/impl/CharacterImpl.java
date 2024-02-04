@@ -18,17 +18,15 @@ public class CharacterImpl implements Character {
     private final Physics physic;
     private CollisionBox box;     //TODO: final
     private PhysicsBuilder physicsBuilder;
-    private Direction dir;
     private CoordinateXY position;
     private PlayerCondition condition;
-    private boolean collisionState;
 
     /**
      * Used to list the different states of the character.
      */
     enum PlayerCondition {
         /**
-         * It+s alive.
+         * It's alive.
          */
         ALIVE,
         /**
@@ -43,7 +41,6 @@ public class CharacterImpl implements Character {
      */
     public CharacterImpl(final CoordinateXY position) {
         this.position = position;
-        this.collisionState = false;
         this.condition = PlayerCondition.ALIVE;
         this.physic = this.physicsBuilder
                 .setGameObject(this)
@@ -79,14 +76,10 @@ public class CharacterImpl implements Character {
 
     @Override
     public void move(final Direction dir) {
-        if (checkMove(dir) && this.box.getCollisions().isEmpty()) {
+        if (checkMove(dir)) {
             physic.setMovement(dir);
-        } else {
-            this.collisionState = true;
-            for (var collision : this.box.getCollisions()) {
-                if (collision.getGameObject() instanceof Enemy) {
-                    this.condition = PlayerCondition.DEAD;
-                }
+            if (this.box.getCollisions().stream().anyMatch(x->x instanceof Enemy)) {
+                this.condition = PlayerCondition.DEAD;
             }
         }
     }
@@ -94,7 +87,6 @@ public class CharacterImpl implements Character {
     private boolean checkMove(final Direction dir) {
         for (var movement : Direction.values()) {
             if (movement.equals(dir)) {
-                this.dir = dir;
                 return true;
             }
         }
