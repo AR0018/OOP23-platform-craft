@@ -3,7 +3,9 @@ package it.unibo.model.entities.impl;
 import org.locationtech.jts.geom.CoordinateXY;
 import it.unibo.common.EntityType;
 import it.unibo.model.collisions.api.Boundaries;
+import it.unibo.model.collisions.api.CollisionBox;
 import it.unibo.model.entities.api.Character;
+import it.unibo.model.entities.api.Enemy;
 import it.unibo.model.physics.api.Direction;
 import it.unibo.model.physics.api.Physics;
 import it.unibo.model.physics.api.PhysicsBuilder;
@@ -11,7 +13,7 @@ import it.unibo.model.physics.api.PhysicsBuilder;
 public class CharacterImpl implements Character{
 
     private final Physics physic;
-    //private final CollisionBox box;
+    private CollisionBox box;     //TODO: final
     private PhysicsBuilder physicsBuilder;
     private Direction dir;
     private CoordinateXY position;
@@ -46,12 +48,12 @@ public class CharacterImpl implements Character{
 
     @Override
     public boolean isAlive() {
-        return condition == PlayerCondition.ALIVE;    
+        return condition.equals(PlayerCondition.ALIVE);    
     }
 
     @Override
     public void updateState() {
-    
+        physic.calculateMovement();
     }
 
     @Override
@@ -61,10 +63,26 @@ public class CharacterImpl implements Character{
 
     @Override
     public void move(final Direction dir) {
-        if(dir == Direction.DOWN    || dir == Direction.LEFT
-                || dir ==  Direction.RIGHT || dir == Direction.UP){
-            this.dir = dir;
-            physic.setMovement(this.dir);
+        if(checkMove(dir) && this.box.getCollisions().isEmpty()){
+            physic.setMovement(dir);
         }
+        else{
+            this.collisionState = true;
+            for(var collision : this.box.getCollisions()){
+                if(collision.getGameObject() instanceof Enemy){
+                    this.condition = PlayerCondition.DEAD;
+                }
+            }
+        }
+    }
+
+    private boolean checkMove(final Direction dir){
+        for(var movement : Direction.values()) {
+            if(movement.equals(dir)){
+                this.dir = dir;
+                return true;
+            }
+        }
+        return false;
     }
 }
