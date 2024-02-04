@@ -5,8 +5,8 @@ package it.unibo.level;
  */
 
  /**
-  * Class for testing the Level
+  * Class for testing the Level.
   */
 public class TestLevel {
-    
+
 }

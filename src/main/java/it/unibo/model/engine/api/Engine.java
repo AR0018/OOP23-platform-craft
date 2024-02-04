@@ -49,5 +49,9 @@ public interface Engine {
      */
     GameState getGameState();
 
-    Set<SimpleEntiete> getLevelEntities(); //TODO:add documetation
+    /**
+     * All the entities that appear in the game are memorized inside a Set.
+     * @return the set that contains all the entities should display by the view
+     */
+    Set<SimpleEntiete> getLevelEntities();
 }

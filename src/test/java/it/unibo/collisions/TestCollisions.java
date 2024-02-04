@@ -5,8 +5,8 @@ package it.unibo.collisions;
  */
 
  /**
-  * Class for testing the Collisions
+  * Class for testing the Collisions.
   */
 public class TestCollisions {
-    
+
 }

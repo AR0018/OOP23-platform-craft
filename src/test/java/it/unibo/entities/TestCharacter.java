@@ -5,8 +5,8 @@ package it.unibo.entities;
  */
 
 /**
- * Class for testing the behaviour of the character
+ * Class for testing the behaviour of the character.
  */
 public class TestCharacter {
-    
+
 }
