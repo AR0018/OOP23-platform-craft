@@ -1,7 +1,8 @@
 package it.unibo.model.collisions.api;
 
-import org.locationtech.jts.geom.CoordinateXY;
 import org.locationtech.jts.geom.Polygon;
+
+import it.unibo.model.physics.api.Position;
 
 /**
  * Models the geometric boundaries of a CollisionBox.
@@ -23,5 +24,5 @@ public interface Boundaries {
      * @param position the position to check
      * @return true if the input position is inside the polygon of the boundaries
     */
-    boolean contains(CoordinateXY position);
+    boolean contains(Position position);
 }

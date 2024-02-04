@@ -1,9 +1,10 @@
 package it.unibo.model.entities.api;
 
-import org.locationtech.jts.geom.CoordinateXY;
+
 
 import it.unibo.common.EntityType;
 import it.unibo.model.collisions.api.CollisionBox;
+import it.unibo.model.physics.api.Position;
 
 /**
  * Models an entity in the game.
@@ -15,12 +16,12 @@ public interface GameEntity {
      * Sets the position of the character to the given input.
      * @param position the input position
      */
-    void setPosition(CoordinateXY position);
+    void setPosition(Position position);
 
     /**
      * @return the current position of the character
      */
-    CoordinateXY getPosition();
+    Position getPosition();
 
     /**
      * Check if the entity is alive or not.
