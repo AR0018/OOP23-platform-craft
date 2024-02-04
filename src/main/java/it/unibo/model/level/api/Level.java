@@ -2,9 +2,8 @@ package it.unibo.model.level.api;
 
 import java.util.Set;
 
-import org.locationtech.jts.geom.CoordinateXY;
-
 import it.unibo.model.entities.api.GameEntity;
+import it.unibo.model.physics.api.Position;
 
 /**
  * Models the concept of a Level in the game.
@@ -32,7 +31,7 @@ public interface Level {
     /**
      * @param position
      */
-    void addFinishLocation(CoordinateXY position);
+    void addFinishLocation(Position position);
 
     /**
      * @return the current state of the game
