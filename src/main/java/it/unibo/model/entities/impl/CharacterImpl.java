@@ -14,7 +14,7 @@ import it.unibo.model.physics.api.PhysicsBuilder;
  * where it cointains all the necessary to create the character.
  * Final because the class doesn't need to be extended
  */
-public final class CharacterImpl implements Character {
+public final class CharacterImpl implements Character {     //TODO: remove the final comment
 
     private final Physics physic;
     private CollisionBox box;
