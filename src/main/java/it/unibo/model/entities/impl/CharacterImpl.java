@@ -92,4 +92,9 @@ public class CharacterImpl implements Character {
         }
         return false;
     }
+
+    @Override
+    public CollisionBox getCollisionBox() {
+        return this.box;
+    }
 }
