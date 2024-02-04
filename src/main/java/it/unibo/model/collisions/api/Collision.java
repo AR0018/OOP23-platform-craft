@@ -18,6 +18,6 @@ public interface Collision {
      * Returns the GameEntity that caused the collision.
      * @return the GameEntity
      */
-    GameEntity getGameObject();
+    GameEntity getGameEntity();
 
 }

@@ -12,8 +12,9 @@ import it.unibo.model.physics.api.PhysicsBuilder;
 /**
  * Implementation of the Interface Character, 
  * where it cointains all the necessary to create the character.
+ * Final because the class doesn't need to be extended
  */
-public class CharacterImpl implements Character {
+public final class CharacterImpl implements Character {
 
     private final Physics physic;
     private CollisionBox box;
@@ -65,9 +66,9 @@ public class CharacterImpl implements Character {
     }
 
     @Override
-    public void updateState() {
-        physic.calculateMovement();
-    }
+    public void updateState() {         //TODO: the character needs to check the collision with check
+        physic.calculateMovement();     //collision and then check if there are some collisions,
+    }                                   //and with whom.
 
     @Override
     public EntityType getType() {
@@ -78,7 +79,7 @@ public class CharacterImpl implements Character {
     public void move(final Direction dir) {
         if (checkMove(dir)) {
             physic.setMovement(dir);
-            if (this.box.getCollisions().stream().anyMatch(x->x instanceof Enemy)) {
+            if (this.box.getCollisions().stream().anyMatch(x -> x instanceof Enemy)) {
                 this.condition = PlayerCondition.DEAD;
             }
         }
