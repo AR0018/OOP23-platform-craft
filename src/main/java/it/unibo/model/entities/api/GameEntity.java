@@ -3,6 +3,7 @@ package it.unibo.model.entities.api;
 import org.locationtech.jts.geom.CoordinateXY;
 
 import it.unibo.common.EntityType;
+import it.unibo.model.collisions.api.CollisionBox;
 
 /**
  * Models an entity in the game.
@@ -36,4 +37,9 @@ public interface GameEntity {
      * @return the type of this entity
      */
     EntityType getType();
+
+    /**
+     * @return the CollisionBox of the character
+     */
+    CollisionBox getCollisionBox();
 }
