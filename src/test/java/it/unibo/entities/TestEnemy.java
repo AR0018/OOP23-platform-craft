@@ -5,8 +5,8 @@ package it.unibo.entities;
  */
 
 /**
- * Class for testing the behaviour of enemies
+ * Class for testing the behaviour of enemies.
  */
 public class TestEnemy {
-    
+
 }

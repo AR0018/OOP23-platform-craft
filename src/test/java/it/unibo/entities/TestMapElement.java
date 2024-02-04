@@ -5,8 +5,8 @@ package it.unibo.entities;
  */
 
 /**
- * Class for testing the map element
+ * Class for testing the map element.
  */
 public class TestMapElement {
-    
+
 }

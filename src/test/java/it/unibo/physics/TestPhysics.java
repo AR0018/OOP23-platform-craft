@@ -5,8 +5,8 @@ package it.unibo.physics;
 */
 
 /**
- * Class for testing the physics
+ * Class for testing the physics.
  */
 public class TestPhysics {
-    
+
 }

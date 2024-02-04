@@ -5,9 +5,9 @@ package it.unibo.engine;
  */
 
  /**
-  * Class for testing the Engine
+  * Class for testing the Engine.
   */
 
 public class TestEngine {
-    
+
 }
