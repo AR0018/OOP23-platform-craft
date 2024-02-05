@@ -4,6 +4,7 @@ import it.unibo.common.EntityType;
 import it.unibo.model.collisions.api.CollisionBox;
 import it.unibo.model.entities.api.Character;
 import it.unibo.model.entities.api.Enemy;
+import it.unibo.model.level.api.Level;
 import it.unibo.model.physics.api.Direction;
 import it.unibo.model.physics.api.Physics;
 import it.unibo.model.physics.api.PhysicsBuilder;
@@ -17,6 +18,7 @@ import it.unibo.model.physics.api.Position;
 public final class CharacterImpl implements Character {     //TODO: remove the final comment
 
     private final Physics physic;
+    private Level level;
     private CollisionBox box;
     private PhysicsBuilder physicsBuilder;
     private Position position;
@@ -66,9 +68,11 @@ public final class CharacterImpl implements Character {     //TODO: remove the f
     }
 
     @Override
-    public void updateState() {         //TODO: the character needs to check the collision with check
-        physic.calculateMovement();     //collision and then check if there are some collisions,
-    }                                   //and with whom.
+    public void updateState() {
+        physic.calculateMovement();
+        this.box.checkCollisions(this.level.getGameEntities());
+        checkEnemyCollision();
+    }
 
     @Override
     public EntityType getType() {
@@ -76,12 +80,20 @@ public final class CharacterImpl implements Character {     //TODO: remove the f
     }
 
     @Override
-    public void move(final Direction dir) {
+    public CollisionBox getCollisionBox() {
+        return this.box;
+    }
+
+    @Override
+    public void move(final Direction dir) {     //TODO: needs to be improved
         if (checkMove(dir)) {
-            physic.setMovement(dir);
-            if (this.box.getCollisions().stream().anyMatch(x -> x instanceof Enemy)) {
-                this.condition = PlayerCondition.DEAD;
-            }
+            physic.setMovement(dir);            //CheckEnemyCollision here?
+        }
+    }
+
+    private void checkEnemyCollision() {
+        if (this.box.getCollisions().stream().anyMatch(x -> x instanceof Enemy)) {
+            this.condition = PlayerCondition.DEAD;
         }
     }
 
@@ -92,10 +104,5 @@ public final class CharacterImpl implements Character {     //TODO: remove the f
             }
         }
         return false;
-    }
-
-    @Override
-    public CollisionBox getCollisionBox() {
-        return this.box;
     }
 }

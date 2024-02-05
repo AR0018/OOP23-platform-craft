@@ -14,7 +14,7 @@ public interface Level {
     /**
      * @return every GameObject in the level
      */
-    Set<GameEntity> getGameObjects();
+    Set<GameEntity> getGameEntities();
 
     /**
      * Adds a GameObject to the level.
