@@ -5,15 +5,16 @@ import it.unibo.model.collisions.api.CollisionBox;
 import it.unibo.model.entities.api.Enemy;
 import it.unibo.model.entities.api.Character;
 import it.unibo.model.entities.api.EntityCondition;
-import it.unibo.model.entities.api.GameEntity;
-import it.unibo.model.entities.api.MapElement;
 import it.unibo.model.level.api.Level;
 import it.unibo.model.physics.api.Direction;
 import it.unibo.model.physics.api.Physics;
 import it.unibo.model.physics.api.PhysicsBuilder;
 import it.unibo.model.physics.api.Position;
 
-public class SimpleEnemy implements Enemy{
+/**
+ * Implementation of a simple enemy.
+ */
+public final class SimpleEnemy implements Enemy {
 
     private final Physics physics;
     private final Character player;
@@ -22,10 +23,15 @@ public class SimpleEnemy implements Enemy{
     private Position position;
     private PhysicsBuilder physicsBuilder;
     private EntityCondition condition;
-    private boolean CollisionUP;
+    private boolean collisionUp;
     private Direction direction;
-    
-    public SimpleEnemy(final Position position, final Character player){
+
+    /**
+     * Constructor of the class SimpleEnemy used to initialize the class.
+     * @param position where the enemy starts
+     * @param player indicates who is the character of the game
+     */
+    public SimpleEnemy(final Position position, final Character player) {
         this.player = player;
         this.position = position;
         this.direction = Direction.RIGHT;
@@ -34,7 +40,7 @@ public class SimpleEnemy implements Enemy{
     }
 
     @Override
-    public void setPosition(Position position) {
+    public void setPosition(final Position position) {
         this.position = position;
     }
 
@@ -69,22 +75,21 @@ public class SimpleEnemy implements Enemy{
         this.physics.setMovement(this.direction);
     }
 
-    private void checkEnemyCollisions(){
+    private void checkEnemyCollisions() {
         this.box.checkCollisions(this.level.getGameEntities());     //TODO: understand what checkCollisions does
-        if(!this.box.getCollisions().isEmpty()) {
+        if (!this.box.getCollisions().isEmpty()) {
             if (this.box.isCollidingWith(this.player)) {
                 checkEnemyIsDead();
-            } else {
-                
+            } else {   
             }
         }
     }
 
     private void checkEnemyIsDead() {
-        this.CollisionUP = this.box.getCollisions().stream()
+        this.collisionUp = this.box.getCollisions().stream()
                     .filter(x -> x instanceof Character)
                     .anyMatch(x -> x.getDirection().equals(Direction.UP));
-        if (this.CollisionUP) {
+        if (this.collisionUp) {
             this.condition = EntityCondition.DEAD;
         }
     }
