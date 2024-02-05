@@ -20,4 +20,6 @@ public interface Boundaries {
      * @return true if the input position is inside the polygon of the boundaries
     */
     boolean contains(Position position);
+
+    //TODO: add method List<Position> getVertices()
 }
