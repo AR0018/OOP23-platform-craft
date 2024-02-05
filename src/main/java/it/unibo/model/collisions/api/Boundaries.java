@@ -1,5 +1,7 @@
 package it.unibo.model.collisions.api;
 
+import java.util.List;
+
 import it.unibo.model.physics.api.Position;
 
 /**
@@ -21,5 +23,8 @@ public interface Boundaries {
     */
     boolean contains(Position position);
 
-    //TODO: add method List<Position> getVertices()
+    /**
+     * @return the vertices of the rectangle represented by the boundaries
+     */
+    List<Position> getVertices();
 }
