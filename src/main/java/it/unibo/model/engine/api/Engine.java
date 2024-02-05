@@ -4,6 +4,7 @@ import java.util.Set;
 
 import it.unibo.common.SimpleEntiete;
 import it.unibo.model.level.api.GameState;
+import it.unibo.model.physics.api.Direction;
 
 /**
  * Models the Engine of the game, whose role is to configure a Level
@@ -44,6 +45,12 @@ public interface Engine {
      */
     void updateLevel();
 
+    /**
+     * Moves the character in the current Level.
+     * @param dir the direction of movement
+     */
+    void moveCharacter(Direction dir);
+    
     /**
      * @return the state of the game in the current Level
      */

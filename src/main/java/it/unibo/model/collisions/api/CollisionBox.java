@@ -11,12 +11,12 @@ import it.unibo.model.entities.api.GameEntity;
 public interface CollisionBox {
 
     /**
-     * Checks if the current object is colliding with any of the objects in the set, 
+     * Checks if the current object is colliding with any of the entity in the set, 
      * and modifies the state of the collision accordingly.
      * 
-     * @param objects the set of objects that need to be checked
+     * @param entity the set of entities that needs to be checked
      */
-    void checkCollisions(Set<GameEntity> objects);
+    void checkCollisions(Set<GameEntity> entity);
 
     /**
      * @param object
