@@ -1,7 +1,5 @@
 package it.unibo.model.collisions.api;
 
-import org.locationtech.jts.geom.Polygon;
-
 import it.unibo.model.physics.api.Position;
 
 /**
@@ -9,10 +7,7 @@ import it.unibo.model.physics.api.Position;
  */
 public interface Boundaries {
 
-    /**
-     * @return the polygon which represents the geometry of the boundaries
-    */
-    Polygon getPolygon();
+    //TODO: there may be a necessity to add a method: boolean intersectsLine(Position a, Position b)
 
     /**
      * @param other
