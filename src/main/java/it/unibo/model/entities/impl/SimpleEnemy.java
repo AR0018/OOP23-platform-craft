@@ -4,7 +4,6 @@ import it.unibo.common.EntityType;
 import it.unibo.model.collisions.api.CollisionBox;
 import it.unibo.model.entities.api.Enemy;
 import it.unibo.model.entities.api.Character;
-import it.unibo.model.entities.api.EntityCondition;
 import it.unibo.model.level.api.Level;
 import it.unibo.model.physics.api.Direction;
 import it.unibo.model.physics.api.Physics;
@@ -22,7 +21,7 @@ public final class SimpleEnemy implements Enemy {
     private CollisionBox box;
     private Position position;
     private PhysicsBuilder physicsBuilder;
-    private EntityCondition condition;
+    private boolean isAlive;
     private boolean collisionUp;
     private Direction direction;
 
@@ -35,7 +34,7 @@ public final class SimpleEnemy implements Enemy {
         this.player = player;
         this.position = position;
         this.direction = Direction.RIGHT;
-        this.condition = EntityCondition.ALIVE;
+        this.isAlive = true;
         this.physics = this.physicsBuilder.setGameObject(this).create();
     }
 
@@ -51,7 +50,7 @@ public final class SimpleEnemy implements Enemy {
 
     @Override
     public boolean isAlive() {
-        return this.condition.equals(EntityCondition.ALIVE);
+        return this.isAlive == true;
     }
 
     @Override
@@ -90,7 +89,7 @@ public final class SimpleEnemy implements Enemy {
                     .filter(x -> x instanceof Character)
                     .anyMatch(x -> x.getDirection().equals(Direction.UP));
         if (this.collisionUp) {
-            this.condition = EntityCondition.DEAD;
+            this.isAlive = false;
         }
     }
 }

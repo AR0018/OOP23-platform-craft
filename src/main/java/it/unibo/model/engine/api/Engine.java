@@ -50,7 +50,7 @@ public interface Engine {
      * @param dir the direction of movement
      */
     void moveCharacter(Direction dir);
-    
+
     /**
      * @return the state of the game in the current Level
      */
