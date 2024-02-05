@@ -5,9 +5,4 @@ package it.unibo.model.entities.api;
  */
 public interface Enemy extends GameEntity {
 
-    /**
-     * Return the what type of enemy is present.
-     */
-    void enemyType(); //TODO: return EnemyType
-
 }
