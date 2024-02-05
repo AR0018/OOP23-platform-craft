@@ -4,6 +4,7 @@ import it.unibo.common.EntityType;
 import it.unibo.model.collisions.api.CollisionBox;
 import it.unibo.model.entities.api.Character;
 import it.unibo.model.entities.api.Enemy;
+import it.unibo.model.entities.api.EntityCondition;
 import it.unibo.model.level.api.Level;
 import it.unibo.model.physics.api.Direction;
 import it.unibo.model.physics.api.Physics;
@@ -22,21 +23,7 @@ public final class CharacterImpl implements Character {     //TODO: remove the f
     private CollisionBox box;
     private PhysicsBuilder physicsBuilder;
     private Position position;
-    private PlayerCondition condition;
-
-    /**
-     * Used to list the different states of the character.
-     */
-    enum PlayerCondition {
-        /**
-         * It's alive.
-         */
-        ALIVE,
-        /**
-         * It's dead.
-         */
-        DEAD;
-    }
+    private EntityCondition condition;
 
     /**
      * It is the constructor of the class to initialize the character itself.
@@ -44,7 +31,7 @@ public final class CharacterImpl implements Character {     //TODO: remove the f
      */
     public CharacterImpl(final Position position) {
         this.position = position;
-        this.condition = PlayerCondition.ALIVE;
+        this.condition = EntityCondition.ALIVE;
         this.physic = this.physicsBuilder
                 .setGameObject(this)
                 .addAccelerationOnX()
@@ -64,7 +51,7 @@ public final class CharacterImpl implements Character {     //TODO: remove the f
 
     @Override
     public boolean isAlive() {
-        return condition.equals(PlayerCondition.ALIVE);
+        return condition.equals(EntityCondition.ALIVE);
     }
 
     @Override
@@ -93,7 +80,7 @@ public final class CharacterImpl implements Character {     //TODO: remove the f
 
     private void checkEnemyCollision() {
         if (this.box.getCollisions().stream().anyMatch(x -> x instanceof Enemy)) {
-            this.condition = PlayerCondition.DEAD;
+            this.condition = EntityCondition.DEAD;
         }
     }
 
