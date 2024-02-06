@@ -42,11 +42,6 @@ public final class SimpleEnemy implements Enemy {
     }
 
     @Override
-    public void setPosition(final Position position) {
-        this.position = position;
-    }
-
-    @Override
     public Position getPosition() {
         return this.position;
     }

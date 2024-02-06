@@ -42,11 +42,6 @@ public final class CharacterImpl implements Character {     //TODO: remove the f
     }
 
     @Override
-    public void setPosition(final Position position) {
-        this.position = position;
-    }
-
-    @Override
     public Position getPosition() {
         return this.position;
     }
