@@ -12,8 +12,6 @@ import it.unibo.model.physics.api.Direction;
 import it.unibo.model.physics.api.Position;
 import java.util.Set;
 
-import edu.umd.cs.findbugs.annotations.OverrideMustInvoke;
-
 //Si valuta l'ereditarietà piuttosto che il pattern Decorator
 //perchè si dovrebbe riscrivere un gran numero di metodi ogni volta
 //mentre così si mantengono dei metodi gia predisposti comuni e se
@@ -55,12 +53,16 @@ public abstract class EnemyImpl implements Enemy {
         return this.position;
     }
 
-    public Direction getDirection() {
+    /**
+     * Obtain the direction where the enemy moves.
+     * @return the direction
+     */
+    public Direction getDirection() {   //TODO: forse superfluo il metodo
         return this.direction;
     }
 
     /**
-     * Sets the right direction of the enemy
+     * Sets the right direction of the enemy.
      * @param direction the direction
      */
     public void setDirection(final Direction direction) {
@@ -79,7 +81,11 @@ public abstract class EnemyImpl implements Enemy {
         return this.isAlive;
     }
 
-    public void setAlive(final boolean isAlive) {
+    /**
+     * Sets the condition to the enemy.
+     * @param isAlive true if it's alive and false otherwise
+     */
+    public void setAlive(final boolean isAlive) {   //TODO: metodo superfluo?
         this.isAlive = isAlive;
     }
 
@@ -125,7 +131,7 @@ public abstract class EnemyImpl implements Enemy {
      * Check if the enemy died because of the player who collided with
      * the head of the enemy.
      */
-    protected void checkEnemyIsDead() {
+    protected void checkEnemyIsDead() {     //TODO: need to check collision with the bounds of the map
         var str = getCollisions().stream()
                 .filter(x -> x.getGameEntity() instanceof Character);
         if (str.anyMatch(x -> x.getDirection().equals(Direction.UP))) {

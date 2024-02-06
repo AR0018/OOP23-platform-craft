@@ -9,7 +9,7 @@ import it.unibo.model.physics.api.SpeedLevels;
 /**
  * Models the concept of SimpleEnemy extending from EnemyImpl.
  */
-public class SimpleEnemyImpl extends EnemyImpl {
+public final class SimpleEnemyImpl extends EnemyImpl {
 
     private final Physics physics; 
     private PhysicsBuilder builder;

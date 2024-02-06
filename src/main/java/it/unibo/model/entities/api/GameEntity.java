@@ -13,6 +13,7 @@ import it.unibo.model.physics.api.Position;
 public interface GameEntity {
 
     /**
+     * Obtain the position of the GameEntity by coordinate
      * @return the current position of the character
      */
     Position getPosition();

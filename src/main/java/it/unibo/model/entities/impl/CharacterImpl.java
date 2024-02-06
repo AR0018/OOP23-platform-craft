@@ -76,7 +76,7 @@ public final class CharacterImpl implements Character {     //TODO: remove the f
     public Set<Collision> getCollisions() {
         return this.box.getCollisions(this.level.getGameEntities());
     }
-    
+
     @Override
     public void move(final Direction dir) {     //TODO: needs to be improved
         if (Objects.nonNull(dir)) {
@@ -90,7 +90,10 @@ public final class CharacterImpl implements Character {     //TODO: remove the f
             this.isAlive = false;
         }*/
         if (!getCollisions().isEmpty()) {
-            var enemySetCollision = getCollisions().stream().filter(x -> x.getGameEntity() instanceof Enemy).collect(Collectors.toSet());
+            var enemySetCollision = getCollisions()
+                    .stream()
+                    .filter(x -> x.getGameEntity() instanceof Enemy)
+                    .collect(Collectors.toSet());
             if (!enemySetCollision.isEmpty()) {
                 if (!enemySetCollision.stream().findFirst().get().getDirection().equals(Direction.UP)) {
                     this.isAlive = false;
