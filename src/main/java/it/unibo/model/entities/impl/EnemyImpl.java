@@ -2,6 +2,7 @@ package it.unibo.model.entities.impl;
 
 import it.unibo.common.EntityType;
 import it.unibo.model.collisions.api.CollisionBox;
+import it.unibo.model.collisions.api.Boundaries;
 import it.unibo.model.collisions.api.Collision;
 import it.unibo.model.entities.api.Character;
 import it.unibo.model.entities.api.Enemy;
@@ -26,6 +27,7 @@ public abstract class EnemyImpl implements Enemy {
     private final EntitySize size;
     private Level level;
     private CollisionBox box;
+    private Boundaries boundaries;
     private Position position;
     private boolean isAlive;
     private Direction direction;
