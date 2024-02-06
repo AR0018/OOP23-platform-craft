@@ -11,24 +11,18 @@ import it.unibo.model.entities.api.GameEntity;
 public interface CollisionBox {
 
     /**
-     * Checks if the current object is colliding with any of the entity in the set, 
-     * and modifies the state of the collision accordingly.
-     * 
-     * @param entity the set of entities that needs to be checked
+     * Checks if the current entity is colliding with any of the entities in the set,
+     * and returns the informations about all the current collisions of the object.
+     * @param entities the set of entities that need to be checked
+     * @return a set containing all the current collisions of the object.
      */
-    void checkCollisions(Set<GameEntity> entity);
+    Set<Collision> getCollisions(Set<GameEntity> entities);
 
     /**
      * @param object
      * @return true if there is a collision between the current object and the input object
      */
     boolean isCollidingWith(GameEntity object);
-
-    /**
-     * Returns the informations about all the current collisions of the object.
-     * @return a set containing all the current collisions of the object.
-     */
-    Set<Collision> getCollisions();
 
     /**
      * @return the boundaries of this CollisionBox

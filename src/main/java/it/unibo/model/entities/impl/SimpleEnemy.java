@@ -1,6 +1,9 @@
 package it.unibo.model.entities.impl;
 
+import java.util.Set;
+
 import it.unibo.common.EntityType;
+import it.unibo.model.collisions.api.Collision;
 import it.unibo.model.collisions.api.CollisionBox;
 import it.unibo.model.entities.api.Enemy;
 import it.unibo.model.entities.api.Character;
@@ -35,11 +38,6 @@ public final class SimpleEnemy implements Enemy {
     }
 
     @Override
-    public void setPosition(final Position position) {
-        this.position = position;
-    }
-
-    @Override
     public Position getPosition() {
         return this.position;
     }
@@ -61,28 +59,38 @@ public final class SimpleEnemy implements Enemy {
         return EntityType.ENEMY;
     }
 
+    /* 
     @Override
     public CollisionBox getCollisionBox() {
-        return this.box;
+        return this.box;    TODO: remove this method
     }
+    */
 
     private void moveEnemy() {
         this.physics.setMovement(this.direction);
     }
 
     private void checkEnemyCollisions() {
-        this.box.checkCollisions(this.level.getGameEntities());     //TODO: understand what checkCollisions does
-        if (!this.box.getCollisions().isEmpty()) {
-            if (this.box.isCollidingWith(this.level.getCharacter())) {
+        /*this.box.checkCollisions(this.level.getGameEntities());     //TODO: understand what checkCollisions does
+        if (!this.box.getCollisions().isEmpty()) {  TODO: causes error with new design
+            if (this.box.isCollidingWith(this.player)) {
                 checkEnemyIsDead();
             }
-        }
+        }*/
     }
 
     private void checkEnemyIsDead() {
-        if (this.box.getCollisions().stream().filter(x -> x instanceof Character)
-                .anyMatch(x -> x.getDirection().equals(Direction.UP))) {
+        /*this.collisionUp = this.box.getCollisions().stream() TODO: causes error with new design
+                    .filter(x -> x instanceof Character)
+                    .anyMatch(x -> x.getDirection().equals(Direction.UP));*/
+        /*if (this.collisionUp) {
             this.isAlive = false;
-        }
+        }*/
+    }
+
+    @Override
+    public Set<Collision> getCollisions() {
+        // TODO implement this method
+        throw new UnsupportedOperationException("Unimplemented method 'getCollisions'");
     }
 }

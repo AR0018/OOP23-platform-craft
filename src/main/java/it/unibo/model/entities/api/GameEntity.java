@@ -1,9 +1,9 @@
 package it.unibo.model.entities.api;
 
-
+import java.util.Set;
 
 import it.unibo.common.EntityType;
-import it.unibo.model.collisions.api.CollisionBox;
+import it.unibo.model.collisions.api.Collision;
 import it.unibo.model.physics.api.Position;
 
 /**
@@ -13,13 +13,6 @@ import it.unibo.model.physics.api.Position;
 public interface GameEntity {
 
     /**
-     * Sets the position of the character to the given input.
-     * @param position the input position
-     */
-    void setPosition(Position position);
-
-    /**
-     * Obtain the position of the game entity which calls the method
      * @return the current position of the character
      */
     Position getPosition();
@@ -41,7 +34,7 @@ public interface GameEntity {
     EntityType getType();
 
     /**
-     * @return the CollisionBox of the character
+     * @return all the current collisions of the entity
      */
-    CollisionBox getCollisionBox();
+    Set<Collision> getCollisions();
 }

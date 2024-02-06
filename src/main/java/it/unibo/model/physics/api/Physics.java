@@ -1,17 +1,18 @@
 package it.unibo.model.physics.api;
 
 /**
- * Models the physics of a GameObject, which calculates the way a GameObject moves in a 2D space.
+ * Models the physics of a GameObject, which calculates the way a GameEntity moves in a 2D space.
  */
 public interface Physics {
 
     /**
-     * Calculates the movement of the GameObject in the direction specified by setMovement,
+     * Calculates the movement of the GameEntity in the direction specified by setMovement,
      * modifying its position accordingly.
-     * This method also takes into account the state of the collision of the GameObject
-     * (if there is a collision in a certain direction, it sets the object's speed in that direction to 0).
+     * This method also takes into account the state of the collision of the GameEntity
+     * (if there is a collision in a certain direction, it modifies the object's speed in that direction).
+     * @return the new position of the entity after calculating the movement
      */
-    void calculateMovement();
+    Position calculateMovement();
 
     /**
      * Sets the movement of the object to the specified direction.

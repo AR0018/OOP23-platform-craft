@@ -2,12 +2,14 @@ package it.unibo.model.entities.impl;
 
 import it.unibo.common.EntityType;
 import it.unibo.model.collisions.api.CollisionBox;
+import it.unibo.model.collisions.api.Collision;
 import it.unibo.model.entities.api.Character;
 import it.unibo.model.entities.api.Enemy;
 import it.unibo.model.entities.api.EntitySize;
 import it.unibo.model.level.api.Level;
 import it.unibo.model.physics.api.Direction;
 import it.unibo.model.physics.api.Position;
+import java.util.Set;
 
 //Si valuta l'ereditarietà piuttosto che il pattern Decorator
 //perchè si dovrebbe riscrivere un gran numero di metodi ogni volta
@@ -45,11 +47,6 @@ public abstract class EnemyImpl implements Enemy {
     }
 
     @Override
-    public void setPosition(final Position position) {
-        this.position = position;
-    }
-
-    @Override
     public Position getPosition() {
         return this.position;
     }
@@ -81,8 +78,8 @@ public abstract class EnemyImpl implements Enemy {
     }
 
     @Override
-    public CollisionBox getCollisionBox() {
-        return this.box;
+    public Set<Collision> getCollisions() {
+        return null;
     }
 
     public abstract void updateState(); /*{
@@ -96,8 +93,8 @@ public abstract class EnemyImpl implements Enemy {
      * Check if the enemy has some collisions. 
      */
     protected void checkEnemyCollisions() {
-        this.box.checkCollisions(this.level.getGameEntities());     //TODO: understand what checkCollisions does
-        if (!this.box.getCollisions().isEmpty()) {
+        //TODO: understand what checkCollisions does
+        if (!this.box.getCollisions(this.level.getGameEntities()).isEmpty()) {
             if (this.box.isCollidingWith(this.level.getCharacter())) {
                 checkEnemyIsDead();
             } else {
@@ -111,7 +108,7 @@ public abstract class EnemyImpl implements Enemy {
      * the head of the enemy.
      */
     protected void checkEnemyIsDead() {
-        var str = this.box.getCollisions().stream()
+        var str = this.box.getCollisions(this.level.getGameEntities()).stream()
                 .filter(x -> x.getGameEntity() instanceof Character);
         if (str.anyMatch(x -> x.getDirection().equals(Direction.UP))) {
             this.isAlive = false;
