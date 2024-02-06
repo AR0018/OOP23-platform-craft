@@ -9,7 +9,14 @@ import it.unibo.model.physics.api.Position;
  */
 public interface Boundaries {
 
-    //TODO: there may be a necessity to add a method: boolean intersectsLine(Position a, Position b)
+    /**
+     * Checks if the current boudaries intersects the given line.
+     * The input parameters are the two extreme points of the segment.
+     * @param a the first point
+     * @param b the second point
+     * @return true if this boundaries intersects the line, false otherwise
+     */
+    boolean intersectsLine(Position a, Position b);
 
     /**
      * @param other
