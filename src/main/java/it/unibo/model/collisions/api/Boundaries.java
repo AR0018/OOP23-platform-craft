@@ -12,6 +12,14 @@ public interface Boundaries {
     //TODO: there may be a necessity to add a method: boolean intersectsLine(Position a, Position b)
 
     /**
+     * Checks if there's a line that intetsecate both Position a and b.
+     * @param a first Position
+     * @param b second Position
+     * @return 
+     */
+    boolean intersectsLine(Position a, Position b);
+
+    /**
      * @param other
      * @return true if the current boundaries intersect the input, false otherwise
      */
