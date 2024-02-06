@@ -46,7 +46,7 @@ public final class SimpleEnemy implements Enemy {
 
     @Override
     public boolean isAlive() {
-        return this.isAlive == true;
+        return this.isAlive;
     }
 
     @Override
@@ -75,7 +75,6 @@ public final class SimpleEnemy implements Enemy {
         if (!this.box.getCollisions().isEmpty()) {
             if (this.box.isCollidingWith(this.level.getCharacter())) {
                 checkEnemyIsDead();
-            } else {   
             }
         }
     }

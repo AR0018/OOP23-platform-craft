@@ -19,6 +19,7 @@ public interface GameEntity {
     void setPosition(Position position);
 
     /**
+     * Obtain the position of the game entity which calls the method
      * @return the current position of the character
      */
     Position getPosition();

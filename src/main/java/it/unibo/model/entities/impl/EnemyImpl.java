@@ -8,7 +8,6 @@ import it.unibo.model.entities.api.EntitySize;
 import it.unibo.model.level.api.Level;
 import it.unibo.model.physics.api.Direction;
 import it.unibo.model.physics.api.Position;
-import java.util.stream.*;
 
 //Si valuta l'ereditarietà piuttosto che il pattern Decorator
 //perchè si dovrebbe riscrivere un gran numero di metodi ogni volta
@@ -17,6 +16,9 @@ import java.util.stream.*;
 //così modifico i parametri passati al costruttore mentre con il decorator 
 //dovrei passare l'intefaccia enemy e quindi per modificare i campi sarebbero necesari
 //dei metodi aggiuntivi 
+/**
+ * Models the concept of an enemy with all its characteristics.
+ */
 public abstract class EnemyImpl implements Enemy {
 
     private final EntitySize size;
@@ -25,10 +27,16 @@ public abstract class EnemyImpl implements Enemy {
     private Position position;
     private boolean isAlive;
     private Direction direction;
-    
+
     //TODO: costruttore che prende fisica position velocita e dimensione
     //le classi che estendono fanno super con la fisica desiderata
-
+    /**
+     * The constructor of the implementation of enemy that initialize 
+     * the position, the size and the direction where the enemy starts
+     * to move.
+     * @param position the first position of the enemy
+     * @param size is the size of the enemy
+     */
     public EnemyImpl(final Position position, final EntitySize size) {
         this.position = position;
         this.size = size;
@@ -37,7 +45,7 @@ public abstract class EnemyImpl implements Enemy {
     }
 
     @Override
-    public void setPosition(Position position) {
+    public void setPosition(final Position position) {
         this.position = position;
     }
 
@@ -50,10 +58,10 @@ public abstract class EnemyImpl implements Enemy {
         return this.direction;
     }
 
-    public void setDirection(Direction direction) {
+    public void setDirection(final Direction direction) {
         this.direction = direction;
     }
-    
+
     public EntitySize getSize() {
         return size;
     }
@@ -63,7 +71,7 @@ public abstract class EnemyImpl implements Enemy {
         return this.isAlive;
     }
 
-    public void setAlive(boolean isAlive) {
+    public void setAlive(final boolean isAlive) {
         this.isAlive = isAlive;
     }
 
@@ -84,6 +92,9 @@ public abstract class EnemyImpl implements Enemy {
 
     public abstract void moveEnemy();
 
+    /**
+     * Check if the enemy has some collisions. 
+     */
     protected void checkEnemyCollisions() {
         this.box.checkCollisions(this.level.getGameEntities());     //TODO: understand what checkCollisions does
         if (!this.box.getCollisions().isEmpty()) {
@@ -95,6 +106,10 @@ public abstract class EnemyImpl implements Enemy {
         }
     }
 
+    /**
+     * Check if the enemy died because of the player who collided with
+     * the head of the enemy.
+     */
     protected void checkEnemyIsDead() {
         var str = this.box.getCollisions().stream()
                 .filter(x -> x.getGameEntity() instanceof Character);

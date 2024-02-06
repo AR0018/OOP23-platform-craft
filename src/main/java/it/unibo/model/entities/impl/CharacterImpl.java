@@ -50,10 +50,14 @@ public final class CharacterImpl implements Character {     //TODO: remove the f
 
     @Override
     public boolean isAlive() {
-        return this.isAlive == true;
+        return this.isAlive;
     }
 
-    public void setAlive(boolean isAlive) {
+    /**
+     * Sets the condition to the character.
+     * @param isAlive true if it's alive false otherwise
+     */
+    public void setAlive(final boolean isAlive) {
         this.isAlive = isAlive;
     }
 
