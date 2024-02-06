@@ -13,12 +13,6 @@ import it.unibo.model.physics.api.Position;
 public interface GameEntity {
 
     /**
-     * Sets the position of the character to the given input.
-     * @param position the input position
-     */
-    void setPosition(Position position); //TODO: remove this method
-
-    /**
      * @return the current position of the character
      */
     Position getPosition();
