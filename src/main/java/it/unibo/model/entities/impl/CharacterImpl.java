@@ -53,6 +53,10 @@ public final class CharacterImpl implements Character {     //TODO: remove the f
         return this.isAlive == true;
     }
 
+    public void setAlive(boolean isAlive) {
+        this.isAlive = isAlive;
+    }
+
     @Override
     public void updateState() {
         physic.calculateMovement();

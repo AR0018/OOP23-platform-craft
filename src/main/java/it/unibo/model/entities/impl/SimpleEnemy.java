@@ -16,22 +16,18 @@ import it.unibo.model.physics.api.Position;
 public final class SimpleEnemy implements Enemy {
 
     private final Physics physics;
-    private final Character player;
     private Level level;
     private CollisionBox box;
     private Position position;
-    private PhysicsBuilder physicsBuilder;
+    private PhysicsBuilder physicsBuilder;          //TODO: physics impl
     private boolean isAlive;
-    private boolean collisionUp;
     private Direction direction;
 
     /**
      * Constructor of the class SimpleEnemy used to initialize the class.
      * @param position where the enemy starts
-     * @param player indicates who is the character of the game
      */
-    public SimpleEnemy(final Position position, final Character player) {
-        this.player = player;
+    public SimpleEnemy(final Position position) {  //TODO: level fornisce il character
         this.position = position;
         this.direction = Direction.RIGHT;
         this.isAlive = true;
@@ -77,7 +73,7 @@ public final class SimpleEnemy implements Enemy {
     private void checkEnemyCollisions() {
         this.box.checkCollisions(this.level.getGameEntities());     //TODO: understand what checkCollisions does
         if (!this.box.getCollisions().isEmpty()) {
-            if (this.box.isCollidingWith(this.player)) {
+            if (this.box.isCollidingWith(this.level.getCharacter())) {
                 checkEnemyIsDead();
             } else {   
             }
@@ -85,10 +81,8 @@ public final class SimpleEnemy implements Enemy {
     }
 
     private void checkEnemyIsDead() {
-        this.collisionUp = this.box.getCollisions().stream()
-                    .filter(x -> x instanceof Character)
-                    .anyMatch(x -> x.getDirection().equals(Direction.UP));
-        if (this.collisionUp) {
+        if (this.box.getCollisions().stream().filter(x -> x instanceof Character)
+                .anyMatch(x -> x.getDirection().equals(Direction.UP))) {
             this.isAlive = false;
         }
     }
