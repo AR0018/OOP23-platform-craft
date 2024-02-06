@@ -12,7 +12,8 @@ import it.unibo.model.physics.api.Direction;
 import it.unibo.model.physics.api.Physics;
 import it.unibo.model.physics.api.PhysicsBuilder;
 import it.unibo.model.physics.api.Position;
-
+import java.util.stream.Collectors;
+import java.util.Objects;
 /**
  * Implementation of the Interface Character, 
  * where it cointains all the necessary to create the character.
@@ -71,16 +72,14 @@ public final class CharacterImpl implements Character {     //TODO: remove the f
         return EntityType.CHARACTER;
     }
 
-    /*
     @Override
-    public CollisionBox getCollisionBox() { TODO:this method is to be removed
-        return this.box;
+    public Set<Collision> getCollisions() {
+        return this.box.getCollisions(this.level.getGameEntities());
     }
-    */
-
+    
     @Override
     public void move(final Direction dir) {     //TODO: needs to be improved
-        if (checkMove(dir)) {
+        if (Objects.nonNull(dir)) {
             physic.setMovement(dir);            //CheckEnemyCollision here?
         }
     }
@@ -90,20 +89,13 @@ public final class CharacterImpl implements Character {     //TODO: remove the f
         if (this.box.getCollisions().stream().anyMatch(x -> x instanceof Enemy)) { TODO:causes error with new design
             this.isAlive = false;
         }*/
-    }
-
-    private boolean checkMove(final Direction dir) {
-        for (var movement : Direction.values()) {
-            if (movement.equals(dir)) {
-                return true;
+        if (!getCollisions().isEmpty()) {
+            var enemySetCollision = getCollisions().stream().filter(x -> x.getGameEntity() instanceof Enemy).collect(Collectors.toSet());
+            if (!enemySetCollision.isEmpty()) {
+                if (!enemySetCollision.stream().findFirst().get().getDirection().equals(Direction.UP)) {
+                    this.isAlive = false;
+                }
             }
         }
-        return false;
-    }
-
-    @Override
-    public Set<Collision> getCollisions() {
-        // TODO Implement this method
-        throw new UnsupportedOperationException("Unimplemented method 'getCollisions'");
     }
 }

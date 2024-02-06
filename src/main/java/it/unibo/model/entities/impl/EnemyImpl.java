@@ -2,6 +2,7 @@ package it.unibo.model.entities.impl;
 
 import it.unibo.common.EntityType;
 import it.unibo.model.collisions.api.CollisionBox;
+import it.unibo.model.collisions.api.Boundaries;
 import it.unibo.model.collisions.api.Collision;
 import it.unibo.model.entities.api.Character;
 import it.unibo.model.entities.api.Enemy;
@@ -10,6 +11,8 @@ import it.unibo.model.level.api.Level;
 import it.unibo.model.physics.api.Direction;
 import it.unibo.model.physics.api.Position;
 import java.util.Set;
+
+import edu.umd.cs.findbugs.annotations.OverrideMustInvoke;
 
 //Si valuta l'ereditarietà piuttosto che il pattern Decorator
 //perchè si dovrebbe riscrivere un gran numero di metodi ogni volta
@@ -26,6 +29,7 @@ public abstract class EnemyImpl implements Enemy {
     private final EntitySize size;
     private Level level;
     private CollisionBox box;
+    private Boundaries boundaries;
     private Position position;
     private boolean isAlive;
     private Direction direction;
@@ -55,10 +59,17 @@ public abstract class EnemyImpl implements Enemy {
         return this.direction;
     }
 
+    /**
+     * Sets the right direction of the enemy
+     * @param direction the direction
+     */
     public void setDirection(final Direction direction) {
         this.direction = direction;
     }
 
+    /**
+     * @return the size of the enemy
+     */
     public EntitySize getSize() {
         return size;
     }
@@ -79,22 +90,29 @@ public abstract class EnemyImpl implements Enemy {
 
     @Override
     public Set<Collision> getCollisions() {
-        return null;
+        return this.box.getCollisions(this.level.getGameEntities());
     }
 
-    public abstract void updateState(); /*{
+    @Override
+    public void updateState() {     //TODO: sistemare bene updateState
+        moveEnemy();
+        checkEnemyCollisions();
+    }
+    /*public //abstract void updateState() {
         this.physics.calculateMovement();
         checkEnemyCollisions();
     }*/
 
+    /**
+     * This method lets the enemy moves in the right direction.
+     */
     public abstract void moveEnemy();
 
     /**
      * Check if the enemy has some collisions. 
      */
     protected void checkEnemyCollisions() {
-        //TODO: understand what checkCollisions does
-        if (!this.box.getCollisions(this.level.getGameEntities()).isEmpty()) {
+        if (!getCollisions().isEmpty()) {
             if (this.box.isCollidingWith(this.level.getCharacter())) {
                 checkEnemyIsDead();
             } else {
@@ -108,12 +126,10 @@ public abstract class EnemyImpl implements Enemy {
      * the head of the enemy.
      */
     protected void checkEnemyIsDead() {
-        var str = this.box.getCollisions(this.level.getGameEntities()).stream()
+        var str = getCollisions().stream()
                 .filter(x -> x.getGameEntity() instanceof Character);
         if (str.anyMatch(x -> x.getDirection().equals(Direction.UP))) {
             this.isAlive = false;
-        } else {
-            this.level.getCharacter(); //TODO: settare isAlive per character false
         }
     }
 }

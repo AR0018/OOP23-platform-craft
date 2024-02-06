@@ -9,7 +9,7 @@ import it.unibo.model.physics.api.SpeedLevels;
 /**
  * Models the concept of SimpleEnemy extending from EnemyImpl.
  */
-public class SimpleEnemy2Impl extends EnemyImpl {
+public class SimpleEnemyImpl extends EnemyImpl {
 
     private final Physics physics; 
     private PhysicsBuilder builder;
@@ -18,7 +18,7 @@ public class SimpleEnemy2Impl extends EnemyImpl {
      * Constructor for simpleEnemy.
      * @param position is the beginning position of the simpleEnemy
      */
-    public SimpleEnemy2Impl(final Position position) {
+    public SimpleEnemyImpl(final Position position) {
         super(position, EntitySize.NORMAL);
         this.physics = this.builder.setGameObject(this)
                 .setSpeedOnX(SpeedLevels.SLOW)
