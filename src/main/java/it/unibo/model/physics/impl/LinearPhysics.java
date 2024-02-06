@@ -39,8 +39,17 @@ public final class LinearPhysics implements Physics {
     public LinearPhysics(final GameEntity entity, final SpeedLevels speedLevelX, final SpeedLevels speedLevelY) {
         this.entity = entity;
         velocity = new Position2D(0, 0);
-        this.speedOnX = Speed.valueOf(speedLevelX.name());
-        this.speedOnY = Speed.valueOf(speedLevelY.name());
+        //TODO: decide whether to keep this implementation or store the values of speed directly in SpeedLevels
+        this.speedOnX = switch(speedLevelX) {
+            case SLOW -> Speed.SLOW;
+            case MEDIUM -> Speed.MEDIUM;
+            case FAST -> Speed.FAST;
+        };
+        this.speedOnY = switch(speedLevelY) {
+            case SLOW -> Speed.SLOW;
+            case MEDIUM -> Speed.MEDIUM;
+            case FAST -> Speed.FAST;
+        };
     }
 
     @Override
