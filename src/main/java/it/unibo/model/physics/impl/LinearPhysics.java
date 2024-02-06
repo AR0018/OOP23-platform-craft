@@ -10,7 +10,7 @@ import it.unibo.model.physics.api.SpeedLevels;
 /**
  * A Physics which implements a linear movement.
  */
-public final class LinearPhysics implements Physics {
+public abstract class LinearPhysics implements Physics {
 
     private final GameEntity entity;
     private Position velocity;
@@ -53,7 +53,7 @@ public final class LinearPhysics implements Physics {
     }
 
     @Override
-    public Position calculateMovement() {
+    public final Position calculateMovement() {
         this.entity.getCollisions().stream()
             .map(Collision::getDirection)
             .forEach(this::handleCollision);
@@ -63,39 +63,14 @@ public final class LinearPhysics implements Physics {
                 );
     }
 
-    /*
-     * Stops the entity if the direction of the collision matches
-     * the direction of movement
+    /**
+     * Defines the behaviour of this Physics in case of a collision.
+     * @param dir the direction of the collision
      */
-    private void handleCollision(final Direction dir) { //TODO: if the behaviour on the collisions must be changed,
-        switch (dir) {                                  // this method is to be made abstract (or a Strategy is to be used)
-            case UP:
-                if (this.velocity.getY() < 0) {
-                    stopOnY();
-                }
-                break;
-            case DOWN:
-                if (this.velocity.getY() > 0) {
-                    stopOnY();
-                }
-                break;
-            case LEFT:
-                if (this.velocity.getX() < 0) {
-                    stopOnX();
-                }
-                break;
-            case RIGHT:
-                if (this.velocity.getX() > 0) {
-                    stopOnX();
-                }
-                break;
-            default:
-                throw new IllegalStateException("Invalid value for Direction");
-        }
-    }
+    protected abstract void handleCollision(Direction dir);
 
     @Override
-    public void setMovement(final Direction direction) {
+    public final void setMovement(final Direction direction) {
         switch (direction) {
             case UP:
                 setVelocityY(-this.speedOnY.getValue());
@@ -123,13 +98,20 @@ public final class LinearPhysics implements Physics {
     }
 
     @Override
-    public void stopOnX() {
+    public final void stopOnX() {
         this.velocity = new Position2D(0, this.velocity.getY());
     }
 
     @Override
-    public void stopOnY() {
+    public final void stopOnY() {
         this.velocity = new Position2D(this.velocity.getX(), 0);
+    }
+
+    /**
+     * @return the velocity of this Physics
+     */
+    protected final Position getVelocity() {
+        return new Position2D(this.velocity.getX(), this.velocity.getY());
     }
 
 }
