@@ -44,15 +44,14 @@ public final class LinearPhysics implements Physics {
     }
 
     @Override
-    public void calculateMovement() {
-        this.entity.getCollisionBox().getCollisions().stream()
+    public Position calculateMovement() {
+        this.entity.getCollisions().stream()
             .map(Collision::getDirection)
             .forEach(this::handleCollision);
-        entity.setPosition(
-            new Position2D(
+            return new Position2D(
                 entity.getPosition().getX() + this.velocity.getX(),
                 entity.getPosition().getY() + this.velocity.getY()
-                ));
+                );
     }
 
     /*

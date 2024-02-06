@@ -1,6 +1,9 @@
 package it.unibo.model.entities.impl;
 
+import java.util.Set;
+
 import it.unibo.common.EntityType;
+import it.unibo.model.collisions.api.Collision;
 import it.unibo.model.collisions.api.CollisionBox;
 import it.unibo.model.entities.api.Character;
 import it.unibo.model.entities.api.Enemy;
@@ -56,7 +59,7 @@ public final class CharacterImpl implements Character {     //TODO: remove the f
     @Override
     public void updateState() {
         physic.calculateMovement();
-        this.box.checkCollisions(this.level.getGameEntities());
+        //this.box.checkCollisions(this.level.getGameEntities()); TODO:causes error with new design
         checkEnemyCollision();
     }
 
@@ -65,10 +68,12 @@ public final class CharacterImpl implements Character {     //TODO: remove the f
         return EntityType.CHARACTER;
     }
 
+    /*
     @Override
-    public CollisionBox getCollisionBox() {
+    public CollisionBox getCollisionBox() { TODO:this method is to be removed
         return this.box;
     }
+    */
 
     @Override
     public void move(final Direction dir) {     //TODO: needs to be improved
@@ -78,9 +83,10 @@ public final class CharacterImpl implements Character {     //TODO: remove the f
     }
 
     private void checkEnemyCollision() {
-        if (this.box.getCollisions().stream().anyMatch(x -> x instanceof Enemy)) {
+        /*
+        if (this.box.getCollisions().stream().anyMatch(x -> x instanceof Enemy)) { TODO:causes error with new design
             this.isAlive = false;
-        }
+        }*/
     }
 
     private boolean checkMove(final Direction dir) {
@@ -90,5 +96,11 @@ public final class CharacterImpl implements Character {     //TODO: remove the f
             }
         }
         return false;
+    }
+
+    @Override
+    public Set<Collision> getCollisions() {
+        // TODO Implement this method
+        throw new UnsupportedOperationException("Unimplemented method 'getCollisions'");
     }
 }
