@@ -3,6 +3,7 @@ package it.unibo.model.entities.impl;
 import java.util.Set;
 
 import it.unibo.common.EntityType;
+import it.unibo.model.collisions.api.Boundaries;
 import it.unibo.model.collisions.api.Collision;
 import it.unibo.model.collisions.api.CollisionBox;
 import it.unibo.model.entities.api.Character;
@@ -71,6 +72,18 @@ public final class CharacterImpl implements Character {     //TODO: remove the f
     */
 
     @Override
+    public Set<Collision> getCollisions() {
+        // TODO Implement this method
+        throw new UnsupportedOperationException("Unimplemented method 'getCollisions'");
+    }
+
+    @Override
+    public Boundaries getBoundaries() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getBoundaries'");
+    }
+
+    @Override
     public void move(final Direction dir) {     //TODO: needs to be improved
         if (checkMove(dir)) {
             physic.setMovement(dir);            //CheckEnemyCollision here?
@@ -91,11 +104,5 @@ public final class CharacterImpl implements Character {     //TODO: remove the f
             }
         }
         return false;
-    }
-
-    @Override
-    public Set<Collision> getCollisions() {
-        // TODO Implement this method
-        throw new UnsupportedOperationException("Unimplemented method 'getCollisions'");
     }
 }
