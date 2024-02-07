@@ -9,7 +9,7 @@ public interface View {
 
     /**
      * DisplayStart is responsible of the TitleScreen that appears once the game is started.
-     * Useful to select what the player needs to do like create its own project or play to one that has been 
+     * Useful to select what the player needs to do like creates its own project or plays one that has been 
      * created.
      */
     void displayStart();

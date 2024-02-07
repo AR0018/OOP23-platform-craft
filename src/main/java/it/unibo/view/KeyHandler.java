@@ -23,19 +23,19 @@ public class KeyHandler implements KeyListener{
         int inputReceived = e.getKeyCode();
 
         switch(inputReceived){
-            case KeyEvent.VK_W:
+            case KeyEvent.VK_W, KeyEvent.VK_UP:
                 wPressed = true;
                 break;
-            case KeyEvent.VK_A:
+            case KeyEvent.VK_A, KeyEvent.VK_LEFT:
                 aPressed = true;
                 break;
-            case KeyEvent.VK_S:
+            case KeyEvent.VK_S, KeyEvent.VK_DOWN:
                 sPressed = true;
                 break;
-            case KeyEvent.VK_D:
+            case KeyEvent.VK_D, KeyEvent.VK_RIGHT:
                 dPressed = true;
                 break;
-            case KeyEvent.VK_SPACE:
+            case KeyEvent.VK_SPACE:         //Space is equal to VK_W e VK_UP
                 spacePressed = true;
                 break;
             default:
@@ -49,16 +49,16 @@ public class KeyHandler implements KeyListener{
         int inputReceived = e.getKeyCode();
 
         switch(inputReceived){
-            case KeyEvent.VK_W:
+            case KeyEvent.VK_W, KeyEvent.VK_UP:
                 wPressed = false;
                 break;
-            case KeyEvent.VK_A:
+            case KeyEvent.VK_A, KeyEvent.VK_LEFT:
                 aPressed = false;
                 break;
-            case KeyEvent.VK_S:
+            case KeyEvent.VK_S, KeyEvent.VK_DOWN:
                 sPressed = false;
                 break;
-            case KeyEvent.VK_D:
+            case KeyEvent.VK_D, KeyEvent.VK_RIGHT:
                 dPressed = false;
                 break;
             case KeyEvent.VK_SPACE:
