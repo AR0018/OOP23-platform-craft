@@ -1,5 +1,8 @@
 package it.unibo.model.entities.impl;
 
+import java.awt.geom.Line2D;
+
+import it.unibo.model.collisions.api.CollisionBox;
 import it.unibo.model.entities.api.Character;
 import it.unibo.model.entities.api.EntitySize;
 import it.unibo.model.level.api.Level;
@@ -44,7 +47,14 @@ public final class StrongEnemyImpl extends EnemyImpl {
     }
 
     private boolean playerIsVisible(final Character character) {    //TODO: metodo per capire se avviene una collisione prima del character
-        return false;
+        Position charPos = character.getPosition();
+        Line2D line = new Line2D.Double(getPosition().getX(), getPosition().getY(), charPos.getX(), charPos.getY());
+        for(var entity: this.level.getGameEntities()) {
+            /*if() {
+                return false;
+            }*/
+        }
+        return true;
     }
 
     private boolean playerInRange(final Character character) {
