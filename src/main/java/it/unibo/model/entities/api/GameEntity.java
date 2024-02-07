@@ -3,6 +3,7 @@ package it.unibo.model.entities.api;
 import java.util.Set;
 
 import it.unibo.common.EntityType;
+import it.unibo.model.collisions.api.Boundaries;
 import it.unibo.model.collisions.api.Collision;
 import it.unibo.model.physics.api.Position;
 
@@ -40,4 +41,10 @@ public interface GameEntity {
     Set<Collision> getCollisions();
 
     //TODO: add a way to return the dimension of this entity
+
+    /**
+     * @return the boundaries of the game entity
+     */
+    Boundaries getBoundaries();
+    
 }

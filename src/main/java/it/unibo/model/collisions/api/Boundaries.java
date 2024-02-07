@@ -34,4 +34,14 @@ public interface Boundaries {
      * @return the vertices of the rectangle represented by the boundaries
      */
     List<Position> getVertices();
+
+    /**
+     * @return the width of the boundaries
+     */
+    int getWidth();
+
+    /**
+     * @return the height of the boundaries
+     */
+    int getHeight();
 }
