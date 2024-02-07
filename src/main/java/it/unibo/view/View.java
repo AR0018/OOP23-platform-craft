@@ -1,6 +1,6 @@
 package it.unibo.view;
 
-import it.unibo.common.SimpleEntiete;
+import it.unibo.common.SimpleEntity;
 import java.util.Set;
 /**
  * Models the GUI of the project.
@@ -28,6 +28,6 @@ public interface View {
      * Checks the Set of SimpleEntiete and lets visualize on screen all the elements of the Set.
      * @param entities is a set of SimpleEntiete
      */
-    void render(Set<SimpleEntiete> entities);
+    void render(Set<SimpleEntity> entities);
 
 }

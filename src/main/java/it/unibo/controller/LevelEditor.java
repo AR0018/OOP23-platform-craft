@@ -1,6 +1,6 @@
 package it.unibo.controller;
 
-import it.unibo.common.SimpleEntiete;
+import it.unibo.common.SimpleEntity;
 import java.io.File;
 
 /**
@@ -17,7 +17,7 @@ public interface LevelEditor {
      * Adds entity on the editor.
      * @param entity the entity to be visualized
      */
-    void addEntity(SimpleEntiete entity);
+    void addEntity(SimpleEntity entity);
 
     /**
      * Removes the entity chosen by the player via its coordinates X and Y.
