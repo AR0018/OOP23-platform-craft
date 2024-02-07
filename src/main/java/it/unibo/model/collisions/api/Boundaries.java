@@ -38,10 +38,10 @@ public interface Boundaries {
     /**
      * @return the width of the boundaries
      */
-    int getWidth();
+    double getWidth();
 
     /**
      * @return the height of the boundaries
      */
-    int getHeight();
+    double getHeight();
 }
