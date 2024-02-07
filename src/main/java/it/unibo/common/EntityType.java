@@ -24,5 +24,10 @@ public enum EntityType {
     /**
      * The ending location of the level.
      */
-    FINISH_LOCATION;
+    FINISH_LOCATION,
+    /**
+     * The start location.
+     */
+
+    START_LOCATION;
 }
