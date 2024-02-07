@@ -3,7 +3,7 @@ package it.unibo.common;
 /**
  * A simple representation of a GameEntity, containing only the type and position of the entity.
  */
-public interface SimpleEntiete {
+public interface SimpleEntity {
 
     /**
      * @return the type of entity
