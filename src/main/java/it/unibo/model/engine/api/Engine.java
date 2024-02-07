@@ -2,7 +2,7 @@ package it.unibo.model.engine.api;
 
 import java.util.Set;
 
-import it.unibo.common.SimpleEntiete;
+import it.unibo.common.SimpleEntity;
 import it.unibo.model.level.api.GameState;
 import it.unibo.model.physics.api.Direction;
 
@@ -30,7 +30,7 @@ public interface Engine {
      * @param entity the entity to be added
      * @return true if the entity can be added, false otherwise
      */
-    boolean addGameEntity(SimpleEntiete entity);
+    boolean addGameEntity(SimpleEntity entity);
 
     /**
      * Removes the GameEntity whose CollisionBox contains the specified position.
@@ -60,5 +60,5 @@ public interface Engine {
      * All the entities that appear in the game are memorized inside a Set.
      * @return the set that contains all the entities should display by the view
      */
-    Set<SimpleEntiete> getLevelEntities();
+    Set<SimpleEntity> getLevelEntities();
 }
