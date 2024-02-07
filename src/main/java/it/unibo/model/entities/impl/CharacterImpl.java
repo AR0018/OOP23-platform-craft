@@ -3,6 +3,7 @@ package it.unibo.model.entities.impl;
 import java.util.Set;
 
 import it.unibo.common.EntityType;
+import it.unibo.model.collisions.api.Boundaries;
 import it.unibo.model.collisions.api.Collision;
 import it.unibo.model.collisions.api.CollisionBox;
 import it.unibo.model.entities.api.Character;
@@ -75,6 +76,11 @@ public final class CharacterImpl implements Character {     //TODO: remove the f
     @Override
     public Set<Collision> getCollisions() {
         return this.box.getCollisions(this.level.getGameEntities());
+    }
+
+    @Override
+    public Boundaries getBoundaries() {
+        return this.box.getBoundaries();
     }
 
     @Override

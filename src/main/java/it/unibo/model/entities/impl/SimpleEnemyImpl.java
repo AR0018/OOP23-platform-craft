@@ -1,5 +1,6 @@
 package it.unibo.model.entities.impl;
 
+import it.unibo.model.collisions.api.Boundaries;
 import it.unibo.model.entities.api.EntitySize;
 import it.unibo.model.physics.api.Physics;
 import it.unibo.model.physics.api.PhysicsBuilder;
@@ -25,8 +26,7 @@ public final class SimpleEnemyImpl extends EnemyImpl {
                 .addAccelerationOnX().create();
     }
 
-    @Override
-    public void moveEnemy() {
+    private void moveEnemy() {
         this.physics.setMovement(getDirection());
     }
 
@@ -36,5 +36,4 @@ public final class SimpleEnemyImpl extends EnemyImpl {
         this.physics.calculateMovement();
         checkEnemyCollisions();
     }
-
 }

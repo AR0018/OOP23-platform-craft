@@ -49,6 +49,11 @@ public abstract class EnemyImpl implements Enemy {
     }
 
     @Override
+    public Boundaries getBoundaries() {
+        return this.box.getBoundaries();
+    }
+
+    @Override
     public Position getPosition() {
         return this.position;
     }
@@ -99,12 +104,12 @@ public abstract class EnemyImpl implements Enemy {
         return this.box.getCollisions(this.level.getGameEntities());
     }
 
-    @Override
+    /*@Override
     public void updateState() {     //TODO: sistemare bene updateState
         moveEnemy();
         checkEnemyCollisions();
-    }
-    /*public //abstract void updateState() {
+    }*/
+    public abstract void updateState(); /*{
         this.physics.calculateMovement();
         checkEnemyCollisions();
     }*/
@@ -112,7 +117,7 @@ public abstract class EnemyImpl implements Enemy {
     /**
      * This method lets the enemy moves in the right direction.
      */
-    public abstract void moveEnemy();
+    //public abstract void moveEnemy();
 
     /**
      * Check if the enemy has some collisions. 

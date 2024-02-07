@@ -2,6 +2,7 @@ package it.unibo.model.entities.impl;
 
 import java.awt.geom.Line2D;
 
+import it.unibo.model.collisions.api.Boundaries;
 import it.unibo.model.collisions.api.CollisionBox;
 import it.unibo.model.entities.api.Character;
 import it.unibo.model.entities.api.EntitySize;
@@ -41,18 +42,17 @@ public final class StrongEnemyImpl extends EnemyImpl {
         throw new UnsupportedOperationException("Unimplemented method 'updateState'");
     }
 
-    @Override
-    public void moveEnemy() {
-
+    private void moveEnemy() {
+        
     }
 
     private boolean playerIsVisible(final Character character) {    //TODO: metodo per capire se avviene una collisione prima del character
         Position charPos = character.getPosition();
-        Line2D line = new Line2D.Double(getPosition().getX(), getPosition().getY(), charPos.getX(), charPos.getY());
         for(var entity: this.level.getGameEntities()) {
-            /*if() {
+            if(entity.getBoundaries().intersectsLine(getPosition(), charPos) && 
+                    !entity.equals(this) && !(entity instanceof Character)) {
                 return false;
-            }*/
+            }
         }
         return true;
     }
@@ -66,5 +66,4 @@ public final class StrongEnemyImpl extends EnemyImpl {
         }
         return false;
     }
-
 }
