@@ -13,5 +13,5 @@ public interface LevelRunner {
     /**
      * Adds the command passed by input in a list of command that have to be processed.
      */
-    void notifyCommand(); //TODO: the input type
+    void notifyCommand(); //TODO: create class Command
 }
