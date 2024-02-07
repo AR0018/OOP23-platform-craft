@@ -1,12 +1,9 @@
 package it.unibo.model.entities.impl;
 
-import java.awt.geom.Line2D;
-
-import it.unibo.model.collisions.api.Boundaries;
-import it.unibo.model.collisions.api.CollisionBox;
 import it.unibo.model.entities.api.Character;
 import it.unibo.model.entities.api.EntitySize;
 import it.unibo.model.level.api.Level;
+import it.unibo.model.physics.api.Direction;
 import it.unibo.model.physics.api.Physics;
 import it.unibo.model.physics.api.PhysicsBuilder;
 import it.unibo.model.physics.api.Position;
@@ -38,12 +35,21 @@ public final class StrongEnemyImpl extends EnemyImpl {
 
     @Override
     public void updateState() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateState'");
+        moveEnemy();
+        this.physics.calculateMovement();
+        checkEnemyCollisions();
     }
 
     private void moveEnemy() {
-        
+        if (playerIsVisible(getCharacter()) && playerInRange(getCharacter())) {
+            if (getCharacter().getPosition().getX() > getPosition().getX()) {
+                setDirection(Direction.RIGHT);
+            } else {
+                setDirection(Direction.LEFT);
+            }
+        } else {
+            this.physics.setMovement(getDirection());
+        }
     }
 
     private boolean playerIsVisible(final Character character) {    //TODO: metodo per capire se avviene una collisione prima del character
@@ -65,5 +71,9 @@ public final class StrongEnemyImpl extends EnemyImpl {
             return true;
         }
         return false;
+    }
+
+    private Character getCharacter() {
+        return (Character) this.level.getCharacter();
     }
 }

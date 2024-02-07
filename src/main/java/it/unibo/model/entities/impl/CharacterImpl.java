@@ -34,6 +34,7 @@ public final class CharacterImpl implements Character {     //TODO: remove the f
      * @param position the initial coordinate of the character
      */
     public CharacterImpl(final Position position) {
+        Objects.requireNonNull(position);
         this.position = position;
         this.isAlive = true;
         this.physic = this.physicsBuilder
@@ -85,9 +86,9 @@ public final class CharacterImpl implements Character {     //TODO: remove the f
 
     @Override
     public void move(final Direction dir) {     //TODO: needs to be improved
-        if (Objects.nonNull(dir)) {
+        if (Objects.nonNull(dir)) {             //i nemici possono modificare la direzione
             physic.setMovement(dir);            //CheckEnemyCollision here?
-        }
+        }                                       //TODO:rendere il metodo privato?
     }
 
     private void checkEnemyCollision() {

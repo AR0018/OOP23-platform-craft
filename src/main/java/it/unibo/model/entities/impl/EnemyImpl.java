@@ -27,7 +27,6 @@ public abstract class EnemyImpl implements Enemy {
     private final EntitySize size;
     private Level level;
     private CollisionBox box;
-    private Boundaries boundaries;
     private Position position;
     private boolean isAlive;
     private Direction direction;
@@ -45,6 +44,7 @@ public abstract class EnemyImpl implements Enemy {
         this.position = position;
         this.size = size;
         this.isAlive = true;
+        this.direction = Direction.RIGHT;
         setDirection(direction);
     }
 
@@ -136,7 +136,7 @@ public abstract class EnemyImpl implements Enemy {
      * Check if the enemy died because of the player who collided with
      * the head of the enemy.
      */
-    protected void checkEnemyIsDead() {     //TODO: need to check collision with the bounds of the map
+    private void checkEnemyIsDead() {     //TODO: need to check collision with the bounds of the map
         var str = getCollisions().stream()
                 .filter(x -> x.getGameEntity() instanceof Character);
         if (str.anyMatch(x -> x.getDirection().equals(Direction.UP))) {
