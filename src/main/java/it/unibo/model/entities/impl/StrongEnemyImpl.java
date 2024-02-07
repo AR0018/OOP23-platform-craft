@@ -14,7 +14,7 @@ import it.unibo.model.physics.api.SpeedLevels;
  */
 public final class StrongEnemyImpl extends EnemyImpl {
 
-    private final static float visibleDistance = 5f;
+    private static final float VISIBLE_DISTANCE = 5f;
     private final Physics physics;
     private Level level;
     private PhysicsBuilder builder;
@@ -52,11 +52,11 @@ public final class StrongEnemyImpl extends EnemyImpl {
         }
     }
 
-    private boolean playerIsVisible(final Character character) {    //TODO: metodo per capire se avviene una collisione prima del character
-        Position charPos = character.getPosition();
-        for(var entity: this.level.getGameEntities()) {
-            if(entity.getBoundaries().intersectsLine(getPosition(), charPos) && 
-                    !entity.equals(this) && !(entity instanceof Character)) {
+    private boolean playerIsVisible(final Character character) {    //TODO: metodo per capire se avviene
+        Position charPos = character.getPosition();                 //una collisione prima del character
+        for (var entity: this.level.getGameEntities()) {
+            if (entity.getBoundaries().intersectsLine(getPosition(), charPos) 
+                    && !entity.equals(this) && !(entity instanceof Character)) {
                 return false;
             }
         }
@@ -65,9 +65,9 @@ public final class StrongEnemyImpl extends EnemyImpl {
 
     private boolean playerInRange(final Character character) {
         Position charPos = this.level.getCharacter().getPosition();
-        var distance = Math.sqrt(Math.pow(charPos.getX() - getPosition().getX(), 2) + 
-                Math.pow(charPos.getY() - getPosition().getY(), 2));
-        if (distance <= visibleDistance) {
+        var distance = Math.sqrt(Math.pow(charPos.getX() - getPosition().getX(), 2) 
+                + Math.pow(charPos.getY() - getPosition().getY(), 2));
+        if (distance <= VISIBLE_DISTANCE) {
             return true;
         }
         return false;

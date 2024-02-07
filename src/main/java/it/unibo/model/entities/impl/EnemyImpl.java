@@ -49,12 +49,12 @@ public abstract class EnemyImpl implements Enemy {
     }
 
     @Override
-    public Boundaries getBoundaries() {
+    public final Boundaries getBoundaries() {           //final?
         return this.box.getBoundaries();
     }
 
     @Override
-    public Position getPosition() {
+    public final Position getPosition() {           //final?
         return this.position;
     }
 
@@ -82,7 +82,7 @@ public abstract class EnemyImpl implements Enemy {
     }
 
     @Override
-    public boolean isAlive() {
+    public final boolean isAlive() {    //TODO: per ora final...
         return this.isAlive;
     }
 
@@ -95,12 +95,12 @@ public abstract class EnemyImpl implements Enemy {
     }
 
     @Override
-    public EntityType getType() {
+    public final EntityType getType() {         //final?
         return EntityType.ENEMY;
     }
 
     @Override
-    public Set<Collision> getCollisions() {
+    public final Set<Collision> getCollisions() {
         return this.box.getCollisions(this.level.getGameEntities());
     }
 
@@ -109,6 +109,10 @@ public abstract class EnemyImpl implements Enemy {
         moveEnemy();
         checkEnemyCollisions();
     }*/
+    /**
+     * Update the correct movement of the enemy checking 
+     * collisions or the presence of the player.
+     */
     public abstract void updateState(); /*{
         this.physics.calculateMovement();
         checkEnemyCollisions();
