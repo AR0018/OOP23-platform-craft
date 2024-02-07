@@ -20,4 +20,6 @@ public interface SimpleEntiete {
      */
     double getY();
 
+    //TODO: add a method to return the dimension of this entity
+
 }

@@ -6,6 +6,7 @@ import it.unibo.common.EntityType;
 import it.unibo.model.collisions.api.Collision;
 import it.unibo.model.physics.api.Position;
 
+//TODO: correct documentation
 /**
  * Models an entity in the game.
  * Every entity has a position, a CollisionBox and a type of Physics.
@@ -13,13 +14,13 @@ import it.unibo.model.physics.api.Position;
 public interface GameEntity {
 
     /**
-     * @return the current position of the character
+     * @return the current position of the entity
      */
     Position getPosition();
 
     /**
      * Check if the entity is alive or not.
-     * @return true if the entity is dead
+     * @return true if the entity is alive, false otherwise
      */
     boolean isAlive();
 
@@ -37,4 +38,6 @@ public interface GameEntity {
      * @return all the current collisions of the entity
      */
     Set<Collision> getCollisions();
+
+    //TODO: add a way to return the dimension of this entity
 }
