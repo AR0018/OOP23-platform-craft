@@ -114,10 +114,9 @@ public class LinearPhysics implements Physics {
      * This implementation sets the speed on the x axis to 0 in case of a collision.
      */
     protected void handleCollisionX() {
-        if(this.bouncingX) {
+        if (this.bouncingX) {
             this.setVelocityX(-this.velocity.getX());
-        }
-        else {
+        } else {
             this.stopOnX();
         }
     }
@@ -128,10 +127,9 @@ public class LinearPhysics implements Physics {
      * This implementation sets the speed on the y axis to 0 in case of a collision.
      */
     protected void handleCollisionY() {
-        if(this.bouncingY) {
+        if (this.bouncingY) {
             this.setVelocityY(-this.velocity.getY());
-        }
-        else {
+        } else {
             this.stopOnY();
         }
     }
