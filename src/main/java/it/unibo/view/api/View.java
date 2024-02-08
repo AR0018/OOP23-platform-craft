@@ -10,7 +10,7 @@ public interface View {
     /**
      * DisplayStart is responsible of the TitleScreen that appears once the game is started.
      * Useful to select what the player needs to do like creates its own project or plays one that has been 
-     * created.
+     * created. WHen called, sets all the other views as invisible.
      */
     void displayStart();
 
@@ -25,8 +25,8 @@ public interface View {
     void displayGameOver();
 
     /**
-     * Checks the Set of SimpleEntiete and lets visualize on screen all the elements of the Set.
-     * @param entities is a set of SimpleEntiete
+     * Checks the Set of SimpleEntity and shows on screen all the elements of the Set.
+     * @param entities is a set of SimpleEntity
      */
     void render(Set<SimpleEntity> entities);
 
