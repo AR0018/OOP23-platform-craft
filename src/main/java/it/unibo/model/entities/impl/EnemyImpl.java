@@ -22,16 +22,11 @@ import java.util.Set;
 /**
  * Models the concept of an enemy with all its characteristics.
  */
-public abstract class EnemyImpl implements Enemy {
+public abstract class EnemyImpl extends GameEntityImpl implements Enemy {
 
     private final EntitySize size;
-    private Level level;
-    private CollisionBox box;
-    private Position position;
-    private boolean isAlive;
     private Direction direction;
 
-    //TODO: costruttore che prende fisica position velocita e dimensione
     /**
      * The constructor of the implementation of enemy that initialize 
      * the position, the size and the direction where the enemy starts
@@ -40,27 +35,16 @@ public abstract class EnemyImpl implements Enemy {
      * @param size is the size of the enemy
      */
     public EnemyImpl(final Position position, final EntitySize size) {
-        this.position = position;
+        super(position);
         this.size = size;
-        this.isAlive = true;
         setDirection(Direction.RIGHT);
-    }
-
-    @Override
-    public final Boundaries getBoundaries() {
-        return this.box.getBoundaries();
-    }
-
-    @Override
-    public final Position getPosition() {
-        return this.position;
     }
 
     /**
      * Obtain the direction where the enemy moves.
      * @return the direction
      */
-    public Direction getDirection() {   //TODO: protected?
+    protected Direction getDirection() {   //TODO: protected?
         return this.direction;
     }
 
@@ -80,26 +64,8 @@ public abstract class EnemyImpl implements Enemy {
     }
 
     @Override
-    public final boolean isAlive() {
-        return this.isAlive;
-    }
-
-    /**
-     * Sets the condition to the enemy.
-     * @param isAlive true if it's alive and false otherwise
-     */
-    protected void setAlive(final boolean isAlive) {
-        this.isAlive = isAlive;
-    }
-
-    @Override
     public final EntityType getType() {
         return EntityType.ENEMY;
-    }
-
-    @Override
-    public final Set<Collision> getCollisions() {
-        return this.box.getCollisions(this.level.getGameEntities());
     }
 
     @Override
@@ -127,7 +93,7 @@ public abstract class EnemyImpl implements Enemy {
      */
     protected void checkEnemyCollisions() {
         if (!getCollisions().isEmpty()) {
-            if (this.box.isCollidingWith(this.level.getCharacter())) {
+            if (getCollisionBox().isCollidingWith(getLevel().getCharacter())) {
                 checkEnemyIsDead();
             } else {
                 setDirection(getDirection().equals(Direction.RIGHT) ? Direction.LEFT : Direction.RIGHT);

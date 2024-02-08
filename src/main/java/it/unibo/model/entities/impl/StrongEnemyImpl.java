@@ -18,7 +18,6 @@ public final class StrongEnemyImpl extends EnemyImpl {
 
     private static final float VISIBLE_DISTANCE = 5f;
     private final Physics physics;
-    private Level level;
     private PhysicsBuilder builder;
 
     /**
@@ -66,7 +65,7 @@ public final class StrongEnemyImpl extends EnemyImpl {
         }
         return true;*/
 
-        List<GameEntity> list = this.level.getGameEntities()
+        List<GameEntity> list = getLevel().getGameEntities()
                 .stream()
                 .filter(x -> x.getBoundaries().intersectsLine(getPosition(), charPos))
                 .filter(x -> !x.equals(this))
@@ -80,7 +79,7 @@ public final class StrongEnemyImpl extends EnemyImpl {
     }
 
     private boolean playerInRange(final Character character) {
-        Position charPos = this.level.getCharacter().getPosition();
+        Position charPos = getLevel().getCharacter().getPosition();
         var distance = Math.sqrt(Math.pow(charPos.getX() - getPosition().getX(), 2) 
                 + Math.pow(charPos.getY() - getPosition().getY(), 2));
         if (distance <= VISIBLE_DISTANCE) {
@@ -90,6 +89,6 @@ public final class StrongEnemyImpl extends EnemyImpl {
     }
 
     private Character getCharacter() {
-        return (Character) this.level.getCharacter();
+        return (Character) getLevel().getCharacter();
     }
 }
