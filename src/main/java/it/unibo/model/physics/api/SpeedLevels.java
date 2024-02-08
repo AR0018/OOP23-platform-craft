@@ -19,7 +19,7 @@ public enum SpeedLevels {
 
     private double value;
 
-    SpeedLevels(final double value){
+    SpeedLevels(final double value) {
         this.value = value;
     }
 
