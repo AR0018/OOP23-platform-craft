@@ -34,6 +34,20 @@ public interface PhysicsBuilder {
     PhysicsBuilder setSpeedOnY(SpeedLevels speed);
 
     /**
+     * Sets the Physics so that the collisions on the x axis are handled by
+     * flipping the velocity on the axis, instead of setting it to 0.
+     * @return this builder, for method chaining
+     */
+    PhysicsBuilder addBouncingOnX();
+
+    /**
+     * Sets the Physics so that the collisions on the y axis are handled by
+     * flipping the velocity on the axis, instead of setting it to 0.
+     * @return this builder, for method chaining
+     */
+    PhysicsBuilder addBouncingOnY();
+
+    /**
      * Sets the Physics so that the movement on the X axis is accelerated.
      * @return this builder, for method chaining
      * @throws IllegalStateException if this method is called more than once
@@ -46,7 +60,6 @@ public interface PhysicsBuilder {
      * @throws IllegalStateException if this method is called more than once
      */
     PhysicsBuilder addFallingPhysics();
-
 
     /**
      * Creates the Physics with the desired configuration.
