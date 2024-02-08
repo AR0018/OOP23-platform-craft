@@ -1,16 +1,11 @@
 package it.unibo.model.entities.impl;
 
 import it.unibo.common.EntityType;
-import it.unibo.model.collisions.api.CollisionBox;
-import it.unibo.model.collisions.api.Boundaries;
-import it.unibo.model.collisions.api.Collision;
 import it.unibo.model.entities.api.Character;
 import it.unibo.model.entities.api.Enemy;
 import it.unibo.model.entities.api.EntitySize;
-import it.unibo.model.level.api.Level;
 import it.unibo.model.physics.api.Direction;
 import it.unibo.model.physics.api.Position;
-import java.util.Set;
 
 //Si valuta l'ereditarietà piuttosto che il pattern Decorator
 //perchè si dovrebbe riscrivere un gran numero di metodi ogni volta
@@ -69,7 +64,7 @@ public abstract class EnemyImpl extends GameEntityImpl implements Enemy {
     }
 
     @Override
-    public void updateState() {     //TODO: sistemare bene updateState
+    public final void updateState() {     //TODO: sistemare bene updateState
         moveEnemy();
         checkEnemyCollisions();
     }

@@ -3,7 +3,6 @@ package it.unibo.model.entities.impl;
 import it.unibo.model.entities.api.Character;
 import it.unibo.model.entities.api.GameEntity;
 import it.unibo.model.entities.api.EntitySize;
-import it.unibo.model.level.api.Level;
 import it.unibo.model.physics.api.Direction;
 import it.unibo.model.physics.api.Physics;
 import it.unibo.model.physics.api.PhysicsBuilder;
