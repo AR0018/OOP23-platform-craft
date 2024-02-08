@@ -10,9 +10,7 @@ import java.awt.event.KeyListener;
 public final class KeyHandler implements KeyListener {
 
     private boolean wPressed, aPressed, sPressed, dPressed, spacePressed;
-    /**
-     * We don't need it.
-     */
+
     @Override
     public void keyTyped(final KeyEvent e) {
     }

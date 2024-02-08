@@ -32,7 +32,6 @@ public abstract class EnemyImpl implements Enemy {
     private Direction direction;
 
     //TODO: costruttore che prende fisica position velocita e dimensione
-    //le classi che estendono fanno super con la fisica desiderata
     /**
      * The constructor of the implementation of enemy that initialize 
      * the position, the size and the direction where the enemy starts
@@ -44,8 +43,7 @@ public abstract class EnemyImpl implements Enemy {
         this.position = position;
         this.size = size;
         this.isAlive = true;
-        this.direction = Direction.RIGHT;
-        setDirection(direction);
+        setDirection(Direction.RIGHT);
     }
 
     @Override
