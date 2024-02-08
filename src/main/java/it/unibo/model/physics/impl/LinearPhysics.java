@@ -16,24 +16,10 @@ public class LinearPhysics implements Physics {
 
     private final GameEntity entity;
     private Position velocity;
-    private Speed speedOnX;
-    private Speed speedOnY;
+    private SpeedLevels speedOnX;
+    private SpeedLevels speedOnY;
     private boolean bouncingX;
     private boolean bouncingY;
-
-    private enum Speed {
-        FAST(1), MEDIUM(0.6), SLOW(0.3); // TODO: decide actual values
-
-        private final double value;
-
-        Speed(final double value) {
-            this.value = value;
-        }
-
-        private double getValue() {
-            return this.value;
-        }
-    }
 
     /**
      * @param entity the GameEntity affected by this Physics
@@ -52,16 +38,8 @@ public class LinearPhysics implements Physics {
         velocity = new Position2D(0, 0);
         // TODO: decide whether to keep this implementation or store the values of speed
         // directly in SpeedLevels
-        this.speedOnX = switch (speedLevelX) {
-            case SLOW -> Speed.SLOW;
-            case MEDIUM -> Speed.MEDIUM;
-            case FAST -> Speed.FAST;
-        };
-        this.speedOnY = switch (speedLevelY) {
-            case SLOW -> Speed.SLOW;
-            case MEDIUM -> Speed.MEDIUM;
-            case FAST -> Speed.FAST;
-        };
+        this.speedOnX = speedLevelX;
+        this.speedOnY = speedLevelY;
         this.bouncingX = bouncingX;
         this.bouncingY = bouncingY;
     }

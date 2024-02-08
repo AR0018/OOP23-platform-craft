@@ -23,19 +23,6 @@ public class TestPhysics {
 
     private Physics linear;
     //private Physics accelerated;
-    private enum Speed {
-        FAST(1), MEDIUM(0.6), SLOW(0.3); // TODO: actual values may vary
-
-        private final double value;
-
-        Speed(final double value) {
-            this.value = value;
-        }
-
-        private double getValue() {
-            return this.value;
-        }
-    }
 
     @Test
     void testLinearPhysics() {
@@ -45,36 +32,36 @@ public class TestPhysics {
         assertEquals(new Position2D(0, 0), entity.getPosition());
         this.linear.setMovement(Direction.RIGHT);
         entity.updateState();
-        assertEquals(new Position2D(Speed.FAST.getValue(), 0), entity.getPosition());
+        assertEquals(new Position2D(SpeedLevels.FAST.getValue(), 0), entity.getPosition());
         this.linear.setMovement(Direction.UP);
         this.linear.stopOnX();
         entity.updateState();
-        assertEquals(new Position2D(Speed.FAST.getValue(), -Speed.FAST.getValue()), entity.getPosition());
+        assertEquals(new Position2D(SpeedLevels.FAST.getValue(), -SpeedLevels.FAST.getValue()), entity.getPosition());
         this.linear.setMovement(Direction.RIGHT);
         entity.updateState();
-        assertEquals(new Position2D(2 * Speed.FAST.getValue(), 2 * (-Speed.FAST.getValue())), entity.getPosition());
+        assertEquals(new Position2D(2 * SpeedLevels.FAST.getValue(), 2 * (-SpeedLevels.FAST.getValue())), entity.getPosition());
         this.linear.stopOnX();
         this.linear.stopOnY();
         entity.updateState();
         //Position must not change
-        assertEquals(new Position2D(2 * Speed.FAST.getValue(), 2 * (-Speed.FAST.getValue())), entity.getPosition());
+        assertEquals(new Position2D(2 * SpeedLevels.FAST.getValue(), 2 * (-SpeedLevels.FAST.getValue())), entity.getPosition());
         this.linear.setMovement(Direction.LEFT);
         entity.updateState();
-        assertEquals(new Position2D(Speed.FAST.getValue(), 2 * -(Speed.FAST.getValue())), entity.getPosition());
+        assertEquals(new Position2D(SpeedLevels.FAST.getValue(), 2 * -(SpeedLevels.FAST.getValue())), entity.getPosition());
         this.linear.setMovement(Direction.DOWN);
         this.linear.stopOnX();
         entity.updateState();
-        assertEquals(new Position2D(Speed.FAST.getValue(), -Speed.FAST.getValue()), entity.getPosition());
+        assertEquals(new Position2D(SpeedLevels.FAST.getValue(), -SpeedLevels.FAST.getValue()), entity.getPosition());
     }
 
     @Test
-    void testDifferentSpeeds() {
+    void testDifferentSpeedLevelss() {
         final EntityNoCollisions entity = new EntityNoCollisions(new Position2D(0, 0));
         this.linear = new LinearPhysics(entity, SpeedLevels.FAST, SpeedLevels.SLOW, false, false);
         this.linear.setMovement(Direction.UP);
         this.linear.setMovement(Direction.RIGHT);
         entity.updateState();
-        assertEquals(new Position2D(Speed.FAST.getValue(), -Speed.SLOW.getValue()), entity.getPosition());
+        assertEquals(new Position2D(SpeedLevels.FAST.getValue(), -SpeedLevels.SLOW.getValue()), entity.getPosition());
         this.linear.setMovement(Direction.DOWN);
         this.linear.setMovement(Direction.LEFT);
         entity.updateState();
@@ -90,12 +77,12 @@ public class TestPhysics {
          */
         this.linear.setMovement(Direction.RIGHT);
         e1.updateState();
-        assertEquals(new Position2D(Speed.FAST.getValue(), 0), e1.getPosition());
+        assertEquals(new Position2D(SpeedLevels.FAST.getValue(), 0), e1.getPosition());
         e1.updateState();
-        assertEquals(new Position2D(2 * Speed.FAST.getValue(), 0), e1.getPosition());
+        assertEquals(new Position2D(2 * SpeedLevels.FAST.getValue(), 0), e1.getPosition());
         e1.updateState();
         //Here we have a collision, so the position should be the same as the previous
-        assertEquals(new Position2D(2 * Speed.FAST.getValue(), 0), e1.getPosition());
+        assertEquals(new Position2D(2 * SpeedLevels.FAST.getValue(), 0), e1.getPosition());
         /*
          * Test collision upwards
          */
@@ -103,12 +90,12 @@ public class TestPhysics {
         this.linear = new LinearPhysics(e2, SpeedLevels.FAST, SpeedLevels.FAST, false, false);
         this.linear.setMovement(Direction.UP);
         e2.updateState();
-        assertEquals(new Position2D(0, -Speed.FAST.getValue()), e2.getPosition());
+        assertEquals(new Position2D(0, -SpeedLevels.FAST.getValue()), e2.getPosition());
         e2.updateState();
-        assertEquals(new Position2D(0, 2 * (-Speed.FAST.getValue())), e2.getPosition());
+        assertEquals(new Position2D(0, 2 * (-SpeedLevels.FAST.getValue())), e2.getPosition());
         e2.updateState();
         //Here we have a collision, so the position should be the same as the previous
-        assertEquals(new Position2D(0, 2 * (-Speed.FAST.getValue())), e2.getPosition());
+        assertEquals(new Position2D(0, 2 * (-SpeedLevels.FAST.getValue())), e2.getPosition());
         /*
          * Test collision in another direction does not affect movement
          */
@@ -116,12 +103,12 @@ public class TestPhysics {
         this.linear = new LinearPhysics(e3, SpeedLevels.FAST, SpeedLevels.FAST, false, false);
         this.linear.setMovement(Direction.LEFT);
         e3.updateState();
-        assertEquals(new Position2D(-Speed.FAST.getValue(), 0), e3.getPosition());
+        assertEquals(new Position2D(-SpeedLevels.FAST.getValue(), 0), e3.getPosition());
         e3.updateState();
-        assertEquals(new Position2D(2 * (-Speed.FAST.getValue()), 0), e3.getPosition());
+        assertEquals(new Position2D(2 * (-SpeedLevels.FAST.getValue()), 0), e3.getPosition());
         e3.updateState();
         //Here we have a collision in a different direction as the current, so the movement should not be affected
-        assertEquals(new Position2D(3 * (-Speed.FAST.getValue()), 0), e3.getPosition());
+        assertEquals(new Position2D(3 * (-SpeedLevels.FAST.getValue()), 0), e3.getPosition());
     }
 
     @Test
@@ -131,13 +118,13 @@ public class TestPhysics {
         linear.setMovement(Direction.RIGHT);
         entity.updateState();
         entity.updateState();
-        assertEquals(new Position2D(2 * Speed.FAST.getValue(), 0), entity.getPosition());
-        entity.updateState();   //Causes a collision and reverses speed on x
-        assertEquals(new Position2D(Speed.FAST.getValue(), 0), entity.getPosition());
+        assertEquals(new Position2D(2 * SpeedLevels.FAST.getValue(), 0), entity.getPosition());
+        entity.updateState();   //Causes a collision and reverses speedLevelsSpeedLevels on x
+        assertEquals(new Position2D(SpeedLevels.FAST.getValue(), 0), entity.getPosition());
         linear.stopOnX();
         linear.setMovement(Direction.UP);
-        entity.updateState();   //Causes a collision and reverses speed on y
-        assertEquals(new Position2D(Speed.FAST.getValue(), Speed.FAST.getValue()), entity.getPosition());
+        entity.updateState();   //Causes a collision and reverses speedLevelsSpeedLevels on y
+        assertEquals(new Position2D(SpeedLevels.FAST.getValue(), SpeedLevels.FAST.getValue()), entity.getPosition());
     }
 
     private final class EntityNoCollisions implements GameEntity {
