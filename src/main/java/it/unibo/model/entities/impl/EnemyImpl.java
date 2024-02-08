@@ -49,12 +49,12 @@ public abstract class EnemyImpl implements Enemy {
     }
 
     @Override
-    public final Boundaries getBoundaries() {           //final?
+    public final Boundaries getBoundaries() {
         return this.box.getBoundaries();
     }
 
     @Override
-    public final Position getPosition() {           //final?
+    public final Position getPosition() {
         return this.position;
     }
 
@@ -82,7 +82,7 @@ public abstract class EnemyImpl implements Enemy {
     }
 
     @Override
-    public final boolean isAlive() {    //TODO: per ora final...
+    public final boolean isAlive() {
         return this.isAlive;
     }
 
@@ -90,12 +90,12 @@ public abstract class EnemyImpl implements Enemy {
      * Sets the condition to the enemy.
      * @param isAlive true if it's alive and false otherwise
      */
-    public void setAlive(final boolean isAlive) {   //TODO: metodo superfluo?
+    public void setAlive(final boolean isAlive) {
         this.isAlive = isAlive;
     }
 
     @Override
-    public final EntityType getType() {         //final?
+    public final EntityType getType() {
         return EntityType.ENEMY;
     }
 
@@ -109,6 +109,7 @@ public abstract class EnemyImpl implements Enemy {
         moveEnemy();
         checkEnemyCollisions();
     }*/
+
     /**
      * Update the correct movement of the enemy checking 
      * collisions or the presence of the player.
@@ -144,7 +145,7 @@ public abstract class EnemyImpl implements Enemy {
         var str = getCollisions().stream()
                 .filter(x -> x.getGameEntity() instanceof Character);
         if (str.anyMatch(x -> x.getDirection().equals(Direction.UP))) {
-            this.isAlive = false;
+            setAlive(false);
         }
     }
 }

@@ -20,7 +20,7 @@ import java.util.Objects;
  * where it cointains all the necessary to create the character.
  * Final because the class doesn't need to be extended
  */
-public final class CharacterImpl implements Character {     //TODO: remove the final comment
+public final class CharacterImpl implements Character {
 
     private final Physics physic;
     private Level level;
@@ -54,18 +54,9 @@ public final class CharacterImpl implements Character {     //TODO: remove the f
         return this.isAlive;
     }
 
-    /**
-     * Sets the condition to the character.
-     * @param isAlive true if it's alive false otherwise
-     */
-    public void setAlive(final boolean isAlive) {
-        this.isAlive = isAlive;
-    }
-
     @Override
     public void updateState() {
         physic.calculateMovement();
-        //this.box.checkCollisions(this.level.getGameEntities()); TODO:causes error with new design
         checkEnemyCollision();
     }
 
@@ -88,7 +79,7 @@ public final class CharacterImpl implements Character {     //TODO: remove the f
     public void move(final Direction dir) {     //TODO: needs to be improved
         if (Objects.nonNull(dir)) {             //i nemici possono modificare la direzione
             physic.setMovement(dir);            //CheckEnemyCollision here?
-        }                                       //TODO:rendere il metodo privato?
+        }
     }
 
     private void checkEnemyCollision() {
@@ -103,9 +94,17 @@ public final class CharacterImpl implements Character {     //TODO: remove the f
                     .collect(Collectors.toSet());
             if (!enemySetCollision.isEmpty()) {
                 if (!enemySetCollision.stream().findFirst().get().getDirection().equals(Direction.UP)) {
-                    this.isAlive = false;
+                    setAlive(false);
                 }
             }
         }
+    }
+
+    /**
+     * Sets the condition to the character.
+     * @param isAlive true if it's alive false otherwise
+     */
+    private void setAlive(final boolean isAlive) {
+        this.isAlive = isAlive;
     }
 }
