@@ -16,8 +16,8 @@ public class LinearPhysics implements Physics {
 
     private final GameEntity entity;
     private Position velocity;
-    private SpeedLevels speedOnX;
-    private SpeedLevels speedOnY;
+    private SpeedLevels maxSpeedOnX;
+    private SpeedLevels maxSpeedOnY;
     private boolean bouncingX;
     private boolean bouncingY;
 
@@ -38,14 +38,14 @@ public class LinearPhysics implements Physics {
         velocity = new Position2D(0, 0);
         // TODO: decide whether to keep this implementation or store the values of speed
         // directly in SpeedLevels
-        this.speedOnX = speedLevelX;
-        this.speedOnY = speedLevelY;
+        this.maxSpeedOnX = speedLevelX;
+        this.maxSpeedOnY = speedLevelY;
         this.bouncingX = bouncingX;
         this.bouncingY = bouncingY;
     }
 
     @Override
-    public final Position calculateMovement() {
+    public Position calculateMovement() {
         this.entity.getCollisions().stream()
                 .map(Collision::getDirection)
                 .forEach(this::handleCollision);
@@ -91,7 +91,7 @@ public class LinearPhysics implements Physics {
      * direction on the x axis as the movement.
      * This implementation sets the speed on the x axis to 0 in case of a collision.
      */
-    protected void handleCollisionX() {
+    private void handleCollisionX() {
         if (this.bouncingX) {
             this.setVelocityX(-this.velocity.getX());
         } else {
@@ -104,7 +104,7 @@ public class LinearPhysics implements Physics {
      * direction on the y axis as the movement.
      * This implementation sets the speed on the y axis to 0 in case of a collision.
      */
-    protected void handleCollisionY() {
+    private void handleCollisionY() {
         if (this.bouncingY) {
             this.setVelocityY(-this.velocity.getY());
         } else {
@@ -116,16 +116,16 @@ public class LinearPhysics implements Physics {
     public final void setMovement(final Direction direction) {
         switch (direction) {
             case UP:
-                setVelocityY(-this.speedOnY.getValue());
+                setVelocityY(-this.maxSpeedOnY.getValue());
                 break;
             case DOWN:
-                setVelocityY(this.speedOnY.getValue());
+                setVelocityY(this.maxSpeedOnY.getValue());
                 break;
             case LEFT:
-                setVelocityX(-this.speedOnX.getValue());
+                setVelocityX(-this.maxSpeedOnX.getValue());
                 break;
             case RIGHT:
-                setVelocityX(this.speedOnX.getValue());
+                setVelocityX(this.maxSpeedOnX.getValue());
                 break;
             default:
                 throw new IllegalStateException("Invalid value for Direction");
@@ -137,7 +137,7 @@ public class LinearPhysics implements Physics {
      * 
      * @param xVelocity the velocity to set
      */
-    protected final void setVelocityX(final double xVelocity) {
+    protected void setVelocityX(final double xVelocity) {
         this.velocity = new Position2D(xVelocity, this.velocity.getY());
     }
 
