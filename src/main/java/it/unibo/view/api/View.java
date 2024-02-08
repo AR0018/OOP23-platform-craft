@@ -1,4 +1,4 @@
-package it.unibo.view;
+package it.unibo.view.api;
 
 import it.unibo.common.SimpleEntity;
 import java.util.Set;
