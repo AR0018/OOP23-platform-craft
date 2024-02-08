@@ -30,7 +30,7 @@ public final class Position2D extends Coordinate implements Position {
             equal = Math.max(this.x, pos.x) - Math.min(this.x, pos.x) < tolerance
             && Math.max(this.y, pos.y) - Math.min(this.y, pos.y) < tolerance;
         }
-        return super.equals(other) && equal;
+        return equal;
     }
 
     @Override
