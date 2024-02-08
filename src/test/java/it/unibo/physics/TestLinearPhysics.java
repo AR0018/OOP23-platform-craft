@@ -19,13 +19,13 @@ import it.unibo.model.physics.impl.Position2D;
 /**
  * Class for testing the physics.
  */
-public class TestPhysics {
+public class TestLinearPhysics {
 
     private Physics linear;
     //private Physics accelerated;
 
     @Test
-    void testLinearPhysics() {
+    void testLinearMovement() {
         final EntityNoCollisions entity = new EntityNoCollisions(new Position2D(0, 0));
         this.linear = new LinearPhysics(entity, SpeedLevels.FAST, SpeedLevels.FAST, false, false);
         entity.updateState();

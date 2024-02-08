@@ -12,6 +12,7 @@ public class AcceleratedPhysics extends LinearPhysics {
 
     private static final double ACCELERATION = 0.1;
     private final boolean falling;
+    private boolean hasAccelerated;
 
     /**
      * @param entity the GameEntity affected by this Physics
@@ -30,6 +31,7 @@ public class AcceleratedPhysics extends LinearPhysics {
         final boolean falling) {
         super(entity, speedLevelX, speedLevelY, bouncingX, bouncingY);
         this.falling = falling;
+        this.hasAccelerated = false;
     }
 
     /**
@@ -40,7 +42,10 @@ public class AcceleratedPhysics extends LinearPhysics {
     @Override
     public Position calculateMovement() {
         Position pos = super.calculateMovement();
-        this.setVelocityX(0);
+        if (!this.hasAccelerated) {
+            this.setVelocityX(0);
+            this.hasAccelerated = false;
+        }
         if (this.falling) {
             super.setVelocityY(super.getVelocity().getY() + ACCELERATION);
         }
@@ -76,6 +81,7 @@ public class AcceleratedPhysics extends LinearPhysics {
             }
         }
         super.setVelocityX(newVel);
+        this.hasAccelerated = true;
     }
 
 }
