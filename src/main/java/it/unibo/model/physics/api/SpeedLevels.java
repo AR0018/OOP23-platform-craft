@@ -7,13 +7,26 @@ public enum SpeedLevels {
     /**
      * Fast movement speed.
      */
-    FAST,
+    FAST(1),
     /**
      * Medium movement speed.
      */
-    MEDIUM,
+    MEDIUM(0.6),
     /**
      * Slow movement speed.
      */
-    SLOW;
+    SLOW(0.3);
+
+    private double value;
+
+    SpeedLevels(final double value){
+        this.value = value;
+    }
+
+    /**
+     * @return the speed value associated to this speed level
+     */
+    public double getValue() {
+        return this.value;
+    }
 }
