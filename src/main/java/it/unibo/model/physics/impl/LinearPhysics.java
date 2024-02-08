@@ -67,7 +67,44 @@ public abstract class LinearPhysics implements Physics {
      * Defines the behaviour of this Physics in case of a collision.
      * @param dir the direction of the collision
      */
-    protected abstract void handleCollision(Direction dir);
+    private void handleCollision(final Direction dir) {
+        switch (dir) {
+            case UP:
+                if (velocity.getY() < 0) {
+                    handleCollisionY();
+                }
+                break;
+            case DOWN:
+                if (velocity.getY() > 0) {
+                    handleCollisionY();
+                }
+                break;
+            case LEFT:
+                if (velocity.getX() < 0) {
+                    handleCollisionX();
+                }
+                break;
+            case RIGHT:
+                if (velocity.getX() > 0) {
+                    handleCollisionX();
+                }
+                break;
+            default:
+                throw new IllegalStateException("Invalid value for Direction");
+        }
+    }
+
+    /**
+     * Defines the behaviour in case there is a collision in the same
+     * direction on the x axis as the movement.
+     */
+    protected abstract void handleCollisionX();
+
+    /**
+     * Defines the behaviour in case there is a collision in the same
+     * direction on the y axis as the movement.
+     */
+    protected abstract void handleCollisionY();
 
     @Override
     public final void setMovement(final Direction direction) {
@@ -89,11 +126,19 @@ public abstract class LinearPhysics implements Physics {
         }
     }
 
-    private void setVelocityX(final double xVelocity) {
+    /**
+     * Sets the velocity of this Physics on the x axis.
+     * @param xVelocity the velocity to set
+     */
+    protected final void setVelocityX(final double xVelocity) {
         this.velocity = new Position2D(xVelocity, this.velocity.getY());
     }
 
-    private void setVelocityY(final double yVelocity) {
+    /**
+     * Sets the velocity of this Physics on the y axis.
+     * @param yVelocity the velocity to set
+     */
+    protected final void setVelocityY(final double yVelocity) {
         this.velocity = new Position2D(this.velocity.getX(), yVelocity);
     }
 
