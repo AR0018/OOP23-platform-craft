@@ -36,14 +36,14 @@ public final class StrongEnemyImpl extends EnemyImpl {
                 .create();
     }
 
-    @Override
+    /*@Override
     public void updateState() {
         moveEnemy();
         this.physics.calculateMovement();
         checkEnemyCollisions();
-    }
+    }*/
 
-    private void moveEnemy() {
+    protected void moveEnemy() {
         if (playerIsVisible(getCharacter()) && playerInRange(getCharacter())) {
             if (getCharacter().getPosition().getX() > getPosition().getX()) {
                 setDirection(Direction.RIGHT);
@@ -53,6 +53,7 @@ public final class StrongEnemyImpl extends EnemyImpl {
         } else {
             this.physics.setMovement(getDirection());
         }
+        this.physics.calculateMovement();
     }
 
     private boolean playerIsVisible(final Character character) {    //TODO: metodo per capire se avviene

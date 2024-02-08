@@ -60,7 +60,7 @@ public abstract class EnemyImpl implements Enemy {
      * Obtain the direction where the enemy moves.
      * @return the direction
      */
-    public Direction getDirection() {   //TODO: forse superfluo il metodo
+    public Direction getDirection() {   //TODO: protected?
         return this.direction;
     }
 
@@ -68,7 +68,7 @@ public abstract class EnemyImpl implements Enemy {
      * Sets the right direction of the enemy.
      * @param direction the direction
      */
-    public void setDirection(final Direction direction) {
+    protected void setDirection(final Direction direction) {
         this.direction = direction;
     }
 
@@ -88,7 +88,7 @@ public abstract class EnemyImpl implements Enemy {
      * Sets the condition to the enemy.
      * @param isAlive true if it's alive and false otherwise
      */
-    public void setAlive(final boolean isAlive) {
+    protected void setAlive(final boolean isAlive) {
         this.isAlive = isAlive;
     }
 
@@ -102,17 +102,17 @@ public abstract class EnemyImpl implements Enemy {
         return this.box.getCollisions(this.level.getGameEntities());
     }
 
-    /*@Override
+    @Override
     public void updateState() {     //TODO: sistemare bene updateState
         moveEnemy();
         checkEnemyCollisions();
-    }*/
+    }
 
     /**
      * Update the correct movement of the enemy checking 
      * collisions or the presence of the player.
      */
-    public abstract void updateState(); /*{
+    /*public abstract void updateState() {
         this.physics.calculateMovement();
         checkEnemyCollisions();
     }*/
@@ -120,7 +120,7 @@ public abstract class EnemyImpl implements Enemy {
     /**
      * This method lets the enemy moves in the right direction.
      */
-    //public abstract void moveEnemy();
+    protected abstract void moveEnemy();           //Template method
 
     /**
      * Check if the enemy has some collisions. 

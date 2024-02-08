@@ -25,14 +25,15 @@ public final class SimpleEnemyImpl extends EnemyImpl {
                 .addAccelerationOnX().create();
     }
 
-    private void moveEnemy() {
+    protected void moveEnemy() {
         this.physics.setMovement(getDirection());
+        this.physics.calculateMovement();
     }
 
-    @Override
+    /*@Override
     public void updateState() {
         moveEnemy();
         this.physics.calculateMovement();
         checkEnemyCollisions();
-    }
+    }*/
 }
