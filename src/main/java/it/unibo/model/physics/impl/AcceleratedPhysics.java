@@ -44,11 +44,11 @@ public class AcceleratedPhysics extends LinearPhysics {
         Position pos = super.calculateMovement();
         if (!this.hasAccelerated) {
             this.setVelocityX(0);
-            this.hasAccelerated = false;
         }
         if (this.falling) {
             super.setVelocityY(super.getVelocity().getY() + ACCELERATION);
         }
+        this.hasAccelerated = false;
         return pos;
     }
 
@@ -66,11 +66,13 @@ public class AcceleratedPhysics extends LinearPhysics {
             if (newVel > xVelocity) {
                 newVel = xVelocity;
             }
+            this.hasAccelerated = true;
         } else if (xVelocity < 0) {
             newVel -= ACCELERATION;
             if (newVel < xVelocity) {
                 newVel = xVelocity;
             }
+            this.hasAccelerated = true;
         } else {    //If the velocity passed is 0, it decelerates the object. Used in calculateMovement.
             if (newVel > 0) {
                 newVel -= ACCELERATION;
@@ -81,7 +83,6 @@ public class AcceleratedPhysics extends LinearPhysics {
             }
         }
         super.setVelocityX(newVel);
-        this.hasAccelerated = true;
     }
 
 }
