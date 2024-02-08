@@ -1,7 +1,6 @@
 package it.unibo.physics;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Set;
 
@@ -21,13 +20,12 @@ import it.unibo.model.physics.impl.Position2D;
 public class TestAcceleratedPhysics {
     
     private Physics physics;
-    private final double ACCELERATION = 0.1; //Value may change
+    private static final double ACCELERATION = 0.1; //Value may change
 
     @Test
     void testAcceleratedMovement() {
         EntityNoCollisions entity = new EntityNoCollisions(new Position2D(0, 0));
         this.physics = new AcceleratedPhysics(entity, SpeedLevels.FAST, SpeedLevels.FAST, false, false, false);
-        //assertTrue(new Position2D(0.3, 0).equals(new Position2D(0.301, 0)));
         /**
          * Test acceleration
          */
@@ -110,6 +108,7 @@ public class TestAcceleratedPhysics {
         entity.updateState();
         //The physics must not decelerate downwards because of the collision, but it still needs to move right
         assertEquals(new Position2D(ACCELERATION, 0), entity.getPosition());
+        this.physics.setMovement(Direction.RIGHT);
         entity.updateState();
         assertEquals(new Position2D(3 * ACCELERATION, 0), entity.getPosition());
         entity.updateState();
