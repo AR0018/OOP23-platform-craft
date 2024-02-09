@@ -23,6 +23,7 @@ public abstract class GameEntityImpl implements GameEntity {
     /**
      * Constructor for the GameEntity who needs a initial position.
      * @param position the initial position
+     * @param level the level of the game
      */
     public GameEntityImpl(final Position position, final Level level) {
         Objects.requireNonNull(position);

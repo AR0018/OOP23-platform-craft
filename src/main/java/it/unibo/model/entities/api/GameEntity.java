@@ -5,7 +5,6 @@ import java.util.Set;
 import it.unibo.common.EntityType;
 import it.unibo.model.collisions.api.Boundaries;
 import it.unibo.model.collisions.api.Collision;
-import it.unibo.model.physics.api.Direction;
 import it.unibo.model.physics.api.Position;
 
 //TODO: correct documentation

@@ -19,6 +19,7 @@ public final class SimpleEnemyImpl extends EnemyImpl {
     /**
      * Constructor for simpleEnemy.
      * @param position is the beginning position of the simpleEnemy
+     * @param level the level of the game
      */
     public SimpleEnemyImpl(final Position position, final Level level) {
         super(position, EntitySize.NORMAL, level);
@@ -27,6 +28,9 @@ public final class SimpleEnemyImpl extends EnemyImpl {
                 .addAccelerationOnX().create();
     }
 
+    /**
+     * Carrise out checks on the enemy's movement.
+     */
     protected void moveEnemy() {
         this.physics.setMovement(getDirection());
         this.physics.calculateMovement();

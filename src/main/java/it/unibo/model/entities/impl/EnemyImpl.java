@@ -29,6 +29,7 @@ public abstract class EnemyImpl extends GameEntityImpl implements Enemy {
      * to move.
      * @param position the first position of the enemy
      * @param size is the size of the enemy
+     * @param level is the level of the game
      */
     public EnemyImpl(final Position position, final EntitySize size, final Level level) {
         super(position, level);

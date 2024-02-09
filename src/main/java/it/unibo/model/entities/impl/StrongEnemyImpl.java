@@ -26,12 +26,13 @@ public final class StrongEnemyImpl extends EnemyImpl {
      * @param position indicates the initial position of the enemy
      * @param size indicates the size of the enemy
      * @param speed indicates the enemy's movement speed
+     * @param level the level of the game
      */
-    public StrongEnemyImpl(final Position position, final EntitySize size
-            , final SpeedLevels speed, final Level level) {
-        super(position, size, level);                                  //TODO: modificare il costruttore
-        this.physics = this.builder.setGameEntity(this)         //per essere un po più liberi anche scegliere
-                .addAccelerationOnX()                           //la velocità
+    public StrongEnemyImpl(final Position position, final EntitySize size, 
+            final SpeedLevels speed, final Level level) {
+        super(position, size, level);
+        this.physics = this.builder.setGameEntity(this)
+                .addAccelerationOnX()
                 .addFallingPhysics()
                 .setSpeedOnX(speed)
                 .create();
@@ -44,6 +45,9 @@ public final class StrongEnemyImpl extends EnemyImpl {
         checkEnemyCollisions();
     }*/
 
+    /**
+     * Checks if during the movement the has encountered the player.
+     */
     protected void moveEnemy() {
         if (playerIsVisible(getCharacter()) && playerInRange(getCharacter())) {
             if (getCharacter().getPosition().getX() > getPosition().getX()) {

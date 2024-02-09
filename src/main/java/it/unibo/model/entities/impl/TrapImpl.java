@@ -18,7 +18,8 @@ public final class TrapImpl extends GameEntityImpl implements Trap {
 
     /**
      * Constructor of the trap.
-     * @param position
+     * @param position the first position assigned to the trap
+     * @param level the level of the game
      */
     public TrapImpl(final Position position, final Level level) {
         super(position, level);

@@ -13,6 +13,7 @@ public class MapElementImpl extends GameEntityImpl implements MapElement {
     /**
      * Constructor for the MapElements that needs the first position.
      * @param position the first position of the MapElement
+     * @param level the level of the game
      */
     public MapElementImpl(final Position position, final Level level) {
         super(position, level);
@@ -26,7 +27,6 @@ public class MapElementImpl extends GameEntityImpl implements MapElement {
      */
     @Override
     public void updateState() {
-    
     }
 
     /**

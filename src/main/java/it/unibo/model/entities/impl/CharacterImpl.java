@@ -26,6 +26,7 @@ public final class CharacterImpl extends GameEntityImpl implements Character {
     /**
      * It is the constructor of the class to initialize the character itself.
      * @param position the initial coordinate of the character
+     * @param level the level of the game
      */
     public CharacterImpl(final Position position, final Level level) {
         super(position, level);
@@ -60,8 +61,8 @@ public final class CharacterImpl extends GameEntityImpl implements Character {
                     .stream()
                     .filter(x -> x.getGameEntity() instanceof Trap)
                     .collect(Collectors.toSet());
-            if(!trapCollisions.isEmpty()) {
-                var trap = (Trap)trapCollisions.stream().findFirst().get().getGameEntity();
+            if (!trapCollisions.isEmpty()) {
+                var trap = (Trap) trapCollisions.stream().findFirst().get().getGameEntity();
                 if (trap.getTrapState().equals(TrapState.DEAD)) {           //TODO: controllare se può funzionare
                     setAlive(false);
                 }

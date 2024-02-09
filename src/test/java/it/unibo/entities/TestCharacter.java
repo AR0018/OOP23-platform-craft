@@ -3,7 +3,6 @@ package it.unibo.entities;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import org.junit.jupiter.api.Test;
@@ -28,7 +27,6 @@ public class TestCharacter {
 
     private Character player;
     private EnemyImpl enemy;
-    private MapElementImpl mapElement;
     private Level level = new Lv();
 
     @Test
@@ -75,7 +73,7 @@ public class TestCharacter {
         }
 
         @Override
-        public void addGameEntity(GameEntity entity) {
+        public void addGameEntity(final GameEntity entity) {
             this.st.add(entity);
         }
 
@@ -86,13 +84,13 @@ public class TestCharacter {
         }
 
         @Override
-        public void moveCharacter(Direction dir) {
+        public void moveCharacter(final Direction dir) {
             // TODO Auto-generated method stub
             throw new UnsupportedOperationException("Unimplemented method 'moveCharacter'");
         }
 
         @Override
-        public void addFinishLocation(Position position) {
+        public void addFinishLocation(final Position position) {
             // TODO Auto-generated method stub
             throw new UnsupportedOperationException("Unimplemented method 'addFinishLocation'");
         }
