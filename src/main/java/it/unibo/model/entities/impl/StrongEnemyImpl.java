@@ -2,6 +2,7 @@ package it.unibo.model.entities.impl;
 
 import it.unibo.model.entities.api.Character;
 import it.unibo.model.entities.api.GameEntity;
+import it.unibo.model.level.api.Level;
 import it.unibo.model.entities.api.EntitySize;
 import it.unibo.model.physics.api.Direction;
 import it.unibo.model.physics.api.Physics;
@@ -25,8 +26,9 @@ public final class StrongEnemyImpl extends EnemyImpl {
      * @param size indicates the size of the enemy
      * @param speed indicates the enemy's movement speed
      */
-    public StrongEnemyImpl(final Position position, final EntitySize size, final SpeedLevels speed) {
-        super(position, size);                                  //TODO: modificare il costruttore
+    public StrongEnemyImpl(final Position position, final EntitySize size
+            , final SpeedLevels speed, final Level level) {
+        super(position, size, level);                                  //TODO: modificare il costruttore
         this.physics = this.builder.setGameObject(this)         //per essere un po più liberi anche scegliere
                 .addAccelerationOnX()                           //la velocità
                 .addFallingPhysics()

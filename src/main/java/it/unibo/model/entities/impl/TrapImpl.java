@@ -2,6 +2,7 @@ package it.unibo.model.entities.impl;
 
 import it.unibo.common.EntityType;
 import it.unibo.model.entities.api.Character;
+import it.unibo.model.level.api.Level;
 import it.unibo.model.physics.api.Position;
 
 /**
@@ -16,8 +17,8 @@ public final class TrapImpl extends MapElementImpl {
      * Constructor of the trap.
      * @param position
      */
-    public TrapImpl(final Position position) {
-        super(position);
+    public TrapImpl(final Position position, final Level level) {
+        super(position, level);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package it.unibo.model.entities.impl;
 
 import it.unibo.model.entities.api.EntitySize;
+import it.unibo.model.level.api.Level;
 import it.unibo.model.physics.api.Physics;
 import it.unibo.model.physics.api.PhysicsBuilder;
 import it.unibo.model.physics.api.Position;
@@ -18,8 +19,8 @@ public final class SimpleEnemyImpl extends EnemyImpl {
      * Constructor for simpleEnemy.
      * @param position is the beginning position of the simpleEnemy
      */
-    public SimpleEnemyImpl(final Position position) {
-        super(position, EntitySize.NORMAL);
+    public SimpleEnemyImpl(final Position position, final Level level) {
+        super(position, EntitySize.NORMAL, level);
         this.physics = this.builder.setGameObject(this)
                 .setSpeedOnX(SpeedLevels.SLOW)
                 .addAccelerationOnX().create();

@@ -3,6 +3,7 @@ package it.unibo.model.entities.impl;
 import it.unibo.common.EntityType;
 import it.unibo.model.entities.api.Character;
 import it.unibo.model.entities.api.Enemy;
+import it.unibo.model.level.api.Level;
 import it.unibo.model.physics.api.Direction;
 import it.unibo.model.physics.api.Physics;
 import it.unibo.model.physics.api.PhysicsBuilder;
@@ -22,8 +23,8 @@ public final class CharacterImpl extends GameEntityImpl implements Character {
      * It is the constructor of the class to initialize the character itself.
      * @param position the initial coordinate of the character
      */
-    public CharacterImpl(final Position position) {
-        super(position);
+    public CharacterImpl(final Position position, final Level level) {
+        super(position, level);
         this.physic = this.physicsBuilder
                 .setGameObject(this)
                 .addAccelerationOnX()
