@@ -17,8 +17,11 @@ import it.unibo.model.physics.api.SpeedLevels;
 import it.unibo.model.physics.impl.AcceleratedPhysics;
 import it.unibo.model.physics.impl.Position2D;
 
+/**
+ * Test class for accelerated physics.
+ */
 public class TestAcceleratedPhysics {
-    
+
     private Physics physics;
     private static final double ACCELERATION = 0.1; //Value may change
 
@@ -29,41 +32,48 @@ public class TestAcceleratedPhysics {
         /**
          * Test acceleration
          */
+        int timesAccel = 0;
         this.physics.setMovement(Direction.RIGHT);
         entity.updateState();
-        assertEquals(new Position2D(ACCELERATION, 0), entity.getPosition());
+        timesAccel++;
+        assertEquals(new Position2D(timesAccel * ACCELERATION, 0), entity.getPosition());
         this.physics.setMovement(Direction.RIGHT);
         entity.updateState();
-        assertEquals(new Position2D(3 * ACCELERATION, 0), entity.getPosition());
+        timesAccel += 2;
+        assertEquals(new Position2D(timesAccel * ACCELERATION, 0), entity.getPosition());
         /*
          * Test deceleration
          */
+        timesAccel += 2;
         entity.updateState();       //Position = 5 * ACCELERATION
-        assertEquals(new Position2D(5 * ACCELERATION, 0), entity.getPosition());
+        assertEquals(new Position2D(timesAccel * ACCELERATION, 0), entity.getPosition());
         entity.updateState();       //Position = 6 * ACCELERATION
-        assertEquals(new Position2D(6 * ACCELERATION, 0), entity.getPosition());
+        timesAccel++;
+        assertEquals(new Position2D(timesAccel * ACCELERATION, 0), entity.getPosition());
         //Velocity on x = 0
         entity.updateState();
         entity.updateState();
         //The physics should have decelerated to 0, so it shouldn't have moved
-        assertEquals(new Position2D(6 * ACCELERATION, 0), entity.getPosition());
+        assertEquals(new Position2D(timesAccel * ACCELERATION, 0), entity.getPosition());
         //Sets the speed to 6 * ACCELERATION
-        for(int i = 0; i < 6; i++) {
+        for (int i = 0; i < timesAccel; i++) {
             this.physics.setMovement(Direction.RIGHT);
         }
         this.physics.setMovement(Direction.LEFT);   //Accelerates to the left, decreasing the velocity on x
         entity.updateState();
-        assertEquals(new Position2D(11 * ACCELERATION, 0), entity.getPosition());
+        assertEquals(new Position2D((2 * timesAccel - 1) * ACCELERATION, 0), entity.getPosition());
         /*
          * Test maximum speed
          */
         this.physics.stopOnX();
         //Tries increasing the speed above the maximum value
-        for(int i = 0; i < (SpeedLevels.FAST.getValue() / ACCELERATION) + 1; i++) {
+        for (int i = 0; i < (SpeedLevels.FAST.getValue() / ACCELERATION) + 1; i++) {
             this.physics.setMovement(Direction.LEFT);
         }
         entity.updateState();
-        assertEquals(new Position2D((11 * ACCELERATION) - SpeedLevels.FAST.getValue(), 0), entity.getPosition());
+        assertEquals(
+            new Position2D(((2 * timesAccel - 1) * ACCELERATION) - SpeedLevels.FAST.getValue(), 0),
+            entity.getPosition());
         /*
          * Test deceleration in the opposite direction
          */
@@ -71,14 +81,16 @@ public class TestAcceleratedPhysics {
         this.physics.stopOnX();
         this.physics.setMovement(Direction.LEFT);
         this.physics.setMovement(Direction.LEFT);
-        this.physics.setMovement(Direction.LEFT); //Velocity = 3 * ACCELERATION  
+        this.physics.setMovement(Direction.LEFT); //Velocity = 3 * ACCELERATION
         this.physics.setMovement(Direction.RIGHT); //Velocity = 2 * ACCELERATION
         entity.updateState();
-        assertEquals(new Position2D(-(2 * ACCELERATION), 0), entity.getPosition());
+        timesAccel = 2;
+        assertEquals(new Position2D(-(timesAccel * ACCELERATION), 0), entity.getPosition());
         entity.updateState();   //Position = -(4 * ACCELERATION)
         entity.updateState();   //Position = -(5 * ACCELERATION)
         entity.updateState();   //Position = -(5 * ACCELERATION)
-        assertEquals(new Position2D(-(5 * ACCELERATION), 0), entity.getPosition());
+        timesAccel += 3;
+        assertEquals(new Position2D(-(timesAccel * ACCELERATION), 0), entity.getPosition());
     }
 
     @Test
@@ -198,7 +210,9 @@ public class TestAcceleratedPhysics {
              */
             @Override
             public Set<Collision> getCollisions() {
-                return counter >= 2 ? Set.of(new Coll(Direction.DOWN), new Coll(Direction.RIGHT)) : Set.of(new Coll(Direction.DOWN));
+                return counter >= 2 
+                    ? Set.of(new Coll(Direction.DOWN), new Coll(Direction.RIGHT))
+                    : Set.of(new Coll(Direction.DOWN));
             }
 
             @Override

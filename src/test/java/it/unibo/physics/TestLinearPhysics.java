@@ -17,7 +17,7 @@ import it.unibo.model.physics.impl.LinearPhysics;
 import it.unibo.model.physics.impl.Position2D;
 
 /**
- * Class for testing the physics.
+ * Test class for linear physics.
  */
 public class TestLinearPhysics {
 

@@ -1,5 +1,7 @@
 package it.unibo.model.physics.impl;
 
+import java.util.Objects;
+
 import it.unibo.model.collisions.api.Collision;
 import it.unibo.model.entities.api.GameEntity;
 import it.unibo.model.physics.api.Direction;
@@ -27,6 +29,7 @@ public class LinearPhysics implements Physics {
      * @param speedLevelY the desired speed on the Y axis
      * @param bouncingX true if this Physics needs to bounce in case of a collision on the x axis
      * @param bouncingY true if this Physics needs to bounce in case of a collision on the y axis
+     * @throws NullPointerException if a null parameter is passed
      */
     public LinearPhysics(
             final GameEntity entity,
@@ -34,16 +37,22 @@ public class LinearPhysics implements Physics {
             final SpeedLevels speedLevelY,
             final boolean bouncingX,
             final boolean bouncingY) {
-        this.entity = entity;
+        this.entity = Objects.requireNonNull(entity);
         velocity = new Position2D(0, 0);
-        // TODO: decide whether to keep this implementation or store the values of speed
-        // directly in SpeedLevels
-        this.maxSpeedOnX = speedLevelX;
-        this.maxSpeedOnY = speedLevelY;
+        this.maxSpeedOnX = Objects.requireNonNull(speedLevelX);
+        this.maxSpeedOnY = Objects.requireNonNull(speedLevelY);
         this.bouncingX = bouncingX;
         this.bouncingY = bouncingY;
     }
 
+    /**
+     * Modifies the position according to a linear movement.
+     * This method also takes into account the state of the collision of the GameEntity
+     * (if there is a collision in a certain direction, it modifies the object's speed in that direction).
+     * 
+     * This method can be overridden by modifiying the velocity of the physics after calling this method.
+     * @return the new position of the entity after calculating the movement
+     */
     @Override
     public Position calculateMovement() {
         this.entity.getCollisions().stream()
@@ -54,10 +63,8 @@ public class LinearPhysics implements Physics {
                 entity.getPosition().getY() + this.velocity.getY());
     }
 
-    /**
+    /*
      * Defines the behaviour of this Physics in case of a collision.
-     * 
-     * @param dir the direction of the collision
      */
     private void handleCollision(final Direction dir) {
         switch (dir) {
@@ -82,14 +89,15 @@ public class LinearPhysics implements Physics {
                 }
                 break;
             default:
-                throw new IllegalStateException("Invalid value for Direction");
+                throw new IllegalArgumentException("Invalid value for Direction");
         }
     }
 
-    /**
+    /*
      * Defines the behaviour in case there is a collision in the same
      * direction on the x axis as the movement.
-     * This implementation sets the speed on the x axis to 0 in case of a collision.
+     * If bouncing is true, flips the speed of the object, otherwise it stops the object
+     * in case of a collision.
      */
     private void handleCollisionX() {
         if (this.bouncingX) {
@@ -99,10 +107,11 @@ public class LinearPhysics implements Physics {
         }
     }
 
-    /**
+    /*
      * Defines the behaviour in case there is a collision in the same
      * direction on the y axis as the movement.
-     * This implementation sets the speed on the y axis to 0 in case of a collision.
+     * If bouncing is true, flips the speed of the object, otherwise it stops the object
+     * in case of a collision.
      */
     private void handleCollisionY() {
         if (this.bouncingY) {
@@ -128,7 +137,7 @@ public class LinearPhysics implements Physics {
                 setVelocityX(this.maxSpeedOnX.getValue());
                 break;
             default:
-                throw new IllegalStateException("Invalid value for Direction");
+                throw new IllegalArgumentException("Invalid value for Direction");
         }
     }
 
