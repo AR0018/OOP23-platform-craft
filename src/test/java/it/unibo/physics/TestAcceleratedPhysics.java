@@ -28,7 +28,7 @@ public class TestAcceleratedPhysics {
     @Test
     void testAcceleratedMovement() {
         EntityNoCollisions entity = new EntityNoCollisions(new Position2D(0, 0));
-        this.physics = new AcceleratedPhysics(entity, SpeedLevels.FAST, SpeedLevels.FAST, false, false, false);
+        this.physics = new AcceleratedPhysics(entity, SpeedLevels.FAST, SpeedLevels.FAST, false, false, true, false);
         /**
          * Test acceleration
          */
@@ -96,14 +96,16 @@ public class TestAcceleratedPhysics {
     @Test
     void testMovementWithFalling() {
         EntityNoCollisions entity = new EntityNoCollisions(new Position2D(0, 0));
-        this.physics = new AcceleratedPhysics(entity, SpeedLevels.FAST, SpeedLevels.FAST, false, false, true);
+        this.physics = new AcceleratedPhysics(entity, SpeedLevels.FAST, SpeedLevels.FAST, false, false, false, true);
         entity.updateState();
         assertEquals(new Position2D(0, 0), entity.getPosition());
         entity.updateState();
         assertEquals(new Position2D(0, ACCELERATION), entity.getPosition());
+        physics.setMovement(Direction.RIGHT); //Sets linear movement to the right
         entity.updateState();
-        assertEquals(new Position2D(0, 3 * ACCELERATION), entity.getPosition());
+        assertEquals(new Position2D(SpeedLevels.FAST.getValue(), 3 * ACCELERATION), entity.getPosition());
         entity.position = new Position2D(0, 0);
+        this.physics.stopOnX();
         this.physics.stopOnY();
         this.physics.setMovement(Direction.UP);
         entity.updateState();
@@ -115,7 +117,7 @@ public class TestAcceleratedPhysics {
     @Test
     void testWithCollisions() {
         EntityWithCollisions entity = new EntityWithCollisions(new Position2D(0, 0));
-        this.physics = new AcceleratedPhysics(entity, SpeedLevels.FAST, SpeedLevels.FAST, false, false, true);
+        this.physics = new AcceleratedPhysics(entity, SpeedLevels.FAST, SpeedLevels.FAST, false, false, true, true);
         this.physics.setMovement(Direction.RIGHT);
         entity.updateState();
         //The physics must not decelerate downwards because of the collision, but it still needs to move right
@@ -134,7 +136,7 @@ public class TestAcceleratedPhysics {
 
         private EntityNoCollisions(final Position pos) {
             this.position = pos;
-            physics = new AcceleratedPhysics(this, SpeedLevels.SLOW, SpeedLevels.SLOW, false, false, false);
+            physics = new AcceleratedPhysics(this, SpeedLevels.SLOW, SpeedLevels.SLOW, false, false, true, false);
         }
 
             @Override
@@ -179,7 +181,7 @@ public class TestAcceleratedPhysics {
         private EntityWithCollisions(final Position pos) {
             this.position = pos;
             this.counter = 0;
-            physics = new AcceleratedPhysics(this, SpeedLevels.SLOW, SpeedLevels.SLOW, false, false, false);
+            physics = new AcceleratedPhysics(this, SpeedLevels.SLOW, SpeedLevels.SLOW, false, false, true, false);
         }
 
             @Override

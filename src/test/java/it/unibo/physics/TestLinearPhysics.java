@@ -119,11 +119,11 @@ public class TestLinearPhysics {
         entity.updateState();
         entity.updateState();
         assertEquals(new Position2D(2 * SpeedLevels.FAST.getValue(), 0), entity.getPosition());
-        entity.updateState();   //Causes a collision and reverses speedLevelsSpeedLevels on x
+        entity.updateState();   //Causes a collision and reverses speed on x
         assertEquals(new Position2D(SpeedLevels.FAST.getValue(), 0), entity.getPosition());
         linear.stopOnX();
         linear.setMovement(Direction.UP);
-        entity.updateState();   //Causes a collision and reverses speedLevelsSpeedLevels on y
+        entity.updateState();   //Causes a collision and reverses speed on y
         assertEquals(new Position2D(SpeedLevels.FAST.getValue(), SpeedLevels.FAST.getValue()), entity.getPosition());
     }
 

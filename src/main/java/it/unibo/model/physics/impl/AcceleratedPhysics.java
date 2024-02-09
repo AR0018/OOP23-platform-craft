@@ -5,13 +5,14 @@ import it.unibo.model.physics.api.Position;
 import it.unibo.model.physics.api.SpeedLevels;
 
 /**
- * A Physics which implements a constantly accelerated movement on the x axis.
+ * A Physics which can be configured to implement a constant acceleration on the X axis.
  * This Physics can also be configured to implement gravity.
  */
 public class AcceleratedPhysics extends LinearPhysics {
 
     private static final double ACCELERATION = 0.1;
     private final boolean falling;
+    private final boolean acceleratedX;
     private boolean hasAccelerated;
 
     /**
@@ -20,7 +21,9 @@ public class AcceleratedPhysics extends LinearPhysics {
      * @param speedLevelY the desired speed on the Y axis
      * @param bouncingX true if this Physics needs to bounce in case of a collision on the x axis
      * @param bouncingY true if this Physics needs to bounce in case of a collision on the y axis
+     * @param acceleratedX true if this Physics needs to accelerate on the X axis
      * @param falling true if this Physics needs to apply gravity
+     * If both acceleratedX and falling are false, this Physics behaves the same as LinearPhysics
      */
     public AcceleratedPhysics(
         final GameEntity entity,
@@ -28,8 +31,10 @@ public class AcceleratedPhysics extends LinearPhysics {
         final SpeedLevels speedLevelY,
         final boolean bouncingX,
         final boolean bouncingY,
+        final boolean acceleratedX,
         final boolean falling) {
         super(entity, speedLevelX, speedLevelY, bouncingX, bouncingY);
+        this.acceleratedX = acceleratedX;
         this.falling = falling;
         this.hasAccelerated = false;
     }
@@ -42,7 +47,7 @@ public class AcceleratedPhysics extends LinearPhysics {
     @Override
     public Position calculateMovement() {
         Position pos = super.calculateMovement();
-        if (!this.hasAccelerated) {
+        if (!this.hasAccelerated && this.acceleratedX) {
             this.setVelocityX(0);
         }
         if (this.falling) {
@@ -81,6 +86,9 @@ public class AcceleratedPhysics extends LinearPhysics {
                 newVel += ACCELERATION;
                 newVel = newVel > 0 ? 0 : newVel; //If newVel gets above 0, it is set to 0
             }
+        }
+        if (!acceleratedX) { //If this physics is not accelerated, sets the same behaviour as super.setVelocityX
+            newVel = xVelocity;
         }
         super.setVelocityX(newVel);
     }

@@ -35,8 +35,8 @@ public final class PhysicsBuilderImpl implements PhysicsBuilder {
     }
 
     @Override
-    public PhysicsBuilder setGameObject(final GameEntity obj) {
-        this.entity = Optional.of(Objects.requireNonNull(obj));
+    public PhysicsBuilder setGameEntity(final GameEntity entity) {
+        this.entity = Optional.of(Objects.requireNonNull(entity));
         return this;
     }
 
@@ -80,10 +80,10 @@ public final class PhysicsBuilderImpl implements PhysicsBuilder {
     public Physics create() {
         if (this.entity.equals(Optional.empty())) {
             throw new IllegalStateException("No GameEntity has been defined."
-                + "Call the method setGameObject on this builder with a valid GameEntity");
+                + "Call the method setGameEntity() on this builder with a valid GameEntity");
         }
-        if (acceleratedX) {
-            return new AcceleratedPhysics(entity.get(), speedX, speedY, bouncingX, bouncingY, falling);
+        if (acceleratedX || falling) {
+            return new AcceleratedPhysics(entity.get(), speedX, speedY, bouncingX, bouncingY, acceleratedX, falling);
         }
         return new LinearPhysics(entity.get(), speedX, speedY, bouncingX, bouncingY);
     }
