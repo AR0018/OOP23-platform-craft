@@ -219,7 +219,7 @@ public class TestLinearPhysics {
             }
     }
 
-    private final class Coll implements Collision {
+    private static final class Coll implements Collision {
 
         private Direction dir;
 
