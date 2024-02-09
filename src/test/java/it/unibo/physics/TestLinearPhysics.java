@@ -232,5 +232,11 @@ public class TestLinearPhysics {
             return this.dir;
         }
 
+        @Override
+        public GameEntity getGameEntity() {
+            // TODO Auto-generated method stub
+            throw new UnsupportedOperationException("Unimplemented method 'getGameEntity'");
+        }
+
     }
 }
