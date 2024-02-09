@@ -9,6 +9,7 @@ import it.unibo.model.physics.api.Physics;
 import it.unibo.model.physics.api.PhysicsBuilder;
 import it.unibo.model.physics.api.Position;
 import it.unibo.model.physics.api.SpeedLevels;
+import it.unibo.model.physics.impl.PhysicsBuilderImpl;
 import java.util.List;
 
 /**
@@ -16,9 +17,9 @@ import java.util.List;
  */
 public final class StrongEnemyImpl extends EnemyImpl {
 
-    private static final float VISIBLE_DISTANCE = 5f;
+    private static final float VISIBLE_DISTANCE = 10f;
     private final Physics physics;
-    private PhysicsBuilder builder;
+    private PhysicsBuilder builder = new PhysicsBuilderImpl();
 
     /**
      * Constructor of the StrongEnemy.
@@ -29,7 +30,7 @@ public final class StrongEnemyImpl extends EnemyImpl {
     public StrongEnemyImpl(final Position position, final EntitySize size
             , final SpeedLevels speed, final Level level) {
         super(position, size, level);                                  //TODO: modificare il costruttore
-        this.physics = this.builder.setGameObject(this)         //per essere un po più liberi anche scegliere
+        this.physics = this.builder.setGameEntity(this)         //per essere un po più liberi anche scegliere
                 .addAccelerationOnX()                           //la velocità
                 .addFallingPhysics()
                 .setSpeedOnX(speed)
@@ -56,15 +57,8 @@ public final class StrongEnemyImpl extends EnemyImpl {
         this.physics.calculateMovement();
     }
 
-    private boolean playerIsVisible(final Character character) {    //TODO: metodo per capire se avviene
-        Position charPos = character.getPosition();                 //una collisione prima del character
-        /*for (var entity: this.level.getGameEntities()) {            //TODO: usare uno stream
-            if (entity.getBoundaries().intersectsLine(getPosition(), charPos) 
-                    && !entity.equals(this) && !(entity instanceof Character)) {
-                return false;
-            }
-        }
-        return true;*/
+    private boolean playerIsVisible(final Character character) {
+        Position charPos = character.getPosition();
 
         List<GameEntity> list = getLevel().getGameEntities()
                 .stream()

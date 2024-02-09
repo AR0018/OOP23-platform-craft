@@ -20,6 +20,7 @@ public interface Physics {
      * For instance, calling this method with UP and LEFT will set the X movement to LEFT
      * and the Y movement to UP, so the object will move UP-LEFT.
      * @param direction
+     * @throws IllegalArgumentException if direction is null or invalid
      */
     void setMovement(Direction direction);
 

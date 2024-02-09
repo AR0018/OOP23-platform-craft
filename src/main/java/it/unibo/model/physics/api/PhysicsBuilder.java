@@ -9,19 +9,21 @@ import it.unibo.model.entities.api.GameEntity;
 public interface PhysicsBuilder {
 
     /**
-     * Sets the GameObject that the Physics is associated to.
+     * Sets the GameEntity that the Physics is associated to.
      * This method must be called once in the creation of the Physics, 
      * otherwise the configuration is not complete.
      * @return this builder, for method chaining
-     * @param obj the GameObject
+     * @param entity the GameEntity
+     * @throws NullPointerException if entity is null
      */
-    PhysicsBuilder setGameObject(GameEntity obj);
+    PhysicsBuilder setGameEntity(GameEntity entity);
 
     /**
      * Sets the speed of movement on the X axis to the desired configuration.
      * The default configuration is MEDIUM
      * @param speed
      * @return this builder, for method chaining
+     * @throws NullPointerException if speed is null
      */
     PhysicsBuilder setSpeedOnX(SpeedLevels speed);
 
@@ -30,6 +32,7 @@ public interface PhysicsBuilder {
      * The default configuration is MEDIUM
      * @param speed
      * @return this builder, for method chaining
+     * @throws NullPointerException if speed is null
      */
     PhysicsBuilder setSpeedOnY(SpeedLevels speed);
 
@@ -64,7 +67,7 @@ public interface PhysicsBuilder {
     /**
      * Creates the Physics with the desired configuration.
      * @return the instance of Physics
-     * @throws IllegalStateException if the configuration is invalid (the method setGameObject() has never been called)
+     * @throws IllegalStateException if the configuration is invalid (the method setGameEntity() has never been called)
      */
     Physics create();
 

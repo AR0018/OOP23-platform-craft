@@ -14,17 +14,11 @@ import it.unibo.model.entities.impl.CharacterImpl;
 import it.unibo.model.entities.impl.EnemyImpl;
 import it.unibo.model.entities.impl.MapElementImpl;
 import it.unibo.model.entities.impl.SimpleEnemyImpl;
-import it.unibo.model.entities.impl.TrapImpl;
+import it.unibo.model.level.api.GameState;
 import it.unibo.model.level.api.Level;
 import it.unibo.model.physics.api.Direction;
-import it.unibo.model.physics.api.Physics;
-import it.unibo.model.physics.api.PhysicsBuilder;
 import it.unibo.model.physics.api.Position;
-import it.unibo.model.physics.api.SpeedLevels;
 import it.unibo.model.physics.impl.Position2D;
-import it.unibo.model.collisions.api.Boundaries;
-import it.unibo.model.collisions.api.Collision;
-import it.unibo.model.collisions.api.CollisionBox;
 
 //TODO: bisogna attendere prima le collisioni e la fisica
 /**
@@ -35,119 +29,84 @@ public class TestCharacter {
     private Character player;
     private EnemyImpl enemy;
     private MapElementImpl mapElement;
-    private Level level;
-    private Set<GameEntity> entities = new HashSet<>();
-    private CollisionBox box = new Box();
-    private Set<Collision> collision;
+    private Level level = new Lv();
 
     @Test
     void testCharacter() {
-        this.player = new CharacterImpl(new Position2D(0, 1), level);
-        this.enemy = new SimpleEnemyImpl(new Position2D(1, 1), level);
-        this.mapElement = new MapElementImpl(new Position2D(0, 0), level);
+        this.player = new CharacterImpl(new Position2D(0, 0), level); //y> scendi 
+        this.enemy = new SimpleEnemyImpl(new Position2D(1, 0), level);
         this.level.addGameEntity(player);
         this.level.addGameEntity(enemy);
-        this.level.addGameEntity(mapElement);
+        this.player.updateState();
+        assertEquals(false, this.player.isAlive());
+
+        this.level = new Lv();
+        this.player = new CharacterImpl(new Position2D(1, 0), level);
+        this.enemy = new SimpleEnemyImpl(new Position2D(1, 1), level);
+        this.level.addGameEntity(player);
+        this.level.addGameEntity(enemy);
+        this.player.updateState();
+        assertEquals(true, this.player.isAlive());
+
+        this.level = new Lv();
+        this.player = new CharacterImpl(new Position2D(0, 0), level);
+        this.enemy = new SimpleEnemyImpl(new Position2D(0, 1), level);
+        this.level.addGameEntity(player);
+        this.level.addGameEntity(enemy);
+        this.player.getCollisions();
+        assertEquals(true, this.player.isAlive());
+
+        this.level = new Lv();
+        this.player = new CharacterImpl(new Position2D(0, 1), level);
+        this.enemy = new SimpleEnemyImpl(new Position2D(0, 0), level);
+        this.level.addGameEntity(player);
+        this.level.addGameEntity(enemy);
         this.player.getCollisions();
         assertEquals(false, this.player.isAlive());
     }
 
-    @Test
-    void testEnemiesCollision() {
-        
-    }
+    private class Lv implements Level {
 
-    private class Coll implements Collision {
+        private Set<GameEntity> st = new HashSet<>();
 
-        private Direction dir;
-        private GameEntity entity;
-
-        private  Coll(final Direction dir, final GameEntity entity) {
-            this.dir = dir;
-            this.entity = entity;
+        @Override
+        public Set<GameEntity> getGameEntities() {
+            return st; 
         }
 
         @Override
-        public GameEntity getGameEntity() {
-            return this.entity;
+        public void addGameEntity(GameEntity entity) {
+            this.st.add(entity);
         }
 
         @Override
-        public Direction getDirection() {
-            return this.dir;
-        }
-
-    }
-
-    private class Box implements CollisionBox {
-
-        @Override
-        public Set<Collision> getCollisions(Set<GameEntity> entities) {
-            return Set.of(new Coll(Direction.RIGHT, new SimpleEnemyImpl(null, level)));
-        }
-
-        @Override
-        public boolean isCollidingWith(GameEntity object) {
+        public void computeChanges() {
             // TODO Auto-generated method stub
-            throw new UnsupportedOperationException("Unimplemented method 'isCollidingWith'");
+            throw new UnsupportedOperationException("Unimplemented method 'computeChanges'");
         }
 
         @Override
-        public Boundaries getBoundaries() {
+        public void moveCharacter(Direction dir) {
             // TODO Auto-generated method stub
-            throw new UnsupportedOperationException("Unimplemented method 'isCollidingWith'");
-        }
-
-    }
-
-    private class ph implements PhysicsBuilder {
-
-        @Override
-        public PhysicsBuilder setGameObject(GameEntity obj) {
-            // TODO Auto-generated method stub
-            throw new UnsupportedOperationException("Unimplemented method 'setGameObject'");
+            throw new UnsupportedOperationException("Unimplemented method 'moveCharacter'");
         }
 
         @Override
-        public PhysicsBuilder setSpeedOnX(SpeedLevels speed) {
+        public void addFinishLocation(Position position) {
             // TODO Auto-generated method stub
-            throw new UnsupportedOperationException("Unimplemented method 'setSpeedOnX'");
+            throw new UnsupportedOperationException("Unimplemented method 'addFinishLocation'");
         }
 
         @Override
-        public PhysicsBuilder setSpeedOnY(SpeedLevels speed) {
+        public GameState getGameState() {
             // TODO Auto-generated method stub
-            throw new UnsupportedOperationException("Unimplemented method 'setSpeedOnY'");
+            throw new UnsupportedOperationException("Unimplemented method 'getGameState'");
         }
 
         @Override
-        public PhysicsBuilder addBouncingOnX() {
+        public GameEntity getCharacter() {
             // TODO Auto-generated method stub
-            throw new UnsupportedOperationException("Unimplemented method 'addBouncingOnX'");
-        }
-
-        @Override
-        public PhysicsBuilder addBouncingOnY() {
-            // TODO Auto-generated method stub
-            throw new UnsupportedOperationException("Unimplemented method 'addBouncingOnY'");
-        }
-
-        @Override
-        public PhysicsBuilder addAccelerationOnX() {
-            // TODO Auto-generated method stub
-            throw new UnsupportedOperationException("Unimplemented method 'addAccelerationOnX'");
-        }
-
-        @Override
-        public PhysicsBuilder addFallingPhysics() {
-            // TODO Auto-generated method stub
-            throw new UnsupportedOperationException("Unimplemented method 'addFallingPhysics'");
-        }
-
-        @Override
-        public Physics create() {
-            // TODO Auto-generated method stub
-            throw new UnsupportedOperationException("Unimplemented method 'create'");
+            throw new UnsupportedOperationException("Unimplemented method 'getCharacter'");
         }
 
     }
