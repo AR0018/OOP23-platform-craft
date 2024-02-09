@@ -15,7 +15,7 @@ import it.unibo.model.physics.api.Position;
  */
 public abstract class GameEntityImpl implements GameEntity {
 
-    private Level level;
+    private final Level level;
     private CollisionBox box;
     private Position position;
     private boolean isAlive;
@@ -23,10 +23,12 @@ public abstract class GameEntityImpl implements GameEntity {
     /**
      * Constructor for the GameEntity who needs a initial position.
      * @param position the initial position
+     * @param level the level of the game
      */
-    public GameEntityImpl(final Position position) {
+    public GameEntityImpl(final Position position, final Level level) {
         Objects.requireNonNull(position);
         this.position = position;
+        this.level = level;
         this.isAlive = true;
     }
 

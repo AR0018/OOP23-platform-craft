@@ -46,5 +46,4 @@ public interface GameEntity {
      * @return the boundaries of the game entity
      */
     Boundaries getBoundaries();
-
 }

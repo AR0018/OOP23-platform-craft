@@ -4,6 +4,7 @@ import it.unibo.common.EntityType;
 import it.unibo.model.entities.api.Character;
 import it.unibo.model.entities.api.Enemy;
 import it.unibo.model.entities.api.EntitySize;
+import it.unibo.model.level.api.Level;
 import it.unibo.model.physics.api.Direction;
 import it.unibo.model.physics.api.Position;
 
@@ -28,9 +29,10 @@ public abstract class EnemyImpl extends GameEntityImpl implements Enemy {
      * to move.
      * @param position the first position of the enemy
      * @param size is the size of the enemy
+     * @param level is the level of the game
      */
-    public EnemyImpl(final Position position, final EntitySize size) {
-        super(position);
+    public EnemyImpl(final Position position, final EntitySize size, final Level level) {
+        super(position, level);
         this.size = size;
         setDirection(Direction.RIGHT);
     }
@@ -39,7 +41,7 @@ public abstract class EnemyImpl extends GameEntityImpl implements Enemy {
      * Obtain the direction where the enemy moves.
      * @return the direction
      */
-    protected Direction getDirection() {   //TODO: protected?
+    public final Direction getDirection() {   //TODO: protected?
         return this.direction;
     }
 

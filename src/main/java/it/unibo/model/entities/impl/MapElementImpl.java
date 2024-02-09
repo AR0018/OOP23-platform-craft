@@ -2,6 +2,7 @@ package it.unibo.model.entities.impl;
 
 import it.unibo.common.EntityType;
 import it.unibo.model.entities.api.MapElement;
+import it.unibo.model.level.api.Level;
 import it.unibo.model.physics.api.Position;
 
 /**
@@ -12,9 +13,10 @@ public class MapElementImpl extends GameEntityImpl implements MapElement {
     /**
      * Constructor for the MapElements that needs the first position.
      * @param position the first position of the MapElement
+     * @param level the level of the game
      */
-    public MapElementImpl(final Position position) {
-        super(position);
+    public MapElementImpl(final Position position, final Level level) {
+        super(position, level);
     }
 
     /**
@@ -25,7 +27,6 @@ public class MapElementImpl extends GameEntityImpl implements MapElement {
      */
     @Override
     public void updateState() {
-    
     }
 
     /**

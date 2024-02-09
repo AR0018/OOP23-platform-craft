@@ -3,10 +3,15 @@ package it.unibo.model.entities.impl;
 import it.unibo.common.EntityType;
 import it.unibo.model.entities.api.Character;
 import it.unibo.model.entities.api.Enemy;
+import it.unibo.model.level.api.Level;
 import it.unibo.model.physics.api.Direction;
 import it.unibo.model.physics.api.Physics;
 import it.unibo.model.physics.api.PhysicsBuilder;
 import it.unibo.model.physics.api.Position;
+import it.unibo.model.physics.impl.PhysicsBuilderImpl;
+import it.unibo.model.entities.api.Trap;
+import it.unibo.model.entities.api.TrapState;
+
 import java.util.stream.Collectors;
 import java.util.Objects;
 /**
@@ -17,15 +22,16 @@ import java.util.Objects;
 public final class CharacterImpl extends GameEntityImpl implements Character {
 
     private final Physics physic;
-    private PhysicsBuilder physicsBuilder;
+    private PhysicsBuilder physicsBuilder = new PhysicsBuilderImpl();
     /**
      * It is the constructor of the class to initialize the character itself.
      * @param position the initial coordinate of the character
+     * @param level the level of the game
      */
-    public CharacterImpl(final Position position) {
-        super(position);
+    public CharacterImpl(final Position position, final Level level) {
+        super(position, level);
         this.physic = this.physicsBuilder
-                .setGameObject(this)
+                .setGameEntity(this)
                 .addAccelerationOnX()
                 .addFallingPhysics()
                 .create();
@@ -35,6 +41,7 @@ public final class CharacterImpl extends GameEntityImpl implements Character {
     public void updateState() {
         physic.calculateMovement();
         checkEnemyCollision();
+        checkTrapCollision();
     }
 
     @Override
@@ -44,16 +51,27 @@ public final class CharacterImpl extends GameEntityImpl implements Character {
 
     @Override
     public void move(final Direction dir) {     //TODO: needs to be improved
-        if (Objects.nonNull(dir)) {             //i nemici possono modificare la direzione
-            physic.setMovement(dir);            //CheckEnemyCollision here?
+        physic.setMovement(Objects.requireNonNull(dir));       //i nemici possono modificare la direzione
+                                                             //CheckEnemyCollision here?
+    }
+
+    private void checkTrapCollision() {
+        if (!getCollisions().isEmpty()) {
+            var trapCollisions = getCollisions()
+                    .stream()
+                    .filter(x -> x.getGameEntity() instanceof Trap)
+                    .collect(Collectors.toSet());
+            if (!trapCollisions.isEmpty()) {
+                var trap = (Trap) trapCollisions.stream().findFirst().get().getGameEntity();
+                if (trap.getTrapState().equals(TrapState.DEAD)) {           //TODO: controllare se può funzionare
+                    setAlive(false);
+                }
+            }
         }
     }
 
+
     private void checkEnemyCollision() {
-        /*
-        if (this.box.getCollisions().stream().anyMatch(x -> x instanceof Enemy)) { TODO:causes error with new design
-            this.isAlive = false;
-        }*/
         if (!getCollisions().isEmpty()) {
             var enemySetCollision = getCollisions()
                     .stream()
