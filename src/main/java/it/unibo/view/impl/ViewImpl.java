@@ -3,31 +3,36 @@ package it.unibo.view.impl;
 import java.util.Set;
 import it.unibo.common.SimpleEntity;
 import it.unibo.view.api.View;
+import javax.swing.SwingUtilities;
 
-public class ViewImpl implements View{
+/**
+ * General View class to manage other views.
+ */
+public class ViewImpl implements View {
 
     @Override
     public void displayStart() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'displayStart'");
+        new TitleScreen().setVisible();
     }
 
     @Override
     public void displayWin() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'displayWin'");
+        //TODO: new LevelViewImpl().displayWin();
     }
 
     @Override
     public void displayGameOver() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'displayGameOver'");
+        // TODO: new LevelViewImpl().displayGameOver();
     }
 
     @Override
     public void render(Set<SimpleEntity> entities) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'render'");
+        SwingUtilities.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                //TODO: new LevelViewImpl().render(entities);s
+            }
+        });
     }
-    
 }
