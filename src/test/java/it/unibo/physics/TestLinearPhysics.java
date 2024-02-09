@@ -228,11 +228,6 @@ public class TestLinearPhysics {
         }
 
         @Override
-        public GameEntity getGameEntity() {
-            return new EntityNoCollisions(null);
-        }
-
-        @Override
         public Direction getDirection() {
             return this.dir;
         }

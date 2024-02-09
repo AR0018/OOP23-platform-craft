@@ -222,11 +222,6 @@ public class TestPhysicsBuilder {
         }
 
         @Override
-        public GameEntity getGameEntity() {
-            return new Entity(null);
-        }
-
-        @Override
         public Direction getDirection() {
             return this.dir;
         }
