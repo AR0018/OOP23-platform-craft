@@ -36,7 +36,7 @@ public final class CharacterImpl implements Character {     //TODO: remove the f
         this.position = position;
         this.isAlive = true;
         this.physic = this.physicsBuilder
-                .setGameObject(this)
+                .setGameEntity(this)
                 .addAccelerationOnX()
                 .addFallingPhysics()
                 .create();

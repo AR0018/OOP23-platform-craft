@@ -39,7 +39,7 @@ public final class SimpleEnemy implements Enemy {
         this.position = position;
         this.direction = Direction.RIGHT;
         this.isAlive = true;
-        this.physics = this.physicsBuilder.setGameObject(this).create();
+        this.physics = this.physicsBuilder.setGameEntity(this).create();
     }
 
     @Override
