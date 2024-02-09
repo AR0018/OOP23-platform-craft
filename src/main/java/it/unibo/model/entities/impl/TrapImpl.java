@@ -7,11 +7,10 @@ import it.unibo.model.physics.api.Position;
 /**
  * Class to represent a trap that can damage the player.
  */
-public class TrapImpl extends MapElementImpl {
+public final class TrapImpl extends MapElementImpl {
 
-    private static final long timer = 3000;
+    private static final long TIMER = 3000;
     private Long time = 0L;
-    
 
     /**
      * Constructor of the trap.
@@ -22,7 +21,7 @@ public class TrapImpl extends MapElementImpl {
     }
 
     @Override
-    public EntityType getType(){
+    public EntityType getType() {
         return EntityType.TRAP;
     }
 
@@ -37,7 +36,7 @@ public class TrapImpl extends MapElementImpl {
             if (time == 0L) {
                 time = System.currentTimeMillis();
             }
-            if (System.currentTimeMillis() - time >= timer) {
+            if (System.currentTimeMillis() - time >= TIMER) {
                 this.setAlive(false);
                 //getCharacter().setAlive(false);           //TODO: aspettare che venga implementato il personaggio nel level
             }

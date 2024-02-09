@@ -19,7 +19,7 @@ public abstract class GameEntityImpl implements GameEntity {
     private CollisionBox box;
     private Position position;
     private boolean isAlive;
-    
+
     /**
      * Constructor for the GameEntity who needs a initial position.
      * @param position the initial position
@@ -47,6 +47,7 @@ public abstract class GameEntityImpl implements GameEntity {
 
     /**
      * Return the type of the GameEntity.
+     * @return an EntityType
      */
     public abstract EntityType getType();
 
