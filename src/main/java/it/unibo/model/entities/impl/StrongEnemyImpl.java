@@ -78,7 +78,7 @@ public final class StrongEnemyImpl extends EnemyImpl {
     }
 
     private boolean playerInRange(final Character character) {
-        Position charPos = getLevel().getCharacter().getPosition();
+        Position charPos = getCharacter().getPosition();
         var distance = Math.sqrt(Math.pow(charPos.getX() - getPosition().getX(), 2) 
                 + Math.pow(charPos.getY() - getPosition().getY(), 2));
         if (distance <= VISIBLE_DISTANCE) {
