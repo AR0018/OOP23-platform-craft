@@ -14,6 +14,7 @@ public interface PhysicsBuilder {
      * otherwise the configuration is not complete.
      * @return this builder, for method chaining
      * @param obj the GameObject
+     * @throws IllegalArgumentException if obj is null or not a GameEntity
      */
     PhysicsBuilder setGameObject(GameEntity obj);
 
@@ -22,6 +23,7 @@ public interface PhysicsBuilder {
      * The default configuration is MEDIUM
      * @param speed
      * @return this builder, for method chaining
+     * @throws IllegalArgumentException if speed is null or invalid
      */
     PhysicsBuilder setSpeedOnX(SpeedLevels speed);
 
@@ -30,6 +32,7 @@ public interface PhysicsBuilder {
      * The default configuration is MEDIUM
      * @param speed
      * @return this builder, for method chaining
+     * @throws IllegalArgumentException if speed is null or invalid
      */
     PhysicsBuilder setSpeedOnY(SpeedLevels speed);
 

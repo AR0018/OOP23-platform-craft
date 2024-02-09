@@ -8,6 +8,10 @@ import it.unibo.model.physics.api.Position;
  * A position in a 2D space.
  */
 public final class Position2D extends Coordinate implements Position {
+
+    //Needed, since Coordinate is Serializable
+    private static final long serialVersionUID = 0;
+
     /**
      * @param x the x coordinate of this position
      * @param y the y coordinate of this position
@@ -25,11 +29,12 @@ public final class Position2D extends Coordinate implements Position {
         final double tolerance = 0.1;
         boolean equal = false;
         Position2D pos;
-        if (other instanceof Position2D) {
-            pos = (Position2D) other;
-            equal = Math.max(this.x, pos.x) - Math.min(this.x, pos.x) < tolerance
-            && Math.max(this.y, pos.y) - Math.min(this.y, pos.y) < tolerance;
+        if (other == null || this.getClass() != other.getClass()) {
+            return false;
         }
+        pos = (Position2D) other;
+        equal = Math.max(this.x, pos.x) - Math.min(this.x, pos.x) < tolerance
+            && Math.max(this.y, pos.y) - Math.min(this.y, pos.y) < tolerance;
         return equal;
     }
 
