@@ -55,7 +55,7 @@ public class TestLinearPhysics {
     }
 
     @Test
-    void testDifferentSpeedLevelss() {
+    void testDifferentSpeedLevels() {
         final EntityNoCollisions entity = new EntityNoCollisions(new Position2D(0, 0));
         this.linear = new LinearPhysics(entity, SpeedLevels.FAST, SpeedLevels.SLOW, false, false);
         this.linear.setMovement(Direction.UP);
