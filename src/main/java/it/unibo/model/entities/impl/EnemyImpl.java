@@ -20,20 +20,18 @@ import it.unibo.model.physics.api.Position;
  */
 public abstract class EnemyImpl extends GameEntityImpl implements Enemy {
 
-    private final EntitySize size;
     private Direction direction;
+    private EntitySize size;
 
     /**
      * The constructor of the implementation of enemy that initialize 
      * the position, the size and the direction where the enemy starts
      * to move.
      * @param position the first position of the enemy
-     * @param size is the size of the enemy
      * @param level is the level of the game
      */
-    public EnemyImpl(final Position position, final EntitySize size, final Level level) {
+    public EnemyImpl(final Position position, final Level level) {
         super(position, level);
-        this.size = size;
         setDirection(Direction.RIGHT);
     }
 
@@ -53,11 +51,16 @@ public abstract class EnemyImpl extends GameEntityImpl implements Enemy {
         this.direction = direction;
     }
 
+    public final EntitySize getSize() {
+        return this.size;
+    }
+
     /**
-     * @return the size of the enemy
+     * Used to set the size of the entity from the subclasses.
+     * @param size the size to assign to the GameEntity
      */
-    public EntitySize getSize() {
-        return size;
+    protected void setSize(final EntitySize size) {
+        this.size = size;
     }
 
     @Override

@@ -22,7 +22,8 @@ public final class SimpleEnemyImpl extends EnemyImpl {
      * @param level the level of the game
      */
     public SimpleEnemyImpl(final Position position, final Level level) {
-        super(position, EntitySize.NORMAL, level);
+        super(position, level);
+        setSize(EntitySize.NORMAL);
         this.physics = this.builder.setGameEntity(this)
                 .setSpeedOnX(SpeedLevels.SLOW)
                 .addAccelerationOnX().create();
@@ -35,6 +36,8 @@ public final class SimpleEnemyImpl extends EnemyImpl {
         this.physics.setMovement(getDirection());
         this.physics.calculateMovement();
     }
+
+
 
     /*@Override
     public void updateState() {

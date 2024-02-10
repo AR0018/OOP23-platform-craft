@@ -71,8 +71,8 @@ public final class CharacterImpl extends GameEntityImpl implements Character {
     }
 
 
-    private void checkEnemyCollision() {
-        if (!getCollisions().isEmpty()) {
+    private void checkEnemyCollision() {            //TODO: controllare bene le collisioni
+        if (!getCollisions().isEmpty()) {           //vedere se riga 81  può essere corretta
             var enemySetCollision = getCollisions()
                     .stream()
                     .filter(x -> x.getGameEntity() instanceof Enemy)

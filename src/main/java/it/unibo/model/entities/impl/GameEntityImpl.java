@@ -1,6 +1,5 @@
 package it.unibo.model.entities.impl;
 
-import java.util.Objects;
 import java.util.Set;
 import it.unibo.common.EntityType;
 import it.unibo.model.collisions.api.Boundaries;
@@ -26,7 +25,7 @@ public abstract class GameEntityImpl implements GameEntity {
      * @param level the level of the game
      */
     public GameEntityImpl(final Position position, final Level level) {
-        Objects.requireNonNull(position);
+        //Objects.requireNonNull(position);
         this.position = position;
         this.level = level;
         this.isAlive = true;
