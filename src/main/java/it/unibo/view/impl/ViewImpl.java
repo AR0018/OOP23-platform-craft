@@ -8,7 +8,7 @@ import javax.swing.SwingUtilities;
 /**
  * General View class to manage other views.
  */
-public class ViewImpl implements View {
+public final class ViewImpl implements View {
 
     @Override
     public void displayStart() {
@@ -26,7 +26,7 @@ public class ViewImpl implements View {
     }
 
     @Override
-    public void render(Set<SimpleEntity> entities) {
+    public void render(final Set<SimpleEntity> entities) {
         SwingUtilities.invokeLater(new Runnable() {
 
             @Override

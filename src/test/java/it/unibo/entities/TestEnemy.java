@@ -124,7 +124,7 @@ public class TestEnemy {        //TODO: modificare le posizioni perche devono es
         assertFalse(this.player.isAlive());
     }
 
-    private final static class Lv implements Level {
+    private static final class Lv implements Level {
 
         private Set<GameEntity> st = new HashSet<>();
 

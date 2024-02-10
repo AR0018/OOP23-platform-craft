@@ -8,7 +8,7 @@ import it.unibo.model.physics.api.Position;
  * The interface that models a GameEntity with a Factory.
  */
 public interface GameEntityFactory {
-    
+
     /**
      * Creates a GameEntity from a type assigning a position and the level.
      * @param type of the GameEntity

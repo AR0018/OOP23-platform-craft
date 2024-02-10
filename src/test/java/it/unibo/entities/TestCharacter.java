@@ -28,7 +28,7 @@ import it.unibo.model.physics.impl.Position2D;
  */
 public class TestCharacter {
 
-    private final static long TIMER = 3000;
+    private static final long TIMER = 3000;
     private Character player;
     private EnemyImpl enemy;
     private TrapImpl trap;
@@ -118,7 +118,7 @@ public class TestCharacter {
 
     }
 
-    private final class Lv implements Level {
+    private static final class Lv implements Level {
 
         private Set<GameEntity> st = new HashSet<>();
 

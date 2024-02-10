@@ -51,6 +51,9 @@ public abstract class EnemyImpl extends GameEntityImpl implements Enemy {
         this.direction = direction;
     }
 
+    /**
+     * @return the size of the GameEntity
+     */
     public final EntitySize getSize() {
         return this.size;
     }
