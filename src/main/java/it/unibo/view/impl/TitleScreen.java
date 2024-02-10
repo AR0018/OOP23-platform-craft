@@ -22,14 +22,22 @@ import java.awt.Toolkit;
 /**
  * Class to create the TitleScreen when the game starts.
  */
-public class TitleScreen extends JPanel {
+final public class TitleScreen extends JPanel {
 
-    private static final String title = "PlatformCraft";
-    private static final int MAX_X_DIM = (int)Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2;
-    private static final int MAX_Y_DIM = (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2;
+    private static final int MAX_X_DIM = 1600;  //(int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2;
+    private static final int MAX_Y_DIM = 900;   //(int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2;
+    private static final String TITLE = "PlatformCraft";
+    private static final Color BACKGROUND = new Color(100, 120, 10);    //Sfondo comune
+    private static final Color BUTTON_BACK = new Color(0, 0, 0);
+    private static final Color FOREGROUND = new Color(255, 255, 255);
+    //private static final int RED_BUTTON = 100;
+    //private static final int GREEN_BUTTON = 120;
+    //private static final int BLUE_BUTTON = 10;
+    private static final int TITLE_SIZE = 100;
+    private static final Dimension BUTTON_SIZE = new Dimension(100, 50); 
     private final int xDim = 1200;
     private final int yDim = 1000;
-    final JFrame frame = new JFrame("Prova");
+    private final JFrame frame = new JFrame("Prova");
 
     /**
      * Constructor to build the gui of the TitleScreen.
@@ -37,51 +45,52 @@ public class TitleScreen extends JPanel {
     public TitleScreen() {
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setMinimumSize(new Dimension(1200, 1000));
+        frame.setMinimumSize(new Dimension(xDim, yDim));
         frame.setMaximumSize(new Dimension(MAX_X_DIM, MAX_Y_DIM));
         frame.setSize(new Dimension(xDim, yDim));
-        frame.setBackground(new Color(100, 120, 10));
+        frame.setBackground(BACKGROUND);
 
         final JPanel panel = new JPanel();
         panel.setPreferredSize(new Dimension(xDim, yDim));
-        panel.setMinimumSize(new Dimension(1000, 1300));
-        panel.setBackground(new Color(100, 120, 10));
+        //panel.setMinimumSize(new Dimension(1000, 1300));
+        panel.setBackground(BACKGROUND);
 
-        final JLabel label = new JLabel(title);
-        label.setFont(new Font("Verdana", 0, 100));
-        label.setBackground(new Color(100, 120, 10));
-        label.setForeground(new Color(0, 0, 0));
+        final JLabel label = new JLabel(TITLE);
+        label.setFont(new Font("Verdana", Font.BOLD, TITLE_SIZE));
+        label.setBackground(BACKGROUND);
+        label.setForeground(BUTTON_BACK);
 
         final JButton play = new JButton("Play");
-        play.setPreferredSize(new Dimension(100, 50));
+        play.setPreferredSize(BUTTON_SIZE);
         play.setFont(new Font("Dialog", Font.BOLD, 30));
-        play.setBackground(new Color(0, 0, 0));
-        play.setForeground(new Color(255, 255, 255));
+        play.setBackground(BUTTON_BACK);
+        play.setForeground(FOREGROUND);
         play.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFileChooser file = new JFileChooser();
                 file.showSaveDialog(null);
+                file.getSelectedFile();     //TODO: restituire il file ai piani superiori
             }
         });
         final JButton editor = new JButton("Editor");
-        editor.setPreferredSize(new Dimension(100, 50));
+        editor.setPreferredSize(BUTTON_SIZE);
         editor.setFont(new Font("Dialog", Font.BOLD, 30));
-        editor.setBackground(new Color(0, 0, 0));
-        editor.setForeground(new Color(255, 255, 255));
+        editor.setBackground(BUTTON_BACK);
+        editor.setForeground(FOREGROUND);
 
         final JButton quit = new JButton("Quit");
-        quit.setPreferredSize(new Dimension(100, 50));
+        quit.setPreferredSize(BUTTON_SIZE);
         quit.setFont(new Font("Dialog", Font.BOLD, 30));
-        quit.setBackground(new Color(0, 0, 0));
-        quit.setForeground(new Color(255, 255, 255));
+        quit.setBackground(BUTTON_BACK);
+        quit.setForeground(FOREGROUND);
         quit.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(JOptionPane.showConfirmDialog(frame, "Do you want to quit",
-                         "Quitting", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+                if (JOptionPane.showConfirmDialog(frame, "Do you want to quit",
+                         "Quitting", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                     System.exit(0);
                 }
             }
@@ -90,7 +99,7 @@ public class TitleScreen extends JPanel {
         int posX = frame.getWidth() / 2;
         int posY = frame.getHeight() / 2;
         JPanel titlePanel = new JPanel(new FlowLayout(FlowLayout.CENTER, posX, 30));
-        titlePanel.setBackground(new Color(100, 120, 10));
+        titlePanel.setBackground(BACKGROUND);
         titlePanel.add(label);
         /*titlePanel.setBackground(new Color(100, 120, 10));
         JPanel l = new JPanel();
@@ -103,7 +112,7 @@ public class TitleScreen extends JPanel {
         panel.add(play);
         panel.add(Box.createRigidArea(new Dimension(0, 30)));    
         panel.add(editor);
-        panel.add(Box.createRigidArea(new Dimension(0, 30)));    
+        panel.add(Box.createRigidArea(new Dimension(0, 30)));
         panel.add(quit);
         //panel.setLocation(frame.getWidth() / 2, frame.getHeight() / 2);
         //l.add(titlePanel);
@@ -116,6 +125,9 @@ public class TitleScreen extends JPanel {
         frame.add(titlePanel, BorderLayout.CENTER);
     }
 
+    /**
+     * Sets visible the frame of the TitleScreen.
+     */
     public void setVisible() {
         frame.setVisible(true);
     }
