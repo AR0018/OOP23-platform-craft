@@ -7,7 +7,6 @@ import it.unibo.model.collisions.api.Boundaries;
 import it.unibo.model.collisions.api.Collision;
 import it.unibo.model.physics.api.Position;
 
-//TODO: correct documentation
 /**
  * Models an entity in the game.
  * Every entity has a position, a CollisionBox and a type of Physics.

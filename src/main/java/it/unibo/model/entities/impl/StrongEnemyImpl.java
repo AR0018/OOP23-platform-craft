@@ -36,13 +36,6 @@ public final class StrongEnemyImpl extends EnemyImpl {
                 .create();
     }
 
-    /*@Override
-    public void updateState() {
-        moveEnemy();
-        this.physics.calculateMovement();
-        checkEnemyCollisions();
-    }*/
-
     /**
      * Checks if during the movement the has encountered the player.
      */

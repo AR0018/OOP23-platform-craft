@@ -36,13 +36,4 @@ public final class SimpleEnemyImpl extends EnemyImpl {
         this.physics.setMovement(getDirection());
         this.physics.calculateMovement();
     }
-
-
-
-    /*@Override
-    public void updateState() {
-        moveEnemy();
-        this.physics.calculateMovement();
-        checkEnemyCollisions();
-    }*/
 }
