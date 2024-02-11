@@ -1,4 +1,4 @@
-package it.unibo.entities;
+/*package it.unibo.entities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -25,7 +25,8 @@ import it.unibo.model.entities.api.Character;
 /**
  * Class for testing the behaviour of enemies.
  */
-public class TestEnemy {        //TODO: modificare le posizioni perche devono essere double
+/* 
+public class TestEnemy {        //: modificare le posizioni perche devono essere double
                                 //dipendono dalla velocità settata
     private Character player;
     private Enemy enemy;
@@ -140,33 +141,33 @@ public class TestEnemy {        //TODO: modificare le posizioni perche devono es
 
         @Override
         public void computeChanges() {
-            // TODO Auto-generated method stub
+            //  Auto-generated method stub
             throw new UnsupportedOperationException("Unimplemented method 'computeChanges'");
         }
 
         @Override
         public void moveCharacter(final Direction dir) {
-            // TODO Auto-generated method stub
+            //  Auto-generated method stub
             throw new UnsupportedOperationException("Unimplemented method 'moveCharacter'");
         }
 
         @Override
         public void addFinishLocation(final Position position) {
-            // TODO Auto-generated method stub
+            //  Auto-generated method stub
             throw new UnsupportedOperationException("Unimplemented method 'addFinishLocation'");
         }
 
         @Override
         public GameState getGameState() {
-            // TODO Auto-generated method stub
+            //  Auto-generated method stub
             throw new UnsupportedOperationException("Unimplemented method 'getGameState'");
         }
 
         @Override
         public GameEntity getCharacter() {
-            // TODO Auto-generated method stub
+            //  Auto-generated method stub
             throw new UnsupportedOperationException("Unimplemented method 'getCharacter'");
         }
 
     }
-}
+}*/

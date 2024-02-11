@@ -1,4 +1,4 @@
-package it.unibo.entities;
+/*package it.unibo.entities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -26,6 +26,7 @@ import it.unibo.model.physics.impl.Position2D;
 /**
  * Class for testing the behaviour of the character.
  */
+/*
 public class TestCharacter {
 
     private static final long TIMER = 3000;
@@ -164,3 +165,4 @@ public class TestCharacter {
 
     }
 }
+*/

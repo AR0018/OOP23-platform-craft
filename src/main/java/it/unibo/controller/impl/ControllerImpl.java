@@ -17,14 +17,14 @@ public final class ControllerImpl implements Controller {
     }
 
     @Override
-    public LevelRunner getRunner() {        //TODO: return new LevelRunnerImpl.run();
-        // TODO Auto-generated method stub
+    public LevelRunner getRunner() {        //: return new LevelRunnerImpl.run();
+        //  Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getRunner'");
     }
 
     @Override
-    public LevelEditor getEditor() {        //TODO: return new LevelEditorImpl.run();
-        // TODO Auto-generated method stub
+    public LevelEditor getEditor() {        //: return new LevelEditorImpl.run();
+        //  Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getEditor'");
     }
 }

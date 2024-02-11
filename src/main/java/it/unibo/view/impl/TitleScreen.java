@@ -99,7 +99,7 @@ public final class TitleScreen extends JPanel {
             public void actionPerformed(final ActionEvent e) {
                 JFileChooser file = new JFileChooser();
                 file.showSaveDialog(null);
-                file.getSelectedFile();     //TODO: restituire il file ai piani superiori
+                //file.getSelectedFile();     //TODO: restituire il file ai piani superiori
             }
         });
         final JButton editor = new JButton("Editor");

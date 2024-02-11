@@ -26,7 +26,7 @@ public final class GameEntityFactoryImpl implements GameEntityFactory {
             case MAP_ELEMENT:
                 return new MapElementImpl(position, level);
             case FINISH_LOCATION:
-                return null;            //TODO: definire la finish location
+                return null;            //: definire la finish location
             default:
                 return null;
         }

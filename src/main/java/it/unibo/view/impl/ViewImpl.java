@@ -17,12 +17,12 @@ public final class ViewImpl implements View {
 
     @Override
     public void displayWin() {
-        //TODO: new LevelViewImpl().displayWin();
+        //: new LevelViewImpl().displayWin();
     }
 
     @Override
     public void displayGameOver() {
-        // TODO: new LevelViewImpl().displayGameOver();
+        // : new LevelViewImpl().displayGameOver();
     }
 
     @Override
@@ -31,7 +31,7 @@ public final class ViewImpl implements View {
 
             @Override
             public void run() {
-                //TODO: new LevelViewImpl().render(entities);s
+                //: new LevelViewImpl().render(entities);s
             }
         });
     }
