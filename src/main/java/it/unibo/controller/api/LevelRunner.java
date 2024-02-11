@@ -1,4 +1,4 @@
-package it.unibo.controller;
+package it.unibo.controller.api;
 
 import java.io.File;
 
@@ -10,7 +10,7 @@ public interface LevelRunner {
     /**
      * Starts the trial level or a level created by the player.
      */
-    void run();     //TODO: the input type
+    void run();
 
     /**
      * Adds the command passed by input in a list of command that have to be processed.
