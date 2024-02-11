@@ -50,7 +50,7 @@ public final class CharacterImpl extends GameEntityImpl implements Character {
     }
 
     @Override
-    public void move(final Direction dir) {     //: needs to be improved
+    public void move(final Direction dir) {     //TODO: needs to be improved
         physic.setMovement(Objects.requireNonNull(dir));       //i nemici possono modificare la direzione
                                                              //CheckEnemyCollision here?
     }
@@ -63,7 +63,7 @@ public final class CharacterImpl extends GameEntityImpl implements Character {
                     .collect(Collectors.toSet());
             if (!trapCollisions.isEmpty()) {
                 var trap = (Trap) trapCollisions.stream().findFirst().get().getGameEntity();
-                if (trap.getTrapState().equals(TrapState.DEAD)) {           //: controllare se può funzionare
+                if (trap.getTrapState().equals(TrapState.DEAD)) {           //TODO: controllare se può funzionare
                     setAlive(false);
                 }
             }
@@ -71,7 +71,7 @@ public final class CharacterImpl extends GameEntityImpl implements Character {
     }
 
 
-    private void checkEnemyCollision() {            //: controllare bene le collisioni
+    private void checkEnemyCollision() {            //TODO: controllare bene le collisioni
         if (!getCollisions().isEmpty()) {           //vedere se riga 81  può essere corretta
             var enemySetCollision = getCollisions()
                     .stream()

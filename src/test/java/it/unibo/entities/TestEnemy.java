@@ -1,4 +1,4 @@
-/*package it.unibo.entities;
+package it.unibo.entities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -25,8 +25,8 @@ import it.unibo.model.entities.api.Character;
 /**
  * Class for testing the behaviour of enemies.
  */
-/* 
-public class TestEnemy {        //: modificare le posizioni perche devono essere double
+
+public class TestEnemy {        //TODO: modificare le posizioni perche devono essere double
                                 //dipendono dalla velocità settata
     private Character player;
     private Enemy enemy;
@@ -170,4 +170,4 @@ public class TestEnemy {        //: modificare le posizioni perche devono essere
         }
 
     }
-}*/
+}

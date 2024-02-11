@@ -14,13 +14,13 @@ public final class LevelEditorImpl implements LevelEditor {
 
     @Override
     public void start() {
-        //: new EditorViewImpl.show();
+        //TODO: new EditorViewImpl.show();
     }
 
     @Override
     public void reset() {
         //this.editorView = new EditorViewImpl.show();
-        //: new EditorViewImpl.show();
+        //TODO: new EditorViewImpl.show();
     }
 
     @Override
