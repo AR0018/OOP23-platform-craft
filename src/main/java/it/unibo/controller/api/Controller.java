@@ -1,4 +1,4 @@
-package it.unibo.controller;
+package it.unibo.controller.api;
 
 /**
  * The Controller of this application that starts the game.

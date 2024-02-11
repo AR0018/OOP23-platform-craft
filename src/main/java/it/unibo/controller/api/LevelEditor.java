@@ -1,4 +1,4 @@
-package it.unibo.controller;
+package it.unibo.controller.api;
 
 import it.unibo.common.SimpleEntity;
 import java.io.File;
