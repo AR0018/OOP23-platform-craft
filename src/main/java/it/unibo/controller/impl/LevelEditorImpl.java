@@ -19,7 +19,7 @@ public final class LevelEditorImpl implements LevelEditor{
 
     @Override
     public void reset() {
-        //this.editorView
+        //this.editorView = new EditorViewImpl.show();
         //TODO: new EditorViewImpl.show();
     }
 
