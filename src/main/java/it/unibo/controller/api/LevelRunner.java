@@ -14,12 +14,13 @@ public interface LevelRunner {
 
     /**
      * Adds the command passed by input in a list of command that have to be processed.
+     * @param command the type of command received
      */
     void notifyCommand(Command command);
 
     /**
-     * Loads a level that has been saved on file
+     * Loads a level from the specified file.
      * @param file the file where the level is saved
      */
-    void loadFile(File file);
+    void loadLevel(File file);
 }
