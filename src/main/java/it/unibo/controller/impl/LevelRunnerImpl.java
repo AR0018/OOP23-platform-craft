@@ -35,7 +35,7 @@ public final class LevelRunnerImpl implements LevelRunner {
     }
 
     @Override
-    public void loadFile(final File file) {
+    public void loadLevel(final File file) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'loadFile'");
     }
