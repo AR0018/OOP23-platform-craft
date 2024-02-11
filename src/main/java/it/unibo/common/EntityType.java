@@ -14,7 +14,11 @@ public enum EntityType {
      */
     TRAP,
     /**
-     * An enemy in the game.
+     * A simple enemy.
+     */
+    SIMPLE_ENEMY,
+    /**
+     * An enemy in the game that follows the player.
      */
     ENEMY,
     /**
