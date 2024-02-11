@@ -10,12 +10,12 @@ public interface LevelRunner {
     /**
      * Starts the trial level or a level created by the player.
      */
-    void run();     //TODO: the input type
+    void run();
 
     /**
      * Adds the command passed by input in a list of command that have to be processed.
      */
-    void notifyCommand(); //TODO: create class Command
+    void notifyCommand(Command command);
 
     /**
      * Loads a level that has been saved on file
