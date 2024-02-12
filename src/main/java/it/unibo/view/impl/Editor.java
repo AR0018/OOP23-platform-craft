@@ -7,6 +7,8 @@ import java.awt.Toolkit;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.File;
 
 import javax.swing.JButton;
@@ -56,7 +58,12 @@ import javax.swing.event.MenuListener;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
+
+import it.unibo.common.EntityType;
+import it.unibo.common.SimpleEntity;
 import it.unibo.controller.api.Controller;
+import it.unibo.model.physics.api.Position;
 
 import javax.swing.JOptionPane;
 import javax.swing.JFileChooser;
@@ -79,13 +86,16 @@ import javax.swing.JTextField;
 public class Editor {
 
     private final JFrame frame = new JFrame();
+    private final Controller controller;
+    private Point mousePosition;
 
     public Editor(final Controller controller) {
 
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(new Dimension(1280, 960));     //1600, 900
-        frame.setMinimumSize(new Dimension(1280, 960));
-        frame.setLocationRelativeTo(null);
+        this.controller = controller;
+        this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.frame.setSize(new Dimension(1280, 960));     //1600, 900
+        this.frame.setMinimumSize(new Dimension(1280, 960));
+        this.frame.setLocationRelativeTo(null);
         //final JPanel box = new JPanel(new GridLayout(3, 2, 30, 20));
         final JMenuBar menuBar = new JMenuBar();
         //menuBar.setAlignmentX(SwingConstants.NORTH);
@@ -98,41 +108,56 @@ public class Editor {
         final JButton menu = new JButton("Quit");
         final JButton save = new JButton("Save");
         final JButton load = new JButton("Load");
+        final JButton remove = new JButton("Remove");
+        final JPanel panelView = new JPanel();              //TODO: sostituire con il DrawPanel
+        //final JButton button6 = new JButton("LABEL");
+        
         final JMenu empty = new JMenu();
         final JMenu empty1 = new JMenu();
+        final JMenu empty2 = new JMenu();
+
         empty.setSize(new Dimension(20, 20));
         empty.setEnabled(false);
         empty1.setSize(new Dimension(20, 20));
         empty1.setEnabled(false);
+        empty2.setSize(new Dimension(5, 20));
+        empty2.setEnabled(false);
         //empty.setOpaque(false);
         //menu.setBorder(new EmptyBorder(0, 50, 0, 50));
         //menu.setHorizontalTextPosition(SwingConstants.CENTER);
         //invalidate();
         //menu.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
-
+        menuBar.add(empty2);
         menu.setSize(new Dimension(100, 40));
         menuBar.add(menu);
         menuBar.add(empty);
-        /*menu.addMenuListener(new MenuListener() {
+
+        panelView.addMouseListener(new MouseListener() {
 
             @Override
-            public void menuSelected(MenuEvent e) {
-                if (JOptionPane.showConfirmDialog(frame, "Do you want to return to the Title Screen",
-                         "Quitting", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                    frame.setVisible(false);
-                    new ViewImpl(controller).displayStart();
-                } 
+            public void mouseClicked(MouseEvent e) {
+                mousePosition = e.getPoint();
+                System.out.println(e.getPoint());
             }
 
             @Override
-            public void menuDeselected(MenuEvent e) {
+            public void mousePressed(MouseEvent e) {
             }
 
             @Override
-            public void menuCanceled(MenuEvent e) {
+            public void mouseReleased(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
             }
             
-        });*/
+        });
+        
         menu.addActionListener(new ActionListener() {
 
             @Override
@@ -151,33 +176,7 @@ public class Editor {
         save.setPreferredSize(new Dimension(200, 30));
         //save.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
         //save.setForeground(new Color(255, 255, 0));
-        /*save.addMenuListener(new MenuListener() {
-
-            @Override
-            public void menuSelected(MenuEvent e) {
-                String name = JOptionPane.showInputDialog(frame, "Write the filename", "Saving", JOptionPane.PLAIN_MESSAGE);
-                if (name.contains(".json")) {
-                    File file = new File(name);
-                    controller.getEditor().saveLevel(file);
-                } else {
-                    JOptionPane.showMessageDialog(frame, "The type of file is not .json",
-                             "Error has occurred", JOptionPane.ERROR_MESSAGE);
-                }
-            }
-
-            @Override
-            public void menuDeselected(MenuEvent e) {
-                // TODO Auto-generated method stub
-                throw new UnsupportedOperationException("Unimplemented method 'menuDeselected'");
-            }
-
-            @Override
-            public void menuCanceled(MenuEvent e) {
-                // TODO Auto-generated method stub
-                throw new UnsupportedOperationException("Unimplemented method 'menuCanceled'");
-            }
-            
-        });*/
+        
         save.addActionListener(new ActionListener() {
 
             @Override
@@ -197,27 +196,8 @@ public class Editor {
         menuBar.add(empty1);
 
         //load.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
-        load.setPreferredSize(new Dimension(100, 20));
-        /*load.addMenuListener(new MenuListener() {
-
-            @Override
-            public void menuSelected(MenuEvent e) {
-                JFileChooser file = new JFileChooser();
-                file.setAcceptAllFileFilterUsed(false);
-                file.addChoosableFileFilter(new FileNameExtensionFilter("*.json", "json"));
-                file.showSaveDialog(null);
-                controller.getEditor().loadLevel(file.getSelectedFile());
-            }
-
-            @Override
-            public void menuDeselected(MenuEvent e) {
-            }
-
-            @Override
-            public void menuCanceled(MenuEvent e) {
-            }
-            
-        });*/
+        load.setPreferredSize(new Dimension(200, 30));
+        
         load.addActionListener(new ActionListener() {
 
             @Override
@@ -231,30 +211,52 @@ public class Editor {
             
         });
         menuBar.add(load);
+        remove.setPreferredSize(new Dimension(200, 30));
+        remove.addActionListener(new ActionListener() {
 
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controller.getEditor().removeEntity(mousePosition.getX(), mousePosition.getY());
+            }
+            
+        });
+        menuBar.add(remove);
+        //menuBar.add(remove);
         //menuBar.add(empty);
         //menuBar.setSize((int) (frame.getSize().getWidth() / 1.5), 20);
         //frame.add(menuBar);
         final JPanel box = new JPanel();
-        final JButton button = new JButton("Character");
         //button.setPreferredSize(new Dimension(50, 120));
         box.setLayout(new GridLayout(3, 2, 10, 10));
+
+        final JButton button = new JButton("Character");
+        addEntityFromButton(button, EntityType.CHARACTER);
         box.add(button);
-        final JButton button1 = new JButton("EnemySimple");
+
+        final JButton button1 = new JButton("Simple Enemy");
+        addEntityFromButton(button1, EntityType.SIMPLE_ENEMY);
         //button.setPreferredSize(new Dimension(30, 60));
         box.add(button1);
+
         final JButton button2 = new JButton("Enemy");
+        addEntityFromButton(button2, EntityType.ENEMY);
         //button.setPreferredSize(new Dimension(30, 60));
         box.add(button2);
+
         final JButton button3 = new JButton("FinishLocation");
+        addEntityFromButton(button3, EntityType.FINISH_LOCATION);
         //button.setPreferredSize(new Dimension(30, 60));
         box.add(button3);
+
         final JButton button4 = new JButton("Trap");
+        addEntityFromButton(button4, EntityType.TRAP);
         //button.setPreferredSize(new Dimension(10, 60));
         box.add(button4);
+
         final JButton button5 = new JButton("MapElement");
-        button5.setVerticalTextPosition(SwingConstants.TOP);
-        button5.setVerticalAlignment(SwingConstants.TOP);
+        addEntityFromButton(button5, EntityType.MAP_ELEMENT);
+        //button5.setVerticalTextPosition(SwingConstants.TOP);          //Possono servire per mettere in altro il testo
+        //button5.setVerticalAlignment(SwingConstants.TOP);
         //button.setPreferredSize(new Dimension(30, 60));
         box.add(button5);
         GridBagConstraints c = new GridBagConstraints();
@@ -291,33 +293,60 @@ public class Editor {
         c.weighty = 0;
         c.insets = new Insets(20, 0, 20, 400);
         //final JPanel panl = new JPanel();
-        final JButton button6 = new JButton("LABEL");
-        final JPanel panelView = new JPanel();
         panelView.setBackground(Color.BLACK);
         //button6.setSize(500, 600);
         //component.add(button6, BorderLayout.CENTER);
-        component.add(panelView);
+        component.add(panelView, BorderLayout.CENTER);
         //component.setMinimumSize(new Dimension(700, 700));
-        frame.setContentPane(component);
-        frame.setJMenuBar(menuBar);
+        this.frame.setContentPane(component);
+        this.frame.setJMenuBar(menuBar);
     }
 
     public void show() {
-        frame.setVisible(true);
+        this.frame.setVisible(true);
     }
 
     public void hide() {
-        frame.setVisible(false);
+        this.frame.setVisible(false);
     }
 
     public boolean isShown() {
-        return frame.isVisible();
+        return this.frame.isVisible();
     }
 
-    private String getFileExtension(final File f) {
+    private void addEntityFromButton(final JButton button, final EntityType type) {
+        button.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println(type + "-> Pos: " + mousePosition);
+                controller.getEditor().addEntity(new SimpleEntity() {
+
+                    @Override
+                    public EntityType getType() {
+                        return type;
+                    }
+
+                    @Override
+                    public double getX() {
+                        return mousePosition.getX();   
+                    }
+
+                    @Override
+                    public double getY() {
+                        return mousePosition.getY();    
+                    }
+                    
+                });
+            }
+            
+        });
+    }
+
+    /*private String getFileExtension(final File f) {
         //String fileName = f.getName();
         //return fileName.substring(fileName.lastIndexOf("."), fileName.length() - 2);
-        /*String ext = null;
+        String ext = null;
         String s = f.getName();
         int i = s.lastIndexOf('.');
  
@@ -325,9 +354,8 @@ public class Editor {
             ext = s.substring(i+1).toLowerCase();
         }
         return ext;
-        */
         return "null";
-    }
+    }*/
 }
 
 /*
