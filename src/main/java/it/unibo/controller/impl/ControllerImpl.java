@@ -24,7 +24,7 @@ public final class ControllerImpl implements Controller {
 
     public ControllerImpl() {   //final Engine engine newl costruttore?
         //this.engine = engine;
-        this.levelEditor = new LevelEditorImpl();
+        this.levelEditor = new LevelEditorImpl(this);
         //this.levelRunner = new LevelRunnerImpl();
         //this.entities = this.engine.getLevelEntities();
     }

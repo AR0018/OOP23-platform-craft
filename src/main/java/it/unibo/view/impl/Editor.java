@@ -59,6 +59,7 @@ import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.core.JsonFactoryBuilder;
 
 import it.unibo.common.EntityType;
 import it.unibo.common.SimpleEntity;
@@ -98,6 +99,9 @@ public class Editor {
         this.frame.setLocationRelativeTo(null);
         //final JPanel box = new JPanel(new GridLayout(3, 2, 30, 20));
         final JMenuBar menuBar = new JMenuBar();
+        menuBar.setLayout(new BorderLayout(20, 0));
+        menuBar.setBorder(new EmptyBorder(0, 10, 0, 10));
+        JPanel menuButtons = new JPanel(new GridLayout(1, 4));
         //menuBar.setAlignmentX(SwingConstants.NORTH);
         //menuBar.setBackground(Color.BLACK);
         //menuBar.setPreferredSize(new Dimension(1000, 40));
@@ -108,6 +112,7 @@ public class Editor {
         final JButton menu = new JButton("Quit");
         final JButton save = new JButton("Save");
         final JButton load = new JButton("Load");
+        final JButton reset = new JButton("Reset");
         final JButton remove = new JButton("Remove");
         final JPanel panelView = new JPanel();              //TODO: sostituire con il DrawPanel
         //final JButton button6 = new JButton("LABEL");
@@ -115,6 +120,7 @@ public class Editor {
         final JMenu empty = new JMenu();
         final JMenu empty1 = new JMenu();
         final JMenu empty2 = new JMenu();
+        final JMenu empty3 = new JMenu();
 
         empty.setSize(new Dimension(20, 20));
         empty.setEnabled(false);
@@ -127,10 +133,11 @@ public class Editor {
         //menu.setHorizontalTextPosition(SwingConstants.CENTER);
         //invalidate();
         //menu.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
-        menuBar.add(empty2);
-        menu.setSize(new Dimension(100, 40));
-        menuBar.add(menu);
-        menuBar.add(empty);
+        //menuBar.add(empty2);
+        menu.setPreferredSize(new Dimension(100, 40));
+        //menuBar.add(menu, BorderLayout.EAST);
+        menuButtons.add(menu);
+        //menuBar.add(empty);
 
         panelView.addMouseListener(new MouseListener() {
 
@@ -173,7 +180,7 @@ public class Editor {
         //menuBar.add(new JSeparator(JSeparator.HORIZONTAL));
         //menu.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 30));
         //save.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0), 2, true));
-        save.setPreferredSize(new Dimension(200, 30));
+        save.setPreferredSize(new Dimension(100, 40));
         //save.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
         //save.setForeground(new Color(255, 255, 0));
         
@@ -192,12 +199,12 @@ public class Editor {
             }
             
         });
-        menuBar.add(save);
-        menuBar.add(empty1);
+        //menuBar.add(save);
+        menuButtons.add(save);
+        //menuBar.add(empty1);
 
         //load.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
-        load.setPreferredSize(new Dimension(200, 30));
-        
+        load.setPreferredSize(new Dimension(100, 40));
         load.addActionListener(new ActionListener() {
 
             @Override
@@ -210,8 +217,30 @@ public class Editor {
             }
             
         });
-        menuBar.add(load);
-        remove.setPreferredSize(new Dimension(200, 30));
+        //menuBar.add(load);
+        menuButtons.add(load);
+
+        reset.setPreferredSize(new Dimension(100, 40));
+        reset.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //frame.setVisible(false);
+                //controller.getEditor().start();
+                if (JOptionPane.showConfirmDialog(frame,
+                         "Confirm to reset?", "Resetting",
+                         JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
+                            //controller.getEditor().reset();
+                            frame.setVisible(false);
+                            controller.getEditor().start();
+                        }
+            }
+            
+        });
+        //menuBar.add(reset);
+        menuButtons.add(reset);
+
+        remove.setPreferredSize(new Dimension(250, 40));
         remove.addActionListener(new ActionListener() {
 
             @Override
@@ -220,12 +249,19 @@ public class Editor {
             }
             
         });
-        menuBar.add(remove);
+        menuBar.add(menuButtons, BorderLayout.WEST);
+        menuBar.add(Box.createHorizontalGlue());
+        menuBar.add(remove, BorderLayout.LINE_END);
+
         //menuBar.add(remove);
         //menuBar.add(empty);
         //menuBar.setSize((int) (frame.getSize().getWidth() / 1.5), 20);
         //frame.add(menuBar);
+
+
         final JPanel box = new JPanel();
+        box.setBorder(BorderFactory.createLineBorder(Color.white, 4));
+        //box.setBackground(Color.BLUE);
         //button.setPreferredSize(new Dimension(50, 120));
         box.setLayout(new GridLayout(3, 2, 10, 10));
 
@@ -293,7 +329,8 @@ public class Editor {
         c.weighty = 0;
         c.insets = new Insets(20, 0, 20, 400);
         //final JPanel panl = new JPanel();
-        panelView.setBackground(Color.BLACK);
+        panelView.setBorder(BorderFactory.createLineBorder(Color.BLACK, 4));
+        //panelView.setBackground(Color.BLACK);
         //button6.setSize(500, 600);
         //component.add(button6, BorderLayout.CENTER);
         component.add(panelView, BorderLayout.CENTER);
@@ -320,7 +357,7 @@ public class Editor {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println(type + "-> Pos: " + mousePosition);
-                controller.getEditor().addEntity(new SimpleEntity() {
+                /*controller.getEditor().addEntity(new SimpleEntity() {             //TODO: da decommentare
 
                     @Override
                     public EntityType getType() {
@@ -337,11 +374,63 @@ public class Editor {
                         return mousePosition.getY();    
                     }
                     
-                });
+                });*/
             }
             
         });
     }
+
+    /*
+     * button1.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                panelView.addMouseListener(new MouseListener() {
+
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        System.out.println(EntityType.SIMPLE_ENEMY + "-> Pos: " + mousePosition);
+                        controller.getEditor().addEntity(new SimpleEntity() {
+
+                    @Override
+                    public EntityType getType() {
+                        return EntityType.SIMPLE_ENEMY;
+                    }
+
+                    @Override
+                    public double getX() {
+                        return mousePosition.getX();   
+                    }
+
+                    @Override
+                    public double getY() {
+                        return mousePosition.getY();    
+                    }
+                    
+                });
+                    }
+
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                    }
+
+                    @Override
+                    public void mouseReleased(MouseEvent e) {
+                    }
+
+                    @Override
+                    public void mouseEntered(MouseEvent e) {
+                    }
+
+                    @Override
+                    public void mouseExited(MouseEvent e) {
+                    }
+                    
+                });
+            }
+            
+        });
+     */
 
     /*private String getFileExtension(final File f) {
         //String fileName = f.getName();

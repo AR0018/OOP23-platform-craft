@@ -9,6 +9,6 @@ import it.unibo.view.impl.EditorViewImpl;
 public class PlatformCraft {
 
     public static void main(String[] args) {
-        //new EditorViewImpl(new ControllerImpl()).show();
+        new EditorViewImpl(new ControllerImpl()).show();
     }
 }
