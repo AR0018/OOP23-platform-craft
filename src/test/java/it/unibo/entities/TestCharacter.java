@@ -110,13 +110,32 @@ public class TestCharacter {
         this.trap.updateState();
         this.player.updateState();
         assertEquals(TrapState.ACTIVE, this.trap.getTrapState());
-        wait(TIMER);
-        this.player.move(Direction.RIGHT);
+        for (int i = 0; i<=TIMER; i++) {
+            this.trap.updateState();
+        }
+        //this.player.move(Direction.LEFT);
         this.trap.updateState();
         this.player.updateState();
         assertFalse(this.player.isAlive());
-        assertFalse(this.trap.isAlive());
+        assertTrue(this.trap.isAlive());
 
+        this.level = new Lv();
+        this.player = new CharacterImpl(new Position2D(1, 1), level);
+        this.trap = new TrapImpl(new Position2D(2, 1), level);
+        this.level.addGameEntity(this.player);
+        this.level.addGameEntity(this.trap);
+        this.player.move(Direction.RIGHT);
+        this.trap.updateState();
+        this.player.updateState();
+        assertEquals(TrapState.ACTIVE, this.trap.getTrapState());
+        for (int i = 0; i<=TIMER/2; i++) {
+            this.trap.updateState();
+        }
+        //this.player.move(Direction.LEFT);
+        this.trap.updateState();
+        this.player.updateState();
+        assertTrue(this.player.isAlive());
+        assertTrue(this.trap.isAlive());
     }
 
     private static final class Lv implements Level {

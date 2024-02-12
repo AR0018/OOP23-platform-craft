@@ -8,6 +8,7 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.awt.BorderLayout;
@@ -16,6 +17,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import it.unibo.controller.api.Controller;
 
 import javax.swing.JOptionPane;
 import javax.swing.JFileChooser;
@@ -35,13 +38,14 @@ public final class TitleScreen extends JPanel {
     private static final int XDIM = 1200;
     private static final int YDIM = 1000;
     private final JFrame frame = new JFrame("Prova");
+    //private final Controller controller = new ControllerImpl();         //TODO: dovrebbe usare/ avere come campo un controller?
     private Font font;
     private Font fontButton;
 
     /**
      * Constructor to build the gui of the TitleScreen.
      */
-    public TitleScreen() {
+    public TitleScreen(final Controller controller) {
 
         final int numberRow = 3;
         final int numberCol = 1;
@@ -98,8 +102,12 @@ public final class TitleScreen extends JPanel {
             @Override
             public void actionPerformed(final ActionEvent e) {
                 JFileChooser file = new JFileChooser();
-                file.showSaveDialog(null);
-                file.getSelectedFile();     //TODO: restituire il file ai piani superiori
+                file.showOpenDialog(frame);
+                //file.showSaveDialog(null);
+                File game = file.getSelectedFile();     //TODO: restituire il file ai piani superiori
+                controller.getRunner().loadFile(game);
+                frame.setVisible(false);
+                controller.getRunner().loadFile(game);
             }
         });
         final JButton editor = new JButton("Editor");
@@ -109,6 +117,15 @@ public final class TitleScreen extends JPanel {
         editor.setBorderPainted(true);
         editor.setBackground(FOREGROUND);
         editor.setForeground(BUTTON_BACK);
+        editor.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.setVisible(false);
+                controller.getEditor().start();
+            }
+            
+        });
 
         final JButton quit = new JButton("Quit");
         quit.setPreferredSize(BUTTON_SIZE);

@@ -42,15 +42,15 @@ public final class TrapImpl extends GameEntityImpl implements Trap {
     }
 
     private void checkExplosion() {
-        if (checkPlayer(getCharacter()) && this.isAlive()) {     //TODO: controllare se può funzionare
-            if (time == 0L) {
+        if (checkPlayer(getCharacter())) {     //TODO: controllare se può funzionare
+            if (this.isAlive() && this.state.equals(TrapState.INACTIVE)) {
                 time = System.currentTimeMillis();
                 this.state = TrapState.ACTIVE;
             }
-            if (checkTimer()) {
-                time = System.currentTimeMillis();
-                this.state = TrapState.DEAD;
-            }
+        }
+        if (this.state.equals(TrapState.ACTIVE) && checkTimer()) {
+            time = System.currentTimeMillis();
+            this.state = TrapState.DEAD;
         }
         if (checkTimer() && this.state.equals(TrapState.DEAD)) {
             this.setAlive(false);
