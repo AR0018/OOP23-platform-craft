@@ -10,7 +10,7 @@ public final class EditorViewImpl implements EditorView {
 
     private final Editor editor;
 
-    /*
+    /**
      * Constructor of the EditorViewImpl.
      * @param controller the controller of the game
      */
@@ -33,5 +33,4 @@ public final class EditorViewImpl implements EditorView {
     public boolean isShown() {
         return this.editor.isShown();
     }
-    
 }

@@ -9,10 +9,10 @@ package it.unibo;
  */
 public class PlatformCraft {
 
-    public static void main(final String[] args) {
+    /*public static void main(final String[] args) {
         //new EditorViewImpl(new ControllerImpl()).show();
         //new LevelViewImpl(new ControllerImpl()).show();
         //new LevelViewImpl(new ControllerImpl()).displayWin();
         //new LevelViewImpl(new ControllerImpl()).displayGameOver();
-    }
+    }*/
 }

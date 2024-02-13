@@ -23,12 +23,18 @@ import javax.swing.Box;
 import javax.swing.border.Border;
 import javax.swing.JLabel;
 
-
-public class LevelViewImpl implements LevelView{
+/**
+ * Handles the building of the GUI's level.
+ */
+public final class LevelViewImpl implements LevelView {
 
     private final LevelGUI levelGUI;
     private final Controller controller;
 
+    /**
+     * Constructor of the LevelViewImpl.
+     * @param controller the controller of the game
+     */
     public LevelViewImpl(final Controller controller) {
         this.controller = controller;
         this.levelGUI = new LevelGUI(controller);
@@ -50,7 +56,7 @@ public class LevelViewImpl implements LevelView{
     }
 
     @Override
-    public void render(Set<SimpleEntity> entities) {
+    public void render(final Set<SimpleEntity> entities) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'render'");
     }
@@ -66,9 +72,9 @@ public class LevelViewImpl implements LevelView{
         hide();
         new GameOver(controller);
     }
-    
+
     private static class Win {      //TODO: aggiungere font
-        
+
         private static final Dimension FRAME_DIMENSION = new Dimension(900, 600);
         private static final int SIZE_LABEL_TEXT = 100;
         private static final int SIZE_BUTTON_TEXT = 60;
@@ -79,14 +85,14 @@ public class LevelViewImpl implements LevelView{
         private final JPanel separator = new JPanel();
         private final JLabel label = new JLabel();
         private final JButton button = new JButton();
-        
+
         Win(final Controller controller) {
-            
+
             this.frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
             this.frame.setResizable(false);
             this.frame.setSize(FRAME_DIMENSION);
             this.frame.setLocationRelativeTo(null);
-            
+
             label.setText("YOU WON!!");
             label.setHorizontalAlignment(SwingConstants.CENTER);
             label.setFont(new Font("Dialog", Font.BOLD, SIZE_LABEL_TEXT));
@@ -102,7 +108,7 @@ public class LevelViewImpl implements LevelView{
             button.addActionListener(new ActionListener() {
 
                 @Override
-                public void actionPerformed(ActionEvent e) {
+                public void actionPerformed(final ActionEvent e) {
                     frame.setVisible(false);
                     new ViewImpl(controller).displayStart();
                 }
@@ -119,7 +125,6 @@ public class LevelViewImpl implements LevelView{
             frame.getContentPane().add(panel);
             this.frame.setVisible(true);
         }
-
     }
 
     private static class GameOver {
@@ -136,14 +141,14 @@ public class LevelViewImpl implements LevelView{
         private final JLabel label = new JLabel("GAME OVER!!");
         private final JButton home = new JButton("HOME");
         private final JButton retry = new JButton("RE-TRY");
-        
+
         GameOver(final Controller controller) {
-            
+
             this.frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
             this.frame.setResizable(false);
             this.frame.setSize(FRAME_DIMENSION);
             this.frame.setLocationRelativeTo(null);
-            
+
             label.setHorizontalAlignment(SwingConstants.CENTER);
             label.setFont(new Font("Dialog", Font.BOLD, SIZE_LABEL_TEXT));
             label.setForeground(Color.WHITE);
@@ -157,7 +162,7 @@ public class LevelViewImpl implements LevelView{
             home.addActionListener(new ActionListener() {
 
                 @Override
-                public void actionPerformed(ActionEvent e) {
+                public void actionPerformed(final ActionEvent e) {
                     frame.setVisible(false);
                     new ViewImpl(controller).displayStart();
                 }
@@ -170,7 +175,7 @@ public class LevelViewImpl implements LevelView{
             retry.addActionListener(new ActionListener() {
 
                 @Override
-                public void actionPerformed(ActionEvent e) {
+                public void actionPerformed(final ActionEvent e) {
                     frame.setVisible(false);
                     controller.getRunner().run();
                 }
@@ -179,10 +184,11 @@ public class LevelViewImpl implements LevelView{
             buttonPanel.setBackground(Color.BLACK);
             separator.setBackground(Color.BLACK);
 
+            final int width = 20;
             panel.add(label);
             panel.add(separator);
             buttonPanel.add(home);
-            buttonPanel.add(Box.createHorizontalStrut(20));
+            buttonPanel.add(Box.createHorizontalStrut(width));
             buttonPanel.add(retry);
             panel.add(buttonPanel);
 
@@ -191,6 +197,5 @@ public class LevelViewImpl implements LevelView{
             frame.getContentPane().add(panel);
             this.frame.setVisible(true);
         }
-
     }
 }

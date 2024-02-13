@@ -13,6 +13,10 @@ public final class ViewImpl implements View {           //TODO: metodi aggiuntiv
 
     private final Controller controller;
 
+    /**
+     * Constructor of the ViewImpl.
+     * @param controller the controller of the game
+     */
     public ViewImpl(final Controller controller) {
         this.controller = controller;
     }

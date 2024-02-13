@@ -11,7 +11,6 @@ import it.unibo.controller.api.LevelEditor;
 import it.unibo.controller.api.LevelSerializer;
 import it.unibo.model.engine.api.Engine;
 import it.unibo.view.api.EditorView;
-import it.unibo.view.impl.EditorViewImpl;
 
 /**
  * Models the controller of the game's editor.
@@ -25,6 +24,13 @@ public final class LevelEditorImpl implements LevelEditor {
     private Set<SimpleEntity> entities =  new HashSet<>();
     private Controller controller;
 
+    /**
+     * Constructor of the LevelEditorImpl.
+     * It's empty.
+     */
+    public LevelEditorImpl() {
+    }
+
     @Override
     public void reset() {
         //if (this.editor.isShown()) {
@@ -32,7 +38,7 @@ public final class LevelEditorImpl implements LevelEditor {
             //this.editor = new EditorViewImpl(controller);
             //this.editor.show();
 
-            
+
             //TODO: this.engine = new Engine(); 
         //}
     }
