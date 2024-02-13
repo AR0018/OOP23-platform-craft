@@ -111,7 +111,7 @@ public final class TitleScreen extends JPanel {
                 file.setAcceptAllFileFilterUsed(false);
                 file.addChoosableFileFilter(new FileNameExtensionFilter("*.json", "json"));
                 if (file.showOpenDialog(frame) == JFileChooser.APPROVE_OPTION) {
-                    controller.getRunner().loadFile(file.getSelectedFile());
+                    controller.getRunner().loadLevel(file.getSelectedFile());
                     frame.setVisible(false);
                     levelView.show();
                 }
