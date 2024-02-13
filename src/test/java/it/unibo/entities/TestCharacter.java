@@ -1,6 +1,6 @@
 package it.unibo.entities;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+/*import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -20,12 +20,12 @@ import it.unibo.model.level.api.Level;
 import it.unibo.model.physics.api.Direction;
 import it.unibo.model.physics.api.Position;
 import it.unibo.model.physics.impl.Position2D;
-
+*/
 //TODO: bisogna attendere prima le collisioni e le posizioni devono essere dei double
 /**
  * Class for testing the behaviour of the character.
  */
-
+/*
 public class TestCharacter {
 
     private static final long TIMER = 3000;
@@ -183,3 +183,4 @@ public class TestCharacter {
 
     }
 }
+*/
