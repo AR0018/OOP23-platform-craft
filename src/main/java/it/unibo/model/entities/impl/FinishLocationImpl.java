@@ -10,14 +10,14 @@ import it.unibo.model.physics.api.Position;
  * Models the finish location of the game, 
  * helps to figure out what the end of the is.
  */
-public class FinishLocationImpl extends GameEntityImpl implements FinishLocation {      //TODO: override of the box collision?
+public final class FinishLocationImpl extends GameEntityImpl implements FinishLocation {      //TODO: override of the box collision?
 
     /**
      * Constructor of the finish location.
      * @param position the position of the FinishLocation
      * @param level the level of the game
      */
-    public FinishLocationImpl(Position position, Level level) {
+    public FinishLocationImpl(final Position position, final Level level) {
         super(position, level);
     }
 
@@ -34,5 +34,4 @@ public class FinishLocationImpl extends GameEntityImpl implements FinishLocation
     public boolean theEnd() {
         return getCollisions().stream().anyMatch(x -> x instanceof Character);
     }
-    
 }

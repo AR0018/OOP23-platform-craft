@@ -2,106 +2,103 @@ package it.unibo.view.impl;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Toolkit;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.ImageObserver;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Optional;
 
 import javax.swing.JButton;
-import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JRadioButtonMenuItem;
-import javax.swing.JSeparator;
-import javax.swing.JToolBar;
-import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
+import javax.swing.BoxLayout;
 
 import java.awt.Color;
-import java.awt.ComponentOrientation;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.FontFormatException;
+import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridBagLayoutInfo;
 import java.awt.GridLayout;
+import java.awt.FlowLayout;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Component;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
-import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
-
-import java.awt.BorderLayout;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.EtchedBorder;
-import javax.swing.event.MenuEvent;
-import javax.swing.event.MenuListener;
-import javax.swing.filechooser.FileFilter;
+import javax.swing.border.TitledBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
-import com.fasterxml.jackson.core.JsonFactoryBuilder;
 
 import it.unibo.common.EntityType;
-import it.unibo.common.SimpleEntity;
 import it.unibo.controller.api.Controller;
-import it.unibo.model.physics.api.Position;
 
 import javax.swing.JOptionPane;
 import javax.swing.JFileChooser;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.awt.event.KeyEvent;
-
-import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JTextField;
+import javax.swing.JLabel;
 
 //Link che mi aiutato
 //https://stackoverflow.com/questions/13040747/resize-components-on-frame-resize-java
-//https://docs.oracle.com/javase/tutorial/displayCode.html?code=https://docs.oracle.com/javase/tutorial/uiswing/examples/components/FileChooserDemo2Project/src/components/Utils.java
+//https://docs.oracle.com/javase/tutorial/displayCode.html?code=https://
+//  docs.oracle.com/javase/tutorial/uiswing/examples/components/FileChooserDemo2Project/src/components/Utils.java
 
-public class Editor {
+//https://stackoverflow.com/questions/4801386/how-do-i-add-an-image-to-a-jbutton
+/**
+ * Class used to build the editor GUI.
+ */
+public final class Editor {
 
+    private static final int WIDTH_FRAME = 1280;
+    private static final int HEIGHT_FRAME = 960;
+    private static final int MENUBAR_ORIZZONTAL_GAP = 20;
+    private static final int MENUBAR_VERTICAL_GAP = 0;
+    private static final int MENUBAR_TOP = 0;
+    private static final int MENUBAR_LEFT = 9;
+    private static final int MENUBAR_BOTTOM = 0;
+    private static final int MENUBAR_RIGHT = 10;
+    private static final Dimension BUTTON_DIM = new Dimension(125, 35);
+    private static final Dimension REMOVE_BUTTON_DIM = new Dimension(254, 35);
+    private static final int THICKNESS = 4;
     private final JFrame frame = new JFrame();
+    final JPanel panelView = new JPanel();              //TODO: sostituire con il DrawPanel
     private final Controller controller;
     private Point mousePosition;
+    private Font font;
+    private Font fontButton;
 
+    /**
+     * Constructor of the Editor class.
+     * @param controller the controller of the game
+     */
     public Editor(final Controller controller) {
 
         this.controller = controller;
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.frame.setSize(new Dimension(1280, 960));     //1600, 900
-        this.frame.setMinimumSize(new Dimension(1280, 960));
+        this.frame.setSize(new Dimension(WIDTH_FRAME, HEIGHT_FRAME));     //1600, 900
+        this.frame.setMinimumSize(new Dimension(WIDTH_FRAME, HEIGHT_FRAME));
         this.frame.setLocationRelativeTo(null);
         //final JPanel box = new JPanel(new GridLayout(3, 2, 30, 20));
         final JMenuBar menuBar = new JMenuBar();
-        menuBar.setLayout(new BorderLayout(20, 0));
-        menuBar.setBorder(new EmptyBorder(0, 10, 0, 10));
-        JPanel menuButtons = new JPanel(new GridLayout(1, 4));
+        menuBar.setBackground(Color.GRAY);
+        menuBar.setLayout(new BorderLayout(MENUBAR_ORIZZONTAL_GAP, MENUBAR_VERTICAL_GAP));
+        menuBar.setBorder(new EmptyBorder(MENUBAR_TOP, MENUBAR_LEFT, MENUBAR_BOTTOM, MENUBAR_RIGHT));
+
+
+        JPanel menuButtons = new JPanel(new GridBagLayout());
         //menuBar.setAlignmentX(SwingConstants.NORTH);
         //menuBar.setBackground(Color.BLACK);
         //menuBar.setPreferredSize(new Dimension(1000, 40));
@@ -109,122 +106,171 @@ public class Editor {
         //final JButton menu = new JButton("Quit");
         final JMenu save = new JMenu("Save");
         final JMenu load = new JMenu("Load");*/
+        try {
+            final float fontLabelDim = 30f;
+            final float fontButtonDim = 25f;
+
+            //File fontStyle = new File("src\\main\\resources\\it\\unibo\\fonts\\ProtestStrike-Regular.ttf");
+            InputStream fontStyle = ClassLoader.getSystemResourceAsStream("./it/unibo/fonts/ProtestStrike-Regular.ttf");
+            font = Font.createFont(Font.TRUETYPE_FONT, fontStyle)
+                    .deriveFont(fontLabelDim)
+                    .deriveFont(Font.BOLD);
+            //fontStyle = new File("src\\main\\resources\\it\\unibo\\fonts\\Bungee-Regular.ttf");
+            fontStyle = ClassLoader.getSystemResourceAsStream("./it/unibo/fonts/Bungee-Regular.ttf");
+            fontButton = Font.createFont(Font.TRUETYPE_FONT, fontStyle)
+                    .deriveFont(fontButtonDim)
+                    .deriveFont(Font.CENTER_BASELINE)
+                    .deriveFont(Font.PLAIN);
+
+        } catch (FontFormatException | IOException e) {
+            e.printStackTrace();
+        }
+
         final JButton menu = new JButton("Quit");
+        menu.setFont(fontButton);
         final JButton save = new JButton("Save");
+        save.setFont(fontButton);
         final JButton load = new JButton("Load");
+        load.setFont(fontButton);
         final JButton reset = new JButton("Reset");
+        reset.setFont(fontButton);
         final JButton remove = new JButton("Remove");
-        final JPanel panelView = new JPanel();              //TODO: sostituire con il DrawPanel
+        remove.setFont(fontButton);
         //final JButton button6 = new JButton("LABEL");
         
-        final JMenu empty = new JMenu();
+        /*final JMenu empty = new JMenu();
         final JMenu empty1 = new JMenu();
-        final JMenu empty2 = new JMenu();
-        final JMenu empty3 = new JMenu();
+        final JMenu empty2 = new JMenu();*/
+        //final JMenu empty3 = new JMenu();
 
-        empty.setSize(new Dimension(20, 20));
+        /*empty.setSize(new Dimension(10, 20));
         empty.setEnabled(false);
         empty1.setSize(new Dimension(20, 20));
         empty1.setEnabled(false);
         empty2.setSize(new Dimension(5, 20));
-        empty2.setEnabled(false);
+        empty2.setEnabled(false);*/
         //empty.setOpaque(false);
         //menu.setBorder(new EmptyBorder(0, 50, 0, 50));
         //menu.setHorizontalTextPosition(SwingConstants.CENTER);
         //invalidate();
         //menu.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
         //menuBar.add(empty2);
-        menu.setPreferredSize(new Dimension(100, 40));
+        menu.setPreferredSize(BUTTON_DIM);
+        menu.setBackground(Color.white);
+        menu.setForeground(Color.black);
+        menu.setBorder(BorderFactory.createLineBorder(Color.black, THICKNESS));
         //menuBar.add(menu, BorderLayout.EAST);
         menuButtons.add(menu);
+        menuButtons.add(Box.createHorizontalStrut(10));
         //menuBar.add(empty);
 
         panelView.addMouseListener(new MouseListener() {
 
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void mouseClicked(final MouseEvent e) {
                 mousePosition = e.getPoint();
                 System.out.println(e.getPoint());
             }
 
             @Override
-            public void mousePressed(MouseEvent e) {
+            public void mousePressed(final MouseEvent e) {
             }
 
             @Override
-            public void mouseReleased(MouseEvent e) {
+            public void mouseReleased(final MouseEvent e) {
             }
 
             @Override
-            public void mouseEntered(MouseEvent e) {
+            public void mouseEntered(final MouseEvent e) {
             }
 
             @Override
-            public void mouseExited(MouseEvent e) {
+            public void mouseExited(final MouseEvent e) {
             }
-            
         });
-        
+
         menu.addActionListener(new ActionListener() {
 
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 if (JOptionPane.showConfirmDialog(frame, "Do you want to return to the Title Screen",
                          "Quitting", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                     frame.setVisible(false);
                     new ViewImpl(controller).displayStart();
                 }
             }
-            
         });
         //menuBar.add(new JSeparator(JSeparator.HORIZONTAL));
         //menu.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 30));
         //save.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0), 2, true));
-        save.setPreferredSize(new Dimension(100, 40));
+        save.setPreferredSize(BUTTON_DIM);
+        save.setBackground(Color.white);
+        save.setForeground(Color.black);
+        save.setBorder(BorderFactory.createLineBorder(Color.black, THICKNESS));
         //save.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
         //save.setForeground(new Color(255, 255, 0));
         
         save.addActionListener(new ActionListener() {
 
             @Override
-            public void actionPerformed(ActionEvent e) {
-                String name = JOptionPane.showInputDialog(frame, "Write the filename", "Saving", JOptionPane.PLAIN_MESSAGE);
+            public void actionPerformed(final ActionEvent e) {
+                /*String name = JOptionPane.showInputDialog(frame, "Write the filename", "Saving", JOptionPane.PLAIN_MESSAGE);
                 if (name.contains(".json")) {
                     File file = new File(name);
                     controller.getEditor().saveLevel(file);
                 } else {
                     JOptionPane.showMessageDialog(frame, "The type of file is not .json",
                              "Error has occurred", JOptionPane.ERROR_MESSAGE);
+                }*/
+                JFileChooser file = new JFileChooser();
+                file.setAcceptAllFileFilterUsed(false);
+                file.addChoosableFileFilter(new FileNameExtensionFilter("*.json", "json"));
+                if (file.showSaveDialog(frame) == JFileChooser.APPROVE_OPTION) {
+                    if (file.getSelectedFile().getName().endsWith(".json")) {
+                        controller.getEditor().saveLevel(file.getSelectedFile());
+                    } else {
+                        JOptionPane.showMessageDialog(frame, "The type of file is not .json",
+                             "Error has occurred", JOptionPane.ERROR_MESSAGE); 
+                    }
                 }
             }
             
         });
         //menuBar.add(save);
         menuButtons.add(save);
+        menuButtons.add(Box.createHorizontalStrut(10));
         //menuBar.add(empty1);
 
         //load.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
-        load.setPreferredSize(new Dimension(100, 40));
+        load.setPreferredSize(BUTTON_DIM);
+        load.setBackground(Color.white);
+        load.setForeground(Color.black);
+        load.setBorder(BorderFactory.createLineBorder(Color.black, THICKNESS));
         load.addActionListener(new ActionListener() {
 
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 JFileChooser file = new JFileChooser();
                 file.setAcceptAllFileFilterUsed(false);
                 file.addChoosableFileFilter(new FileNameExtensionFilter("*.json", "json"));
-                file.showSaveDialog(null);
-                controller.getEditor().loadLevel(file.getSelectedFile());
+                if (file.showOpenDialog(frame) == JFileChooser.APPROVE_OPTION) {
+                    controller.getEditor().loadLevel(file.getSelectedFile());
+                }
             }
             
         });
         //menuBar.add(load);
         menuButtons.add(load);
+        menuButtons.add(Box.createHorizontalStrut(10));
 
-        reset.setPreferredSize(new Dimension(100, 40));
+        reset.setPreferredSize(BUTTON_DIM);
+        reset.setBackground(Color.white);
+        reset.setForeground(Color.black);
+        reset.setBorder(BorderFactory.createLineBorder(Color.black, THICKNESS));
         reset.addActionListener(new ActionListener() {
 
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 //frame.setVisible(false);
                 //controller.getEditor().start();
                 if (JOptionPane.showConfirmDialog(frame,
@@ -235,17 +281,20 @@ public class Editor {
                             controller.getEditor().start();
                         }
             }
-            
         });
         //menuBar.add(reset);
         menuButtons.add(reset);
 
-        remove.setPreferredSize(new Dimension(250, 40));
+        remove.setPreferredSize(REMOVE_BUTTON_DIM);
+        remove.setBackground(Color.white);
+        remove.setForeground(Color.black);
+        remove.setBorder(BorderFactory.createLineBorder(Color.black, THICKNESS));
         remove.addActionListener(new ActionListener() {
 
             @Override
-            public void actionPerformed(ActionEvent e) {
-                controller.getEditor().removeEntity(mousePosition.getX(), mousePosition.getY());
+            public void actionPerformed(final ActionEvent e) {
+                Optional<Point> point = Optional.of(mousePosition);
+                controller.getEditor().removeEntity(point.get().getX(), point.get().getY());
             }
             
         });
@@ -255,22 +304,61 @@ public class Editor {
 
         //menuBar.add(remove);
         //menuBar.add(empty);
-        //menuBar.setSize((int) (frame.getSize().getWidth() / 1.5), 20);
+        //menuBar.setSize((int) (frame.getSize().getWidth_FRAME() / 1.5), 20);
         //frame.add(menuBar);
 
 
         final JPanel box = new JPanel();
-        box.setBorder(BorderFactory.createLineBorder(Color.white, 4));
+        box.setBackground(Color.GRAY);
+        //box.setBorder(BorderFactory.createLineBorder(Color.white, 4));
         //box.setBackground(Color.BLUE);
         //button.setPreferredSize(new Dimension(50, 120));
         box.setLayout(new GridLayout(3, 2, 10, 10));
 
-        final JButton button = new JButton("Character");
+        final ImageIcon imageIcon = new ImageIcon("src/main/resources/it/unibo/images/Owlet_Monster.png");
+        final ImageIcon img = new ImageIcon(imageIcon.getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT));
+        final JButton button = new JButton();
+        button.setLayout(new BoxLayout(button, BoxLayout.Y_AXIS));
+        final JLabel textP = new JLabel("Character"); //SwingConstants.
+        textP.setFont(new Font("Verdana", Font.BOLD, 20));
+        textP.setForeground(Color.WHITE);
+        //textP.setSize(50, 100);
+        //final JPanel pn = new JPanel(new GridLayout(2, 1));
+        final JLabel iconP = new JLabel(img);
+        iconP.setBorder(BorderFactory.createEmptyBorder(20, 10, 0, 0));
+        //pn.add(textP);
+        //pn.setOpaque(false);
+        button.add(textP);
+        iconP.setOpaque(false);
+        button.add(iconP);
+        //pn.add(iconP);
+        //pn.setOpaque(false);
+        //button.add(pn);
+        //final JButton button = new JButton("Character", imageIcon);
+
+        //final Button button = new Button("src/main/resources/it/unibo/images/Owlet_Monster.png", "Character");
+        //button.setBorder(BorderFactory.createLineBorder(Color.white, THICKNESS-1));
+        //button.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.white, Color.DARK_GRAY));
+        
+        //button.setFont(new Font("Verdana", Font.BOLD, 15));
+        button.setBackground(Color.BLACK);
+        button.setForeground(Color.WHITE);
+        button.setVerticalAlignment(SwingConstants.TOP);
+        button.setVerticalTextPosition(SwingConstants.BOTTOM);
         addEntityFromButton(button, EntityType.CHARACTER);
         box.add(button);
 
-        final JButton button1 = new JButton("Simple Enemy");
+        final JButton button1 = new JButton();
+        final JLabel iconP1 = new JLabel(img);
+        iconP1.setBorder(BorderFactory.createEmptyBorder(0, 15, 0, 0));
         addEntityFromButton(button1, EntityType.SIMPLE_ENEMY);
+        //button1.setBorder(BorderFactory.createLineBorder(Color.white, THICKNESS-1));
+        button1.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.BLACK, 4, true),
+                 "Simple Enemy", TitledBorder.CENTER, TitledBorder.ABOVE_BOTTOM, font.deriveFont(20f)));
+        button1.setFont(new Font("Verdana", Font.BOLD, 15));
+        button1.setBackground(Color.WHITE);
+        button1.setForeground(Color.BLACK);
+        button1.add(iconP1);
         //button.setPreferredSize(new Dimension(30, 60));
         box.add(button1);
 
@@ -307,13 +395,14 @@ public class Editor {
         c.insets = new Insets(12, 400, 10, 0);
         //JComponent component = new JPanel(new GridBagLayout());
         JComponent component = new JPanel(new BorderLayout());
-        component.setBorder(new EmptyBorder(5, 5, 5, 5));
+        component.setBackground(Color.GRAY);;
+        component.setBorder(new EmptyBorder(10, 10, 10, 10));
         //JPanel contentPane = new JPanel();
         //box.setForeground(Color.BLACK);
 
         //JPanel pane = new JPanel(new GridLayout(3, 2));
         //contentPane.setBorder(new EmptyBorder(50, 100, 50, 20));
-        //contentPane.setBounds(400,200, (int)contentPane.getSize().getWidth(), (int)contentPane.getSize().getHeight());
+        //contentPane.setBounds(400,200, (int)contentPane.getSize().getWidth_FRAME(), (int)contentPane.getSize().getHeight_FRAME());
         
         
         //contentPane.setLayout(new GridBagLayout());       da rimettere
@@ -323,13 +412,13 @@ public class Editor {
         c.anchor = GridBagConstraints.LINE_START;
         c.fill = GridBagConstraints.BOTH;
         c.gridwidth = 1;
-        //c.gridheight = 3;
-        //c.gridwidth = GridBagConstraints.RELATIVE;
+        //c.gridheight_FRAME = 3;
+        //c.gridwidth_FRAME = GridBagConstraints.RELATIVE;
         c.weightx = 0;
         c.weighty = 0;
         c.insets = new Insets(20, 0, 20, 400);
         //final JPanel panl = new JPanel();
-        panelView.setBorder(BorderFactory.createLineBorder(Color.BLACK, 4));
+        panelView.setBorder(BorderFactory.createLineBorder(Color.BLACK, THICKNESS));
         //panelView.setBackground(Color.BLACK);
         //button6.setSize(500, 600);
         //component.add(button6, BorderLayout.CENTER);
@@ -339,14 +428,27 @@ public class Editor {
         this.frame.setJMenuBar(menuBar);
     }
 
+    /**
+     * Shows the Editor GUI.
+     */
     public void show() {
         this.frame.setVisible(true);
+        JOptionPane.showMessageDialog(frame, "If you want to add something, first click in the central panel" +
+                "\nand then press the button of the entity you want to add.",
+         "Let's start with the Editor!", JOptionPane.INFORMATION_MESSAGE);
     }
 
+    /**
+     * Hides the Editor GUI.
+     */
     public void hide() {
         this.frame.setVisible(false);
     }
 
+    /**
+     * Checks if the GUI is visible or not.
+     * @return true if it's visible, false otherwise
+     */
     public boolean isShown() {
         return this.frame.isVisible();
     }
@@ -355,7 +457,7 @@ public class Editor {
         button.addActionListener(new ActionListener() {
 
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 System.out.println(type + "-> Pos: " + mousePosition);
                 /*controller.getEditor().addEntity(new SimpleEntity() {             //TODO: da decommentare
 
@@ -376,10 +478,47 @@ public class Editor {
                     
                 });*/
             }
-            
         });
     }
 
+    private class Button extends JButton {
+
+        Image image;
+        ImageObserver observer;
+        ImageIcon imageIcon;
+
+        Button(String filePathName, String text) {
+            super();
+            setText(text);
+            setAlignmentX(Component.CENTER_ALIGNMENT);
+            setVerticalTextPosition(SwingConstants.BOTTOM);
+            ImageIcon imageIcon = new ImageIcon(filePathName);
+            image = imageIcon.getImage();
+            observer = imageIcon.getImageObserver();
+        }
+
+        public void paint(Graphics g) {
+            super.paint(g);
+            g.drawImage(image, (int) (getWidth() / 5), (int) (getHeight() / 3), 100, 120, observer);
+        }
+    }
+    /*private void buttonGraphic(final JButton button, final String fileNamePath, final String entityType) {
+        final ImageIcon imageIcon = new ImageIcon(fileNamePath);
+        //final JPanel o = new JPanel(new GridLayout(2, 1));
+        final JLabel textP = new JLabel(entityType, SwingConstants.CENTER);
+        final ImageIcon img = new ImageIcon(imageIcon.getImage().getScaledInstance(110, 120, Image.SCALE_DEFAULT));
+        final JLabel iconP = new JLabel(img, SwingConstants.CENTER);
+        
+        //button.setLayout(new BoxLayout(button, BoxLayout.Y_AXIS));
+        textP.setFont(fontButton.deriveFont(18f));
+        textP.setForeground(Color.DARK_GRAY);
+
+        button.add(textP);
+        //o.setOpaque(false);
+        //button.add(Box.createVerticalStrut(40));
+        iconP.setOpaque(false);
+        button.add(iconP);
+    } */
     /*
      * button1.addActionListener(new ActionListener() {
 
@@ -446,7 +585,6 @@ public class Editor {
         return "null";
     }*/
 }
-
 /*
  * GridBagConstraints c = new GridBagConstraints();
         c.anchor = GridBagConstraints.FIRST_LINE_START;
@@ -457,7 +595,7 @@ public class Editor {
         c.weighty = 7;
         JPanel contentPane = new JPanel();
         //contentPane.setBorder(new EmptyBorder(50, 100, 50, 20));
-        contentPane.setBounds(400,200, (int)contentPane.getSize().getWidth(), (int)contentPane.getSize().getHeight());
+        contentPane.setBounds(400,200, (int)contentPane.getSize().getWidth_FRAME(), (int)contentPane.getSize().getHeight_FRAME());
         contentPane.setLayout(new GridBagLayout());
         contentPane.add(box, c);
         contentPane.setOpaque(false);

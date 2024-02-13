@@ -6,7 +6,6 @@ import it.unibo.controller.api.LevelEditor;
 import it.unibo.controller.api.LevelRunner;
 import it.unibo.model.engine.api.Engine;
 import it.unibo.view.impl.ViewImpl;
-import java.lang.IllegalStateException;
 
 import java.util.Set;
 
@@ -22,6 +21,9 @@ public final class ControllerImpl implements Controller {
     private boolean startIsValid = true;    //true se si può invocare start, false no
     private Engine engine;
 
+    /**
+     * Constructor of the Controller.
+     */
     public ControllerImpl() {   //final Engine engine newl costruttore?
         //this.engine = engine;
         this.levelEditor = new LevelEditorImpl(this);
@@ -30,7 +32,7 @@ public final class ControllerImpl implements Controller {
     }
 
     @Override
-    public void start() {       //TODO: controllare che venga invocato solo una volta boolean tira eccezione
+    public void start() {
         if (this.startIsValid) {
             new ViewImpl(this).displayStart();
             this.startIsValid = false;
@@ -40,13 +42,13 @@ public final class ControllerImpl implements Controller {
     }
 
     @Override
-    public LevelRunner getRunner() {        //TODO: return new LevelRunnerImpl.run();
+    public LevelRunner getRunner() {
         //  Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getRunner'");
     }
 
     @Override
-    public LevelEditor getEditor() {        //TODO: return new LevelEditorImpl.run(this);
+    public LevelEditor getEditor() {
         return this.levelEditor;
     }
 }

@@ -25,6 +25,10 @@ public final class LevelEditorImpl implements LevelEditor {
     private Set<SimpleEntity> entities =  new HashSet<>();
     private Controller controller;
 
+    /**
+     * Constructor of the LevelEditor.
+     * @param controller to assign to the GUIs
+     */
     public LevelEditorImpl(final Controller controller) {
         this.controller = controller;
         this.editor = new EditorViewImpl(controller);
@@ -32,7 +36,6 @@ public final class LevelEditorImpl implements LevelEditor {
 
     @Override
     public void start() {   //da controller non da editor
-        //TODO: ;
         if (!this.editor.isShown()) {
             this.editor.show();
         }
@@ -40,7 +43,6 @@ public final class LevelEditorImpl implements LevelEditor {
 
     @Override
     public void reset() {
-        //TODO: new EditorViewImpl.show();
         //if (this.editor.isShown()) {
             this.editor.hide();
             this.editor = new EditorViewImpl(controller);

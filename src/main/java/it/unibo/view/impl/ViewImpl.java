@@ -16,7 +16,7 @@ public final class ViewImpl implements View {           //TODO: metodi aggiuntiv
     public ViewImpl(final Controller controller) {
         this.controller = controller;
     }
-    
+
     @Override
     public void displayStart() {
         new TitleScreen(this.controller).setVisible();

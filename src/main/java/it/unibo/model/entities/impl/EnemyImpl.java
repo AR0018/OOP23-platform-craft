@@ -94,7 +94,7 @@ public abstract class EnemyImpl extends GameEntityImpl implements Enemy {
     /**
      * Check if the enemy has some collisions. 
      */
-    protected void checkEnemyCollisions() {
+    private void checkEnemyCollisions() {
         if (!getCollisions().isEmpty()) {
             if (getCollisionBox().isCollidingWith(getLevel().getCharacter())) {
                 checkEnemyIsDead();

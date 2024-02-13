@@ -3,10 +3,17 @@ package it.unibo.view.impl;
 import it.unibo.controller.api.Controller;
 import it.unibo.view.api.EditorView;
 
-public final class EditorViewImpl implements EditorView{
+/**
+ * Models the GUI of the game's Editor.
+ */
+public final class EditorViewImpl implements EditorView {
 
     private final Editor editor;
 
+    /*
+     * Constructor of the EditorViewImpl.
+     * @param controller the controller of the game
+     */
     public EditorViewImpl(final Controller controller) {
         //this.controller = controller;
         this.editor = new Editor(controller);

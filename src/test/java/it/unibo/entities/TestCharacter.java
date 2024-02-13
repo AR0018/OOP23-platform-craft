@@ -22,7 +22,7 @@ import it.unibo.model.physics.api.Direction;
 import it.unibo.model.physics.api.Position;
 import it.unibo.model.physics.impl.Position2D;
 
-//TODO: bisogna attendere prima le collisioni
+//TODO: bisogna attendere prima le collisioni e le posizioni devono essere dei double
 /**
  * Class for testing the behaviour of the character.
  */
@@ -110,7 +110,7 @@ public class TestCharacter {
         this.trap.updateState();
         this.player.updateState();
         assertEquals(TrapState.ACTIVE, this.trap.getTrapState());
-        for (int i = 0; i<=TIMER; i++) {
+        for (int i = 0; i <= TIMER; i++) {
             this.trap.updateState();
         }
         //this.player.move(Direction.LEFT);
@@ -128,7 +128,7 @@ public class TestCharacter {
         this.trap.updateState();
         this.player.updateState();
         assertEquals(TrapState.ACTIVE, this.trap.getTrapState());
-        for (int i = 0; i<=TIMER/2; i++) {
+        for (int i = 0; i <= TIMER / 2; i++) {
             this.trap.updateState();
         }
         //this.player.move(Direction.LEFT);
@@ -154,31 +154,31 @@ public class TestCharacter {
 
         @Override
         public void computeChanges() {
-            // TODO Auto-generated method stub
+            //Auto-generated method stub
             throw new UnsupportedOperationException("Unimplemented method 'computeChanges'");
         }
 
         @Override
         public void moveCharacter(final Direction dir) {
-            // TODO Auto-generated method stub
+            //Auto-generated method stub
             throw new UnsupportedOperationException("Unimplemented method 'moveCharacter'");
         }
 
         @Override
         public void addFinishLocation(final Position position) {
-            // TODO Auto-generated method stub
+            //Auto-generated method stub
             throw new UnsupportedOperationException("Unimplemented method 'addFinishLocation'");
         }
 
         @Override
         public GameState getGameState() {
-            // TODO Auto-generated method stub
+            //Auto-generated method stub
             throw new UnsupportedOperationException("Unimplemented method 'getGameState'");
         }
 
         @Override
         public GameEntity getCharacter() {
-            // TODO Auto-generated method stub
+            //Auto-generated method stub
             throw new UnsupportedOperationException("Unimplemented method 'getCharacter'");
         }
 

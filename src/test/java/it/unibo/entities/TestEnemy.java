@@ -141,31 +141,31 @@ public class TestEnemy {        //TODO: modificare le posizioni perche devono es
 
         @Override
         public void computeChanges() {
-            //  Auto-generated method stub
+            //Auto-generated method stub
             throw new UnsupportedOperationException("Unimplemented method 'computeChanges'");
         }
 
         @Override
         public void moveCharacter(final Direction dir) {
-            //  Auto-generated method stub
+            //Auto-generated method stub
             throw new UnsupportedOperationException("Unimplemented method 'moveCharacter'");
         }
 
         @Override
         public void addFinishLocation(final Position position) {
-            //  Auto-generated method stub
+            //Auto-generated method stub
             throw new UnsupportedOperationException("Unimplemented method 'addFinishLocation'");
         }
 
         @Override
         public GameState getGameState() {
-            //  Auto-generated method stub
+            //Auto-generated method stub
             throw new UnsupportedOperationException("Unimplemented method 'getGameState'");
         }
 
         @Override
         public GameEntity getCharacter() {
-            //  Auto-generated method stub
+            //Auto-generated method stub
             throw new UnsupportedOperationException("Unimplemented method 'getCharacter'");
         }
 

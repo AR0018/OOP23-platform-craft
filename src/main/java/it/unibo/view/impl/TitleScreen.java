@@ -17,6 +17,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import it.unibo.controller.api.Controller;
 
@@ -38,12 +39,13 @@ public final class TitleScreen extends JPanel {
     private static final int XDIM = 1200;
     private static final int YDIM = 1000;
     private final JFrame frame = new JFrame("Prova");
-    //private final Controller controller = new ControllerImpl();         //TODO: dovrebbe usare/ avere come campo un controller?
+    //private final Controller controller = new ControllerImpl();         //TODO: dovrebbe usare/avere come campo un controller?
     private Font font;
     private Font fontButton;
 
     /**
      * Constructor to build the gui of the TitleScreen.
+     * @param controller the controller of the game
      */
     public TitleScreen(final Controller controller) {
 
@@ -102,12 +104,12 @@ public final class TitleScreen extends JPanel {
             @Override
             public void actionPerformed(final ActionEvent e) {
                 JFileChooser file = new JFileChooser();
-                file.showOpenDialog(frame);
-                //file.showSaveDialog(null);
-                File game = file.getSelectedFile();     //TODO: restituire il file ai piani superiori
-                controller.getRunner().loadFile(game);
-                frame.setVisible(false);
-                controller.getRunner().loadFile(game);
+                file.setAcceptAllFileFilterUsed(false);
+                file.addChoosableFileFilter(new FileNameExtensionFilter("*.json", "json"));
+                if (file.showOpenDialog(frame) == JFileChooser.APPROVE_OPTION) {
+                    controller.getRunner().loadFile(file.getSelectedFile());
+                    frame.setVisible(false);
+                }
             }
         });
         final JButton editor = new JButton("Editor");
@@ -120,11 +122,10 @@ public final class TitleScreen extends JPanel {
         editor.addActionListener(new ActionListener() {
 
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 frame.setVisible(false);
                 controller.getEditor().start();
             }
-            
         });
 
         final JButton quit = new JButton("Quit");
