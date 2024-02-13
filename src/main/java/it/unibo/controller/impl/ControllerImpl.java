@@ -1,13 +1,9 @@
 package it.unibo.controller.impl;
 
-import it.unibo.common.SimpleEntity;
 import it.unibo.controller.api.Controller;
 import it.unibo.controller.api.LevelEditor;
 import it.unibo.controller.api.LevelRunner;
-import it.unibo.model.engine.api.Engine;
 import it.unibo.view.impl.ViewImpl;
-
-import java.util.Set;
 
 /**
  * Models the Controller of the game where it decides wethever
@@ -17,16 +13,14 @@ public final class ControllerImpl implements Controller {
 
     private final LevelEditor levelEditor;
     //private final LevelRunner levelRunner;
-    private Set<SimpleEntity> entities;
     private boolean startIsValid = true;    //true se si può invocare start, false no
-    private Engine engine;
 
     /**
      * Constructor of the Controller.
      */
     public ControllerImpl() {   //final Engine engine newl costruttore?
         //this.engine = engine;
-        this.levelEditor = new LevelEditorImpl(this);
+        this.levelEditor = new LevelEditorImpl();
         //this.levelRunner = new LevelRunnerImpl();
         //this.entities = this.engine.getLevelEntities();
     }

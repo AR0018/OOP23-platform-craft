@@ -10,7 +10,6 @@ import it.unibo.model.physics.api.PhysicsBuilder;
 import it.unibo.model.physics.api.Position;
 import it.unibo.model.physics.impl.PhysicsBuilderImpl;
 import it.unibo.model.entities.api.Trap;
-import it.unibo.model.entities.api.TrapState;
 
 import java.util.stream.Collectors;
 import java.util.Objects;
@@ -63,7 +62,7 @@ public final class CharacterImpl extends GameEntityImpl implements Character {
                     .collect(Collectors.toSet());
             if (!trapCollisions.isEmpty()) {
                 var trap = (Trap) trapCollisions.stream().findFirst().get().getGameEntity();
-                if (trap.getTrapState().equals(TrapState.DEAD)) {           //TODO: controllare se può funzionare
+                if (trap.isLethal()) {           //TODO: controllare se può funzionare
                     setAlive(false);
                 }
             }

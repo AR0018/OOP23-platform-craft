@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 
 import it.unibo.model.entities.api.Character;
 import it.unibo.model.entities.api.GameEntity;
-import it.unibo.model.entities.api.TrapState;
 import it.unibo.model.entities.impl.CharacterImpl;
 import it.unibo.model.entities.impl.EnemyImpl;
 import it.unibo.model.entities.impl.SimpleEnemyImpl;
@@ -109,7 +108,7 @@ public class TestCharacter {
         this.player.move(Direction.RIGHT);
         this.trap.updateState();
         this.player.updateState();
-        assertEquals(TrapState.ACTIVE, this.trap.getTrapState());
+        assertFalse(this.trap.isLethal());
         for (int i = 0; i <= TIMER; i++) {
             this.trap.updateState();
         }
@@ -127,7 +126,7 @@ public class TestCharacter {
         this.player.move(Direction.RIGHT);
         this.trap.updateState();
         this.player.updateState();
-        assertEquals(TrapState.ACTIVE, this.trap.getTrapState());
+        assertFalse(this.trap.isAlive());
         for (int i = 0; i <= TIMER / 2; i++) {
             this.trap.updateState();
         }

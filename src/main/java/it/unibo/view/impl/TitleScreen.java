@@ -8,7 +8,6 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.awt.BorderLayout;
@@ -20,6 +19,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import it.unibo.controller.api.Controller;
+import it.unibo.view.api.EditorView;
+import it.unibo.view.api.LevelView;
 
 import javax.swing.JOptionPane;
 import javax.swing.JFileChooser;
@@ -39,9 +40,11 @@ public final class TitleScreen extends JPanel {
     private static final int XDIM = 1200;
     private static final int YDIM = 1000;
     private final JFrame frame = new JFrame("Prova");
+    private EditorView editorView;
     //private final Controller controller = new ControllerImpl();         //TODO: dovrebbe usare/avere come campo un controller?
     private Font font;
     private Font fontButton;
+    private LevelView levelView;
 
     /**
      * Constructor to build the gui of the TitleScreen.
@@ -57,10 +60,11 @@ public final class TitleScreen extends JPanel {
         final int panelTopDim = 150;
         final int panelVerticalGap = 20;
 
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(new Dimension(XDIM, YDIM));
-        frame.setMinimumSize(new Dimension(XDIM, YDIM));
-        frame.pack();
+        this.editorView = new EditorViewImpl(controller);
+        this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.frame.setSize(new Dimension(XDIM, YDIM));
+        this.frame.setMinimumSize(new Dimension(XDIM, YDIM));
+        this.frame.pack();
 
         final JPanel panel = new JPanel(new GridLayout(numberRow, numberCol, zero, panelVerticalGap));
         panel.setPreferredSize(new Dimension(panelWidthPreferred, panelHeightPreferred));
@@ -109,6 +113,7 @@ public final class TitleScreen extends JPanel {
                 if (file.showOpenDialog(frame) == JFileChooser.APPROVE_OPTION) {
                     controller.getRunner().loadFile(file.getSelectedFile());
                     frame.setVisible(false);
+                    levelView.show();
                 }
             }
         });
@@ -124,7 +129,8 @@ public final class TitleScreen extends JPanel {
             @Override
             public void actionPerformed(final ActionEvent e) {
                 frame.setVisible(false);
-                controller.getEditor().start();
+                controller.getEditor().reset();
+                editorView.show();
             }
         });
 

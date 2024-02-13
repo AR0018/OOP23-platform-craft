@@ -45,6 +45,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 
 import it.unibo.common.EntityType;
+import it.unibo.common.SimpleEntity;
 import it.unibo.controller.api.Controller;
 
 import javax.swing.JOptionPane;
@@ -74,9 +75,10 @@ public final class Editor {
     private static final Dimension REMOVE_BUTTON_DIM = new Dimension(254, 35);
     private static final int THICKNESS = 4;
     private final JFrame frame = new JFrame();
-    final JPanel panelView = new JPanel();              //TODO: sostituire con il DrawPanel
+    private final JPanel panelView = new JPanel();              //TODO: sostituire con il DrawPanel
     private final Controller controller;
-    private Point mousePosition;
+    private Optional<EntityType> type = Optional.empty();
+    private Optional<Point> mousePosition = Optional.empty();
     private Font font;
     private Font fontButton;
 
@@ -137,7 +139,7 @@ public final class Editor {
         final JButton remove = new JButton("Remove");
         remove.setFont(fontButton);
         //final JButton button6 = new JButton("LABEL");
-        
+
         /*final JMenu empty = new JMenu();
         final JMenu empty1 = new JMenu();
         final JMenu empty2 = new JMenu();*/
@@ -168,8 +170,26 @@ public final class Editor {
 
             @Override
             public void mouseClicked(final MouseEvent e) {
-                mousePosition = e.getPoint();
-                System.out.println(e.getPoint());
+                mousePosition = Optional.of(e.getPoint());
+                /*controller.getEditor().addEntity(new SimpleEntity() {
+
+                    @Override
+                    public EntityType getType() {
+                        return type.get();
+                    }
+
+                    @Override
+                    public double getX() {
+                        return mousePosition.getX();
+                    }
+
+                    @Override
+                    public double getY() {
+                        return mousePosition.getY();
+                    }
+                    
+                });*/
+                System.out.println("Added " +  type.get() + " at Pos:" + e.getPoint());
             }
 
             @Override
@@ -209,7 +229,7 @@ public final class Editor {
         save.setBorder(BorderFactory.createLineBorder(Color.black, THICKNESS));
         //save.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
         //save.setForeground(new Color(255, 255, 0));
-        
+
         save.addActionListener(new ActionListener() {
 
             @Override
@@ -234,7 +254,6 @@ public final class Editor {
                     }
                 }
             }
-            
         });
         //menuBar.add(save);
         menuButtons.add(save);
@@ -250,14 +269,15 @@ public final class Editor {
 
             @Override
             public void actionPerformed(final ActionEvent e) {
+                //JFileChooser file = new JFileChooser("src/main/resources/it/unibo");      //controllare se può andare
                 JFileChooser file = new JFileChooser();
                 file.setAcceptAllFileFilterUsed(false);
                 file.addChoosableFileFilter(new FileNameExtensionFilter("*.json", "json"));
+                //file.setCurrentDirect;
                 if (file.showOpenDialog(frame) == JFileChooser.APPROVE_OPTION) {
                     controller.getEditor().loadLevel(file.getSelectedFile());
                 }
             }
-            
         });
         //menuBar.add(load);
         menuButtons.add(load);
@@ -277,8 +297,8 @@ public final class Editor {
                          "Confirm to reset?", "Resetting",
                          JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
                             //controller.getEditor().reset();
-                            frame.setVisible(false);
-                            controller.getEditor().start();
+                            //frame.setVisible(false);
+                            controller.getEditor().reset();
                         }
             }
         });
@@ -293,10 +313,10 @@ public final class Editor {
 
             @Override
             public void actionPerformed(final ActionEvent e) {
-                Optional<Point> point = Optional.of(mousePosition);
-                controller.getEditor().removeEntity(point.get().getX(), point.get().getY());
+                if (mousePosition.isPresent()) {
+                    controller.getEditor().removeEntity(mousePosition.get().getX(), mousePosition.get().getY());
+                }
             }
-            
         });
         menuBar.add(menuButtons, BorderLayout.WEST);
         menuBar.add(Box.createHorizontalGlue());
@@ -383,7 +403,7 @@ public final class Editor {
         //button5.setVerticalAlignment(SwingConstants.TOP);
         //button.setPreferredSize(new Dimension(30, 60));
         box.add(button5);
-        GridBagConstraints c = new GridBagConstraints();
+        /*GridBagConstraints c = new GridBagConstraints();
         c.anchor = GridBagConstraints.LINE_END;
         c.fill = GridBagConstraints.BOTH;
         c.gridwidth = 1;
@@ -392,7 +412,7 @@ public final class Editor {
         c.gridy = 2;
         c.weightx = 1;
         c.weighty = 2;
-        c.insets = new Insets(12, 400, 10, 0);
+        c.insets = new Insets(12, 400, 10, 0);*/
         //JComponent component = new JPanel(new GridBagLayout());
         JComponent component = new JPanel(new BorderLayout());
         component.setBackground(Color.GRAY);;
@@ -402,21 +422,22 @@ public final class Editor {
 
         //JPanel pane = new JPanel(new GridLayout(3, 2));
         //contentPane.setBorder(new EmptyBorder(50, 100, 50, 20));
-        //contentPane.setBounds(400,200, (int)contentPane.getSize().getWidth_FRAME(), (int)contentPane.getSize().getHeight_FRAME());
-        
-        
+        //contentPane.setBounds(400,200, (int)contentPane.getSize().getWidth_FRAME(), 
+        //(int)contentPane.getSize().getHeight_FRAME());
+
+
         //contentPane.setLayout(new GridBagLayout());       da rimettere
         //contentPane.add(box, BorderLayout.EAST);
         //component.add(contentPane, BorderLayout.WEST);
         component.add(box, BorderLayout.EAST);
-        c.anchor = GridBagConstraints.LINE_START;
+        /*c.anchor = GridBagConstraints.LINE_START;
         c.fill = GridBagConstraints.BOTH;
         c.gridwidth = 1;
         //c.gridheight_FRAME = 3;
         //c.gridwidth_FRAME = GridBagConstraints.RELATIVE;
         c.weightx = 0;
         c.weighty = 0;
-        c.insets = new Insets(20, 0, 20, 400);
+        c.insets = new Insets(20, 0, 20, 400);*/
         //final JPanel panl = new JPanel();
         panelView.setBorder(BorderFactory.createLineBorder(Color.BLACK, THICKNESS));
         //panelView.setBackground(Color.BLACK);
@@ -433,8 +454,8 @@ public final class Editor {
      */
     public void show() {
         this.frame.setVisible(true);
-        JOptionPane.showMessageDialog(frame, "If you want to add something, first click in the central panel" +
-                "\nand then press the button of the entity you want to add.",
+        JOptionPane.showMessageDialog(frame, "If you want to add something, first press the button\n that represents" +
+                " the Game Entity you want to add" + "\nand then click on the central panel to add it.",
          "Let's start with the Editor!", JOptionPane.INFORMATION_MESSAGE);
     }
 
@@ -453,12 +474,14 @@ public final class Editor {
         return this.frame.isVisible();
     }
 
-    private void addEntityFromButton(final JButton button, final EntityType type) {
+    private void addEntityFromButton(final JButton button, final EntityType typeInput) {
         button.addActionListener(new ActionListener() {
 
             @Override
-            public void actionPerformed(final ActionEvent e) {
-                System.out.println(type + "-> Pos: " + mousePosition);
+            public void actionPerformed(final ActionEvent e) {      //settare una variabile type -> tipo
+                                                    //in mouse listener controlla il tipo e aggiunge
+                //System.out.println(typeInput + "-> Pos: " + mousePosition);
+                type = Optional.of(typeInput);
                 /*controller.getEditor().addEntity(new SimpleEntity() {             //TODO: da decommentare
 
                     @Override
@@ -481,13 +504,13 @@ public final class Editor {
         });
     }
 
-    private class Button extends JButton {
+    private static class Button extends JButton {
 
         Image image;
         ImageObserver observer;
         ImageIcon imageIcon;
 
-        Button(String filePathName, String text) {
+        Button(final String filePathName, final String text) {
             super();
             setText(text);
             setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -497,7 +520,7 @@ public final class Editor {
             observer = imageIcon.getImageObserver();
         }
 
-        public void paint(Graphics g) {
+        public void paint(final Graphics g) {
             super.paint(g);
             g.drawImage(image, (int) (getWidth() / 5), (int) (getHeight() / 3), 100, 120, observer);
         }

@@ -9,11 +9,6 @@ import java.io.File;
 public interface LevelEditor {
 
     /**
-     * Starts the editor necessary to create the level.
-     */
-    void start(); 
-
-    /**
      * Restore the editor and creates a new one by zero.
      */
     void reset();
