@@ -24,7 +24,7 @@ public class CollisionBoxImpl implements CollisionBox{
         Set<Collision> collisions=new HashSet<>();
         for(GameEntity entity:entities){
             if(this.isCollidingWith(entity)){
-                //collisions.add(new Collision(entity,entity.));
+                collisions.add(new EntityCollisionImpl(gameEntity,entity));
             }
         } 
         return collisions;

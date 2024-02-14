@@ -2,13 +2,10 @@ package it.unibo.model.collisions.impl;
 
 import it.unibo.model.collisions.api.Collision;
 
-import java.util.ArrayList;
-import java.util.List;
 
-import it.unibo.model.collisions.api.Boundaries;
 import it.unibo.model.entities.api.GameEntity;
 import it.unibo.model.physics.api.Direction;
-import it.unibo.model.physics.api.Position;
+
 
 public class CollisionImpl implements Collision {
 
@@ -19,16 +16,10 @@ public class CollisionImpl implements Collision {
         this.gameEntity=gameEntity;
         this.gameEntity2=gameEntity2;
     }
-
-    @Override
-    public GameEntity getGameEntity() {
-       return this.gameEntity2;
-    }
     
     @Override
     public Direction getDirection() {
-       
-      return this.CalcDirection();
+       return this.CalcDirection();
     }
 
     private Direction CalcDirection(){

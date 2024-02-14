@@ -4,7 +4,9 @@ package it.unibo.collisions;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
@@ -12,7 +14,9 @@ import it.unibo.model.physics.api.Direction;
 import it.unibo.model.physics.api.Position;
 import it.unibo.model.collisions.api.Boundaries;
 import it.unibo.model.collisions.api.Collision;
+import it.unibo.model.collisions.api.CollisionBox;
 import it.unibo.model.collisions.impl.BoundariesImpl;
+import it.unibo.model.collisions.impl.CollisionBoxImpl;
 import it.unibo.model.collisions.impl.CollisionImpl;
 import it.unibo.model.entities.api.GameEntity;
 import it.unibo.model.entities.impl.SimpleEnemyImpl;
@@ -45,13 +49,20 @@ public class TestCollisions {
   }
 
   @Test
-  public void TestCollisions(){
+  public void testCollisions(){
     GameEntity gameEntity=new SimpleEnemyImpl(new Position2D(5, 5), null);
     GameEntity gameEntity2=new SimpleEnemyImpl(new Position2D(5, 7), null);
     Collision collision =new CollisionImpl(gameEntity, gameEntity2);
     assertEquals(Direction.UP, collision.getDirection());
   }
-
+  
+  @Test 
+  public void testCollisionBox(){
+    Set<Collision> coll=new HashSet<>();
+    GameEntity gameEntity=new SimpleEnemyImpl(new Position2D(5, 5), null);
+    CollisionBox box=new CollisionBoxImpl(gameEntity);
+    assertEquals(true,box.isCollidingWith(new SimpleEnemyImpl(new Position2D(7, 6), null)));
+  }
 
 
 }

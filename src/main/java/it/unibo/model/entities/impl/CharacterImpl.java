@@ -1,4 +1,4 @@
-package it.unibo.model.entities.impl;
+/*package it.unibo.model.entities.impl;
 
 import it.unibo.common.EntityType;
 import it.unibo.model.entities.api.Character;
@@ -19,7 +19,7 @@ import java.util.Objects;
  * where it cointains all the necessary to create the character.
  * Final because the class doesn't need to be extended
  */
-public final class CharacterImpl extends GameEntityImpl implements Character {
+/*public final class CharacterImpl extends GameEntityImpl implements Character {
 
     private final Physics physic;
     private PhysicsBuilder physicsBuilder = new PhysicsBuilderImpl();
@@ -28,7 +28,7 @@ public final class CharacterImpl extends GameEntityImpl implements Character {
      * @param position the initial coordinate of the character
      * @param level the level of the game
      */
-    public CharacterImpl(final Position position, final Level level) {
+  /*   public CharacterImpl(final Position position, final Level level) {
         super(position, level);
         this.physic = this.physicsBuilder
                 .setGameEntity(this)
@@ -85,3 +85,4 @@ public final class CharacterImpl extends GameEntityImpl implements Character {
         }
     }
 }
+*/
