@@ -60,7 +60,14 @@ public final class LevelEditorImpl implements LevelEditor {
     }
 
     @Override
-    public void loadLevel(final File file) {
+    public boolean loadLevel(final File file) {
         //entities = this.serializer.loadLevel(file);        //TODO: bisogna modificare il set in Engine
+        return true;
+    }
+
+    @Override
+    public boolean canBeSaved() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'canBeSaved'");
     }
 }
