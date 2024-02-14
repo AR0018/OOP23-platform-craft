@@ -42,6 +42,7 @@ public final class Canvas extends JPanel {
      * @param levelHeight the height of the Model level
      */
     public Canvas(final double levelWidth, final double levelHeight) {
+        super();
         this.levelHeight = levelHeight;
         this.levelWidth = levelWidth;
 
@@ -81,7 +82,7 @@ public final class Canvas extends JPanel {
      * The converted dimension must be on the X axis.
      */
     private int convertToPanelX(final double dimensionX) {
-        return (int) ((this.getWidth() * dimensionX) / this.levelWidth);
+        return (int) (this.getWidth() * dimensionX / this.levelWidth);
     }
 
     /*
@@ -89,6 +90,6 @@ public final class Canvas extends JPanel {
      * The converted dimension must be on the Y axis.
      */
     private int convertToPanelY(final double dimensionY) {
-        return (int) ((this.getHeight() * dimensionY) / this.levelHeight);
+        return (int) (this.getHeight() * dimensionY / this.levelHeight);
     }
 }
