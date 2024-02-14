@@ -52,21 +52,23 @@ public final class WinView {
         this.frame.setLocationRelativeTo(null);
 
         try {
-        final float fontLabelDim = 130f;
-        final float fontButtonDim = 70f;
+            final float fontLabelDim = 130f;
+            final float fontButtonDim = 70f;
 
-        //File fontStyle = new File("src\\main\\resources\\it\\unibo\\fonts\\ProtestStrike-Regular.ttf");
-        InputStream fontStyle = ClassLoader.getSystemResourceAsStream("./it/unibo/fonts/ProtestStrike-Regular.ttf");
-        font = Font.createFont(Font.TRUETYPE_FONT, fontStyle)
-                .deriveFont(fontLabelDim)
-                .deriveFont(Font.BOLD);
-        //fontStyle = new File("src\\main\\resources\\it\\unibo\\fonts\\Bungee-Regular.ttf");
-        fontStyle = ClassLoader.getSystemResourceAsStream("./it/unibo/fonts/Bungee-Regular.ttf");
-        fontButton = Font.createFont(Font.TRUETYPE_FONT, fontStyle)
-                .deriveFont(fontButtonDim)
-                .deriveFont(Font.CENTER_BASELINE)
-                .deriveFont(Font.PLAIN);
+            //File fontStyle = new File("src\\main\\resources\\it\\unibo\\fonts\\ProtestStrike-Regular.ttf");
+            InputStream fontStyle = ClassLoader.getSystemResourceAsStream("./it/unibo/fonts/ProtestStrike-Regular.ttf");
+            font = Font.createFont(Font.TRUETYPE_FONT, fontStyle)
+                    .deriveFont(fontLabelDim)
+                    .deriveFont(Font.BOLD);
+            //fontStyle = new File("src\\main\\resources\\it\\unibo\\fonts\\Bungee-Regular.ttf");
+            fontStyle = ClassLoader.getSystemResourceAsStream("./it/unibo/fonts/Bungee-Regular.ttf");
+            fontButton = Font.createFont(Font.TRUETYPE_FONT, fontStyle)
+                    .deriveFont(fontButtonDim)
+                    .deriveFont(Font.CENTER_BASELINE)
+                    .deriveFont(Font.PLAIN);
 
+            fontStyle.close();
+    
         } catch (FontFormatException | IOException e) {
             e.printStackTrace();
         }

@@ -19,7 +19,6 @@ import java.awt.FontFormatException;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -65,7 +64,7 @@ public final class Editor {
     private final JFrame frame = new JFrame();
     private final JPanel panelView = new JPanel();              //TODO: sostituire con il DrawPanel
     private Optional<EntityType> type = Optional.empty();
-    private Optional<Point> mousePosition = Optional.empty();
+    private boolean removeEntity = false;         //true == rimuovere
     private Font font;
     private Font fontButton;
 
@@ -104,6 +103,8 @@ public final class Editor {
                     .deriveFont(Font.CENTER_BASELINE)
                     .deriveFont(Font.PLAIN);
 
+            fontStyle.close();
+
         } catch (FontFormatException | IOException e) {
             e.printStackTrace();
         }
@@ -131,25 +132,13 @@ public final class Editor {
 
             @Override
             public void mouseClicked(final MouseEvent e) {
-                mousePosition = Optional.of(e.getPoint());
-                /*controller.getEditor().addEntity(new SimpleEntity() {
-
-                    @Override
-                    public EntityType getType() {
-                        return type.get();
-                    }
-
-                    @Override
-                    public double getX() {
-                        return mousePosition.getX();
-                    }
-
-                    @Override
-                    public double getY() {
-                        return mousePosition.getY();
-                    }
-                });*/
-                System.out.println("Added " +  type.get() + " at Pos:" + e.getPoint());
+                if (removeEntity) {
+                    //panelView.removeEntity(mousePosition.get().x, mousePosition.get().y);
+                    System.out.println("Removed at Pos:" + e.getPoint());
+                } else {
+                    //panelView.addEntity(type.get(), mousePosition.get().x, mousePosition.get().y);
+                    System.out.println("Added " +  type.get() + " at Pos:" + e.getPoint());
+                }
             }
 
             @Override
@@ -259,9 +248,8 @@ public final class Editor {
 
             @Override
             public void actionPerformed(final ActionEvent e) {
-                if (mousePosition.isPresent()) {
-                    controller.getEditor().removeEntity(mousePosition.get().getX(), mousePosition.get().getY());
-                }
+                removeEntity = true;
+                type = Optional.empty();
             }
         });
         menuBar.add(menuButtons, BorderLayout.WEST);
@@ -381,27 +369,9 @@ public final class Editor {
         button.addActionListener(new ActionListener() {
 
             @Override
-            public void actionPerformed(final ActionEvent e) {      //settare una variabile type -> tipo
-                                                    //in mouse listener controlla il tipo e aggiunge
-                //System.out.println(typeInput + "-> Pos: " + mousePosition);
+            public void actionPerformed(final ActionEvent e) {
+                removeEntity = false;
                 type = Optional.of(typeInput);
-                /*controller.getEditor().addEntity(new SimpleEntity() {             //TODO: da decommentare
-
-                    @Override
-                    public EntityType getType() {
-                        return type;
-                    }
-
-                    @Override
-                    public double getX() {
-                        return mousePosition.getX();
-                    }
-
-                    @Override
-                    public double getY() {
-                        return mousePosition.getY();
-                    }
-                });*/
             }
         });
     }

@@ -89,6 +89,7 @@ public final class TitleScreen extends JPanel {
                     .deriveFont(Font.CENTER_BASELINE)
                     .deriveFont(Font.PLAIN);
 
+            fontStyle.close();
         } catch (FontFormatException | IOException e) {
             e.printStackTrace();
         }

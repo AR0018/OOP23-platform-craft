@@ -41,7 +41,6 @@ public final class LevelGUI {
     private static final int THICKNESS = 4;
     private final JFrame frame = new JFrame();
     private final JPanel panelView = new JPanel();              //TODO: sostituire con il DrawPanel
-    private final Controller controller;
     private Font fontButton;
 
     /**
@@ -49,7 +48,6 @@ public final class LevelGUI {
      * @param controller the controller of the game
      */
     public LevelGUI(final Controller controller) {
-        this.controller = controller;
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frame.setSize(new Dimension(WIDTH_FRAME, HEIGHT_FRAME));
         this.frame.setMinimumSize(new Dimension(WIDTH_FRAME, HEIGHT_FRAME));
@@ -69,6 +67,8 @@ public final class LevelGUI {
                     .deriveFont(fontButtonDim)
                     .deriveFont(Font.CENTER_BASELINE)
                     .deriveFont(Font.PLAIN);
+
+            fontStyle.close();
 
         } catch (FontFormatException | IOException e) {
             e.printStackTrace();

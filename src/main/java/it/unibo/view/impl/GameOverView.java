@@ -70,6 +70,8 @@ public final class GameOverView {
                     .deriveFont(Font.CENTER_BASELINE)
                     .deriveFont(Font.PLAIN);
 
+            fontStyle.close();
+
         } catch (FontFormatException | IOException e) {
             e.printStackTrace();
         }
