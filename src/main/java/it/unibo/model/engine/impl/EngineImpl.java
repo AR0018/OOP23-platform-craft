@@ -14,6 +14,7 @@ public class EngineImpl implements Engine{
 
     private EditorImpl editor;
     private GameLevel level;
+    private CharacterImpl characterEditor;
 
     
     public EngineImpl(){
@@ -25,11 +26,7 @@ public class EngineImpl implements Engine{
 
     @Override
      public void updateLevel() {
-        if(editor.createLevel()){
-           editor.getGameState();     
-        }else{
-            throw new UnsupportedOperationException("Invalid Level");
-        }
+        
      }
 
     @Override

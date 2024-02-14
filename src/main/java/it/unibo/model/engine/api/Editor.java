@@ -24,7 +24,7 @@ public interface Editor {
      * @return true if the configuration is valid and the Level can be created, 
      *      false otherwise
      */
-    boolean createLevel();
+    Editor createLevel();
 
     /**
      * Adds an entity to the configuration of the Level.
