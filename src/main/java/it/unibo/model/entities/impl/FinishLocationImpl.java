@@ -19,7 +19,7 @@ public final class FinishLocationImpl extends GameEntityImpl implements FinishLo
      * @param level the level of the game
      */
     public FinishLocationImpl(final Position position, final Level level) {
-        super(position, level);
+        super(position, level, EntityType.FINISH_LOCATION.getX(), EntityType.FINISH_LOCATION.getY());
     }
 
     @Override

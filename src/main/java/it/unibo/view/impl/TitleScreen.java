@@ -60,7 +60,7 @@ public final class TitleScreen extends JPanel {
         final int panelTopDim = 150;
         final int panelVerticalGap = 20;
 
-        this.editorView = new EditorViewImpl(controller);
+        this.editorView = new EditorViewImpl(controller);                   //TODO: problema serializer
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frame.setSize(new Dimension(XDIM, YDIM));
         this.frame.setMinimumSize(new Dimension(XDIM, YDIM));
@@ -111,7 +111,7 @@ public final class TitleScreen extends JPanel {
                 file.setAcceptAllFileFilterUsed(false);
                 file.addChoosableFileFilter(new FileNameExtensionFilter("*.json", "json"));
                 if (file.showOpenDialog(frame) == JFileChooser.APPROVE_OPTION) {
-                    controller.getRunner().loadFile(file.getSelectedFile());
+                    controller.getRunner().loadLevel(file.getSelectedFile());
                     frame.setVisible(false);
                     levelView.show();
                 }

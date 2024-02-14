@@ -28,7 +28,7 @@ public final class CharacterImpl extends GameEntityImpl implements Character {
      * @param level the level of the game
      */
     public CharacterImpl(final Position position, final Level level) {
-        super(position, level);
+        super(position, level, EntityType.CHARACTER.getX(), EntityType.CHARACTER.getY());
         this.physic = this.physicsBuilder
                 .setGameEntity(this)
                 .addAccelerationOnX()
@@ -50,8 +50,7 @@ public final class CharacterImpl extends GameEntityImpl implements Character {
 
     @Override
     public void move(final Direction dir) {     //TODO: needs to be improved
-        physic.setMovement(Objects.requireNonNull(dir));       //i nemici possono modificare la direzione
-                                                             //CheckEnemyCollision here?
+        physic.setMovement(Objects.requireNonNull(dir));
     }
 
     private void checkTrapCollision() {

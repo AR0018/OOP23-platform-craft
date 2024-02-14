@@ -22,5 +22,5 @@ public interface LevelRunner {
      * Loads a level that has been saved on file.
      * @param file the file where the level is saved
      */
-    void loadFile(File file);
+    void loadLevel(File file);
 }

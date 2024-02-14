@@ -5,6 +5,7 @@ import it.unibo.common.EntityType;
 import it.unibo.model.collisions.api.Boundaries;
 import it.unibo.model.collisions.api.Collision;
 import it.unibo.model.collisions.api.CollisionBox;
+import it.unibo.model.collisions.impl.CollisionBoxImpl;
 import it.unibo.model.entities.api.GameEntity;
 import it.unibo.model.level.api.Level;
 import it.unibo.model.physics.api.Position;
@@ -23,12 +24,16 @@ public abstract class GameEntityImpl implements GameEntity {
      * Constructor for the GameEntity who needs a initial position.
      * @param position the initial position
      * @param level the level of the game
+     * @param width the width of the GameEntity
+     * @param heigth the heigth of the GameEntity
      */
-    public GameEntityImpl(final Position position, final Level level) {
+    public GameEntityImpl(final Position position, final Level level, 
+            final float width, final float heigth) {
         //Objects.requireNonNull(position);
         this.position = position;
         this.level = level;
         this.isAlive = true;
+        this.box = new CollisionBoxImpl(width, heigth);
     }
 
     @Override
@@ -53,8 +58,8 @@ public abstract class GameEntityImpl implements GameEntity {
     public abstract EntityType getType();
 
     @Override
-    public final Set<Collision> getCollisions() {
-        return this.box.getCollisions(this.level.getGameEntities());
+    public final Set<Collision> getCollisions() {                   //TODO: getCollisions, getBoundaries and getCollisionBox abstract
+        return this.box.getCollisions(this.level.getGameEntities());    //inizializzate nelle subclasses
     }
 
     @Override

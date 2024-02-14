@@ -36,10 +36,10 @@ public class TestCharacter {
 
     @Test
     void testCharacterPos() {
-        this.player = new CharacterImpl(new Position2D(0, 0), level);
+        this.player = new CharacterImpl(new Position2D(0, 0), level);           //TODO: aggiungere un blocco
         this.player.move(Direction.RIGHT);
         this.player.updateState();
-        assertEquals(new Position2D(1, 0), this.player.getPosition());
+        assertEquals(new Position2D(1, 0), this.player.getPosition());          //TODO: x:SPEEDLEVELS.
 
         this.player = new CharacterImpl(new Position2D(0, 0), level);
         this.player.move(Direction.DOWN);
@@ -59,9 +59,9 @@ public class TestCharacter {
 
     @Test
     void testCharacterEnemy() {
-        this.player = new CharacterImpl(new Position2D(0, 0), level); //y> scendi 
+        this.player = new CharacterImpl(new Position2D(0, 0), level); //y> scendi           //Inizio personaggio in altro a sinistra
         this.enemy = new SimpleEnemyImpl(new Position2D(1, 0), level);
-        this.player.move(Direction.RIGHT);
+        //this.player.move(Direction.RIGHT);
         this.level.addGameEntity(player);
         this.level.addGameEntity(enemy);
         this.player.updateState();
@@ -71,7 +71,7 @@ public class TestCharacter {
         this.level = new Lv();
         this.player = new CharacterImpl(new Position2D(1, 0), level);
         this.enemy = new SimpleEnemyImpl(new Position2D(1, 1), level);
-        this.player.move(Direction.DOWN);
+        //this.player.move(Direction.DOWN);
         this.level.addGameEntity(player);
         this.level.addGameEntity(enemy);
         this.player.updateState();
@@ -81,7 +81,7 @@ public class TestCharacter {
         this.level = new Lv();
         this.player = new CharacterImpl(new Position2D(0, 0), level);
         this.enemy = new SimpleEnemyImpl(new Position2D(0, 1), level);
-        this.player.move(Direction.RIGHT);
+        //this.player.move(Direction.RIGHT);
         this.level.addGameEntity(player);
         this.level.addGameEntity(enemy);
         this.player.updateState();
@@ -91,7 +91,7 @@ public class TestCharacter {
         this.level = new Lv();
         this.player = new CharacterImpl(new Position2D(0, 1), level);
         this.enemy = new SimpleEnemyImpl(new Position2D(0, 0), level);
-        this.player.move(Direction.UP);
+        //this.player.move(Direction.UP);
         this.level.addGameEntity(player);
         this.level.addGameEntity(enemy);
         this.player.updateState();
@@ -105,13 +105,11 @@ public class TestCharacter {
         this.trap = new TrapImpl(new Position2D(2, 1), level);
         this.level.addGameEntity(this.player);
         this.level.addGameEntity(this.trap);
-        this.player.move(Direction.RIGHT);
         this.trap.updateState();
         this.player.updateState();
         assertFalse(this.trap.isLethal());
-        for (int i = 0; i <= TIMER; i++) {
-            this.trap.updateState();
-        }
+        Thread.sleep(TIMER);
+        this.trap.updateState();
         //this.player.move(Direction.LEFT);
         this.trap.updateState();
         this.player.updateState();
@@ -123,13 +121,10 @@ public class TestCharacter {
         this.trap = new TrapImpl(new Position2D(2, 1), level);
         this.level.addGameEntity(this.player);
         this.level.addGameEntity(this.trap);
-        this.player.move(Direction.RIGHT);
         this.trap.updateState();
         this.player.updateState();
         assertFalse(this.trap.isAlive());
-        for (int i = 0; i <= TIMER / 2; i++) {
-            this.trap.updateState();
-        }
+        Thread.sleep(TIMER/2);
         //this.player.move(Direction.LEFT);
         this.trap.updateState();
         this.player.updateState();

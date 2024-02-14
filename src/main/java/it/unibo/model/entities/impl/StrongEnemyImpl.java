@@ -1,9 +1,9 @@
 package it.unibo.model.entities.impl;
 
+import it.unibo.common.EntityType;
 import it.unibo.model.entities.api.Character;
 import it.unibo.model.entities.api.GameEntity;
 import it.unibo.model.level.api.Level;
-import it.unibo.model.entities.api.EntitySize;
 import it.unibo.model.physics.api.Direction;
 import it.unibo.model.physics.api.Physics;
 import it.unibo.model.physics.api.PhysicsBuilder;
@@ -27,13 +27,17 @@ public final class StrongEnemyImpl extends EnemyImpl {
      * @param level the level of the game
      */
     public StrongEnemyImpl(final Position position, final Level level) {
-        super(position, level);
-        setSize(EntitySize.BIG);
+        super(position, level, EntityType.ENEMY.getX(), EntityType.ENEMY.getY());
         this.physics = this.builder.setGameEntity(this)
                 .addAccelerationOnX()
                 .addFallingPhysics()
                 .setSpeedOnX(SpeedLevels.FAST)
                 .create();
+    }
+
+    @Override
+    public EntityType getType() {
+        return EntityType.ENEMY;
     }
 
     /**

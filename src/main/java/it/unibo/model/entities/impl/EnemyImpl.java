@@ -3,7 +3,7 @@ package it.unibo.model.entities.impl;
 import it.unibo.common.EntityType;
 import it.unibo.model.entities.api.Character;
 import it.unibo.model.entities.api.Enemy;
-import it.unibo.model.entities.api.EntitySize;
+import it.unibo.model.entities.api.MapElement;
 import it.unibo.model.level.api.Level;
 import it.unibo.model.physics.api.Direction;
 import it.unibo.model.physics.api.Position;
@@ -21,7 +21,6 @@ import it.unibo.model.physics.api.Position;
 public abstract class EnemyImpl extends GameEntityImpl implements Enemy {
 
     private Direction direction;
-    private EntitySize size;
 
     /**
      * The constructor of the implementation of enemy that initialize 
@@ -30,8 +29,8 @@ public abstract class EnemyImpl extends GameEntityImpl implements Enemy {
      * @param position the first position of the enemy
      * @param level is the level of the game
      */
-    public EnemyImpl(final Position position, final Level level) {
-        super(position, level);
+    public EnemyImpl(final Position position, final Level level, final float width, final float heigth) {
+        super(position, level, width, heigth);
         setDirection(Direction.RIGHT);
     }
 
@@ -50,26 +49,11 @@ public abstract class EnemyImpl extends GameEntityImpl implements Enemy {
     protected void setDirection(final Direction direction) {
         this.direction = direction;
     }
-
+    
     /**
-     * @return the size of the GameEntity
+     * Return the type of the enemy.
      */
-    public final EntitySize getSize() {
-        return this.size;
-    }
-
-    /**
-     * Used to set the size of the entity from the subclasses.
-     * @param size the size to assign to the GameEntity
-     */
-    protected void setSize(final EntitySize size) {
-        this.size = size;
-    }
-
-    @Override
-    public final EntityType getType() {
-        return EntityType.ENEMY;
-    }
+    public abstract EntityType getType();
 
     @Override
     public final void updateState() {     //TODO: sistemare bene updateState
@@ -109,9 +93,12 @@ public abstract class EnemyImpl extends GameEntityImpl implements Enemy {
      * the head of the enemy.
      */
     private void checkEnemyIsDead() {     //TODO: need to check collision with the bounds of the map
-        var str = getCollisions().stream()
-                .filter(x -> x.getGameEntity() instanceof Character);
-        if (str.anyMatch(x -> x.getDirection().equals(Direction.UP))) {
+        var enemyCharacter = getCollisions().stream().filter(x -> x.getGameEntity() instanceof Character);
+        if (enemyCharacter.anyMatch(x -> x.getDirection().equals(Direction.UP))) {
+            setAlive(false);
+        }
+        var enemyMap = getCollisions().stream().filter(x -> x.getGameEntity() instanceof MapElement);
+        if (!enemyMap.anyMatch(x -> x.getDirection().equals(Direction.DOWN))) {
             setAlive(false);
         }
     }
