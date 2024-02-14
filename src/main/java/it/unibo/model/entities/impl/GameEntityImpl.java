@@ -58,8 +58,8 @@ public abstract class GameEntityImpl implements GameEntity {
     public abstract EntityType getType();
 
     @Override
-    public final Set<Collision> getCollisions() {                   //TODO: getCollisions, getBoundaries and getCollisionBox abstract
-        return this.box.getCollisions(this.level.getGameEntities());    //inizializzate nelle subclasses
+    public final Set<Collision> getCollisions() {
+        return this.box.getCollisions(this.level.getGameEntities());
     }
 
     @Override

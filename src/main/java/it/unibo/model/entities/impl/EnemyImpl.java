@@ -1,12 +1,18 @@
 package it.unibo.model.entities.impl;
 
 import it.unibo.common.EntityType;
+import it.unibo.model.collisions.api.BorderCollision;
+import it.unibo.model.collisions.api.Collision;
+import it.unibo.model.collisions.api.EntityCollision;
 import it.unibo.model.entities.api.Character;
 import it.unibo.model.entities.api.Enemy;
-import it.unibo.model.entities.api.MapElement;
 import it.unibo.model.level.api.Level;
 import it.unibo.model.physics.api.Direction;
 import it.unibo.model.physics.api.Position;
+
+import java.util.Set;
+import java.util.HashSet;
+import java.util.stream.Collectors;
 
 //Si valuta l'ereditarietà piuttosto che il pattern Decorator
 //perchè si dovrebbe riscrivere un gran numero di metodi ogni volta
@@ -92,14 +98,47 @@ public abstract class EnemyImpl extends GameEntityImpl implements Enemy {
      * Check if the enemy died because of the player who collided with
      * the head of the enemy.
      */
-    private void checkEnemyIsDead() {     //TODO: need to check collision with the bounds of the map
-        var enemyCharacter = getCollisions().stream().filter(x -> x.getGameEntity() instanceof Character);
+    private void checkEnemyIsDead() {
+        /*var enemyCharacter = getCollisions().stream().filter(x -> x.getGameEntity() instanceof Character);
         if (enemyCharacter.anyMatch(x -> x.getDirection().equals(Direction.UP))) {
             setAlive(false);
+        }*/
+        var enemyCharacter = getEntity(getCollisions())
+                .stream()
+                .filter(x -> x.getGameEntity() instanceof Character)
+                .collect(Collectors.toSet());
+        if (!enemyCharacter.isEmpty()) {
+            if (enemyCharacter.stream().anyMatch(x -> x.getDirection().equals(Direction.UP))) {
+                setAlive(false);
+            }
         }
-        var enemyMap = getCollisions().stream().filter(x -> x.getGameEntity() instanceof MapElement);
-        if (!enemyMap.anyMatch(x -> x.getDirection().equals(Direction.DOWN))) {
-            setAlive(false);
+
+        //Border
+        var enemyBorder = getBorder(getCollisions())
+                .stream()
+                .collect(Collectors.toSet());
+        if (!enemyBorder.isEmpty()) {
+            if (enemyBorder.stream().anyMatch(x -> x.getDirection().equals(Direction.DOWN))) {
+                setAlive(false);
+            }
         }
+    }
+
+    private Set<BorderCollision> getBorder(Set<Collision> collisions) {
+        Set<BorderCollision> borderCollision = new HashSet<>();
+        getCollisions()
+                .stream()
+                .filter(x -> x instanceof BorderCollision)
+                .forEach(x -> borderCollision.add((BorderCollision) x));
+        return borderCollision;
+    }
+
+    private Set<EntityCollision> getEntity(final Set<Collision> collision) {
+        Set<EntityCollision> entityCollision = new HashSet<>();
+        getCollisions()
+                .stream()
+                .filter(x -> x instanceof EntityCollision)
+                .forEach(x -> entityCollision.add((EntityCollision) x));
+        return entityCollision;
     }
 }
