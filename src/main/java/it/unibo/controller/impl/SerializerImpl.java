@@ -22,7 +22,7 @@ public final class SerializerImpl implements LevelSerializer {
 
     @Override
     public Set<SimpleEntity> loadLevel(final File file) throws IOException {
-        return new ObjectMapper().readValue(file, new TypeReference<Set<SimpleEntity>>() { } );
+        return new ObjectMapper().readValue(file, new TypeReference<Set<SimpleEntity>>() { });
     }
 
 }

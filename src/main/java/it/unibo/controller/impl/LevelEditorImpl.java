@@ -70,4 +70,10 @@ public final class LevelEditorImpl implements LevelEditor {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'canBeSaved'");
     }
+
+    @Override
+    public Set<SimpleEntity> getCurrentEntities() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getCurrentEntities'");
+    }
 }
