@@ -2,7 +2,7 @@ package it.unibo.model.entities.api;
 
 import java.util.Set;
 
-import it.unibo.common.EntityType;
+import it.unibo.common.api.EntityType;
 import it.unibo.model.collisions.api.Boundaries;
 import it.unibo.model.collisions.api.Collision;
 import it.unibo.model.physics.api.Position;

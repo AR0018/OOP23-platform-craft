@@ -1,7 +1,8 @@
 package it.unibo.controller;
 
-import it.unibo.common.SimpleEntity;
 import java.io.File;
+
+import it.unibo.common.api.SimpleEntity;
 
 /**
  * Component of the Controller responsible of the editor and the creation/loading by file of the level.

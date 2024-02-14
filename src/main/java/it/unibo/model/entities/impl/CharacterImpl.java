@@ -2,7 +2,7 @@ package it.unibo.model.entities.impl;
 
 import java.util.Set;
 
-import it.unibo.common.EntityType;
+import it.unibo.common.api.EntityType;
 import it.unibo.model.collisions.api.Boundaries;
 import it.unibo.model.collisions.api.Collision;
 import it.unibo.model.collisions.api.CollisionBox;
@@ -41,6 +41,7 @@ public final class CharacterImpl implements Character {     //TODO: remove the f
                 .addFallingPhysics()
                 .create();
     }
+
 
     @Override
     public Position getPosition() {

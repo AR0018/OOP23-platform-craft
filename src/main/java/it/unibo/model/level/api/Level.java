@@ -1,8 +1,10 @@
 package it.unibo.model.level.api;
 
+import java.util.List;
 import java.util.Set;
 
 import it.unibo.model.entities.api.GameEntity;
+import it.unibo.model.level.impl.MapBoundaries;
 import it.unibo.model.physics.api.Direction;
 import it.unibo.model.physics.api.Position;
 
@@ -43,6 +45,18 @@ public interface Level {
     void addFinishLocation(Position position);
 
     /**
+     * Remove Enemy when it are killed by character
+     * @param entity (enemy);
+     */
+    void removeEnemyEntity(GameEntity entity);
+    
+    /**
+     * Remove a entity from the level configuration.
+     * @param entity
+     */
+    void removeEntity(GameEntity entity);
+
+    /**
      * @return the current state of the game
      */
     GameState getGameState();
@@ -51,4 +65,10 @@ public interface Level {
      * @return the playable character in this level
      */
     GameEntity getCharacter();
+
+    /**
+     * @return the height and the width of the game map
+     */
+     MapBoundaries getlevelBoundaries();
+
 }

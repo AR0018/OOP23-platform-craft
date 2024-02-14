@@ -1,7 +1,8 @@
 package it.unibo.view;
 
-import it.unibo.common.SimpleEntity;
 import java.util.Set;
+
+import it.unibo.common.api.SimpleEntity;
 /**
  * Models the GUI of the project.
  */

@@ -44,4 +44,6 @@ public interface Boundaries {
      * @return the height of the boundaries
      */
     int getHeight();
+
+    Position getLevelBoundaries();
 }
