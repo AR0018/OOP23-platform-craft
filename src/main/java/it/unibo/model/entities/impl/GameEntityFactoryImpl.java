@@ -28,7 +28,7 @@ public final class GameEntityFactoryImpl implements GameEntityFactory {
             case FINISH_LOCATION:
                 return new FinishLocationImpl(position, level);
             default:
-                return null;        //Controllare che non sia nullo
+                throw new IllegalArgumentException();        //Controllare che non sia nullo
         }
     }
 }

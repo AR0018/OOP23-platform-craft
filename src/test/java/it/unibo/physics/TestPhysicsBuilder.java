@@ -225,13 +225,5 @@ public class TestPhysicsBuilder {
         public Direction getDirection() {
             return this.dir;
         }
-
-        @Override
-        public GameEntity getGameEntity() {
-            // TODO Auto-generated method stub
-            throw new UnsupportedOperationException("Unimplemented method 'getGameEntity'");
-        }
-
     }
-
 }

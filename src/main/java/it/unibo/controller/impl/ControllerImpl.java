@@ -18,7 +18,7 @@ public final class ControllerImpl implements Controller {
     /**
      * Constructor of the Controller.
      */
-    public ControllerImpl() {   //final Engine engine newl costruttore?
+    public ControllerImpl() {   //final Engine engine nel costruttore?
         //this.engine = engine;
         this.levelEditor = new LevelEditorImpl();
         //this.levelRunner = new LevelRunnerImpl();

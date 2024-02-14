@@ -12,8 +12,6 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-import javax.swing.BoxLayout;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -66,7 +64,6 @@ public final class Editor {
     private static final int BUTTON_TEXT_SIZE = 20;
     private final JFrame frame = new JFrame();
     private final JPanel panelView = new JPanel();              //TODO: sostituire con il DrawPanel
-    private final Controller controller;
     private Optional<EntityType> type = Optional.empty();
     private Optional<Point> mousePosition = Optional.empty();
     private Font font;
@@ -78,7 +75,6 @@ public final class Editor {
      */
     public Editor(final Controller controller) {
 
-        this.controller = controller;
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frame.setSize(new Dimension(WIDTH_FRAME, HEIGHT_FRAME));     //1600, 900
         this.frame.setMinimumSize(new Dimension(WIDTH_FRAME, HEIGHT_FRAME));
@@ -89,7 +85,8 @@ public final class Editor {
         menuBar.setBorder(new EmptyBorder(MENUBAR_TOP, MENUBAR_LEFT, MENUBAR_BOTTOM, MENUBAR_RIGHT));
 
 
-        JPanel menuButtons = new JPanel(new GridBagLayout());
+        final JPanel menuButtons = new JPanel(new GridBagLayout());
+
 
         try {
             final float fontLabelDim = 30f;
@@ -129,7 +126,6 @@ public final class Editor {
 
         menuButtons.add(menu);
         menuButtons.add(Box.createHorizontalStrut(10));
-
 
         panelView.addMouseListener(new MouseListener() {
 
@@ -276,8 +272,8 @@ public final class Editor {
         box.setBackground(Color.GRAY);
         box.setLayout(new GridLayout(3, 2, 10, 10));
 
-        final ImageIcon imageIcon = new ImageIcon("src/main/resources/it/unibo/images/Owlet_Monster.png");
-        final ImageIcon img = new ImageIcon(imageIcon.getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT));
+        /*final ImageIcon character = new ImageIcon("src/main/resources/it/unibo/images/Owlet_Monster.png");
+        final ImageIcon imgCharacter = new ImageIcon(character.getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT));
         final JButton button = new JButton();
         button.setLayout(new BoxLayout(button, BoxLayout.Y_AXIS));
 
@@ -285,7 +281,7 @@ public final class Editor {
         textP.setFont(new Font("Verdana", Font.BOLD, BUTTON_TEXT_SIZE));
         textP.setForeground(Color.WHITE);
 
-        final JLabel iconP = new JLabel(img);
+        final JLabel iconP = new JLabel(imgCharacter);
         final int topIconP = 20;
         final int leftIconP = 10;
         iconP.setBorder(BorderFactory.createEmptyBorder(topIconP, leftIconP, 0, 0));
@@ -296,38 +292,36 @@ public final class Editor {
         button.setBackground(Color.BLACK);
         button.setForeground(Color.WHITE);
         button.setVerticalAlignment(SwingConstants.TOP);
-        button.setVerticalTextPosition(SwingConstants.BOTTOM);
+        button.setVerticalTextPosition(SwingConstants.BOTTOM);*/
+        final JButton button = new JButton();
+        addImageToButton(button, "Character", "src/main/resources/it/unibo/images/Owlet_Monster.png");
         addEntityFromButton(button, EntityType.CHARACTER);
         box.add(button);
 
-        final JButton button1 = new JButton();
-        final JLabel iconP1 = new JLabel(img);
-        final int leftIconP1 = 15;
-        iconP1.setBorder(BorderFactory.createEmptyBorder(0, leftIconP1, 0, 0));
-        addEntityFromButton(button1, EntityType.SIMPLE_ENEMY);
-        button1.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.BLACK, 4, true),
-                 "Simple Enemy", TitledBorder.CENTER, TitledBorder.ABOVE_BOTTOM, font.deriveFont((float) BUTTON_TEXT_SIZE)));
 
-        final int button1TextSize = 15;        
-        button1.setFont(new Font("Verdana", Font.BOLD, button1TextSize));
-        button1.setBackground(Color.WHITE);
-        button1.setForeground(Color.BLACK);
-        button1.add(iconP1);
+        final JButton button1 = new JButton();
+        addImageToButton(button1, "SimpeEnemy", "src/main/resources/it/unibo/images/1 Pink_Monster/Pink_Monster.png");
+        addEntityFromButton(button1, EntityType.SIMPLE_ENEMY);
         box.add(button1);
 
-        final JButton button2 = new JButton("Enemy");
+
+        final JButton button2 = new JButton();
+        addImageToButton(button2, "Enemy", "src/main/resources/it/unibo/images/3 Dude_Monster/Dude_Monster.png");
         addEntityFromButton(button2, EntityType.ENEMY);
         box.add(button2);
 
-        final JButton button3 = new JButton("FinishLocation");
+        final JButton button3 = new JButton();
+        addImageToButton(button3, "End", "src/main/resources/it/unibo/images/R.png");
         addEntityFromButton(button3, EntityType.FINISH_LOCATION);
         box.add(button3);
 
-        final JButton button4 = new JButton("Trap");
+        final JButton button4 = new JButton();
+        addImageToButton(button4, "Trap", "src/main/resources/it/unibo/images/piggy3.png");
         addEntityFromButton(button4, EntityType.TRAP);
         box.add(button4);
 
-        final JButton button5 = new JButton("MapElement");
+        final JButton button5 = new JButton();
+        addImageToButton(button5, "MapElement", "src/main/resources/it/unibo/images/block.png");
         addEntityFromButton(button5, EntityType.MAP_ELEMENT);
         //button5.setVerticalTextPosition(SwingConstants.TOP);          //Possono servire per mettere in alto il testo
         //button5.setVerticalAlignment(SwingConstants.TOP);
@@ -369,6 +363,20 @@ public final class Editor {
         return this.frame.isVisible();
     }
 
+    private void addImageToButton(final JButton button, final String type, final String filePathName) {
+        final ImageIcon simpleEnemy = new ImageIcon(filePathName);
+        final ImageIcon imgEnemy = new ImageIcon(simpleEnemy.getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT));
+        final JLabel iconP1 = new JLabel(imgEnemy);
+        final int leftIconP1 = 15;
+        iconP1.setBorder(BorderFactory.createEmptyBorder(0, leftIconP1, 0, 0));
+        button.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.BLACK, 4, true),
+                 type, TitledBorder.CENTER, TitledBorder.ABOVE_BOTTOM, font.deriveFont((float) BUTTON_TEXT_SIZE - 2)));
+
+        button.setBackground(Color.WHITE);
+        button.setForeground(Color.BLACK);
+        button.add(iconP1);
+    }
+
     private void addEntityFromButton(final JButton button, final EntityType typeInput) {
         button.addActionListener(new ActionListener() {
 
@@ -397,45 +405,5 @@ public final class Editor {
             }
         });
     }
-
-    /*private static class Button extends JButton {
-
-        private Image image;
-        private ImageObserver observer;
-        private ImageIcon imageIcon;
-
-        Button(final String filePathName, final String text) {
-            super();
-            setText(text);
-            setAlignmentX(Component.CENTER_ALIGNMENT);
-            setVerticalTextPosition(SwingConstants.BOTTOM);
-            ImageIcon imageIcon = new ImageIcon(filePathName);
-            image = imageIcon.getImage();
-            observer = imageIcon.getImageObserver();
-        }
-
-        public void paint(final Graphics g) {
-            super.paint(g);
-            g.drawImage(image, (int) (getWidth() / 5), (int) (getHeight() / 3), 100, 120, observer);
-        }
-    }*/
-
-    /*private void buttonGraphic(final JButton button, final String fileNamePath, final String entityType) {
-        final ImageIcon imageIcon = new ImageIcon(fileNamePath);
-        //final JPanel o = new JPanel(new GridLayout(2, 1));
-        final JLabel textP = new JLabel(entityType, SwingConstants.CENTER);
-        final ImageIcon img = new ImageIcon(imageIcon.getImage().getScaledInstance(110, 120, Image.SCALE_DEFAULT));
-        final JLabel iconP = new JLabel(img, SwingConstants.CENTER);
-
-        //button.setLayout(new BoxLayout(button, BoxLayout.Y_AXIS));
-        textP.setFont(fontButton.deriveFont(18f));
-        textP.setForeground(Color.DARK_GRAY);
-
-        button.add(textP);
-        //o.setOpaque(false);
-        //button.add(Box.createVerticalStrut(40));
-        iconP.setOpaque(false);
-        button.add(iconP);
-    } */
 }
 
