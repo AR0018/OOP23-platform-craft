@@ -115,7 +115,7 @@ public final class LevelViewImpl implements LevelView {
             } catch (FontFormatException | IOException e) {
                 e.printStackTrace();
             }
-            
+
             label
             .setText("YOU WON!!");
             label.setHorizontalAlignment(SwingConstants.CENTER);
@@ -178,7 +178,7 @@ public final class LevelViewImpl implements LevelView {
             try {
                 final float fontLabelDim = 120f;
                 final float fontButtonDim = 80f;
-    
+
                 //File fontStyle = new File("src\\main\\resources\\it\\unibo\\fonts\\ProtestStrike-Regular.ttf");
                 InputStream fontStyle = ClassLoader.getSystemResourceAsStream("./it/unibo/fonts/ProtestStrike-Regular.ttf");
                 font = Font.createFont(Font.TRUETYPE_FONT, fontStyle)
@@ -190,11 +190,11 @@ public final class LevelViewImpl implements LevelView {
                         .deriveFont(fontButtonDim)
                         .deriveFont(Font.CENTER_BASELINE)
                         .deriveFont(Font.PLAIN);
-    
+
             } catch (FontFormatException | IOException e) {
                 e.printStackTrace();
             }
-            
+
             label.setHorizontalAlignment(SwingConstants.CENTER);
             //label.setFont(new Font("Dialog", Font.BOLD, SIZE_LABEL_TEXT));
             label.setFont(font);
@@ -234,11 +234,13 @@ public final class LevelViewImpl implements LevelView {
             separator.setBackground(Color.BLACK);
 
             final int width = 20;
+            final int verticalStrut = 40;
             panel.add(label);
             //panel.add(separator);
-            panel.add(Box.createVerticalStrut(40));
+            panel.add(Box.createVerticalStrut(verticalStrut));
             buttonPanel.add(home);
-            buttonPanel.add(Box.createHorizontalStrut(width+30));
+            final int buttonPanelWidthStrut = width + 30;
+            buttonPanel.add(Box.createHorizontalStrut(buttonPanelWidthStrut));
             buttonPanel.add(retry);
             panel.add(buttonPanel);
 

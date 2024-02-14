@@ -5,7 +5,7 @@ import java.util.List;
 import it.unibo.model.collisions.api.Boundaries;
 import it.unibo.model.physics.api.Position;
 
-public class BoundariesImpl implements Boundaries{
+public final class BoundariesImpl implements Boundaries {
 
     @Override
     public boolean intersectsLine(Position a, Position b) {
@@ -42,5 +42,4 @@ public class BoundariesImpl implements Boundaries{
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getHeight'");
     }
-    
 }

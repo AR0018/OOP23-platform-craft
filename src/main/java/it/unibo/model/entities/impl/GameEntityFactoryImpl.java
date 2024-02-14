@@ -6,8 +6,6 @@ import it.unibo.model.entities.api.GameEntityFactory;
 import it.unibo.model.level.api.Level;
 import it.unibo.model.physics.api.Position;
 
-import java.lang.IllegalArgumentException;
-
 /**
  * Class used to delegate the creation of the different entities using a type
  * to distinguish them.

@@ -34,6 +34,8 @@ public abstract class EnemyImpl extends GameEntityImpl implements Enemy {
      * to move.
      * @param position the first position of the enemy
      * @param level is the level of the game
+     * @param width the width of the enemy
+     * @param heigth the heigth of the enemy
      */
     public EnemyImpl(final Position position, final Level level, final float width, final float heigth) {
         super(position, level, width, heigth);
@@ -55,9 +57,10 @@ public abstract class EnemyImpl extends GameEntityImpl implements Enemy {
     protected void setDirection(final Direction direction) {
         this.direction = direction;
     }
-    
+
     /**
      * Return the type of the enemy.
+     * @return the type of the enemy
      */
     public abstract EntityType getType();
 

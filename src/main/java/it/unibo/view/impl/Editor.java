@@ -66,7 +66,6 @@ public final class Editor {
     private static final int BUTTON_TEXT_SIZE = 20;
     private final JFrame frame = new JFrame();
     private final JPanel panelView = new JPanel();              //TODO: sostituire con il DrawPanel
-    private final Controller controller;
     private Optional<EntityType> type = Optional.empty();
     private Optional<Point> mousePosition = Optional.empty();
     private Font font;
@@ -78,7 +77,6 @@ public final class Editor {
      */
     public Editor(final Controller controller) {
 
-        this.controller = controller;
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frame.setSize(new Dimension(WIDTH_FRAME, HEIGHT_FRAME));     //1600, 900
         this.frame.setMinimumSize(new Dimension(WIDTH_FRAME, HEIGHT_FRAME));
@@ -308,7 +306,7 @@ public final class Editor {
         button1.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.BLACK, 4, true),
                  "Simple Enemy", TitledBorder.CENTER, TitledBorder.ABOVE_BOTTOM, font.deriveFont((float) BUTTON_TEXT_SIZE)));
 
-        final int button1TextSize = 15;        
+        final int button1TextSize = 15;
         button1.setFont(new Font("Verdana", Font.BOLD, button1TextSize));
         button1.setBackground(Color.WHITE);
         button1.setForeground(Color.BLACK);

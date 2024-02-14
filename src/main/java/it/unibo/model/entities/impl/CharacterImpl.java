@@ -34,7 +34,7 @@ public final class CharacterImpl extends GameEntityImpl implements Character {
      * @param level the level of the game
      */
     public CharacterImpl(final Position position, final Level level) {
-        super(position, level, EntityType.CHARACTER.getX(), EntityType.CHARACTER.getY());
+        super(position, level, EntityType.CHARACTER.getWidth(), EntityType.CHARACTER.getHeigth());
         this.physic = this.physicsBuilder
                 .setGameEntity(this)
                 .addAccelerationOnX()
@@ -103,7 +103,7 @@ public final class CharacterImpl extends GameEntityImpl implements Character {
         }
     }
 
-    private Set<BorderCollision> getBorder(Set<Collision> collisions) {
+    private Set<BorderCollision> getBorder(final Set<Collision> collisions) {
         Set<BorderCollision> borderCollision = new HashSet<>();
         getCollisions()
                 .stream()

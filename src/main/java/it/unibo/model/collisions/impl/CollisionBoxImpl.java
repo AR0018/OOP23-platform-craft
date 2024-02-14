@@ -7,7 +7,7 @@ import it.unibo.model.collisions.api.Collision;
 import it.unibo.model.collisions.api.CollisionBox;
 import it.unibo.model.entities.api.GameEntity;
 
-public class CollisionBoxImpl implements CollisionBox{
+public final class CollisionBoxImpl implements CollisionBox {
 
 
     public CollisionBoxImpl(final float width, final float heigth) {
@@ -30,5 +30,4 @@ public class CollisionBoxImpl implements CollisionBox{
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getBoundaries'");
     }
-    
 }

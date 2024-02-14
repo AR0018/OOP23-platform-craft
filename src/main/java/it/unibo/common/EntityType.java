@@ -38,11 +38,19 @@ public enum EntityType {
         this.y = y;
     }
 
-    public float getX() {
+    /**
+     * Gets the width of the entity.
+     * @return the width of the entity
+     */
+    public float getWidth() {
         return this.x;
     }
 
-    public float getY() {
+    /**
+     * Gets the heigth of the entity.
+     * @return the heigth of the entity
+     */
+    public float getHeigth() {
         return this.y;
     }
 }

@@ -27,7 +27,7 @@ public final class StrongEnemyImpl extends EnemyImpl {
      * @param level the level of the game
      */
     public StrongEnemyImpl(final Position position, final Level level) {
-        super(position, level, EntityType.ENEMY.getX(), EntityType.ENEMY.getY());
+        super(position, level, EntityType.ENEMY.getWidth(), EntityType.ENEMY.getHeigth());
         this.physics = this.builder.setGameEntity(this)
                 .addAccelerationOnX()
                 .addFallingPhysics()
