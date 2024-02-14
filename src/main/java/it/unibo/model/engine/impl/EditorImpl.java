@@ -62,7 +62,7 @@ public class EditorImpl implements Editor {
             this.level.getGameState();
             getLevelEntities();
         }
-       return editor;
+       return new EditorImpl();
     }
 
     @Override
