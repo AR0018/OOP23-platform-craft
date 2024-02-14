@@ -42,7 +42,7 @@ public final class TrapImpl extends GameEntityImpl implements Trap {
      * @param level the level of the game
      */
     public TrapImpl(final Position position, final Level level) {
-        super(position, level);
+        super(position, level, EntityType.TRAP.getWidth(), EntityType.TRAP.getHeigth());
         this.state = TrapState.INACTIVE;
         this.isLethal = false;
     }

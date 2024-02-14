@@ -2,6 +2,7 @@ package it.unibo.entities;
 /*
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -40,14 +41,16 @@ public class TestEnemy {        //TODO: modificare le posizioni perche devono es
         this.enemy = new SimpleEnemyImpl(new Position2D(0, 0), level);
         this.level.addGameEntity(enemy);
         this.enemy.updateState();
-        assertEquals(new Position2D(1, 0), this.enemy.getPosition());
+        assertEquals(new Position2D(0, 0.1), this.enemy.getPosition());
 
         this.enemy = new SimpleEnemyImpl(new Position2D(0, 0), level);
-        this.map = new MapElementImpl(new Position2D(1, 0), level);
+        this.map = new MapElementImpl(new Position2D(1, 1), level);
+        this.map1 = new MapElementImpl(new Position2D(0, 1), level);
         this.level.addGameEntity(enemy);
-        this.level.addGameEntity(this.map);
+        this.level.addGameEntity(map);
+        this.level.addGameEntity(map1);
         this.enemy.updateState();
-        assertEquals(new Position2D(0, 0), this.enemy.getPosition());
+        assertEquals(new Position2D(0.3, 0), this.enemy.getPosition());
 
         this.level = new Lv();
         this.map = new MapElementImpl(new Position2D(2, 1), level);
@@ -57,17 +60,15 @@ public class TestEnemy {        //TODO: modificare le posizioni perche devono es
         this.level.addGameEntity(map1);
         this.level.addGameEntity(enemy);
         this.enemy.updateState();
-        assertEquals(new Position2D(2, 0), this.enemy.getPosition());
-        this.map2 = new MapElementImpl(new Position2D(3, 0), level);
-        this.level.addGameEntity(map2);
+        assertEquals(new Position2D(1.3, 0), this.enemy.getPosition());
         this.enemy.updateState();
-        assertEquals(new Position2D(1, 0), this.enemy.getPosition());
+        assertEquals(new Position2D(1.6, 0), this.enemy.getPosition());
 
         this.level = new Lv();
         this.enemy = new StrongEnemyImpl(new Position2D(0, 0), level);
         this.level.addGameEntity(enemy);
         this.enemy.updateState();
-        assertEquals(new Position2D(1, 0), this.enemy.getPosition());
+        assertEquals(new Position2D(0, 0.1), this.enemy.getPosition());
 
         this.level = new Lv();
         this.enemy = new StrongEnemyImpl(new Position2D(0, 0), level);
@@ -75,19 +76,15 @@ public class TestEnemy {        //TODO: modificare le posizioni perche devono es
         this.level.addGameEntity(enemy);
         this.level.addGameEntity(map);
         this.enemy.updateState();
-        assertEquals(new Position2D(0, 0), this.enemy.getPosition());
+        assertEquals(new Position2D(0.6, 0), this.enemy.getPosition());
 
         this.level = new Lv();
-        this.map = new MapElementImpl(new Position2D(2, 1), level);
+        this.map = new MapElementImpl(new Position2D(2, 0), level);
         this.map1 = new MapElementImpl(new Position2D(1, 1), level);
         this.enemy = new StrongEnemyImpl(new Position2D(1, 0), level);
         this.level.addGameEntity(map);
         this.level.addGameEntity(map1);
         this.level.addGameEntity(enemy);
-        this.enemy.updateState();
-        assertEquals(new Position2D(2, 0), this.enemy.getPosition());
-        this.map2 = new MapElementImpl(new Position2D(3, 0), level);
-        this.level.addGameEntity(map2);
         this.enemy.updateState();
         assertEquals(new Position2D(1, 0), this.enemy.getPosition());
     }
@@ -105,7 +102,9 @@ public class TestEnemy {        //TODO: modificare le posizioni perche devono es
         this.level.addGameEntity(enemy);
         this.level.addGameEntity(player);
         this.enemy.updateState();
-        assertEquals(new Position2D(3, 0), this.enemy.getPosition());
+        this.player.updateState();
+        assertEquals(new Position2D(2.3, 0), this.enemy.getPosition());
+        assertTrue(this.player.isAlive());
 
         this.map = new MapElementImpl(new Position2D(2, 1), level);
         this.map1 = new MapElementImpl(new Position2D(1, 1), level);
@@ -119,9 +118,7 @@ public class TestEnemy {        //TODO: modificare le posizioni perche devono es
         this.level.addGameEntity(player);
         this.enemy.updateState();
         assertEquals(new Position2D(2, 0), this.enemy.getPosition());
-        this.player.move(Direction.RIGHT);
         this.enemy.updateState();
-        this.player.updateState();
         assertFalse(this.player.isAlive());
     }
 

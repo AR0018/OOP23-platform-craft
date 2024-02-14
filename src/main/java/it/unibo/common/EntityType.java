@@ -8,25 +8,49 @@ public enum EntityType {
     /**
      * The Character controlled by the player.
      */
-    CHARACTER,
+    CHARACTER(1, 1),
     /**
      * A trap in the game.
      */
-    TRAP,
+    TRAP(1, 1),
     /**
      * A simple enemy.
      */
-    SIMPLE_ENEMY,
+    SIMPLE_ENEMY(1, 1),
     /**
      * An enemy in the game that follows the player.
      */
-    ENEMY,
+    ENEMY(1, 1),
     /**
      * A walkable element of the map.
      */
-    MAP_ELEMENT,
+    MAP_ELEMENT(1, 1),
     /**
      * The ending location of the level.
      */
-    FINISH_LOCATION;
+    FINISH_LOCATION(1, 1);
+
+    private final float x;
+    private final float y;
+
+    private EntityType(final float x, final float y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    /**
+     * Gets the width of the entity.
+     * @return the width of the entity
+     */
+    public float getWidth() {
+        return this.x;
+    }
+
+    /**
+     * Gets the heigth of the entity.
+     * @return the heigth of the entity
+     */
+    public float getHeigth() {
+        return this.y;
+    }
 }

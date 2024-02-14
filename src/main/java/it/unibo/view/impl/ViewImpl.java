@@ -9,7 +9,7 @@ import javax.swing.SwingUtilities;
 /**
  * General View class to manage other views.
  */
-public final class ViewImpl implements View {           //TODO: metodi aggiuntivi per chiamare LevelEditor?
+public final class ViewImpl implements View {
 
     private final Controller controller;
 
@@ -28,12 +28,12 @@ public final class ViewImpl implements View {           //TODO: metodi aggiuntiv
 
     @Override
     public void displayWin() {
-        //TODO: new LevelViewImpl().displayWin();
+        new LevelViewImpl(this.controller).displayWin();
     }
 
     @Override
     public void displayGameOver() {
-        //TODO: new LevelViewImpl().displayGameOver();
+        new LevelViewImpl(this.controller).displayGameOver();
     }
 
     @Override
@@ -42,7 +42,7 @@ public final class ViewImpl implements View {           //TODO: metodi aggiuntiv
 
             @Override
             public void run() {
-                //TODO: new LevelViewImpl().render(entities);s
+                new LevelViewImpl(controller).render(entities);
             }
         });
     }
