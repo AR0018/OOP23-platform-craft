@@ -39,7 +39,7 @@ public abstract class EnemyImpl extends GameEntityImpl implements Enemy {
      * Obtain the direction where the enemy moves.
      * @return the direction
      */
-    public final Direction getDirection() {   //: protected?
+    public final Direction getDirection() {
         return this.direction;
     }
 
@@ -72,7 +72,7 @@ public abstract class EnemyImpl extends GameEntityImpl implements Enemy {
     }
 
     @Override
-    public final void updateState() {     //: sistemare bene updateState
+    public final void updateState() {     //TODO: sistemare bene updateState
         moveEnemy();
         checkEnemyCollisions();
     }
@@ -94,7 +94,7 @@ public abstract class EnemyImpl extends GameEntityImpl implements Enemy {
     /**
      * Check if the enemy has some collisions. 
      */
-    protected void checkEnemyCollisions() {
+    private void checkEnemyCollisions() {
         if (!getCollisions().isEmpty()) {
             if (getCollisionBox().isCollidingWith(getLevel().getCharacter())) {
                 checkEnemyIsDead();
@@ -108,7 +108,7 @@ public abstract class EnemyImpl extends GameEntityImpl implements Enemy {
      * Check if the enemy died because of the player who collided with
      * the head of the enemy.
      */
-    private void checkEnemyIsDead() {     //: need to check collision with the bounds of the map
+    private void checkEnemyIsDead() {     //TODO: need to check collision with the bounds of the map
         var str = getCollisions().stream()
                 .filter(x -> x.getGameEntity() instanceof Character);
         if (str.anyMatch(x -> x.getDirection().equals(Direction.UP))) {

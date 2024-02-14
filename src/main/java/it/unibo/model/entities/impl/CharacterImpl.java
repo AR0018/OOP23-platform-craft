@@ -10,7 +10,6 @@ import it.unibo.model.physics.api.PhysicsBuilder;
 import it.unibo.model.physics.api.Position;
 import it.unibo.model.physics.impl.PhysicsBuilderImpl;
 import it.unibo.model.entities.api.Trap;
-import it.unibo.model.entities.api.TrapState;
 
 import java.util.stream.Collectors;
 import java.util.Objects;
@@ -50,7 +49,7 @@ public final class CharacterImpl extends GameEntityImpl implements Character {
     }
 
     @Override
-    public void move(final Direction dir) {     //: needs to be improved
+    public void move(final Direction dir) {     //TODO: needs to be improved
         physic.setMovement(Objects.requireNonNull(dir));       //i nemici possono modificare la direzione
                                                              //CheckEnemyCollision here?
     }
@@ -63,7 +62,7 @@ public final class CharacterImpl extends GameEntityImpl implements Character {
                     .collect(Collectors.toSet());
             if (!trapCollisions.isEmpty()) {
                 var trap = (Trap) trapCollisions.stream().findFirst().get().getGameEntity();
-                if (trap.getTrapState().equals(TrapState.DEAD)) {           //: controllare se può funzionare
+                if (trap.isLethal()) {           //TODO: controllare se può funzionare
                     setAlive(false);
                 }
             }
@@ -71,7 +70,7 @@ public final class CharacterImpl extends GameEntityImpl implements Character {
     }
 
 
-    private void checkEnemyCollision() {            //: controllare bene le collisioni
+    private void checkEnemyCollision() {            //TODO: controllare bene le collisioni
         if (!getCollisions().isEmpty()) {           //vedere se riga 81  può essere corretta
             var enemySetCollision = getCollisions()
                     .stream()

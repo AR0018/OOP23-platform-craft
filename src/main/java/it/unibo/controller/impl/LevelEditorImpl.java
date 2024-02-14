@@ -1,49 +1,66 @@
 package it.unibo.controller.impl;
 
 import java.io.File;
+import java.util.HashSet;
+import java.util.Set;
 
+import it.unibo.common.EntityType;
 import it.unibo.common.SimpleEntity;
+import it.unibo.controller.api.Controller;
 import it.unibo.controller.api.LevelEditor;
+import it.unibo.controller.api.LevelSerializer;
+import it.unibo.model.engine.api.Engine;
+import it.unibo.view.api.EditorView;
 
 /**
  * Models the controller of the game's editor.
  */
 public final class LevelEditorImpl implements LevelEditor {
+    //TODO: tipo di oggetto da aggiungere
+    private EditorView  editor;
+    private EntityType type;
+    private Engine engine;
+    private LevelSerializer serializer;
+    private Set<SimpleEntity> entities =  new HashSet<>();
+    private Controller controller;
 
-    //private EditorView editorView;
-
-    @Override
-    public void start() {
-        //: new EditorViewImpl.show();
+    /**
+     * Constructor of the LevelEditorImpl.
+     * It's empty.
+     */
+    public LevelEditorImpl() {
     }
 
     @Override
     public void reset() {
-        //this.editorView = new EditorViewImpl.show();
-        //: new EditorViewImpl.show();
+        //if (this.editor.isShown()) {
+            //this.editor.hide();
+            //this.editor = new EditorViewImpl(controller);
+            //this.editor.show();
+
+
+            //TODO: this.engine = new Engine(); 
+        //}
     }
 
     @Override
     public boolean addEntity(final SimpleEntity entity) {
-        //  Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addEntity'");
+        return this.engine.addGameEntity(entity);
     }
 
     @Override
     public boolean removeEntity(final double x, final double y) {
-        //  Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'removeEntity'");
+        return this.engine.removeGameEntity(x, y);
     }
 
     @Override
     public boolean saveLevel(final File file) {
-        //  Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'saveLevel'");
+        //return this.serializer.saveLevel(this.engine.getLevelEntities(), file);
+        return true;
     }
 
     @Override
     public void loadLevel(final File file) {
-        //  Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'loadLevel'");
+        //entities = this.serializer.loadLevel(file);        //TODO: bisogna modificare il set in Engine
     }
 }

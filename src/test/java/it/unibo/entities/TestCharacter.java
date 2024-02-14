@@ -1,6 +1,6 @@
-/*package it.unibo.entities;
+package it.unibo.entities;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+/*import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 
 import it.unibo.model.entities.api.Character;
 import it.unibo.model.entities.api.GameEntity;
-import it.unibo.model.entities.api.TrapState;
 import it.unibo.model.entities.impl.CharacterImpl;
 import it.unibo.model.entities.impl.EnemyImpl;
 import it.unibo.model.entities.impl.SimpleEnemyImpl;
@@ -21,8 +20,8 @@ import it.unibo.model.level.api.Level;
 import it.unibo.model.physics.api.Direction;
 import it.unibo.model.physics.api.Position;
 import it.unibo.model.physics.impl.Position2D;
-
-//TODO: bisogna attendere prima le collisioni
+*/
+//TODO: bisogna attendere prima le collisioni e le posizioni devono essere dei double
 /**
  * Class for testing the behaviour of the character.
  */
@@ -109,14 +108,33 @@ public class TestCharacter {
         this.player.move(Direction.RIGHT);
         this.trap.updateState();
         this.player.updateState();
-        assertEquals(TrapState.ACTIVE, this.trap.getTrapState());
-        wait(TIMER);
-        this.player.move(Direction.RIGHT);
+        assertFalse(this.trap.isLethal());
+        for (int i = 0; i <= TIMER; i++) {
+            this.trap.updateState();
+        }
+        //this.player.move(Direction.LEFT);
         this.trap.updateState();
         this.player.updateState();
         assertFalse(this.player.isAlive());
-        assertFalse(this.trap.isAlive());
+        assertTrue(this.trap.isAlive());
 
+        this.level = new Lv();
+        this.player = new CharacterImpl(new Position2D(1, 1), level);
+        this.trap = new TrapImpl(new Position2D(2, 1), level);
+        this.level.addGameEntity(this.player);
+        this.level.addGameEntity(this.trap);
+        this.player.move(Direction.RIGHT);
+        this.trap.updateState();
+        this.player.updateState();
+        assertFalse(this.trap.isAlive());
+        for (int i = 0; i <= TIMER / 2; i++) {
+            this.trap.updateState();
+        }
+        //this.player.move(Direction.LEFT);
+        this.trap.updateState();
+        this.player.updateState();
+        assertTrue(this.player.isAlive());
+        assertTrue(this.trap.isAlive());
     }
 
     private static final class Lv implements Level {
@@ -135,31 +153,31 @@ public class TestCharacter {
 
         @Override
         public void computeChanges() {
-            // TODO Auto-generated method stub
+            //Auto-generated method stub
             throw new UnsupportedOperationException("Unimplemented method 'computeChanges'");
         }
 
         @Override
         public void moveCharacter(final Direction dir) {
-            // TODO Auto-generated method stub
+            //Auto-generated method stub
             throw new UnsupportedOperationException("Unimplemented method 'moveCharacter'");
         }
 
         @Override
         public void addFinishLocation(final Position position) {
-            // TODO Auto-generated method stub
+            //Auto-generated method stub
             throw new UnsupportedOperationException("Unimplemented method 'addFinishLocation'");
         }
 
         @Override
         public GameState getGameState() {
-            // TODO Auto-generated method stub
+            //Auto-generated method stub
             throw new UnsupportedOperationException("Unimplemented method 'getGameState'");
         }
 
         @Override
         public GameEntity getCharacter() {
-            // TODO Auto-generated method stub
+            //Auto-generated method stub
             throw new UnsupportedOperationException("Unimplemented method 'getCharacter'");
         }
 

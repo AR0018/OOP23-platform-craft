@@ -1,5 +1,5 @@
-/*package it.unibo.entities;
-
+package it.unibo.entities;
+/*
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
@@ -21,12 +21,12 @@ import it.unibo.model.physics.api.Direction;
 import it.unibo.model.physics.api.Position;
 import it.unibo.model.physics.impl.Position2D;
 import it.unibo.model.entities.api.Character;
-
+*/
 /**
  * Class for testing the behaviour of enemies.
  */
-/* 
-public class TestEnemy {        //: modificare le posizioni perche devono essere double
+/*
+public class TestEnemy {        //TODO: modificare le posizioni perche devono essere double
                                 //dipendono dalla velocità settata
     private Character player;
     private Enemy enemy;
@@ -141,33 +141,34 @@ public class TestEnemy {        //: modificare le posizioni perche devono essere
 
         @Override
         public void computeChanges() {
-            //  Auto-generated method stub
+            //Auto-generated method stub
             throw new UnsupportedOperationException("Unimplemented method 'computeChanges'");
         }
 
         @Override
         public void moveCharacter(final Direction dir) {
-            //  Auto-generated method stub
+            //Auto-generated method stub
             throw new UnsupportedOperationException("Unimplemented method 'moveCharacter'");
         }
 
         @Override
         public void addFinishLocation(final Position position) {
-            //  Auto-generated method stub
+            //Auto-generated method stub
             throw new UnsupportedOperationException("Unimplemented method 'addFinishLocation'");
         }
 
         @Override
         public GameState getGameState() {
-            //  Auto-generated method stub
+            //Auto-generated method stub
             throw new UnsupportedOperationException("Unimplemented method 'getGameState'");
         }
 
         @Override
         public GameEntity getCharacter() {
-            //  Auto-generated method stub
+            //Auto-generated method stub
             throw new UnsupportedOperationException("Unimplemented method 'getCharacter'");
         }
 
     }
-}*/
+}
+*/

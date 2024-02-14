@@ -21,7 +21,7 @@ public class MapElementImpl extends GameEntityImpl implements MapElement {
 
     /**
      * In general the method updateState doesn't do anytihing special
-     * but when TrapImpl calls this method (since it is a subclass of mapelemnt)
+     * but when TrapImpl calls this method (since it is a subclass of mapElemnt)
      * needs to check every call of the method if the trap has encountered
      * the player. 
      */
