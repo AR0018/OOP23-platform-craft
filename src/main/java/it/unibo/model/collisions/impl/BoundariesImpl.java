@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import it.unibo.model.collisions.api.Boundaries;
-import it.unibo.model.entities.api.GameEntity;
 import it.unibo.model.physics.api.Position;
 import it.unibo.model.physics.impl.Position2D;
 
@@ -18,19 +17,17 @@ public class BoundariesImpl implements Boundaries{
 
     private double height;
     private double width;
-    private GameEntity gameEntity;
     private final Polygon rectangle;
     private final List<Position> vertices=new ArrayList<>();
 
-    public BoundariesImpl(final double height,final double width, GameEntity gameEntity){
+    public BoundariesImpl(final double height,final double width,Position position){
         this.height=height;
         this.width=width;
-        this.gameEntity=gameEntity;
-        vertices.add(gameEntity.getPosition());
-        vertices.add(new Position2D(gameEntity.getPosition().getX()+width,gameEntity.getPosition().getY()));
-        vertices.add(new Position2D(gameEntity.getPosition().getX()+width, gameEntity.getPosition().getY()-height));
-        vertices.add(new Position2D(gameEntity.getPosition().getX(), gameEntity.getPosition().getY()-height));
-        vertices.add(gameEntity.getPosition());
+        vertices.add(position);
+        vertices.add(new Position2D(position.getX()+width,position.getY()));
+        vertices.add(new Position2D(position.getX()+width,position.getY()-height));
+        vertices.add(new Position2D(position.getX(),position.getY()-height));
+        vertices.add(position);
         rectangle=new GeometryFactory().createPolygon(this.vertices.toArray(new Coordinate[vertices.size()]));
     }
 
@@ -39,6 +36,7 @@ public class BoundariesImpl implements Boundaries{
         List<Position> line= new ArrayList<>();
         line.add(a);
         line.add(b);
+        line.add(a);
         Polygon lineRectangle= new GeometryFactory().createPolygon(line.toArray(new Coordinate[line.size()]));
         return RectangleIntersects.intersects(this.rectangle, lineRectangle);
     }

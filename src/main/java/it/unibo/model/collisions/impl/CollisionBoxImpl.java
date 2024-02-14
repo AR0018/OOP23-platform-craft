@@ -1,6 +1,6 @@
 package it.unibo.model.collisions.impl;
 
-/*import java.util.HashSet;
+import java.util.HashSet;
 import java.util.Set;
 
 
@@ -8,10 +8,10 @@ import it.unibo.model.collisions.api.Boundaries;
 import it.unibo.model.collisions.api.Collision;
 import it.unibo.model.collisions.api.CollisionBox;
 import it.unibo.model.entities.api.GameEntity;
-*/
-public class CollisionBoxImpl /*implements CollisionBox*/{
 
-  /*   private GameEntity gameEntity;
+public class CollisionBoxImpl implements CollisionBox{
+
+    private GameEntity gameEntity;
     private Boundaries boundaries;
 
     public CollisionBoxImpl(GameEntity gameEntity){
@@ -39,5 +39,5 @@ public class CollisionBoxImpl /*implements CollisionBox*/{
     public Boundaries getBoundaries() {
        return this.boundaries;
     }
-*/
+
 }
