@@ -11,16 +11,12 @@ import it.unibo.common.SimpleEntity;
 import it.unibo.controller.api.LevelSerializer;
 
 /**
- * Implementation of LevelSerializer which saves json files using Jackson library.
+ * Implementation of LevelSerializer which serializes json files using Jackson library.
  */
 public final class SerializerImpl implements LevelSerializer {
 
     @Override
     public void saveLevel(final Set<SimpleEntity> entities, final File file) throws IOException {
-        /*
-        if (!file.exists()) {
-            file.createNewFile(); TODO: does file need to be created?
-        }*/
         new ObjectMapper().writeValue(file, entities);
     }
 
