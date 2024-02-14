@@ -26,7 +26,7 @@ public class EngineImpl implements Engine{
 
     @Override
      public void updateLevel() {
-        
+        level.computeChanges();
      }
 
     @Override

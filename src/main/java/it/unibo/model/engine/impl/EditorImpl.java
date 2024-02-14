@@ -33,6 +33,7 @@ public class EditorImpl implements Editor {
     private boolean hasFinishLocation = false;
     private SimpleEntity simpleEntity;
     private MapBoundaries mapLimit;
+    private GameEntity characterEngine;
 
 
 
@@ -59,6 +60,7 @@ public class EditorImpl implements Editor {
             int height = mapLimit.getMapHeight();
             int width = mapLimit.getMapWidth();
             this.level.getGameState();
+            getLevelEntities();
         }
        return editor;
     }
