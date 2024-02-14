@@ -304,7 +304,7 @@ public final class Editor {
         addEntityFromButton(button1, EntityType.SIMPLE_ENEMY);
         box.add(button1);
 
-        
+
         final JButton button2 = new JButton();
         addImageToButton(button2, "Enemy", "src/main/resources/it/unibo/images/3 Dude_Monster/Dude_Monster.png");
         addEntityFromButton(button2, EntityType.ENEMY);
@@ -364,10 +364,10 @@ public final class Editor {
     }
 
     private void addImageToButton(final JButton button, final String type, final String filePathName) {
-        ImageIcon simpleEnemy = new ImageIcon(filePathName);
-        ImageIcon imgEnemy = new ImageIcon(simpleEnemy.getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT));
-        JLabel iconP1 = new JLabel(imgEnemy);
-        int leftIconP1 = 15;
+        final ImageIcon simpleEnemy = new ImageIcon(filePathName);
+        final ImageIcon imgEnemy = new ImageIcon(simpleEnemy.getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT));
+        final JLabel iconP1 = new JLabel(imgEnemy);
+        final int leftIconP1 = 15;
         iconP1.setBorder(BorderFactory.createEmptyBorder(0, leftIconP1, 0, 0));
         button.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.BLACK, 4, true),
                  type, TitledBorder.CENTER, TitledBorder.ABOVE_BOTTOM, font.deriveFont((float) BUTTON_TEXT_SIZE - 2)));

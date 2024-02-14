@@ -24,8 +24,11 @@ import javax.swing.Box;
 import javax.swing.border.Border;
 import javax.swing.JLabel;
 
+/**
+ * Models the GUI of the GameOver of the game.
+ */
 public final class GameOverView {
-    
+
     private static final Dimension FRAME_DIMENSION = new Dimension(1000, 600);
     private static final int THICKNESS = 5;
     private final Border border = BorderFactory.createEmptyBorder(20, 120, 20, 120);
@@ -39,6 +42,11 @@ public final class GameOverView {
     private Font font;
     private Font fontButton;
 
+    /**
+     * Constructor of the GameOverView.
+     * @param controller controller of the game
+     * @param levelView the GUI of the running level
+     */
     public GameOverView(final Controller controller, final LevelView levelView) {
 
         this.frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);

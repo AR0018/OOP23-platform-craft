@@ -4,6 +4,9 @@ import it.unibo.model.collisions.api.EntityCollision;
 import it.unibo.model.entities.api.GameEntity;
 import it.unibo.model.physics.api.Direction;
 
+/**
+ * 
+ */
 public final class EntityCollisionImpl implements EntityCollision {
 
     @Override

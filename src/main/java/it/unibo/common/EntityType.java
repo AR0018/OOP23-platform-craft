@@ -30,10 +30,10 @@ public enum EntityType {
      */
     FINISH_LOCATION(1, 1);
 
-    private final float x;
-    private final float y;
+    private final double x;
+    private final double y;
 
-    private EntityType(final float x, final float y) {
+    EntityType(final double x, final double y) {
         this.x = x;
         this.y = y;
     }
@@ -42,7 +42,7 @@ public enum EntityType {
      * Gets the width of the entity.
      * @return the width of the entity
      */
-    public float getWidth() {
+    public double getWidth() {
         return this.x;
     }
 
@@ -50,7 +50,7 @@ public enum EntityType {
      * Gets the heigth of the entity.
      * @return the heigth of the entity
      */
-    public float getHeigth() {
+    public double getHeigth() {
         return this.y;
     }
 }

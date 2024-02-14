@@ -20,6 +20,7 @@ import it.unibo.model.level.api.GameState;
 import it.unibo.model.level.api.Level;
 import it.unibo.model.physics.api.Direction;
 import it.unibo.model.physics.api.Position;
+import it.unibo.model.physics.api.SpeedLevels;
 import it.unibo.model.physics.impl.Position2D;
 import it.unibo.model.entities.api.Character;
 
@@ -29,19 +30,21 @@ import it.unibo.model.entities.api.Character;
 
 public class TestEnemy {        //TODO: modificare le posizioni perche devono essere double
                                 //dipendono dalla velocità settata
+    private static final double ACCELERATION = 0.1;
     private Character player;
     private Enemy enemy;
     private MapElement map;
     private MapElement map1;
     private MapElement map2;
     private Level level = new Lv();
+    private double pos;
 
     @Test
     void testEnemyPos() {
         this.enemy = new SimpleEnemyImpl(new Position2D(0, 0), level);
         this.level.addGameEntity(enemy);
         this.enemy.updateState();
-        assertEquals(new Position2D(0, 0.1), this.enemy.getPosition());
+        assertEquals(new Position2D(0, ACCELERATION), this.enemy.getPosition());
 
         this.enemy = new SimpleEnemyImpl(new Position2D(0, 0), level);
         this.map = new MapElementImpl(new Position2D(1, 1), level);
@@ -50,7 +53,7 @@ public class TestEnemy {        //TODO: modificare le posizioni perche devono es
         this.level.addGameEntity(map);
         this.level.addGameEntity(map1);
         this.enemy.updateState();
-        assertEquals(new Position2D(0.3, 0), this.enemy.getPosition());
+        assertEquals(new Position2D(SpeedLevels.MEDIUM.getValue(), 0), this.enemy.getPosition());
 
         this.level = new Lv();
         this.map = new MapElementImpl(new Position2D(2, 1), level);
@@ -60,15 +63,17 @@ public class TestEnemy {        //TODO: modificare le posizioni perche devono es
         this.level.addGameEntity(map1);
         this.level.addGameEntity(enemy);
         this.enemy.updateState();
-        assertEquals(new Position2D(1.3, 0), this.enemy.getPosition());
+        pos = 1 + SpeedLevels.MEDIUM.getValue();
+        assertEquals(new Position2D(pos, 0), this.enemy.getPosition());
         this.enemy.updateState();
-        assertEquals(new Position2D(1.6, 0), this.enemy.getPosition());
+        pos = pos + SpeedLevels.MEDIUM.getValue();
+        assertEquals(new Position2D(pos, 0), this.enemy.getPosition());
 
         this.level = new Lv();
         this.enemy = new StrongEnemyImpl(new Position2D(0, 0), level);
         this.level.addGameEntity(enemy);
         this.enemy.updateState();
-        assertEquals(new Position2D(0, 0.1), this.enemy.getPosition());
+        assertEquals(new Position2D(0, ACCELERATION), this.enemy.getPosition());
 
         this.level = new Lv();
         this.enemy = new StrongEnemyImpl(new Position2D(0, 0), level);
@@ -76,7 +81,8 @@ public class TestEnemy {        //TODO: modificare le posizioni perche devono es
         this.level.addGameEntity(enemy);
         this.level.addGameEntity(map);
         this.enemy.updateState();
-        assertEquals(new Position2D(0.6, 0), this.enemy.getPosition());
+        pos = 2 * SpeedLevels.MEDIUM.getValue();
+        assertEquals(new Position2D(pos, 0), this.enemy.getPosition());
 
         this.level = new Lv();
         this.map = new MapElementImpl(new Position2D(2, 0), level);
@@ -86,7 +92,8 @@ public class TestEnemy {        //TODO: modificare le posizioni perche devono es
         this.level.addGameEntity(map1);
         this.level.addGameEntity(enemy);
         this.enemy.updateState();
-        assertEquals(new Position2D(1, 0), this.enemy.getPosition());
+        pos = 1;
+        assertEquals(new Position2D(pos, 0), this.enemy.getPosition());
     }
 
     @Test
@@ -103,7 +110,8 @@ public class TestEnemy {        //TODO: modificare le posizioni perche devono es
         this.level.addGameEntity(player);
         this.enemy.updateState();
         this.player.updateState();
-        assertEquals(new Position2D(2.3, 0), this.enemy.getPosition());
+        pos = SpeedLevels.FAST.getValue() + SpeedLevels.MEDIUM.getValue();
+        assertEquals(new Position2D(pos, 0), this.enemy.getPosition());
         assertTrue(this.player.isAlive());
 
         this.map = new MapElementImpl(new Position2D(2, 1), level);
@@ -117,7 +125,8 @@ public class TestEnemy {        //TODO: modificare le posizioni perche devono es
         this.level.addGameEntity(enemy);
         this.level.addGameEntity(player);
         this.enemy.updateState();
-        assertEquals(new Position2D(2, 0), this.enemy.getPosition());
+        pos = 2;
+        assertEquals(new Position2D(pos, 0), this.enemy.getPosition());
         this.enemy.updateState();
         assertFalse(this.player.isAlive());
     }

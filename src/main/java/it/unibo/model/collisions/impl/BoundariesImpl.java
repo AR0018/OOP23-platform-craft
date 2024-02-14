@@ -5,22 +5,25 @@ import java.util.List;
 import it.unibo.model.collisions.api.Boundaries;
 import it.unibo.model.physics.api.Position;
 
+/**
+ * 
+ */
 public final class BoundariesImpl implements Boundaries {
 
     @Override
-    public boolean intersectsLine(Position a, Position b) {
+    public boolean intersectsLine(final Position a, final Position b) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'intersectsLine'");
     }
 
     @Override
-    public boolean intersects(Boundaries other) {
+    public boolean intersects(final Boundaries other) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'intersects'");
     }
 
     @Override
-    public boolean contains(Position position) {
+    public boolean contains(final Position position) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'contains'");
     }

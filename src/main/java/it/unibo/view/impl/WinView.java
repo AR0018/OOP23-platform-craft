@@ -23,8 +23,11 @@ import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.GridLayout;
 
+/**
+ * Models the GUI when the player wins the game.
+ */
 public final class WinView {
-    
+
     private static final Dimension FRAME_DIMENSION = new Dimension(900, 600);
     private static final int THICKNESS = 5;
     private final Border border = BorderFactory.createEmptyBorder(20, 120, 20, 120);
@@ -36,6 +39,11 @@ public final class WinView {
     private Font font;
     private Font fontButton;
 
+    /**
+     * Constructor of the WinView.
+     * @param controller controller of the game
+     * @param levelView the view of the running level
+     */
     public WinView(final Controller controller, final LevelView levelView) {
 
         this.frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);

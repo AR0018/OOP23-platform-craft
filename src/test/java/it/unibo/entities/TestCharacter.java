@@ -37,11 +37,10 @@ public class TestCharacter {
     private TrapImpl trap;
     private Level level = new Lv();
 
-   
     @Test
     void testCharacterEnemy() {
         //Right collision.
-        this.player = new CharacterImpl(new Position2D(0, 0), level); //y> scendi           //Inizio personaggio in altro a sinistra
+        this.player = new CharacterImpl(new Position2D(0, 0), level);
         this.enemy = new SimpleEnemyImpl(new Position2D(1, 0), level);
         this.map1 = new MapElementImpl(new Position2D(0, 1), level);
         this.map2 = new MapElementImpl(new Position2D(1, 1), level);
@@ -128,7 +127,7 @@ public class TestCharacter {
         this.trap.updateState();
         this.player.updateState();
         assertFalse(this.trap.isAlive());
-        Thread.sleep(TIMER/2);
+        Thread.sleep(TIMER / 2);
         this.trap.updateState();
         this.player.updateState();
         assertTrue(this.player.isAlive());

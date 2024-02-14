@@ -37,7 +37,7 @@ public abstract class EnemyImpl extends GameEntityImpl implements Enemy {
      * @param width the width of the enemy
      * @param heigth the heigth of the enemy
      */
-    public EnemyImpl(final Position position, final Level level, final float width, final float heigth) {
+    public EnemyImpl(final Position position, final Level level, final double width, final double heigth) {
         super(position, level, width, heigth);
         setDirection(Direction.RIGHT);
     }
@@ -127,7 +127,7 @@ public abstract class EnemyImpl extends GameEntityImpl implements Enemy {
         }
     }
 
-    private Set<BorderCollision> getBorder(Set<Collision> collisions) {
+    private Set<BorderCollision> getBorder(final Set<Collision> collisions) {
         Set<BorderCollision> borderCollision = new HashSet<>();
         getCollisions()
                 .stream()

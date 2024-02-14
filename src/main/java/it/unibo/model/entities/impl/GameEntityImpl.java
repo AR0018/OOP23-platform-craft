@@ -28,7 +28,7 @@ public abstract class GameEntityImpl implements GameEntity {
      * @param heigth the heigth of the GameEntity
      */
     public GameEntityImpl(final Position position, final Level level, 
-            final float width, final float heigth) {
+            final double width, final double heigth) {
         //Objects.requireNonNull(position);
         this.position = position;
         this.level = level;
