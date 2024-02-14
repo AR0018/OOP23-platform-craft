@@ -7,6 +7,7 @@ import it.unibo.model.entities.api.Character;
 // import it.unibo.model.entities.impl.CharacterImpl;
 import it.unibo.model.level.api.GameState;
 import it.unibo.model.level.impl.GameLevel;
+import it.unibo.model.level.impl.MapBoundaries;
 import it.unibo.model.physics.api.Direction;
 import it.unibo.common.api.EntityType;
 import it.unibo.common.api.SimpleEntity;
@@ -24,34 +25,42 @@ public class EditorImpl implements Editor {
     private Set<SimpleEntity> gameSimpleEntity;
 
     private GameLevel level;
+    private EditorImpl editor;
     
 
     private boolean hasCharacter = false;
     private boolean hasStartLocation = false;
     private boolean hasFinishLocation = false;
-
-    private GameEntity characterEngine;
     private SimpleEntity simpleEntity;
-    // private SimpleEntity startLocation;
-    // private SimpleEntity mapSimpleEntity;
-    // private SimpleEntity trapSimpleEntity;
+    private MapBoundaries mapLimit;
 
-    private GameState stateGame = GameState.STATE_UNKNOW;
+
 
     public EditorImpl() {
         this.gameConfiguration = new HashSet<>();
         this.gameSimpleEntity = new HashSet<>();
-        this.characterEngine = null;
         this.simpleEntity = new SimpleEntityImpl();
         this.level = new GameLevel();
+        this.mapLimit= new MapBoundaries();
        
 
     }
 
-    @Override
-    public boolean createLevel() {
+
+    private boolean validLevel(){
         // Return true if all required entities are present
         return this.hasCharacter && this.hasStartLocation && this.hasFinishLocation;
+
+    }
+
+    @Override
+    public EditorImpl createLevel() {
+        if(validLevel()){
+            int height = mapLimit.getMapHeight();
+            int width = mapLimit.getMapWidth();
+            this.level.getGameState();
+        }
+       return editor;
     }
 
     @Override

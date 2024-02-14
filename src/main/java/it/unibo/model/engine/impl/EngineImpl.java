@@ -13,12 +13,11 @@ import it.unibo.model.physics.api.Direction;
 public class EngineImpl implements Engine{
 
     private EditorImpl editor;
+    private GameLevel level;
 
     
-    private CharacterImpl characterEditor;
-
     public EngineImpl(){
-        this.characterEditor = new CharacterImpl();
+        this.characterEditor = new CharacterImpl(null);
         this.editor = new EditorImpl();
 
     }
@@ -35,11 +34,7 @@ public class EngineImpl implements Engine{
 
     @Override
      public void moveCharacter(Direction dir) {
-        if(dir!=null){
-            this.characterEditor.move(dir);
-        }else{
-            throw new UnsupportedOperationException("Invalid direction");
-        }
+       this.level.moveCharacter(dir);
     }
 
     @Override
