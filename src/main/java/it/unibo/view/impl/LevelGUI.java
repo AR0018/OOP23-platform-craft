@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Optional;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -14,7 +13,6 @@ import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -24,7 +22,6 @@ import javax.swing.JMenuBar;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JOptionPane;
 
-import it.unibo.common.EntityType;
 import it.unibo.controller.api.Controller;
 
 /**
@@ -45,9 +42,6 @@ public final class LevelGUI {
     private final JFrame frame = new JFrame();
     private final JPanel panelView = new JPanel();              //TODO: sostituire con il DrawPanel
     private final Controller controller;
-    private Optional<EntityType> type = Optional.empty();
-    private Optional<Point> mousePosition = Optional.empty();
-    private Font font;
     private Font fontButton;
 
     /**
@@ -67,13 +61,9 @@ public final class LevelGUI {
         menuBar.setBorder(new EmptyBorder(MENUBAR_TOP, MENUBAR_LEFT, MENUBAR_BOTTOM, MENUBAR_RIGHT));
 
         try {
-            final float fontLabelDim = 30f;
             final float fontButtonDim = 25f;
 
             InputStream fontStyle = ClassLoader.getSystemResourceAsStream("./it/unibo/fonts/ProtestStrike-Regular.ttf");
-            font = Font.createFont(Font.TRUETYPE_FONT, fontStyle)
-                    .deriveFont(fontLabelDim)
-                    .deriveFont(Font.BOLD);
             fontStyle = ClassLoader.getSystemResourceAsStream("./it/unibo/fonts/Bungee-Regular.ttf");
             fontButton = Font.createFont(Font.TRUETYPE_FONT, fontStyle)
                     .deriveFont(fontButtonDim)
