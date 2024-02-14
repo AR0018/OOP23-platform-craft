@@ -10,6 +10,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
+import javax.print.DocFlavor.READER;
 import javax.swing.JPanel;
 
 import it.unibo.common.EntityType;
@@ -23,13 +24,13 @@ import it.unibo.controller.api.Controller;
  */
 public class PaintPanel extends JPanel {
 
-    private final Controller controller;
+    //private final Controller controller;
     private final double levelWidth;
     private final double levelHeight;
     private final Canvas canvas;
 
-    private Optional<EntityType> selected;
-    private boolean remove;
+    //private Optional<EntityType> selected;
+    //private boolean remove;
 
     /**
      * The constructor of this PaintPanel.
@@ -41,14 +42,14 @@ public class PaintPanel extends JPanel {
     public PaintPanel(
         final Controller controller,
         final double levelWidth,
-        final double levelHeight,
-        final boolean mouseEnabled) {
-        this.controller = controller;
+        final double levelHeight
+        /*final boolean mouseEnabled*/) {
+        //this.controller = controller;
         this.levelHeight = levelHeight;
         this.levelWidth = levelWidth;
         this.canvas = new Canvas(levelWidth, levelHeight);
-        this.selected = Optional.empty();
-        this.remove = false;
+        //this.selected = Optional.empty();
+        //this.remove = false;
         //TODO: Setting hgap and vgap to 0 to see if the canvas is shown correctly.
         this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
         //Component listener that modifies the size of the canvas if this panel is resized.
@@ -59,6 +60,7 @@ public class PaintPanel extends JPanel {
             }
         });
         //TODO: decide a way to tell the View that it needs to display an error in case the entity can't be added/removed
+        /*  TODO: remove if not needed
         if (mouseEnabled) {
             this.addMouseListener(new MouseListener() {
 
@@ -75,13 +77,11 @@ public class PaintPanel extends JPanel {
                                 convertToModelX(e.getX()),
                                 convertToModelY(e.getY())));
                     }
-                    /*
-                    if(success) { TODO: uncomment once Editor has been modified
+                    if(success) {
                         canvas.setDisplayed(
-                            controller.getEditor().getEntities()
+                            controller.getEditor().getCurrentEntities()
                         );
                     }
-                    */
                 }
 
                 @Override
@@ -98,6 +98,7 @@ public class PaintPanel extends JPanel {
 
             });
         }
+        */
     }
 
     /*
@@ -144,17 +145,19 @@ public class PaintPanel extends JPanel {
      * @param type the selected type of entity
      * @throws NullPointerException if type is null
      */
+    /*
     public void setSelectedEntity(final EntityType type) {
         this.selected = Optional.of(Objects.requireNonNull(type));
         this.remove = false;
-    }
+    }*/
 
     /**
      * Sets this Panel so that the next mouse clicks will try to remove an entity from the level.
      */
+    /*
     public void setRemove() {
         this.remove = true;
-    }
+    }*/
 
     /**
      * Shows the specified entity on the inner canvas.
@@ -164,4 +167,32 @@ public class PaintPanel extends JPanel {
     public void render(final Set<SimpleEntity> displayed) {
         this.canvas.setDisplayed(Objects.requireNonNull(displayed));
     }
+
+    /**
+     * Tries to add an entity of the specified type and position (relative to the GUI) to the level.
+     * If the entity can be added, shows it on screen.
+     * @param type the type of entity that must be added
+     * @param x the position of the entity on the X axis
+     * @param y the position of the entity on the Y axis
+     * @return true if the entity can be added to the level
+     */
+    public boolean addEntity(final EntityType type, final int x, final int y) {
+        return false;
+    }
+
+    /**
+     * Tries to remove an entity from the specified position (relative to the GUI).
+     * @param x the position of the entity on the X axis
+     * @param y the position of the entity on the Y axis
+     * @return true if there is an entity to remove from the level
+     */
+    public boolean removeEntity(final int x, final int y) {
+        return false;
+    }
+
+    @Override
+    public synchronized void addMouseListener(MouseListener l) {
+        this.canvas.addMouseListener(l);
+    }
+
 }

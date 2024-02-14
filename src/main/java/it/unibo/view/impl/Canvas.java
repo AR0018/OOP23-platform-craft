@@ -19,7 +19,7 @@ import java.util.Set;
 public final class Canvas extends JPanel {
 
     private static final String ROOT = "./it/unibo/images/";
-    private static final String BACKGROUND = ""; //TODO: insert image
+    private static final String BACKGROUND = "Windows_XP.png"; //TODO: insert image
     /*
      * Map that contains the associations between each entity type and its specified image.
      * To choose another image for the entities, modify the strings inside getSystemResource.
