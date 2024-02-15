@@ -4,7 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Optional;
+import java.util.Set;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -14,9 +14,10 @@ import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.BorderFactory;
 
@@ -24,7 +25,7 @@ import javax.swing.JMenuBar;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JOptionPane;
 
-import it.unibo.common.EntityType;
+import it.unibo.common.SimpleEntity;
 import it.unibo.controller.api.Controller;
 
 /**
@@ -43,11 +44,7 @@ public final class LevelGUI {
     private static final Dimension BUTTON_DIM = new Dimension(125, 35);
     private static final int THICKNESS = 4;
     private final JFrame frame = new JFrame();
-    private final JPanel panelView = new JPanel();              //TODO: sostituire con il DrawPanel
-    private final Controller controller;
-    private Optional<EntityType> type = Optional.empty();
-    private Optional<Point> mousePosition = Optional.empty();
-    private Font font;
+    private final JPanel panelView = new JPanel();              //TODO: sostituire con il PaintPanel
     private Font fontButton;
 
     /**
@@ -55,7 +52,6 @@ public final class LevelGUI {
      * @param controller the controller of the game
      */
     public LevelGUI(final Controller controller) {
-        this.controller = controller;
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frame.setSize(new Dimension(WIDTH_FRAME, HEIGHT_FRAME));
         this.frame.setMinimumSize(new Dimension(WIDTH_FRAME, HEIGHT_FRAME));
@@ -67,22 +63,52 @@ public final class LevelGUI {
         menuBar.setBorder(new EmptyBorder(MENUBAR_TOP, MENUBAR_LEFT, MENUBAR_BOTTOM, MENUBAR_RIGHT));
 
         try {
-            final float fontLabelDim = 30f;
             final float fontButtonDim = 25f;
 
-            InputStream fontStyle = ClassLoader.getSystemResourceAsStream("./it/unibo/fonts/ProtestStrike-Regular.ttf");
-            font = Font.createFont(Font.TRUETYPE_FONT, fontStyle)
-                    .deriveFont(fontLabelDim)
-                    .deriveFont(Font.BOLD);
-            fontStyle = ClassLoader.getSystemResourceAsStream("./it/unibo/fonts/Bungee-Regular.ttf");
+            InputStream fontStyle = ClassLoader.getSystemResourceAsStream("./it/unibo/fonts/Bungee-Regular.ttf");
             fontButton = Font.createFont(Font.TRUETYPE_FONT, fontStyle)
                     .deriveFont(fontButtonDim)
                     .deriveFont(Font.CENTER_BASELINE)
                     .deriveFont(Font.PLAIN);
 
+            fontStyle.close();
+
         } catch (FontFormatException | IOException e) {
             e.printStackTrace();
         }
+
+        this.panelView.addKeyListener(new KeyListener() {
+
+            @Override
+            public void keyTyped(final KeyEvent e) {
+            }
+
+            @Override
+            public void keyPressed(final KeyEvent e) {
+                int inputReceived = e.getKeyCode();
+
+                switch (inputReceived) {
+                    case KeyEvent.VK_W, KeyEvent.VK_UP, KeyEvent.VK_SPACE:
+                        //controller.notifyCommand(Command.MOVE_UP);
+                        break;
+                    case KeyEvent.VK_A, KeyEvent.VK_LEFT:
+                        //controller.notifyCommand(Command.MOVE_LEFT);
+                        break;
+                    case KeyEvent.VK_S, KeyEvent.VK_DOWN:
+                        //controller.notifyCommand(Command.MOVE_DOWN);
+                        break;
+                    case KeyEvent.VK_D, KeyEvent.VK_RIGHT:
+                        //controller.notifyCommand(Command.MOVE_RIGHT);
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            @Override
+            public void keyReleased(final KeyEvent e) {
+            }
+        });
 
         final JButton menu = new JButton("Quit");
         menu.setFont(fontButton);
@@ -132,5 +158,9 @@ public final class LevelGUI {
      */
     public boolean isShown() {
         return this.frame.isVisible();
+    }
+
+    public void render(final Set<SimpleEntity> entities) {
+        //this.panelView.render(entities);
     }
 }

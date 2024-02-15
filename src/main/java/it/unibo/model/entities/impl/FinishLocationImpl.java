@@ -5,8 +5,6 @@ import it.unibo.model.entities.api.FinishLocation;
 import it.unibo.model.level.api.Level;
 import it.unibo.model.physics.api.Position;
 
-//TODO: override of the box collision?
-
 /**
  * Models the finish location of the game, 
  * helps to figure out what the end of the is.
@@ -19,7 +17,7 @@ public final class FinishLocationImpl extends GameEntityImpl implements FinishLo
      * @param level the level of the game
      */
     public FinishLocationImpl(final Position position, final Level level) {
-        super(position, level);
+        super(position, level, EntityType.FINISH_LOCATION.getWidth(), EntityType.FINISH_LOCATION.getHeigth());
     }
 
     @Override
@@ -30,9 +28,4 @@ public final class FinishLocationImpl extends GameEntityImpl implements FinishLo
     public EntityType getType() {
         return EntityType.FINISH_LOCATION;
     }
-
-    /*@Override
-    public boolean theEnd() {
-        return getCollisions().stream().anyMatch(x -> x instanceof Character);
-    }*/
 }

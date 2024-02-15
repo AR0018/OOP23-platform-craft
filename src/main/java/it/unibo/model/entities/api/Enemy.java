@@ -5,8 +5,4 @@ package it.unibo.model.entities.api;
  */
 public interface Enemy extends GameEntity {
 
-    /**
-     * @return the size of the enemy
-     */
-    EntitySize getSize();
 }

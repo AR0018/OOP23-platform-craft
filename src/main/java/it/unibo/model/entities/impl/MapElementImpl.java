@@ -16,7 +16,7 @@ public class MapElementImpl extends GameEntityImpl implements MapElement {
      * @param level the level of the game
      */
     public MapElementImpl(final Position position, final Level level) {
-        super(position, level);
+        super(position, level, EntityType.MAP_ELEMENT.getWidth(), EntityType.MAP_ELEMENT.getHeigth());
     }
 
     /**
