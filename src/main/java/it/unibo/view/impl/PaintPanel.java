@@ -26,7 +26,7 @@ public class PaintPanel extends JPanel {
     private final double levelHeight;
     private final Canvas canvas;
 
-    private Optional<EntityType> selected;
+    private transient Optional<EntityType> selected;
     private boolean remove;
 
     /**
