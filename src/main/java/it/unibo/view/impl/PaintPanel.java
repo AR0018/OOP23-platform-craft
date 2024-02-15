@@ -1,7 +1,6 @@
 package it.unibo.view.impl;
 
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.MouseEvent;
@@ -10,7 +9,6 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
-import javax.print.DocFlavor.READER;
 import javax.swing.JPanel;
 
 import it.unibo.common.EntityType;
@@ -24,13 +22,12 @@ import it.unibo.controller.api.Controller;
  */
 public class PaintPanel extends JPanel {
 
-    //private final Controller controller;
     private final double levelWidth;
     private final double levelHeight;
     private final Canvas canvas;
 
-    //private Optional<EntityType> selected;
-    //private boolean remove;
+    private Optional<EntityType> selected;
+    private boolean remove;
 
     /**
      * The constructor of this PaintPanel.
@@ -38,34 +35,36 @@ public class PaintPanel extends JPanel {
      * @param levelWidth the width of the level
      * @param levelHeight the heigth of the level
      * @param mouseEnabled true if the inner Canvas must accept mouse clicks
+     * @param defWidth the default width of the inner Canvas
+     * @param defHeight the default height of the inner Canvas
+     * @param editor the parent frame
      */
     public PaintPanel(
         final Controller controller,
         final double levelWidth,
-        final double levelHeight
-        /*final boolean mouseEnabled*/) {
-        //this.controller = controller;
+        final double levelHeight,
+        final boolean mouseEnabled,
+        final int defWidth,
+        final int defHeight,
+        final Editor editor) {
         this.levelHeight = levelHeight;
         this.levelWidth = levelWidth;
-        this.canvas = new Canvas(levelWidth, levelHeight);
-        //this.selected = Optional.empty();
-        //this.remove = false;
-        //TODO: Setting hgap and vgap to 0 to see if the canvas is shown correctly.
-        this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
+        this.canvas = new Canvas(levelWidth, levelHeight, defWidth, defHeight);
+        this.add(canvas);
+        this.selected = Optional.empty();
+        this.remove = false;
         //Component listener that modifies the size of the canvas if this panel is resized.
         this.addComponentListener(new ComponentAdapter() {
             @Override
-            public void componentResized(ComponentEvent e) {
+            public void componentResized(final ComponentEvent e) {
                 resizeCanvas();
             }
         });
-        //TODO: decide a way to tell the View that it needs to display an error in case the entity can't be added/removed
-        /*  TODO: remove if not needed
         if (mouseEnabled) {
             this.addMouseListener(new MouseListener() {
 
                 @Override
-                public void mouseClicked(MouseEvent e) {
+                public void mouseClicked(final MouseEvent e) {
                     boolean success = false;
                     if (remove) {
                         success = controller.getEditor()
@@ -76,8 +75,12 @@ public class PaintPanel extends JPanel {
                                 selected.get(),
                                 convertToModelX(e.getX()),
                                 convertToModelY(e.getY())));
+                        if (!success) {
+                            //this.editor.youCannotAdd(); TODO: uncomment once Editor is the right version and remove print
+                            System.out.println("REMOVE THIS PRINT");
+                        }
                     }
-                    if(success) {
+                    if (success) {
                         canvas.setDisplayed(
                             controller.getEditor().getCurrentEntities()
                         );
@@ -85,27 +88,26 @@ public class PaintPanel extends JPanel {
                 }
 
                 @Override
-                public void mousePressed(MouseEvent e) { }
+                public void mousePressed(final MouseEvent e) { }
 
                 @Override
-                public void mouseReleased(MouseEvent e) { }
+                public void mouseReleased(final MouseEvent e) { }
 
                 @Override
-                public void mouseEntered(MouseEvent e) { }
+                public void mouseEntered(final MouseEvent e) { }
 
                 @Override
-                public void mouseExited(MouseEvent e) { }
+                public void mouseExited(final MouseEvent e) { }
 
             });
         }
-        */
     }
 
     /*
      * Converts the specified dimension in the Panel to the dimension in the model.
      * The converted dimension must be on the X axis.
      */
-    private double convertToModelX(int dimensionX) {
+    private double convertToModelX(final int dimensionX) {
         return this.levelWidth * dimensionX / this.canvas.getWidth();
     }
 
@@ -113,22 +115,21 @@ public class PaintPanel extends JPanel {
      * Converts the specified dimension in the Panel to the dimension in the model.
      * The converted dimension must be on the Y axis.
      */
-    private double convertToModelY(int dimensionY) {
+    private double convertToModelY(final int dimensionY) {
         return this.levelHeight * dimensionY / this.canvas.getHeight();
     }
 
     private void resizeCanvas() {
         int cwidth = this.getWidth();
-        //System.out.println("Container initial width: "+ cwidth);
+        //System.out.println("Container initial width: "+ cwidth); TODO: remove comments in this method
         int cheight = this.getHeight();
         int pwidth = 0;
         int pheight = 0;
         int correctWidth = (int) (cheight * levelWidth / levelHeight);
-        if(cwidth <= correctWidth) {
+        if (cwidth <= correctWidth) {
             pwidth = cwidth;
-            pheight =(int) (pwidth * levelHeight / levelWidth);
-        }
-        else {
+            pheight = (int) (pwidth * levelHeight / levelWidth);
+        } else {
             pheight = cheight;
             pwidth = (int) (levelWidth * pheight / levelHeight);
         }
@@ -145,19 +146,17 @@ public class PaintPanel extends JPanel {
      * @param type the selected type of entity
      * @throws NullPointerException if type is null
      */
-    /*
     public void setSelectedEntity(final EntityType type) {
         this.selected = Optional.of(Objects.requireNonNull(type));
         this.remove = false;
-    }*/
+    }
 
     /**
      * Sets this Panel so that the next mouse clicks will try to remove an entity from the level.
      */
-    /*
     public void setRemove() {
         this.remove = true;
-    }*/
+    }
 
     /**
      * Shows the specified entity on the inner canvas.
@@ -166,33 +165,6 @@ public class PaintPanel extends JPanel {
     */
     public void render(final Set<SimpleEntity> displayed) {
         this.canvas.setDisplayed(Objects.requireNonNull(displayed));
+        this.repaint();
     }
-
-    /**
-     * Tries to add an entity of the specified type and position (relative to the GUI) to the level.
-     * If the entity can be added, shows it on screen.
-     * @param type the type of entity that must be added
-     * @param x the position of the entity on the X axis
-     * @param y the position of the entity on the Y axis
-     * @return true if the entity can be added to the level
-     */
-    public boolean addEntity(final EntityType type, final int x, final int y) {
-        return false;
-    }
-
-    /**
-     * Tries to remove an entity from the specified position (relative to the GUI).
-     * @param x the position of the entity on the X axis
-     * @param y the position of the entity on the Y axis
-     * @return true if there is an entity to remove from the level
-     */
-    public boolean removeEntity(final int x, final int y) {
-        return false;
-    }
-
-    @Override
-    public synchronized void addMouseListener(MouseListener l) {
-        this.canvas.addMouseListener(l);
-    }
-
 }

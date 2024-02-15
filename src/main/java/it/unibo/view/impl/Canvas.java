@@ -6,6 +6,7 @@ import javax.swing.JPanel;
 import it.unibo.common.EntityType;
 import it.unibo.common.SimpleEntity;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.util.HashSet;
@@ -40,14 +41,16 @@ public final class Canvas extends JPanel {
      * The constructor of this Panel.
      * @param levelWidth the width of the Model level
      * @param levelHeight the height of the Model level
+     * @param defWidth the starting width of this panel
+     * @param defHeight the starting height of this panel
      */
-    public Canvas(final double levelWidth, final double levelHeight) {
+    public Canvas(final double levelWidth, final double levelHeight, final int defWidth, final int defHeight) {
         super();
         this.levelHeight = levelHeight;
         this.levelWidth = levelWidth;
-
         this.background = new ImageIcon(ClassLoader.getSystemResource(ROOT + BACKGROUND)).getImage();
         this.displayed = new HashSet<>();
+        this.setPreferredSize(new Dimension(defWidth, defHeight));
     }
 
     @Override
@@ -60,8 +63,8 @@ public final class Canvas extends JPanel {
                     TYPE_MAP.get(entity.getType()),
                     convertToPanelX(entity.getX()),
                     convertToPanelY(entity.getY()),
-                    WIDTH,  //TODO: add EntityType.getWidth()
-                    HEIGHT,  //TODO: add EntityType.getHeight()
+                    convertToPanelX(entity.getType().getWidth()),
+                    convertToPanelY(entity.getType().getHeigth()),
                     this
                 ));
     }
