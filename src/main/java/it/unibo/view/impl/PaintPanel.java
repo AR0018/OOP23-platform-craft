@@ -76,8 +76,7 @@ public class PaintPanel extends JPanel {
                                 convertToModelX(e.getX()),
                                 convertToModelY(e.getY())));
                         if (!success) {
-                            //this.editor.youCannotAdd(); TODO: uncomment once Editor is the right version and remove print
-                            System.out.println("REMOVE THIS PRINT");
+                            editor.youCannotAdd();
                         }
                     }
                     if (success) {
