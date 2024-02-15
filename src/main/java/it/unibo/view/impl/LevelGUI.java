@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Set;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -15,6 +16,8 @@ import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.BorderFactory;
 
@@ -22,6 +25,7 @@ import javax.swing.JMenuBar;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JOptionPane;
 
+import it.unibo.common.SimpleEntity;
 import it.unibo.controller.api.Controller;
 
 /**
@@ -40,7 +44,7 @@ public final class LevelGUI {
     private static final Dimension BUTTON_DIM = new Dimension(125, 35);
     private static final int THICKNESS = 4;
     private final JFrame frame = new JFrame();
-    private final JPanel panelView = new JPanel();              //TODO: sostituire con il DrawPanel
+    private final JPanel panelView = new JPanel();              //TODO: sostituire con il PaintPanel
     private Font fontButton;
 
     /**
@@ -72,6 +76,39 @@ public final class LevelGUI {
         } catch (FontFormatException | IOException e) {
             e.printStackTrace();
         }
+
+        this.panelView.addKeyListener(new KeyListener() {
+
+            @Override
+            public void keyTyped(final KeyEvent e) {
+            }
+
+            @Override
+            public void keyPressed(final KeyEvent e) {
+                int inputReceived = e.getKeyCode();
+
+                switch (inputReceived) {
+                    case KeyEvent.VK_W, KeyEvent.VK_UP, KeyEvent.VK_SPACE:
+                        //controller.notifyCommand(Command.MOVE_UP);
+                        break;
+                    case KeyEvent.VK_A, KeyEvent.VK_LEFT:
+                        //controller.notifyCommand(Command.MOVE_LEFT);
+                        break;
+                    case KeyEvent.VK_S, KeyEvent.VK_DOWN:
+                        //controller.notifyCommand(Command.MOVE_DOWN);
+                        break;
+                    case KeyEvent.VK_D, KeyEvent.VK_RIGHT:
+                        //controller.notifyCommand(Command.MOVE_RIGHT);
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            @Override
+            public void keyReleased(final KeyEvent e) {
+            }
+        });
 
         final JButton menu = new JButton("Quit");
         menu.setFont(fontButton);
@@ -121,5 +158,9 @@ public final class LevelGUI {
      */
     public boolean isShown() {
         return this.frame.isVisible();
+    }
+
+    public void render(final Set<SimpleEntity> entities) {
+        //this.panelView.render(entities);
     }
 }

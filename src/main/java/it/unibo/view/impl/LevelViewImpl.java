@@ -13,6 +13,7 @@ public final class LevelViewImpl implements LevelView {
 
     private final LevelGUI levelGUI;
     private final Controller controller;
+    //private final PaintPanel paintPanel;
 
     /**
      * Constructor of the LevelViewImpl.
@@ -39,9 +40,8 @@ public final class LevelViewImpl implements LevelView {
     }
 
     @Override
-    public void render(final Set<SimpleEntity> entities) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'render'");
+    public void render(final Set<SimpleEntity> entities) {          //chiama paintPanel
+        //paintPanel.render();
     }
 
     @Override
