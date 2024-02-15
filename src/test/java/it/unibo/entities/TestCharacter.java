@@ -8,6 +8,7 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
+import it.unibo.model.collisions.api.MapBoundaries;
 import it.unibo.model.entities.api.Character;
 import it.unibo.model.entities.api.GameEntity;
 import it.unibo.model.entities.api.MapElement;
@@ -175,6 +176,12 @@ public class TestCharacter {
         public GameEntity getCharacter() {
             //Auto-generated method stub
             throw new UnsupportedOperationException("Unimplemented method 'getCharacter'");
+        }
+
+        @Override
+        public MapBoundaries getBoundaries() {
+            // TODO Auto-generated method stub
+            throw new UnsupportedOperationException("Unimplemented method 'getBoundaries'");
         }
     }
 }

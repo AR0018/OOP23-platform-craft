@@ -22,6 +22,7 @@ import it.unibo.model.physics.api.Direction;
 import it.unibo.model.physics.api.Position;
 import it.unibo.model.physics.api.SpeedLevels;
 import it.unibo.model.physics.impl.Position2D;
+import it.unibo.model.collisions.api.MapBoundaries;
 import it.unibo.model.entities.api.Character;
 
 /**
@@ -173,6 +174,12 @@ public class TestEnemy {
         public GameEntity getCharacter() {
             //Auto-generated method stub
             throw new UnsupportedOperationException("Unimplemented method 'getCharacter'");
+        }
+
+        @Override
+        public MapBoundaries getBoundaries() {
+            // TODO Auto-generated method stub
+            throw new UnsupportedOperationException("Unimplemented method 'getBoundaries'");
         }
 
     }
