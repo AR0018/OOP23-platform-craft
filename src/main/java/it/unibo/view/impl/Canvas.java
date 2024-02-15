@@ -32,7 +32,7 @@ public final class Canvas extends JPanel {
         EntityType.ENEMY, ROOT + "Dude_Monster/Dude_Monster.png",
         EntityType.FINISH_LOCATION, ROOT + "R.png",
         EntityType.TRAP, ROOT + "piggy3.png",
-        //TODO: add explosion
+        EntityType.EXPLOSION, ROOT + "Explosion.png",
         EntityType.MAP_ELEMENT, ROOT + "Block.png"
     );
 

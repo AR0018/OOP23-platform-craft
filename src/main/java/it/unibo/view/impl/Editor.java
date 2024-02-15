@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Optional;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -76,7 +77,7 @@ public final class Editor {
      */
     public Editor(final Controller controller) {
 
-        this.panelView = new PaintPanel(controller, 16, 9, true,  WIDTH_FRAME, HEIGHT_FRAME, this);
+        this.panelView = new PaintPanel(controller, 16, 9, WIDTH_FRAME, HEIGHT_FRAME, Optional.of(this));
         //this.panelView.setPreferredSize(new Dimension(500, 500));
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frame.setSize(new Dimension(WIDTH_FRAME, HEIGHT_FRAME));     //1600, 900
