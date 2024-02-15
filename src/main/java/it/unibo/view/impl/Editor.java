@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Optional;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -35,7 +34,6 @@ import it.unibo.controller.api.Controller;
 import javax.swing.JOptionPane;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
-import java.awt.Point;
 
 import java.awt.Toolkit;
 
@@ -63,12 +61,12 @@ public final class Editor {
     private static final int THICKNESS = 4;
     private static final int BUTTON_TEXT_SIZE = 20;
     private final JFrame frame = new JFrame();
-    private final JPanel panelView = new JPanel();              //TODO: sostituire con il PaintPanel
+    //private final JPanel panelView = new JPanel();
 
-    //private final PaintPanel panelView;
-    private Optional<EntityType> type = Optional.empty();
-    private Optional<Point> mousePosition = Optional.empty();
-    private boolean removeEntity = false;         //true == rimuovere
+    private final PaintPanel panelView;
+    //private Optional<EntityType> type = Optional.empty();
+    //private Optional<Point> mousePosition = Optional.empty();
+    //private boolean removeEntity = false;         //true == rimuovere
     private Font font;
     private Font fontButton;
 
@@ -78,7 +76,7 @@ public final class Editor {
      */
     public Editor(final Controller controller) {
 
-        //this.panelView = new PaintPanel(controller, 16, 9, WIDTH_FRAME, HEIGHT_FRAME, true, this);
+        this.panelView = new PaintPanel(controller, 16, 9, true,  WIDTH_FRAME, HEIGHT_FRAME, this);
         //this.panelView.setPreferredSize(new Dimension(500, 500));
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frame.setSize(new Dimension(WIDTH_FRAME, HEIGHT_FRAME));     //1600, 900
@@ -258,9 +256,7 @@ public final class Editor {
             public void actionPerformed(final ActionEvent e) {
                 //removeEntity = true;
                 //type = Optional.empty();
-
-
-                //TODO: add->   panelView.setRemove();
+                panelView.setRemove();
             }
         });
         menuBar.add(menuButtons, BorderLayout.WEST);
@@ -393,7 +389,7 @@ public final class Editor {
             public void actionPerformed(final ActionEvent e) {
                 //removeEntity = false;
                 //type = Optional.of(typeInput);
-                //TODO: add -> panelView.setSelectedEntity(typeInput);
+                panelView.setSelectedEntity(typeInput);
             }
         });
     }

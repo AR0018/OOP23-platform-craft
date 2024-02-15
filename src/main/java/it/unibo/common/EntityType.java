@@ -14,6 +14,10 @@ public enum EntityType {
      */
     TRAP(1, 1),
     /**
+     * Trap Explosion.
+     */
+    EXPLOSION(1, 1),
+    /**
      * A simple enemy.
      */
     SIMPLE_ENEMY(1, 1),
