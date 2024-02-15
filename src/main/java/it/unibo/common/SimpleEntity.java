@@ -19,7 +19,4 @@ public interface SimpleEntity {
      * @return the Y coordinate of the entity
      */
     double getY();
-
-    //TODO: add a method to return the dimension of this entity
-
 }

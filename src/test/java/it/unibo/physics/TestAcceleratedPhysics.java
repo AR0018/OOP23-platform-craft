@@ -236,12 +236,5 @@ public class TestAcceleratedPhysics {
         public Direction getDirection() {
             return this.dir;
         }
-
-      
-        public GameEntity getGameEntity() {
-            // TODO Auto-generated method stub
-            throw new UnsupportedOperationException("Unimplemented method 'getGameEntity'");
-        }
-
     }
 }

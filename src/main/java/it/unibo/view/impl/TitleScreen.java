@@ -16,6 +16,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
+import it.unibo.controller.api.Controller;
+import it.unibo.view.api.EditorView;
+import it.unibo.view.api.LevelView;
 
 import javax.swing.JOptionPane;
 import javax.swing.JFileChooser;
@@ -24,7 +29,7 @@ import javax.swing.BorderFactory;
 /**
  * Class to create the TitleScreen when the game starts.
  */
-public final class TitleScreen extends JPanel {
+public final class TitleScreen {
 
     private static final String TITLE = "PlatformCraft";
     //private static final Color BACKGROUND = new Color(100, 120, 10);    //Sfondo comune
@@ -35,13 +40,16 @@ public final class TitleScreen extends JPanel {
     private static final int XDIM = 1200;
     private static final int YDIM = 1000;
     private final JFrame frame = new JFrame("Prova");
+    private final LevelView levelView;
+    private EditorView editorView;
     private Font font;
     private Font fontButton;
 
     /**
      * Constructor to build the gui of the TitleScreen.
+     * @param controller the controller of the game
      */
-    public TitleScreen() {
+    public TitleScreen(final Controller controller) {
 
         final int numberRow = 3;
         final int numberCol = 1;
@@ -51,10 +59,12 @@ public final class TitleScreen extends JPanel {
         final int panelTopDim = 150;
         final int panelVerticalGap = 20;
 
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(new Dimension(XDIM, YDIM));
-        frame.setMinimumSize(new Dimension(XDIM, YDIM));
-        frame.pack();
+        this.levelView = new LevelViewImpl(controller);
+        this.editorView = new EditorViewImpl(controller);                   //TODO: problema serializer
+        this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.frame.setSize(new Dimension(XDIM, YDIM));
+        this.frame.setMinimumSize(new Dimension(XDIM, YDIM));
+        this.frame.pack();
 
         final JPanel panel = new JPanel(new GridLayout(numberRow, numberCol, zero, panelVerticalGap));
         panel.setPreferredSize(new Dimension(panelWidthPreferred, panelHeightPreferred));
@@ -79,6 +89,7 @@ public final class TitleScreen extends JPanel {
                     .deriveFont(Font.CENTER_BASELINE)
                     .deriveFont(Font.PLAIN);
 
+            fontStyle.close();
         } catch (FontFormatException | IOException e) {
             e.printStackTrace();
         }
@@ -98,8 +109,13 @@ public final class TitleScreen extends JPanel {
             @Override
             public void actionPerformed(final ActionEvent e) {
                 JFileChooser file = new JFileChooser();
-                file.showSaveDialog(null);
-                //file.getSelectedFile();     //TODO: restituire il file ai piani superiori
+                file.setAcceptAllFileFilterUsed(false);
+                file.addChoosableFileFilter(new FileNameExtensionFilter("*.json", "json"));
+                if (file.showOpenDialog(frame) == JFileChooser.APPROVE_OPTION) {
+                    controller.getRunner().loadLevel(file.getSelectedFile());
+                    frame.setVisible(false);
+                    levelView.show();
+                }
             }
         });
         final JButton editor = new JButton("Editor");
@@ -109,6 +125,15 @@ public final class TitleScreen extends JPanel {
         editor.setBorderPainted(true);
         editor.setBackground(FOREGROUND);
         editor.setForeground(BUTTON_BACK);
+        editor.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                frame.setVisible(false);
+                controller.getEditor().reset();
+                editorView.show();
+            }
+        });
 
         final JButton quit = new JButton("Quit");
         quit.setPreferredSize(BUTTON_SIZE);

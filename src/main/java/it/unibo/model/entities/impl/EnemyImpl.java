@@ -1,12 +1,18 @@
 package it.unibo.model.entities.impl;
 
 import it.unibo.common.EntityType;
+import it.unibo.model.collisions.api.BorderCollision;
+import it.unibo.model.collisions.api.Collision;
+import it.unibo.model.collisions.api.EntityCollision;
 import it.unibo.model.entities.api.Character;
 import it.unibo.model.entities.api.Enemy;
-import it.unibo.model.entities.api.EntitySize;
 import it.unibo.model.level.api.Level;
 import it.unibo.model.physics.api.Direction;
 import it.unibo.model.physics.api.Position;
+
+import java.util.Set;
+import java.util.HashSet;
+import java.util.stream.Collectors;
 
 //Si valuta l'ereditarietà piuttosto che il pattern Decorator
 //perchè si dovrebbe riscrivere un gran numero di metodi ogni volta
@@ -21,7 +27,6 @@ import it.unibo.model.physics.api.Position;
 public abstract class EnemyImpl extends GameEntityImpl implements Enemy {
 
     private Direction direction;
-    private EntitySize size;
 
     /**
      * The constructor of the implementation of enemy that initialize 
@@ -29,9 +34,11 @@ public abstract class EnemyImpl extends GameEntityImpl implements Enemy {
      * to move.
      * @param position the first position of the enemy
      * @param level is the level of the game
+     * @param width the width of the enemy
+     * @param heigth the heigth of the enemy
      */
-    public EnemyImpl(final Position position, final Level level) {
-        super(position, level);
+    public EnemyImpl(final Position position, final Level level, final double width, final double heigth) {
+        super(position, level, width, heigth);
         setDirection(Direction.RIGHT);
     }
 
@@ -39,7 +46,7 @@ public abstract class EnemyImpl extends GameEntityImpl implements Enemy {
      * Obtain the direction where the enemy moves.
      * @return the direction
      */
-    public final Direction getDirection() {   //: protected?
+    public final Direction getDirection() {
         return this.direction;
     }
 
@@ -52,29 +59,15 @@ public abstract class EnemyImpl extends GameEntityImpl implements Enemy {
     }
 
     /**
-     * @return the size of the GameEntity
+     * Return the type of the enemy.
+     * @return the type of the enemy
      */
-    public final EntitySize getSize() {
-        return this.size;
-    }
-
-    /**
-     * Used to set the size of the entity from the subclasses.
-     * @param size the size to assign to the GameEntity
-     */
-    protected void setSize(final EntitySize size) {
-        this.size = size;
-    }
+    public abstract EntityType getType();
 
     @Override
-    public final EntityType getType() {
-        return EntityType.ENEMY;
-    }
-
-    @Override
-    public final void updateState() {     //: sistemare bene updateState
+    public final void updateState() {     //TODO: sistemare bene updateState
         moveEnemy();
-        //checkEnemyCollisions();
+        checkEnemyCollisions();
     }
 
     /**
@@ -94,7 +87,7 @@ public abstract class EnemyImpl extends GameEntityImpl implements Enemy {
     /**
      * Check if the enemy has some collisions. 
      */
-   /* protected void checkEnemyCollisions() {
+    private void checkEnemyCollisions() {
         if (!getCollisions().isEmpty()) {
             if (getCollisionBox().isCollidingWith(getLevel().getCharacter())) {
                 checkEnemyIsDead();
@@ -102,16 +95,52 @@ public abstract class EnemyImpl extends GameEntityImpl implements Enemy {
                 setDirection(getDirection().equals(Direction.RIGHT) ? Direction.LEFT : Direction.RIGHT);
             }
         }
-    }*/
+    }
     /**
      * Check if the enemy died because of the player who collided with
      * the head of the enemy.
      */
-    /*private void checkEnemyIsDead() {     //: need to check collision with the bounds of the map
-        var str = getCollisions().stream()
-                .filter(x -> x.getGameEntity() instanceof Character);
-        if (str.anyMatch(x -> x.getDirection().equals(Direction.UP))) {
+    private void checkEnemyIsDead() {
+        /*var enemyCharacter = getCollisions().stream().filter(x -> x.getGameEntity() instanceof Character);
+        if (enemyCharacter.anyMatch(x -> x.getDirection().equals(Direction.UP))) {
             setAlive(false);
+        }*/
+        var enemyCharacter = getEntity(getCollisions())
+                .stream()
+                .filter(x -> x.getGameEntity() instanceof Character)
+                .collect(Collectors.toSet());
+        if (!enemyCharacter.isEmpty()) {
+            if (enemyCharacter.stream().anyMatch(x -> x.getDirection().equals(Direction.UP))) {
+                setAlive(false);
+            }
         }
-    }*/
+
+        //Border
+        var enemyBorder = getBorder(getCollisions())
+                .stream()
+                .collect(Collectors.toSet());
+        if (!enemyBorder.isEmpty()) {
+            if (enemyBorder.stream().anyMatch(x -> x.getDirection().equals(Direction.DOWN))) {
+                setAlive(false);
+            }
+        }
+    }
+
+    private Set<BorderCollision> getBorder(final Set<Collision> collisions) {
+        Set<BorderCollision> borderCollision = new HashSet<>();
+        getCollisions()
+                .stream()
+                .filter(x -> x instanceof BorderCollision)
+                .forEach(x -> borderCollision.add((BorderCollision) x));
+        return borderCollision;
+    }
+
+    private Set<EntityCollision> getEntity(final Set<Collision> collision) {
+        Set<EntityCollision> entityCollision = new HashSet<>();
+        getCollisions()
+                .stream()
+                .filter(x -> x instanceof EntityCollision)
+                .forEach(x -> entityCollision.add((EntityCollision) x));
+        return entityCollision;
+    }
 }

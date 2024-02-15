@@ -6,8 +6,8 @@ package it.unibo.model.entities.api;
 public interface Trap extends GameEntity {
 
     /**
-     * @return the state of the trap
+     * Checks if the trap is lethal for the player.
+     * @return true if it's lethal, false otherwise
      */
-    TrapState getTrapState();
-
+    boolean isLethal();
 }

@@ -12,15 +12,16 @@ import it.unibo.model.entities.api.GameEntity;
 public class CollisionBoxImpl implements CollisionBox{
 
     private GameEntity gameEntity;
-    private Boundaries boundaries;
+    private double width;
+    private double height;
 
-    public CollisionBoxImpl(GameEntity gameEntity){
+    public CollisionBoxImpl(final double width, final double height, final GameEntity gameEntity){
+        
         this.gameEntity=gameEntity;
-        this.boundaries=gameEntity.getBoundaries();
     }
 
     @Override
-    public Set<Collision> getCollisions(Set<GameEntity> entities) {
+    public Set<Collision> getCollisions(final Set<GameEntity> entities) {
         Set<Collision> collisions=new HashSet<>();
         for(GameEntity entity:entities){
             if(this.isCollidingWith(entity)){
@@ -31,13 +32,13 @@ public class CollisionBoxImpl implements CollisionBox{
     }
 
     @Override
-    public boolean isCollidingWith(GameEntity object) {
-        return boundaries.intersects(object.getBoundaries());
+    public boolean isCollidingWith(final GameEntity object) {
+        return this.getBoundaries().intersects(object.getBoundaries());
     }
 
     @Override
     public Boundaries getBoundaries() {
-       return this.boundaries;
+       return new BoundariesImpl(height, width, gameEntity.getPosition());
     }
 
 }

@@ -1,49 +1,73 @@
 package it.unibo.controller.impl;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.Set;
 
 import it.unibo.common.SimpleEntity;
 import it.unibo.controller.api.LevelEditor;
+import it.unibo.controller.api.LevelSerializer;
+import it.unibo.model.engine.api.Engine;
 
 /**
  * Models the controller of the game's editor.
  */
 public final class LevelEditorImpl implements LevelEditor {
+    //TODO: tipo di oggetto da aggiungere
+    private Engine engine;
+    private LevelSerializer serializer = new SerializerImpl();
 
-    //private EditorView editorView;
-
-    @Override
-    public void start() {
-        //: new EditorViewImpl.show();
+    /**
+     * Constructor of the LevelEditorImpl.
+     * It's empty.
+     */
+    public LevelEditorImpl() {
     }
 
     @Override
     public void reset() {
-        //this.editorView = new EditorViewImpl.show();
-        //: new EditorViewImpl.show();
+        //TODO: this.engine = new Engine(); 
     }
 
     @Override
     public boolean addEntity(final SimpleEntity entity) {
-        //  Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addEntity'");
+        return this.engine.addGameEntity(entity);
     }
 
     @Override
     public boolean removeEntity(final double x, final double y) {
-        //  Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'removeEntity'");
+        return this.engine.removeGameEntity(x, y);
     }
 
     @Override
     public boolean saveLevel(final File file) {
-        //  Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'saveLevel'");
+        try {
+            this.serializer.saveLevel(this.engine.getLevelEntities(), file);
+            return true;
+        } catch (IOException e){
+            return false;
+        }
     }
 
     @Override
-    public void loadLevel(final File file) {
-        //  Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'loadLevel'");
+    public boolean loadLevel(final File file) {
+        try {
+            this.serializer.loadLevel(file);
+            return true;
+        } catch (IOException e) {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean canBeSaved() {
+        //TODO: aspettare editor model
+        return false;
+    }
+
+    @Override
+    public Set<SimpleEntity> getCurrentEntities() {
+        //return this.engine.getLevelEntities();            //TODO: engine
+        return null;
     }
 }

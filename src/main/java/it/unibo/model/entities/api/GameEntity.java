@@ -39,8 +39,6 @@ public interface GameEntity {
      */
     Set<Collision> getCollisions();
 
-    //TODO: add a way to return the dimension of this entity
-
     /**
      * @return the boundaries of the game entity
      */
