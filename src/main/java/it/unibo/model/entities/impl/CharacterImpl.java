@@ -3,7 +3,6 @@ package it.unibo.model.entities.impl;
 <<<<<<< HEAD
 import java.util.Set;
 
-import it.unibo.common.api.EntityType;
 import it.unibo.model.collisions.api.Boundaries;
 =======
 import it.unibo.common.EntityType;

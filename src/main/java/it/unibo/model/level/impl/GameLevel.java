@@ -2,10 +2,11 @@ package it.unibo.model.level.impl;
 
 import java.util.Set;
 
-import it.unibo.common.api.EntityType;
+import it.unibo.common.EntityType;
 import it.unibo.model.engine.impl.EngineImpl;
+import it.unibo.model.entities.api.FinishLocation;
 import it.unibo.model.entities.api.GameEntity;
-import it.unibo.model.entities.impl.CharacterImpl;
+import it.unibo.model.entities.api.Character;
 import it.unibo.model.physics.api.Direction;
 import it.unibo.model.physics.api.Position;
 import it.unibo.model.level.api.Level;
@@ -23,45 +24,21 @@ public class GameLevel implements Level {
     private Set<GameEntity> enemyEntities; // set of enemy
     private Set<GameEntity> trapEntities; //set of trap
     private GameEntity finishLocation; // Save the finish location
-    private GameEntity characterEntity; // save the Charachter
+    private Character characterEntity; // save the Charachter
     private GameEntity startLocation;// save the Start Location
     private GameState gameState = GameState.STATE_UNKNOW; // save the game state
-    private CharacterImpl character;
     private MapBoundaries boundaries = new MapBoundaries();
 
-    public GameLevel() {
+    public GameLevel(Set<GameEntity> entities, Character character,FinishLocation finish) {
 
-        this.levelConfiguration = new HashSet<>();
+        this.levelConfiguration = entities;
         this.enemyEntities = new HashSet<>();
         this.trapEntities = new HashSet<>();
-        this.finishLocation = null;
-        this.characterEntity = null;
-        this.startLocation = null;
-        this.character= new CharacterImpl(null);   
+        this.finishLocation = finish;
+        this.characterEntity = character;  
          
     }
 
-    @Override
-    public void addGameEntity(GameEntity entity) {
-        if(entity.getType()==EntityType.CHARACTER){ //Check if the entity is the charachter to save it in a variable
-            this.characterEntity=entity;
-            this.levelConfiguration.add(entity);
-        }else if( entity.getType()==EntityType.FINISH_LOCATION){ //Check if the entity is the Finish Location to save it in a variable
-            this.finishLocation=entity;
-            this.levelConfiguration.add(entity);
-        }else if( entity.getType()==EntityType.ENEMY){ // Check if the entity is a enemy
-            this.enemyEntities.add(entity);
-            this.levelConfiguration.add(entity);
-        }else if(entity.getType()==EntityType.TRAP){ // Check if the entity is a trap
-            this.trapEntities.add(entity);
-            this.levelConfiguration.add(entity);
-        }else if(entity.getType()==EntityType.START_LOCATION){
-            this.startLocation=entity;
-            this.levelConfiguration.add(entity);
-        }
-        this.levelConfiguration.add(entity); 
-
-    }
 
     @Override
     public Set<GameEntity> getGameEntities() {
@@ -72,12 +49,15 @@ public class GameLevel implements Level {
 
     @Override
     public void computeChanges() {
+
+        for (GameEntity gameEntity : levelConfiguration) {
+            gameEntity.updateState();
+        }
         /**
          * Check the Character position, if it's the same of the finishLocation
          * gameState = WIN.
          */
-        if(finishLocation.getPosition().getX()==characterEntity.getPosition().getX() 
-                && finishLocation.getPosition().getY()==characterEntity.getPosition().getY()){
+        if(characterEntity.getCollisions().stream().filter(e->e instanceof EntityCollision)){
                     this.gameState = GameState.WIN;
         } 
         /**
@@ -148,35 +128,15 @@ public class GameLevel implements Level {
         }
     }
 
-    @Override
-    public void removeEntity(GameEntity entity) {
-        if(entity!=null && levelConfiguration!=null && trapEntities!=null &&
-            characterEntity!=null && finishLocation!=null && startLocation!=null){
-                for (GameEntity gameEntity : levelConfiguration) {
-                    if(gameEntity.getPosition().getX()==entity.getPosition().getY() && 
-                        gameEntity.getPosition().getY()==entity.getPosition().getY()){
-                            if(gameEntity.getType()==EntityType.ENEMY){
-                                removeEnemyEntity(entity);
-                            }else if(gameEntity.getType()==EntityType.TRAP){
-                                this.levelConfiguration.remove(entity);
-                                this.trapEntities.remove(entity);
-                            }else if(gameEntity.getType()==EntityType.CHARACTER){
-                                this.characterEntity=null;
-                                this.levelConfiguration.remove(entity);
-                            }else if(gameEntity.getType()==EntityType.FINISH_LOCATION){
-                                this.finishLocation=null;
-                                this.levelConfiguration.remove(entity);
-                            }else if(gameEntity.getType()==EntityType.START_LOCATION){
-                                this.startLocation=null;
-                                this.levelConfiguration.remove(entity);
-                            
-                            }else{
-                                this.levelConfiguration.remove(entity);
-                            }
-                    }
-                
-                }
+    
+    private void removeEntity() {
+        Set<GameEntity> entitiesToCheck = new HashSet<>(levelConfiguration);
+        for (GameEntity gameEntity : entitiesToCheck) {
+            if(!gameEntity.isAlive()){
+                levelConfiguration.remove(gameEntity);
+            }
         }
+        
     }
 
     @Override

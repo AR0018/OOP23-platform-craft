@@ -9,8 +9,8 @@ import it.unibo.model.level.api.GameState;
 import it.unibo.model.level.impl.GameLevel;
 import it.unibo.model.level.impl.MapBoundaries;
 import it.unibo.model.physics.api.Direction;
-import it.unibo.common.api.EntityType;
-import it.unibo.common.api.SimpleEntity;
+import it.unibo.common.EntityType;
+import it.unibo.common.SimpleEntity;
 import it.unibo.common.impl.SimpleEntityImpl;
 import it.unibo.model.engine.api.Editor;
 import java.util.HashSet;
@@ -66,7 +66,7 @@ public class EditorImpl implements Editor {
     }
 
     @Override
-    public boolean addGameEntity(GameEntity entity) {
+    public boolean addGameEntity(SimpleEntity entity) {
 
         if(entity!=null){
             if(entity.getType()==EntityType.FINISH_LOCATION){
@@ -149,6 +149,25 @@ public class EditorImpl implements Editor {
     @Override
     public void clearAll() {  
        resetAll();
+    }
+
+
+    @Override
+    public boolean addGameEntity(SimpleEntity entity) {
+        if(entity!=null){
+            if(entity.getType()==EntityType.FINISH_LOCATION){
+                this.hasFinishLocation=true;
+                this.gameConfiguration.add(entity);
+            }else if(entity.getType()==EntityType.START_LOCATION){
+                this.hasStartLocation=true;
+                this.gameConfiguration.add(entity);
+            }else if(entity.getType()==EntityType.CHARACTER){
+                this.hasCharacter=true;
+                this.gameConfiguration.add(entity);
+                this.characterEngine=entity;
+            }
+            gameConfiguration.add(entity);
+        }
     }
 
 }

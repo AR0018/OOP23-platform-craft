@@ -2,7 +2,7 @@ package it.unibo.model.engine.api;
 
 import java.util.Set;
 
-import it.unibo.common.api.SimpleEntity;
+import it.unibo.common.SimpleEntity;
 import it.unibo.model.entities.api.GameEntity;
 import it.unibo.model.level.api.GameState;
 import it.unibo.model.physics.api.Direction;
@@ -31,7 +31,7 @@ public interface Editor {
      * @param entity the entity to be added
      * @return true if the entity can be added, false otherwise
      */
-    boolean addGameEntity(GameEntity entity);
+    boolean addGameEntity(SimpleEntity entity);
 
     /**
      * Removes the GameEntity whose CollisionBox contains the specified position.

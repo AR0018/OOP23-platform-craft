@@ -3,7 +3,7 @@ package it.unibo.model.engine.impl;
 import java.util.HashSet;
 import java.util.Set;
 
-import it.unibo.common.api.SimpleEntity;
+import it.unibo.common.SimpleEntity;
 import it.unibo.model.engine.api.Engine;
 import it.unibo.model.entities.api.GameEntity;
 import it.unibo.model.entities.impl.CharacterImpl;

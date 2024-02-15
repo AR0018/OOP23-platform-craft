@@ -1,4 +1,4 @@
-package it.unibo.common.api; 
+package it.unibo.common; 
 
 /**
  * Models the concept of the type of an entity present in the game.
@@ -8,15 +8,7 @@ public enum EntityType {
     /**
      * The Character controlled by the player.
      */
-<<<<<<< HEAD:src/main/java/it/unibo/common/api/EntityType.java
-    CHARACTER,
-    // /**
-    //  * Power up for the character  //perhaps
-    //  */
-    // POWERUP,
-=======
     CHARACTER(1, 1),
->>>>>>> master:src/main/java/it/unibo/common/EntityType.java
     /**
      * A trap in the game.
      */
@@ -40,14 +32,6 @@ public enum EntityType {
     /**
      * The ending location of the level.
      */
-<<<<<<< HEAD:src/main/java/it/unibo/common/api/EntityType.java
-    FINISH_LOCATION,
-    /**
-     * The start location.
-     */
-
-    START_LOCATION;
-=======
     FINISH_LOCATION(1, 1);
 
     private final double x;
@@ -73,5 +57,4 @@ public enum EntityType {
     public double getHeigth() {
         return this.y;
     }
->>>>>>> master:src/main/java/it/unibo/common/EntityType.java
 }

@@ -7,14 +7,15 @@ import java.util.Set;
 import it.unibo.common.SimpleEntity;
 import it.unibo.controller.api.LevelEditor;
 import it.unibo.controller.api.LevelSerializer;
-import it.unibo.model.engine.api.Engine;
+import it.unibo.model.engine.api.Editor;
+
 
 /**
  * Models the controller of the game's editor.
  */
 public final class LevelEditorImpl implements LevelEditor {
     //TODO: tipo di oggetto da aggiungere
-    private Engine engine;
+    private Editor editor;
     private LevelSerializer serializer = new SerializerImpl();
 
     /**
@@ -31,18 +32,19 @@ public final class LevelEditorImpl implements LevelEditor {
 
     @Override
     public boolean addEntity(final SimpleEntity entity) {
-        return this.engine.addGameEntity(entity);
+        
+        return this.editor.addGameEntity(entity);
     }
 
     @Override
     public boolean removeEntity(final double x, final double y) {
-        return this.engine.removeGameEntity(x, y);
+        return this.editor.removeGameEntity(x, y);
     }
 
     @Override
     public boolean saveLevel(final File file) {
         try {
-            this.serializer.saveLevel(this.engine.getLevelEntities(), file);
+            this.serializer.saveLevel(this.editor.getLevelEntities(), file);
             return true;
         } catch (IOException e){
             return false;

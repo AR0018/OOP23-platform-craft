@@ -18,64 +18,27 @@ public interface Level {
      * @return every GameEntity in the level
      */
     Set<GameEntity> getGameEntities();
-
-    /**
-     * Adds a GameEntity to the level.
-     * @param entity the GameEntity to add
-     */
-    void addGameEntity(GameEntity entity);  //TODO: remove, put in constructor
-
     /**
      * Updates the level, modifying the state of every GameEntity
      * and updating the state of the game in case of a win/loss.
      */
     void computeChanges();
-
     /**
      * Moves the playable character in the specified direction.
      * @param dir the direction of movement
      */
     void moveCharacter(Direction dir);
-
-    /**
-     * Adds a finish location to the Level.
-     * If the Character touches this location, the game must end.
-     * @param position the position in which to put the finish location
-     */
-    void addFinishLocation(Position position);  //TODO: remove, put in constructor
-
-    /**
-     * Remove Enemy when it are killed by character
-     * @param entity (enemy);
-     */
-    void removeEnemyEntity(GameEntity entity);
-    
-    /**
-     * Remove a entity from the level configuration.
-     * @param entity
-     */
-    void removeEntity(GameEntity entity);
-
     /**
      * @return the current state of the game
      */
     GameState getGameState();
-
     /**
      * @return the playable character in this level
      */
     GameEntity getCharacter();
-
     /**
-<<<<<<< HEAD
-     * @return the height and the width of the game map
-     */
-     MapBoundaries getlevelBoundaries();
-
-=======
      * Returns the boundaries of this Level.
      * @return the boundaries of this Level
      */
-    //MapBoundaries getBoundaries();
->>>>>>> master
+    MapBoundaries getBoundaries();
 }
