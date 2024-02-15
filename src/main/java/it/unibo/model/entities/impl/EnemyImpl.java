@@ -96,7 +96,6 @@ public abstract class EnemyImpl extends GameEntityImpl implements Enemy {
             }
         }
     }
-
     /**
      * Check if the enemy died because of the player who collided with
      * the head of the enemy.

@@ -2,6 +2,7 @@ package it.unibo.model.level.api;
 
 import java.util.Set;
 
+import it.unibo.model.collisions.api.MapBoundaries;
 import it.unibo.model.entities.api.GameEntity;
 import it.unibo.model.physics.api.Direction;
 import it.unibo.model.physics.api.Position;
@@ -56,5 +57,5 @@ public interface Level {
      * Returns the boundaries of this Level.
      * @return the boundaries of this Level
      */
-    //MapBoundaries getBoundaries();
+    MapBoundaries getBoundaries();
 }
