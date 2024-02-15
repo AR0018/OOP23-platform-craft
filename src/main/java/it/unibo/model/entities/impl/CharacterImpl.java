@@ -1,11 +1,16 @@
 package it.unibo.model.entities.impl;
 
+<<<<<<< HEAD
 import java.util.Set;
 
 import it.unibo.common.api.EntityType;
 import it.unibo.model.collisions.api.Boundaries;
+=======
+import it.unibo.common.EntityType;
+import it.unibo.model.collisions.api.BorderCollision;
+>>>>>>> master
 import it.unibo.model.collisions.api.Collision;
-import it.unibo.model.collisions.api.CollisionBox;
+import it.unibo.model.collisions.api.EntityCollision;
 import it.unibo.model.entities.api.Character;
 import it.unibo.model.entities.api.Enemy;
 import it.unibo.model.level.api.Level;
@@ -13,30 +18,32 @@ import it.unibo.model.physics.api.Direction;
 import it.unibo.model.physics.api.Physics;
 import it.unibo.model.physics.api.PhysicsBuilder;
 import it.unibo.model.physics.api.Position;
+import it.unibo.model.physics.impl.PhysicsBuilderImpl;
+import it.unibo.model.entities.api.Trap;
 
+import java.util.Set;
+import java.util.HashSet;
+
+import java.util.stream.Collectors;
+import java.util.Objects;
 /**
  * Implementation of the Interface Character, 
  * where it cointains all the necessary to create the character.
  * Final because the class doesn't need to be extended
  */
-public final class CharacterImpl implements Character {     //TODO: remove the final comment
+public final class CharacterImpl extends GameEntityImpl implements Character {
 
     private final Physics physic;
-    private Level level;
-    private CollisionBox box;
-    private PhysicsBuilder physicsBuilder;
-    private Position position;
-    private boolean isAlive;
-
+    private PhysicsBuilder physicsBuilder = new PhysicsBuilderImpl();
     /**
      * It is the constructor of the class to initialize the character itself.
      * @param position the initial coordinate of the character
+     * @param level the level of the game
      */
-    public CharacterImpl(final Position position) {
-        this.position = position;
-        this.isAlive = true;
+    public CharacterImpl(final Position position, final Level level) {
+        super(position, level, EntityType.CHARACTER.getWidth(), EntityType.CHARACTER.getHeigth());
         this.physic = this.physicsBuilder
-                .setGameObject(this)
+                .setGameEntity(this)
                 .addAccelerationOnX()
                 .addFallingPhysics()
                 .create();
@@ -44,20 +51,9 @@ public final class CharacterImpl implements Character {     //TODO: remove the f
 
 
     @Override
-    public Position getPosition() {
-        return this.position;
-    }
-
-    @Override
-    public boolean isAlive() {
-        return this.isAlive == true;
-    }
-
-    @Override
     public void updateState() {
         physic.calculateMovement();
-        //this.box.checkCollisions(this.level.getGameEntities()); TODO:causes error with new design
-        checkEnemyCollision();
+        checkCollision();
     }
 
     @Override
@@ -65,45 +61,71 @@ public final class CharacterImpl implements Character {     //TODO: remove the f
         return EntityType.CHARACTER;
     }
 
-    /*
     @Override
-    public CollisionBox getCollisionBox() { TODO:this method is to be removed
-        return this.box;
-    }
-    */
-
-    @Override
-    public Set<Collision> getCollisions() {
-        // TODO Implement this method
-        throw new UnsupportedOperationException("Unimplemented method 'getCollisions'");
+    public void move(final Direction dir) {
+        physic.setMovement(Objects.requireNonNull(dir));
     }
 
-    @Override
-    public Boundaries getBoundaries() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getBoundaries'");
-    }
-
-    @Override
-    public void move(final Direction dir) {     //TODO: needs to be improved
-        if (checkMove(dir)) {
-            physic.setMovement(dir);            //CheckEnemyCollision here?
+    private void checkCollision() {
+        if (!getCollisions().isEmpty()) {
+            checkEnemyCollision();
+            checkTrapCollision();
+            checkBorderCollision();
         }
     }
+
+    private void checkTrapCollision() {
+        var trapCollisions = getEntity(getCollisions())
+                    .stream()
+                    .filter(x -> x.getGameEntity() instanceof Trap)
+                    .collect(Collectors.toSet());
+            if (!trapCollisions.isEmpty()) {
+                var trap = (Trap) trapCollisions.stream().findFirst().get().getGameEntity();
+                if (trap.isLethal()) {           //TODO: controllare se può funzionare
+                    setAlive(false);
+                }
+            }
+    }
+
 
     private void checkEnemyCollision() {
-        /*
-        if (this.box.getCollisions().stream().anyMatch(x -> x instanceof Enemy)) { TODO:causes error with new design
-            this.isAlive = false;
-        }*/
+        var enemySetCollision = getEntity(getCollisions())
+                    .stream()
+                    .filter(x -> x.getGameEntity() instanceof Enemy)
+                    .collect(Collectors.toSet());
+            if (!enemySetCollision.isEmpty()) {
+                if (!enemySetCollision.stream().findFirst().get().getDirection().equals(Direction.DOWN)) {
+                    setAlive(false);
+                }
+            }
     }
 
-    private boolean checkMove(final Direction dir) {
-        for (var movement : Direction.values()) {
-            if (movement.equals(dir)) {
-                return true;
+    private void checkBorderCollision() {
+        var borderSetCollision = getBorder(getCollisions())
+                .stream()
+                .collect(Collectors.toSet());
+        if (!borderSetCollision.isEmpty()) {
+            if (borderSetCollision.stream().anyMatch(x -> x.getDirection().equals(Direction.DOWN))) {
+                setAlive(false);
             }
         }
-        return false;
+    }
+
+    private Set<BorderCollision> getBorder(final Set<Collision> collisions) {
+        Set<BorderCollision> borderCollision = new HashSet<>();
+        getCollisions()
+                .stream()
+                .filter(x -> x instanceof BorderCollision)
+                .forEach(x -> borderCollision.add((BorderCollision) x));
+        return borderCollision;
+    }
+
+    private Set<EntityCollision> getEntity(final Set<Collision> collision) {
+        Set<EntityCollision> entityCollision = new HashSet<>();
+        getCollisions()
+                .stream()
+                .filter(x -> x instanceof EntityCollision)
+                .forEach(x -> entityCollision.add((EntityCollision) x));
+        return entityCollision;
     }
 }

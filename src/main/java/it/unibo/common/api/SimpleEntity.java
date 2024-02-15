@@ -19,8 +19,13 @@ public interface SimpleEntity {
     /**
      * @return the Y coordinate of the entity
      */
+<<<<<<< HEAD:src/main/java/it/unibo/common/api/SimpleEntity.java
     double getY(double y);
 
     //TODO: add a method to return the dimension of this entity
 
 }
+=======
+    double getY();
+}
+>>>>>>> master:src/main/java/it/unibo/common/SimpleEntity.java

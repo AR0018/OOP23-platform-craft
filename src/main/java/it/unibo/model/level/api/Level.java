@@ -23,7 +23,7 @@ public interface Level {
      * Adds a GameEntity to the level.
      * @param entity the GameEntity to add
      */
-    void addGameEntity(GameEntity entity);
+    void addGameEntity(GameEntity entity);  //TODO: remove, put in constructor
 
     /**
      * Updates the level, modifying the state of every GameEntity
@@ -42,7 +42,7 @@ public interface Level {
      * If the Character touches this location, the game must end.
      * @param position the position in which to put the finish location
      */
-    void addFinishLocation(Position position);
+    void addFinishLocation(Position position);  //TODO: remove, put in constructor
 
     /**
      * Remove Enemy when it are killed by character
@@ -67,8 +67,15 @@ public interface Level {
     GameEntity getCharacter();
 
     /**
+<<<<<<< HEAD
      * @return the height and the width of the game map
      */
      MapBoundaries getlevelBoundaries();
 
+=======
+     * Returns the boundaries of this Level.
+     * @return the boundaries of this Level
+     */
+    //MapBoundaries getBoundaries();
+>>>>>>> master
 }

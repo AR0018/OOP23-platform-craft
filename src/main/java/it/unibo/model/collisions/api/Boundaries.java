@@ -38,12 +38,16 @@ public interface Boundaries {
     /**
      * @return the width of the boundaries
      */
-    int getWidth();
+    double getWidth();
 
     /**
      * @return the height of the boundaries
      */
+<<<<<<< HEAD
     int getHeight();
 
     Position getLevelBoundaries();
+=======
+    double getHeight();
+>>>>>>> master
 }
