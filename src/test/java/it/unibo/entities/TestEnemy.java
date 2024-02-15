@@ -28,8 +28,8 @@ import it.unibo.model.entities.api.Character;
  * Class for testing the behaviour of enemies.
  */
 
-public class TestEnemy {        //TODO: modificare le posizioni perche devono essere double
-                                //dipendono dalla velocità settata
+public class TestEnemy {
+
     private static final double ACCELERATION = 0.1;
     private Character player;
     private Enemy enemy;

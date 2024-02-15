@@ -29,7 +29,7 @@ import javax.swing.BorderFactory;
 /**
  * Class to create the TitleScreen when the game starts.
  */
-public final class TitleScreen extends JPanel {
+public final class TitleScreen {
 
     private static final String TITLE = "PlatformCraft";
     //private static final Color BACKGROUND = new Color(100, 120, 10);    //Sfondo comune
@@ -40,11 +40,10 @@ public final class TitleScreen extends JPanel {
     private static final int XDIM = 1200;
     private static final int YDIM = 1000;
     private final JFrame frame = new JFrame("Prova");
+    private final LevelView levelView;
     private EditorView editorView;
-    //private final Controller controller = new ControllerImpl();         //TODO: dovrebbe usare/avere come campo un controller?
     private Font font;
     private Font fontButton;
-    private LevelView levelView;
 
     /**
      * Constructor to build the gui of the TitleScreen.
@@ -60,6 +59,7 @@ public final class TitleScreen extends JPanel {
         final int panelTopDim = 150;
         final int panelVerticalGap = 20;
 
+        this.levelView = new LevelViewImpl(controller);
         this.editorView = new EditorViewImpl(controller);                   //TODO: problema serializer
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frame.setSize(new Dimension(XDIM, YDIM));
@@ -89,6 +89,7 @@ public final class TitleScreen extends JPanel {
                     .deriveFont(Font.CENTER_BASELINE)
                     .deriveFont(Font.PLAIN);
 
+            fontStyle.close();
         } catch (FontFormatException | IOException e) {
             e.printStackTrace();
         }

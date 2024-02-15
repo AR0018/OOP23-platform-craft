@@ -54,7 +54,7 @@ public final class CharacterImpl extends GameEntityImpl implements Character {
     }
 
     @Override
-    public void move(final Direction dir) {     //TODO: needs to be improved
+    public void move(final Direction dir) {
         physic.setMovement(Objects.requireNonNull(dir));
     }
 
@@ -80,7 +80,7 @@ public final class CharacterImpl extends GameEntityImpl implements Character {
     }
 
 
-    private void checkEnemyCollision() {            //TODO: controllare bene le collisioni
+    private void checkEnemyCollision() {
         var enemySetCollision = getEntity(getCollisions())
                     .stream()
                     .filter(x -> x.getGameEntity() instanceof Enemy)
