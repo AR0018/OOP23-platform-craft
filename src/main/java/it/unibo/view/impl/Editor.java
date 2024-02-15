@@ -296,13 +296,13 @@ public final class Editor {
 
 
         final JButton button1 = new JButton();
-        addImageToButton(button1, "SimpeEnemy", "src/main/resources/it/unibo/images/1 Pink_Monster/Pink_Monster.png");
+        addImageToButton(button1, "SimpeEnemy", "src/main/resources/it/unibo/images/Pink_Monster/Pink_Monster.png");
         addEntityFromButton(button1, EntityType.SIMPLE_ENEMY);
         box.add(button1);
 
 
         final JButton button2 = new JButton();
-        addImageToButton(button2, "Enemy", "src/main/resources/it/unibo/images/3 Dude_Monster/Dude_Monster.png");
+        addImageToButton(button2, "Enemy", "src/main/resources/it/unibo/images/Dude_Monster/Dude_Monster.png");
         addEntityFromButton(button2, EntityType.ENEMY);
         box.add(button2);
 
@@ -348,6 +348,7 @@ public final class Editor {
      */
     public void show() {
         this.frame.setVisible(true);
+        //this.panelView.render(Set.of(new SimpleEntityImpl(EntityType.CHARACTER, 3, 5), new SimpleEntityImpl(EntityType.TRAP, 6.7, 4.3)));
         this.frame.repaint();
         JOptionPane.showMessageDialog(frame, "If you want to add something, first press the button\n that represents"
                  + " the Game Entity you want to add" + "\nand then click on the central panel to add it.",
