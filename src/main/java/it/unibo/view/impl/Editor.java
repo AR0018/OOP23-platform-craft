@@ -2,8 +2,6 @@ package it.unibo.view.impl;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Optional;
@@ -37,6 +35,9 @@ import it.unibo.controller.api.Controller;
 import javax.swing.JOptionPane;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import java.awt.Point;
+
+import java.awt.Toolkit;
 
 //Link che mi aiutato
 //https://stackoverflow.com/questions/13040747/resize-components-on-frame-resize-java
@@ -49,8 +50,8 @@ import javax.swing.JLabel;
  */
 public final class Editor {
 
-    private static final int WIDTH_FRAME = 1280;
-    private static final int HEIGHT_FRAME = 960;
+    private static final int WIDTH_FRAME = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+    private static final int HEIGHT_FRAME = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
     private static final int MENUBAR_ORIZZONTAL_GAP = 20;
     private static final int MENUBAR_VERTICAL_GAP = 0;
     private static final int MENUBAR_TOP = 0;
@@ -62,8 +63,11 @@ public final class Editor {
     private static final int THICKNESS = 4;
     private static final int BUTTON_TEXT_SIZE = 20;
     private final JFrame frame = new JFrame();
-    private final JPanel panelView = new JPanel();              //TODO: sostituire con il DrawPanel
+    private final JPanel panelView = new JPanel();              //TODO: sostituire con il PaintPanel
+
+    //private final PaintPanel panelView;
     private Optional<EntityType> type = Optional.empty();
+    private Optional<Point> mousePosition = Optional.empty();
     private boolean removeEntity = false;         //true == rimuovere
     private Font font;
     private Font fontButton;
@@ -74,9 +78,12 @@ public final class Editor {
      */
     public Editor(final Controller controller) {
 
+        //this.panelView = new PaintPanel(controller, 16, 9, WIDTH_FRAME, HEIGHT_FRAME, true, this);
+        //this.panelView.setPreferredSize(new Dimension(500, 500));
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frame.setSize(new Dimension(WIDTH_FRAME, HEIGHT_FRAME));     //1600, 900
-        this.frame.setMinimumSize(new Dimension(WIDTH_FRAME, HEIGHT_FRAME));
+
+        this.frame.setMinimumSize(new Dimension(WIDTH_FRAME / 3, HEIGHT_FRAME / 3));
         this.frame.setLocationRelativeTo(null);
         final JMenuBar menuBar = new JMenuBar();
         menuBar.setBackground(Color.GRAY);
@@ -86,7 +93,7 @@ public final class Editor {
 
         final JPanel menuButtons = new JPanel(new GridBagLayout());
 
-
+        //System.out.println(panelView.getSize());
         try {
             final float fontLabelDim = 30f;
             final float fontButtonDim = 25f;
@@ -128,16 +135,17 @@ public final class Editor {
         menuButtons.add(menu);
         menuButtons.add(Box.createHorizontalStrut(10));
 
-        panelView.addMouseListener(new MouseListener() {
+        /*panelView.addMouseListener(new MouseListener() {
 
             @Override
             public void mouseClicked(final MouseEvent e) {
+                mousePosition = Optional.of(e.getPoint());
                 if (removeEntity) {
-                    //panelView.removeEntity(mousePosition.get().x, mousePosition.get().y);
-                    System.out.println("Removed at Pos:" + e.getPoint());
+                    System.out.println("Removed at Pos:" + mousePosition.get().x 
+                        + " boolean return " + panelView.removeEntity(mousePosition.get().x, mousePosition.get().y));
                 } else {
-                    //panelView.addEntity(type.get(), mousePosition.get().x, mousePosition.get().y);
-                    System.out.println("Added " +  type.get() + " at Pos:" + e.getPoint());
+                    System.out.println("Added at Pos:" + mousePosition.get().x 
+                        + " boolean return " + panelView.addEntity(type.get(), mousePosition.get().x, mousePosition.get().y));
                 }
             }
 
@@ -156,7 +164,7 @@ public final class Editor {
             @Override
             public void mouseExited(final MouseEvent e) {
             }
-        });
+        });*/
 
         menu.addActionListener(new ActionListener() {
 
@@ -248,8 +256,11 @@ public final class Editor {
 
             @Override
             public void actionPerformed(final ActionEvent e) {
-                removeEntity = true;
-                type = Optional.empty();
+                //removeEntity = true;
+                //type = Optional.empty();
+
+
+                //TODO: add->   panelView.setRemove();
             }
         });
         menuBar.add(menuButtons, BorderLayout.WEST);
@@ -322,8 +333,17 @@ public final class Editor {
         component.add(box, BorderLayout.EAST);
         panelView.setBorder(BorderFactory.createLineBorder(Color.BLACK, THICKNESS));
         component.add(panelView, BorderLayout.CENTER);
-        this.frame.setContentPane(component);
+        //this.frame.setContentPane(component);
+        this.frame.add(component);
         this.frame.setJMenuBar(menuBar);
+    }
+
+    /**
+     * Shows a dialog message telling the user a entity could not be added. 
+     */
+    public void youCannotAdd() {
+        JOptionPane.showMessageDialog(frame, "You cannot add an element in this position",
+                "Addition error!", JOptionPane.ERROR_MESSAGE);
     }
 
     /**
@@ -331,6 +351,7 @@ public final class Editor {
      */
     public void show() {
         this.frame.setVisible(true);
+        this.frame.repaint();
         JOptionPane.showMessageDialog(frame, "If you want to add something, first press the button\n that represents"
                  + " the Game Entity you want to add" + "\nand then click on the central panel to add it.",
          "Let's start with the Editor!", JOptionPane.INFORMATION_MESSAGE);
@@ -370,8 +391,9 @@ public final class Editor {
 
             @Override
             public void actionPerformed(final ActionEvent e) {
-                removeEntity = false;
-                type = Optional.of(typeInput);
+                //removeEntity = false;
+                //type = Optional.of(typeInput);
+                //TODO: add -> panelView.setSelectedEntity(typeInput);
             }
         });
     }

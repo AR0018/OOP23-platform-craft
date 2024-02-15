@@ -68,7 +68,7 @@ public final class WinView {
                     .deriveFont(Font.PLAIN);
 
             fontStyle.close();
-    
+
         } catch (FontFormatException | IOException e) {
             e.printStackTrace();
         }

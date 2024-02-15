@@ -22,7 +22,6 @@ import it.unibo.model.physics.api.Direction;
 import it.unibo.model.physics.api.Position;
 import it.unibo.model.physics.impl.Position2D;
 
-//TODO: bisogna attendere prima le collisioni e le posizioni devono essere dei double
 /**
  * Class for testing the behaviour of the character.
  */
@@ -94,7 +93,7 @@ public class TestCharacter {
     }
 
     @Test
-    void testCharacterTrap() throws InterruptedException {          //TODO: migliorare
+    void testCharacterTrap() throws InterruptedException {
         this.player = new CharacterImpl(new Position2D(1, 1), level);
         this.trap = new TrapImpl(new Position2D(2, 1), level);
         this.map1 = new MapElementImpl(new Position2D(1, 2), level);

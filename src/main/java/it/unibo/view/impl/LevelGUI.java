@@ -61,8 +61,7 @@ public final class LevelGUI {
         try {
             final float fontButtonDim = 25f;
 
-            InputStream fontStyle = ClassLoader.getSystemResourceAsStream("./it/unibo/fonts/ProtestStrike-Regular.ttf");
-            fontStyle = ClassLoader.getSystemResourceAsStream("./it/unibo/fonts/Bungee-Regular.ttf");
+            InputStream fontStyle = ClassLoader.getSystemResourceAsStream("./it/unibo/fonts/Bungee-Regular.ttf");
             fontButton = Font.createFont(Font.TRUETYPE_FONT, fontStyle)
                     .deriveFont(fontButtonDim)
                     .deriveFont(Font.CENTER_BASELINE)
