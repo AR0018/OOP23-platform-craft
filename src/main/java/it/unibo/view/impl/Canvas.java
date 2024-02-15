@@ -59,7 +59,9 @@ public final class Canvas extends JPanel {
         this.background = new ImageIcon(ClassLoader.getSystemResource(ROOT + BACKGROUND)).getImage();
         this.displayed = new HashSet<>();
         this.imageMap = TYPE_MAP.entrySet().stream()
-            .collect(Collectors.toMap(e -> e.getKey(), e -> new ImageIcon(ClassLoader.getSystemResource(e.getValue())).getImage()));
+            .collect(Collectors.toMap(
+                e -> e.getKey(),
+                e -> new ImageIcon(ClassLoader.getSystemResource(e.getValue())).getImage()));
         this.setPreferredSize(new Dimension(defWidth, defHeight));
     }
 
