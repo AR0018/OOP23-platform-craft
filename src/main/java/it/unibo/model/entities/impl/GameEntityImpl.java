@@ -33,7 +33,7 @@ public abstract class GameEntityImpl implements GameEntity {
         this.position = position;
         this.level = level;
         this.isAlive = true;
-        this.box = new CollisionBoxImpl(width, heigth, this);
+        this.box = new CollisionBoxImpl(width, heigth, this, level.getBoundaries());
     }
 
     @Override

@@ -1,23 +1,29 @@
 package it.unibo.model.collisions.impl;
 
 import it.unibo.model.collisions.api.BorderCollision;
-import it.unibo.model.collisions.api.Boundaries;
-import it.unibo.model.entities.api.GameEntity;
 import it.unibo.model.physics.api.Direction;
 
-public class BorderCollisionImpl implements BorderCollision{
+public class BorderCollisionImpl implements BorderCollision {
 
-    private GameEntity gameEntity;
-    private Boundaries mapBoundaries;
+   private final Direction direction;
 
-    public BorderCollisionImpl(GameEntity gameEntity) {
-       this.gameEntity=gameEntity;
-    }
+   public BorderCollisionImpl(final Direction direction) {
+      this.direction = direction;
+   }
 
-    @Override
-    public Direction getDirection() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getDirection'");
-    }
+   @Override
+   public Direction getDirection() {
+      return this.direction;
+   }
 
+   @Override
+   public boolean equals(Object obj) {
+      if (this.getClass().equals(obj.getClass())) {
+         BorderCollision other = (BorderCollision) obj;
+         if (this.getDirection().equals(other.getDirection())) {
+            return true;
+         }
+      }
+      return false;
+   }
 }

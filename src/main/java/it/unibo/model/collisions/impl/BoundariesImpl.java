@@ -25,8 +25,8 @@ public class BoundariesImpl implements Boundaries{
         this.width=width;
         vertices.add(position);
         vertices.add(new Position2D(position.getX()+width,position.getY()));
-        vertices.add(new Position2D(position.getX()+width,position.getY()-height));
-        vertices.add(new Position2D(position.getX(),position.getY()-height));
+        vertices.add(new Position2D(position.getX()+width,position.getY()+height));
+        vertices.add(new Position2D(position.getX(),position.getY()+height));
         vertices.add(position);
         rectangle=new GeometryFactory().createPolygon(this.vertices.toArray(new Coordinate[vertices.size()]));
     }
