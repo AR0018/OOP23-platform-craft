@@ -64,7 +64,7 @@ public final class EditorGUI {
     private final JFrame frame = new JFrame();
     //private final JPanel panelView = new JPanel();
 
-    private /*final*/ PaintPanel panelView;
+    private final PaintPanel panelView;
     private Font font;
     private Font fontButton;
 
@@ -76,7 +76,7 @@ public final class EditorGUI {
      */
     public EditorGUI(final Controller controller, final double width, final double height) {
 
-        //this.panelView = new PaintPanel(controller, width, heigth, WIDTH_FRAME, HEIGHT_FRAME, Optional.of(this));
+        this.panelView = new PaintPanel(controller, WIDTH_FRAME, HEIGHT_FRAME, Optional.of(this));
         //this.panelView.setPreferredSize(new Dimension(500, 500));
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frame.setSize(new Dimension(WIDTH_FRAME, HEIGHT_FRAME));     //1600, 900

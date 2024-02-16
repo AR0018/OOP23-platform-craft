@@ -49,7 +49,7 @@ public final class LevelGUI {
     private static final int THICKNESS = 4;
     private final JFrame frame = new JFrame();
     //private final JPanel panelView = new JPanel();
-    private /*final*/ PaintPanel panelView;              //TODO: sostituire con il PaintPanel
+    private final PaintPanel panelView;
     private Font fontButton;
 
     /**
@@ -60,7 +60,7 @@ public final class LevelGUI {
      */
     public LevelGUI(final Controller controller, final double width, final double height) {
 
-        //this.panelView = new PaintPanel(controller, 16, 9, WIDTH_FRAME, HEIGHT_FRAME, Optional.empty());
+        this.panelView = new PaintPanel(controller, WIDTH_FRAME, HEIGHT_FRAME, Optional.empty());
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frame.setSize(new Dimension(WIDTH_FRAME, HEIGHT_FRAME));
         this.frame.setMinimumSize(new Dimension(WIDTH_FRAME, HEIGHT_FRAME));

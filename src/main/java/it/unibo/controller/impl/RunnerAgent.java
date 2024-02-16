@@ -38,7 +38,7 @@ public final class RunnerAgent extends Thread {
     @Override
     public void run() {
         /*if(!this.engine.levelCreated()) {
-            this.engine.createLevel();    EXCEPTION if the configuration is invalid (this method returns false)
+            this.engine.createLevel();    //TODO: EXCEPTION if the configuration is invalid (this method returns false)
         }*/
         while (!isInterrupted() && !isOver()) {
             long time = System.nanoTime();

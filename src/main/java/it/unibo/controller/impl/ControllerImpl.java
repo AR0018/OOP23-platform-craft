@@ -3,6 +3,7 @@ package it.unibo.controller.impl;
 import it.unibo.controller.api.Controller;
 import it.unibo.controller.api.LevelEditor;
 import it.unibo.controller.api.LevelRunner;
+import it.unibo.view.api.View;
 import it.unibo.view.impl.ViewImpl;
 
 /**
@@ -12,25 +13,25 @@ import it.unibo.view.impl.ViewImpl;
 public final class ControllerImpl implements Controller {
 
     private final LevelEditor levelEditor;
-    //TODO: private final Editor editor;
-    //private final LevelRunner levelRunner;
-    private boolean startIsValid = true;    //true se si può invocare start, false no
+    private final LevelRunner levelRunner;
+    private final View view;
+    private boolean startIsValid = true;
 
     /**
      * Constructor of the Controller.
      */
-    public ControllerImpl() {   //final Engine engine nel costruttore?
-        //this.engine = engine;
+    public ControllerImpl() {
         this.levelEditor = new LevelEditorImpl();
-        //TODO: this.editor = new EditorImpl();
-        //this.levelRunner = new LevelRunnerImpl();
-        //this.entities = this.engine.getLevelEntities();
+        this.view = new ViewImpl(this, 
+                this.levelEditor.getLevelWidth(), 
+                this.levelEditor.getLevelHeight());
+        this.levelRunner = new LevelRunnerImpl(this.view);
     }
 
     @Override
     public void start() {
         if (this.startIsValid) {
-            //TODO: new ViewImpl(this).displayStart();
+            this.view.displayStart();
             this.startIsValid = false;
         } else {
             throw new IllegalStateException("The start method cannot be invoked anymore");
@@ -38,9 +39,8 @@ public final class ControllerImpl implements Controller {
     }
 
     @Override
-    public LevelRunner getRunner() {        //TODO: runner
-        //  Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getRunner'");
+    public LevelRunner getRunner() {
+        return this.levelRunner;
     }
 
     @Override
