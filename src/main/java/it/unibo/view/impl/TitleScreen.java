@@ -65,7 +65,7 @@ public final class TitleScreen {
         final int panelVerticalGap = 20;
 
         this.levelView = new LevelViewImpl(controller, width, height);
-        this.editorView = new EditorViewImpl(controller, width, height);                   //TODO: problema serializer
+        this.editorView = new EditorViewImpl(controller, width, height);
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frame.setSize(new Dimension(XDIM, YDIM));
         this.frame.setMinimumSize(new Dimension(XDIM, YDIM));

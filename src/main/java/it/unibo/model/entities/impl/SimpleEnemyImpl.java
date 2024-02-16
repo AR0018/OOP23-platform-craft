@@ -11,7 +11,7 @@ import it.unibo.model.physics.impl.PhysicsBuilderImpl;
 /**
  * Models the concept of SimpleEnemy extending from EnemyImpl.
  */
-public final class SimpleEnemyImpl extends EnemyImpl {              //TODO: aggiungere fisica
+public final class SimpleEnemyImpl extends EnemyImpl {
 
     private final Physics physics; 
     private PhysicsBuilder builder = new PhysicsBuilderImpl();

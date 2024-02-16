@@ -73,7 +73,7 @@ public final class CharacterImpl extends GameEntityImpl implements Character {
                     .collect(Collectors.toSet());
             if (!trapCollisions.isEmpty()) {
                 var trap = (Trap) trapCollisions.stream().findFirst().get().getGameEntity();
-                if (trap.isLethal()) {           //TODO: controllare se può funzionare
+                if (trap.isLethal()) {
                     setAlive(false);
                 }
             }

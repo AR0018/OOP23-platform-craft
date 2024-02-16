@@ -66,7 +66,7 @@ public abstract class EnemyImpl extends GameEntityImpl implements Enemy {
     public abstract EntityType getType();
 
     @Override
-    public final void updateState() {     //TODO: sistemare bene updateState
+    public final void updateState() {
         moveEnemy();
         checkEnemyCollisions();
     }

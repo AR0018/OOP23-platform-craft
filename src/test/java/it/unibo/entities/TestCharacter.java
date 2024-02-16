@@ -266,7 +266,7 @@ public class TestCharacter {
     }
 
     @Test
-    public void testBorder() {
+    void testBorder() {
 
         /*
          * Check the collision with the bottom border.
