@@ -72,6 +72,9 @@ public class TestCollisions {
     assertEquals(true,box1.isCollidingWith(otherEntity1));
     other=Set.of(new SimpleEnemyImpl(new Position2D(4, 5), level), otherEntity1);
     assertEquals(Set.of(new EntityCollisionImpl(otherEntity1, Direction.RIGHT),new BorderCollisionImpl(Direction.LEFT)),box1.getCollisions(other));
+
+
+    
   }
   private class LevelImpl implements Level {
 

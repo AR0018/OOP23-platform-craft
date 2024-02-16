@@ -13,31 +13,31 @@ import org.locationtech.jts.geom.Polygon;
 import org.locationtech.jts.operation.predicate.RectangleContains;
 import org.locationtech.jts.operation.predicate.RectangleIntersects;
 
-public class BoundariesImpl implements Boundaries{
+public class BoundariesImpl implements Boundaries {
 
     private double height;
     private double width;
     private final Polygon rectangle;
-    private final List<Position> vertices=new ArrayList<>();
+    private final List<Position> vertices = new ArrayList<>();
 
-    public BoundariesImpl(final double height,final double width,Position position){
-        this.height=height;
-        this.width=width;
+    public BoundariesImpl(final double height, final double width, final Position position) {
+        this.height = height;
+        this.width = width;
         vertices.add(position);
-        vertices.add(new Position2D(position.getX()+width,position.getY()));
-        vertices.add(new Position2D(position.getX()+width,position.getY()+height));
-        vertices.add(new Position2D(position.getX(),position.getY()+height));
+        vertices.add(new Position2D(position.getX() + width,position.getY()));
+        vertices.add(new Position2D(position.getX() + width,position.getY() + height));
+        vertices.add(new Position2D(position.getX(),position.getY() + height));
         vertices.add(position);
-        rectangle=new GeometryFactory().createPolygon(this.vertices.toArray(new Coordinate[vertices.size()]));
+        rectangle = new GeometryFactory().createPolygon(this.vertices.toArray(new Coordinate[vertices.size()]));
     }
 
     @Override
     public boolean intersectsLine(Position a, Position b) {
-        List<Position> line= new ArrayList<>();
+        List<Position> line = new ArrayList<>();
         line.add(a);
         line.add(b);
         line.add(a);
-        Polygon lineRectangle= new GeometryFactory().createPolygon(line.toArray(new Coordinate[line.size()]));
+        Polygon lineRectangle = new GeometryFactory().createPolygon(line.toArray(new Coordinate[line.size()]));
         return RectangleIntersects.intersects(this.rectangle, lineRectangle);
     }
 
