@@ -32,7 +32,7 @@ public enum EntityType {
     /**
      * The ending location of the level.
      */
-    FINISH_LOCATION(1, 1);
+    FINISH_LOCATION(100, 100);
 
     private final double x;
     private final double y;

@@ -159,6 +159,8 @@ public final class EditorImpl implements Editor {
     @Override
     public void clearAll() {
         resetAll();
+        this.hasCharacter = false;
+        this.hasFinishLocation = false;
     }
 
     @Override

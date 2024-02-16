@@ -225,12 +225,16 @@ public final class EditorGUI {
 
             @Override
             public void actionPerformed(final ActionEvent e) {
-                //JFileChooser file = new JFileChooser("src/main/resources/it/unibo");      //controllare se può andare
+                //JFileChooser file = new JFileChooser("src/main/resources/it/unibo");      //TODO: controllare se può andare
                 JFileChooser file = new JFileChooser();
                 file.setAcceptAllFileFilterUsed(false);
                 file.addChoosableFileFilter(new FileNameExtensionFilter("*.json", "json"));
                 if (file.showOpenDialog(frame) == JFileChooser.APPROVE_OPTION) {
-                    controller.getEditor().loadLevel(file.getSelectedFile());
+                    if (!controller.getEditor().loadLevel(file.getSelectedFile())) {
+                        JOptionPane.showMessageDialog(frame, "The level could not be loaded",
+                            "Loading error", JOptionPane.ERROR_MESSAGE);
+                    }
+                    panelView.render(controller.getEditor().getCurrentEntities());
                 }
             }
         });
@@ -249,6 +253,7 @@ public final class EditorGUI {
                          "Confirm to reset?", "Resetting",
                          JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
                             controller.getEditor().reset();
+                            panelView.render(controller.getEditor().getCurrentEntities());
                         }
             }
         });

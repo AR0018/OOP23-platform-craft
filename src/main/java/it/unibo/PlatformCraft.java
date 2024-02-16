@@ -8,15 +8,17 @@ import it.unibo.view.impl.EditorViewImpl;
 import it.unibo.view.impl.LevelViewImpl;
 */
 /**
- * Represents the main of the program.
+ * The main class of the application.
  */
-public class PlatformCraft {
+public final class PlatformCraft {
 
+    private PlatformCraft() { };
+
+    /**
+     * Starts the application.
+     * @param args
+     */
     public static void main(final String[] args) {
-        //new EditorViewImpl(new ControllerImpl()).show();
-        //new LevelViewImpl(new ControllerImpl()).show();
-        //new LevelViewImpl(new ControllerImpl()).displayWin();
-        //new LevelViewImpl(new ControllerImpl()).displayGameOver();
         new ControllerImpl().start();
     }
 }
