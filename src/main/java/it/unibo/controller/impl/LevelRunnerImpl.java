@@ -10,7 +10,7 @@ import it.unibo.common.SimpleEntity;
 import it.unibo.controller.api.Command;
 import it.unibo.controller.api.LevelRunner;
 import it.unibo.model.engine.api.Engine;
-//import it.unibo.model.engine.impl.EditorImpl; TODO: uncomment once EditorImpl has been added
+import it.unibo.model.engine.impl.EditorImpl;
 import it.unibo.view.api.View;
 
 /**
@@ -57,8 +57,7 @@ public final class LevelRunnerImpl implements LevelRunner {
     public boolean loadLevel(final File file) {
         try {
             Set<SimpleEntity> levelEntities = new SerializerImpl().loadLevel(file);
-            Optional<Engine> created = Optional.empty(); // = new EditorImpl(levelEntities).createLevel();
-            //TODO:uncomment once EditorImpl has been added
+            Optional<Engine> created = new EditorImpl(levelEntities).createLevel();
             if (created.isPresent()) {
                 this.engine = created.get();
                 this.hasLoaded = true;
