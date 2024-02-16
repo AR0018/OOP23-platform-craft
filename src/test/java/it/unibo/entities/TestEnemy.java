@@ -37,8 +37,8 @@ public class TestEnemy {
     private static final double MAP_FIRST = 5 + SpeedLevels.SLOW.getValue();
     private static final double MAP1_FIRST = 5 + ACCELERATION;
     private static final double MAP2_FIRST = 6;
-    private final int multiplier = 5;
-    private final int multiplier2 = 6;
+    private static final int MULTIPLIER = 5;
+    private static final int MULTIPLIER2 = 6;
     private Character player;
     private Enemy enemy;
     private MapElement map;
@@ -69,7 +69,7 @@ public class TestEnemy {
         this.pos = 4 + 2 * ACCELERATION;
         assertEquals(new Position2D(this.pos, 1 + ACCELERATION), this.enemy.getPosition());
         this.enemy.updateState();
-        this.pos = 4 + multiplier * ACCELERATION;
+        this.pos = 4 + MULTIPLIER * ACCELERATION;
         assertEquals(new Position2D(this.pos, 1 + ACCELERATION), this.enemy.getPosition());
         this.enemy.updateState();
         this.pos = 4 + 2 * ACCELERATION;
@@ -144,15 +144,15 @@ public class TestEnemy {
     @Test
     void testEnemies() {
         this.level = new Lv();
-        this.enemy = new StrongEnemyImpl(new Position2D(multiplier2, 0), this.level);
+        this.enemy = new StrongEnemyImpl(new Position2D(MULTIPLIER2, 0), this.level);
         this.player = new CharacterImpl(new  Position2D(1, 0), this.level);
         this.level.addGameEntity(this.enemy);
         this.level.addGameEntity(this.player);
         this.enemy.updateState();
         this.player.move(Direction.RIGHT);
         this.player.updateState();
-        this.pos = multiplier2 - SpeedLevels.FAST.getValue();
-        assertEquals(new Position2D(multiplier2 - SpeedLevels.FAST.getValue(), 0), this.enemy.getPosition());
+        this.pos = MULTIPLIER2 - SpeedLevels.FAST.getValue();
+        assertEquals(new Position2D(MULTIPLIER2 - SpeedLevels.FAST.getValue(), 0), this.enemy.getPosition());
         assertEquals(new Position2D(1 + ACCELERATION, 0), this.player.getPosition());
         assertTrue(this.player.isAlive());
         this.enemy.updateState();

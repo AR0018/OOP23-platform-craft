@@ -184,7 +184,7 @@ public final class TitleScreen {
     }
 
     /**
-     * Tells the LevelView to print the Entity
+     * Tells the LevelView to print the Entity.
      * @param entities set of Entity that have to be printed
      */
     public void render(final Set<SimpleEntity> entities) {
