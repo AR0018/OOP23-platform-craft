@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
  */
 public final class Canvas extends JPanel {
 
-    private static final String ROOT = "./it/unibo/images/";
+    private static final String ROOT = "it/unibo/images/"; //
     private static final String BACKGROUND = "XP.jpg"; //TODO: check if jpg works
     /*
      * Map that contains the associations between each entity type and its specified image.
