@@ -15,8 +15,8 @@ public final class GameEntityFactoryImpl implements GameEntityFactory {
     @Override
     public GameEntity createGameEntity(final EntityType type, final Position position, final Level level) {
         switch (type) {
-            //case CHARACTER:
-              //  return new CharacterImpl(position, level);
+            case CHARACTER:
+                return new CharacterImpl(position, level);
             case ENEMY:
                 return new StrongEnemyImpl(position, level);
             case SIMPLE_ENEMY:
@@ -28,7 +28,7 @@ public final class GameEntityFactoryImpl implements GameEntityFactory {
             case FINISH_LOCATION:
                 return new FinishLocationImpl(position, level);
             default:
-                throw new IllegalArgumentException();        //Controllare che non sia nullo
+                throw new IllegalArgumentException();
         }
     }
 }

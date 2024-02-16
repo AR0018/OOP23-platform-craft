@@ -42,6 +42,7 @@ public final class CharacterImpl extends GameEntityImpl implements Character {
                 .create();
     }
 
+
     @Override
     public void updateState() {
         this.setPosition(physic.calculateMovement());
@@ -73,7 +74,7 @@ public final class CharacterImpl extends GameEntityImpl implements Character {
                     .collect(Collectors.toSet());
             if (!trapCollisions.isEmpty()) {
                 var trap = (Trap) trapCollisions.stream().findFirst().get().getGameEntity();
-                if (trap.isLethal()) {           //TODO: controllare se può funzionare
+                if (trap.isLethal()) {
                     setAlive(false);
                 }
             }
@@ -86,8 +87,8 @@ public final class CharacterImpl extends GameEntityImpl implements Character {
                     .filter(x -> x.getGameEntity() instanceof Enemy)
                     .collect(Collectors.toSet());
             if (!enemySetCollision.isEmpty()) {
-                if (!(enemySetCollision.size() == 1 && 
-                        enemySetCollision.stream().findFirst().get().getDirection().equals(Direction.DOWN))) {
+                if (!(enemySetCollision.size() == 1 
+                        && enemySetCollision.stream().findFirst().get().getDirection().equals(Direction.DOWN))) {
                             setAlive(false);
                 }
                 /*if (!enemySetCollision.stream().findFirst().get().getDirection().equals(Direction.DOWN)) {

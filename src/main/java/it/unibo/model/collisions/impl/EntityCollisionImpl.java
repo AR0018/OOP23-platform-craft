@@ -4,18 +4,25 @@ import it.unibo.model.collisions.api.EntityCollision;
 import it.unibo.model.entities.api.GameEntity;
 import it.unibo.model.physics.api.Direction;
 
-public class  EntityCollisionImpl implements EntityCollision{
+/**
+ * Implementation of the entity collision.
+ */
+public final class EntityCollisionImpl implements EntityCollision {
 
     private final GameEntity gameEntity;
     private final Direction direction;
 
+    /**
+     * @param gameEntity the game entity that caused the collision
+     * @param direction the direction of the collision
+     */
     public EntityCollisionImpl(final GameEntity gameEntity, final Direction direction) {
-       this.gameEntity=gameEntity;
-       this.direction=direction;
+       this.gameEntity = gameEntity;
+       this.direction = direction;
     }
 
     @Override
-    public GameEntity getGameEntity(){
+    public GameEntity getGameEntity() {
         return this.gameEntity;
     }
 
@@ -25,13 +32,14 @@ public class  EntityCollisionImpl implements EntityCollision{
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this.getClass().equals(obj.getClass())) {
-            EntityCollision other = (EntityCollision) obj;
-            if(this.getDirection().equals(other.getDirection())
-                && this.getGameEntity().equals(other.getGameEntity())) {
-                return true;
-            }
+    public boolean equals(final Object obj) {
+        if (obj == null || this.getClass() != obj.getClass()) {
+            return false;
+        }
+        EntityCollision other = (EntityCollision) obj;
+        if (this.getDirection().equals(other.getDirection())
+            && this.getGameEntity().equals(other.getGameEntity())) {
+            return true;
         }
         return false;
     }
@@ -39,5 +47,10 @@ public class  EntityCollisionImpl implements EntityCollision{
     @Override
     public String toString() {
         return "EntityCollisionImpl[" + this.gameEntity + ", " + this.direction + "]";
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 }

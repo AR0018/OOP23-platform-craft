@@ -43,8 +43,10 @@ public final class WinView {
      * Constructor of the WinView.
      * @param controller controller of the game
      * @param levelView the view of the running level
+     * @param width of the map level
+     * @param height of the map level
      */
-    public WinView(final Controller controller, final LevelView levelView) {
+    public WinView(final Controller controller, final LevelView levelView, final double width, final double height) {
 
         this.frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.frame.setResizable(false);
@@ -94,7 +96,7 @@ public final class WinView {
             public void actionPerformed(final ActionEvent e) {
                 frame.setVisible(false);
                 levelView.hide();
-                new ViewImpl(controller).displayStart();
+                new ViewImpl(controller, width, height).displayStart();
             }
         });
 

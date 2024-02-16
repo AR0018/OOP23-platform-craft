@@ -46,8 +46,10 @@ public final class GameOverView {
      * Constructor of the GameOverView.
      * @param controller controller of the game
      * @param levelView the GUI of the running level
+     * @param width of the map level
+     * @param height of the map level
      */
-    public GameOverView(final Controller controller, final LevelView levelView) {
+    public GameOverView(final Controller controller, final LevelView levelView, final double width, final double height) {
 
         this.frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.frame.setResizable(false);
@@ -94,7 +96,7 @@ public final class GameOverView {
             public void actionPerformed(final ActionEvent e) {
                 frame.setVisible(false);
                 levelView.hide();
-                new ViewImpl(controller).displayStart();
+                new ViewImpl(controller, width, height).displayStart();
             }
         });
 
@@ -116,13 +118,13 @@ public final class GameOverView {
         buttonPanel.setBackground(Color.BLACK);
         separator.setBackground(Color.BLACK);
 
-        final int width = 20;
+        final int width1 = 20;
         final int verticalStrut = 40;
         panel.add(label);
         //panel.add(separator);
         panel.add(Box.createVerticalStrut(verticalStrut));
         buttonPanel.add(home);
-        final int buttonPanelWidthStrut = width + 30;
+        final int buttonPanelWidthStrut = width1 + 30;
         buttonPanel.add(Box.createHorizontalStrut(buttonPanelWidthStrut));
         buttonPanel.add(retry);
         panel.add(buttonPanel);

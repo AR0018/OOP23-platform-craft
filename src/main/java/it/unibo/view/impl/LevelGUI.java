@@ -26,7 +26,10 @@ import javax.swing.JMenuBar;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JOptionPane;
 
+import java.util.Optional;
+
 import it.unibo.common.SimpleEntity;
+import it.unibo.controller.api.Command;
 import it.unibo.controller.api.Controller;
 
 /**
@@ -45,17 +48,19 @@ public final class LevelGUI {
     private static final Dimension BUTTON_DIM = new Dimension(125, 35);
     private static final int THICKNESS = 4;
     private final JFrame frame = new JFrame();
-    private final JPanel panelView = new JPanel();
-    //private final PaintPanel panelView;              //TODO: sostituire con il PaintPanel
+    //private final JPanel panelView = new JPanel();
+    private final PaintPanel panelView;
     private Font fontButton;
 
     /**
      * Constructor of the LevelGUI used to build the view of the level.
      * @param controller the controller of the game
+     * @param width of the map level
+     * @param height of the map level
      */
-    public LevelGUI(final Controller controller) {
+    public LevelGUI(final Controller controller, final double width, final double height) {
 
-        //this.panelView = new PaintPanel(controller, 16, 9, false, WIDTH_FRAME, HEIGHT_FRAME, null);
+        this.panelView = new PaintPanel(controller, WIDTH_FRAME, HEIGHT_FRAME, Optional.empty());
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frame.setSize(new Dimension(WIDTH_FRAME, HEIGHT_FRAME));
         this.frame.setMinimumSize(new Dimension(WIDTH_FRAME, HEIGHT_FRAME));
@@ -93,16 +98,16 @@ public final class LevelGUI {
 
                 switch (inputReceived) {
                     case KeyEvent.VK_W, KeyEvent.VK_UP, KeyEvent.VK_SPACE:
-                        //controller.notifyCommand(Command.MOVE_UP);
+                        controller.getRunner().notifyCommand(Command.MOVE_UP);
                         break;
                     case KeyEvent.VK_A, KeyEvent.VK_LEFT:
-                        //controller.notifyCommand(Command.MOVE_LEFT);
+                        controller.getRunner().notifyCommand(Command.MOVE_LEFT);
                         break;
                     case KeyEvent.VK_S, KeyEvent.VK_DOWN:
-                        //controller.notifyCommand(Command.MOVE_DOWN);
+                        controller.getRunner().notifyCommand(Command.MOVE_DOWN);
                         break;
                     case KeyEvent.VK_D, KeyEvent.VK_RIGHT:
-                        //controller.notifyCommand(Command.MOVE_RIGHT);
+                        controller.getRunner().notifyCommand(Command.MOVE_RIGHT);
                         break;
                     default:
                         break;
@@ -127,7 +132,7 @@ public final class LevelGUI {
                 if (JOptionPane.showConfirmDialog(frame, "Do you want to return to the Title Screen?",
                          "Quitting", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                     frame.setVisible(false);
-                    new ViewImpl(controller).displayStart();
+                    new ViewImpl(controller, width, height).displayStart();
                 }
             }
         });
@@ -164,7 +169,11 @@ public final class LevelGUI {
         return this.frame.isVisible();
     }
 
+    /**
+     * Shows on the screen all the entities of the set.
+     * @param entities set of the entities
+     */
     public void render(final Set<SimpleEntity> entities) {
-        //this.panelView.render(entities);
+        this.panelView.render(entities);
     }
 }

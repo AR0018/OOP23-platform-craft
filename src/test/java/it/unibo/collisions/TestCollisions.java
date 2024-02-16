@@ -1,6 +1,5 @@
 package it.unibo.collisions;
 
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
@@ -21,6 +20,7 @@ import it.unibo.model.collisions.impl.BorderCollisionImpl;
 import it.unibo.model.collisions.impl.BoundariesImpl;
 import it.unibo.model.collisions.impl.CollisionBoxImpl;
 import it.unibo.model.collisions.impl.EntityCollisionImpl;
+import it.unibo.model.entities.api.Character;
 import it.unibo.model.entities.api.GameEntity;
 import it.unibo.model.entities.impl.GameEntityFactoryImpl;
 import it.unibo.model.entities.impl.SimpleEnemyImpl;
@@ -30,24 +30,24 @@ import it.unibo.model.physics.impl.Position2D;
 import it.unibo.model.collisions.impl.MapBoundariesimpl;
 import it.unibo.model.collisions.api.MapBoundaries;
 
- /**
-  * Class for testing the Collisions.
-  */
+/**
+ * Class for testing the Collisions.
+ */
 public class TestCollisions {
 
   @Test
-  public void testBuoundaries(){
-    Position p=new Position2D(10, 10);
-    Position p1=new Position2D(16, 5);
-    List<Position> vertici=new ArrayList<>();
+  public void testBuoundaries() {
+    Position p = new Position2D(10, 10);
+    Position p1 = new Position2D(16, 5);
+    List<Position> vertici = new ArrayList<>();
     vertici.add(p);
-    vertici.add(new Position2D(16,10));
-    vertici.add(new Position2D(16,5));
-    vertici.add(new Position2D(10,5));
+    vertici.add(new Position2D(16, 10));
+    vertici.add(new Position2D(16, 5));
+    vertici.add(new Position2D(10, 5));
     vertici.add(p);
 
-    Boundaries boundaries=new BoundariesImpl(5,6,p);
-    Boundaries boundaries2 =new BoundariesImpl(2, 2,p1);
+    Boundaries boundaries = new BoundariesImpl(5, 6, p);
+    Boundaries boundaries2 = new BoundariesImpl(2, 2, p1);
     assertEquals(true, boundaries.contains(new Position2D(13, 8)));
     assertEquals(true, boundaries2.intersects(boundaries));
     assertEquals(false, boundaries.intersectsLine(new Position2D(17, 10), new Position2D(19, 6)));
@@ -56,27 +56,35 @@ public class TestCollisions {
   }
 
   @Test
-  public void TestCollisionsBox() {
-    Level level =new LevelImpl();
+  public void testCollisionsBox() {
+    Level level = new LevelImpl();
     GameEntity gameEntity = new SimpleEnemyImpl(new Position2D(1, 1), level);
-    GameEntity otherEntity =new SimpleEnemyImpl(new Position2D(0, 3), level);
+    GameEntity otherEntity = new SimpleEnemyImpl(new Position2D(0, 3), level);
     CollisionBox box = new CollisionBoxImpl(2, 4, gameEntity, level.getBoundaries());
-    assertEquals(true,box.isCollidingWith(otherEntity));
-    Set<GameEntity> other = new HashSet<>();
-    other=Set.of(new SimpleEnemyImpl(new Position2D(4, 5), level), otherEntity);
-    assertEquals(Set.of(new EntityCollisionImpl(otherEntity, Direction.DOWN)),box.getCollisions(other));
-    
+    assertEquals(true, box.isCollidingWith(otherEntity));
+    Set<GameEntity> other = Set.of(new SimpleEnemyImpl(new Position2D(4, 5), level), otherEntity);
+    assertEquals(Set.of(new EntityCollisionImpl(otherEntity, Direction.DOWN)), box.getCollisions(other));
+
     GameEntity gameEntity1 = new SimpleEnemyImpl(new Position2D(-1, 1), level);
-    GameEntity otherEntity1 =new SimpleEnemyImpl(new Position2D(0, 3), level);
+    GameEntity otherEntity1 = new SimpleEnemyImpl(new Position2D(0, 3), level);
     CollisionBox box1 = new CollisionBoxImpl(2, 4, gameEntity1, level.getBoundaries());
+<<<<<<< HEAD
     assertEquals(true,box1.isCollidingWith(otherEntity1));
     other=Set.of(new SimpleEnemyImpl(new Position2D(4, 5), level), otherEntity1);
     assertEquals(Set.of(new EntityCollisionImpl(otherEntity1, Direction.RIGHT),new BorderCollisionImpl(Direction.LEFT)),box1.getCollisions(other));
 
 
     
+=======
+    assertEquals(true, box1.isCollidingWith(otherEntity1));
+    other = Set.of(new SimpleEnemyImpl(new Position2D(4, 5), level), otherEntity1);
+    assertEquals(
+        Set.of(new EntityCollisionImpl(otherEntity1, Direction.RIGHT), new BorderCollisionImpl(Direction.LEFT)),
+        box1.getCollisions(other));
+>>>>>>> ca4618b0015d9037dd967bd31962e414ae752ebf
   }
-  private class LevelImpl implements Level {
+
+  private static class LevelImpl implements Level {
 
     Set<GameEntity> gameEntities = new HashSet<>();
 
@@ -88,7 +96,7 @@ public class TestCollisions {
     @Override
     public void addGameEntity(GameEntity entity) {
       gameEntities.add(entity);
-      
+
     }
 
     @Override
@@ -101,12 +109,6 @@ public class TestCollisions {
     public void moveCharacter(Direction dir) {
       // TODO Auto-generated method stub
       throw new UnsupportedOperationException("Unimplemented method 'moveCharacter'");
-    }
-
-    @Override
-    public void addFinishLocation(Position position) {
-      // TODO Auto-generated method stub
-      throw new UnsupportedOperationException("Unimplemented method 'addFinishLocation'");
     }
 
     @Override
@@ -126,6 +128,16 @@ public class TestCollisions {
       return new MapBoundariesimpl(50, 50);
     }
 
+    @Override
+    public void setCharacter(Character character) {
+      // TODO Auto-generated method stub
+      throw new UnsupportedOperationException("Unimplemented method 'setCharacter'");
+    }
+
+    @Override
+    public void removeGameEntity(GameEntity entity) {
+      // TODO Auto-generated method stub
+      throw new UnsupportedOperationException("Unimplemented method 'removeGameEntity'");
+    }
   }
 }
-

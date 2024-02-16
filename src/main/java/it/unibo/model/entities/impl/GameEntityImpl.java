@@ -26,15 +26,15 @@ public abstract class GameEntityImpl implements GameEntity {
      * @param position the initial position
      * @param level the level of the game
      * @param width the width of the GameEntity
-     * @param heigth the heigth of the GameEntity
+     * @param height the heigth of the GameEntity
      */
     public GameEntityImpl(final Position position, final Level level, 
-            final double width, final double heigth) {
+            final double width, final double height) {
         //Objects.requireNonNull(position);
         this.position = position;
         this.level = level;
         this.isAlive = true;
-        this.box = new CollisionBoxImpl(width, heigth, this, level.getBoundaries());
+        this.box = new CollisionBoxImpl(width, height, this, level.getBoundaries());
     }
 
     @Override

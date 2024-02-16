@@ -55,4 +55,13 @@ public interface LevelEditor {
      */
     Set<SimpleEntity> getCurrentEntities();
 
+    /**
+     * @return the width of the level
+     */
+    double getLevelWidth();
+
+    /**
+     * @return the heigth of the level
+     */
+    double getLevelHeight();
 }
