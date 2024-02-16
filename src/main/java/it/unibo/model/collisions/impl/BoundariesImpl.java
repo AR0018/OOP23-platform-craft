@@ -14,60 +14,35 @@ import org.locationtech.jts.operation.predicate.RectangleContains;
 import org.locationtech.jts.operation.predicate.RectangleIntersects;
 
 /**
-<<<<<<< HEAD
- * Implements the interface Boundaries,
- * 
- */
-public class BoundariesImpl implements Boundaries {
-
-=======
  * Implementation of the boundaries of an object.
  */
 public class BoundariesImpl implements Boundaries {
 
     //TODO: bisogna fare in modo che contains. return true se il punto
     //appartiene ad uno dei lati del rettangolo perchè JTS non lo fa
->>>>>>> ca4618b0015d9037dd967bd31962e414ae752ebf
     private double height;
     private double width;
     private final Polygon rectangle;
     private final List<Position> vertices = new ArrayList<>();
 
     /**
-<<<<<<< HEAD
-     * Constructor of this class.
-     * @param height of the boundaries
-     * @param width of the boundaries
-     * @param position of the entity
-=======
      * @param height the height of this boundaries
      * @param width the width of this boundaries
      * @param position the position of this bondaries
->>>>>>> ca4618b0015d9037dd967bd31962e414ae752ebf
      */
     public BoundariesImpl(final double height, final double width, final Position position) {
         this.height = height;
         this.width = width;
         vertices.add(position);
-<<<<<<< HEAD
-        vertices.add(new Position2D(position.getX() + width,position.getY()));
-        vertices.add(new Position2D(position.getX() + width,position.getY() + height));
-        vertices.add(new Position2D(position.getX(),position.getY() + height));
-=======
         vertices.add(new Position2D(position.getX() + width, position.getY()));
         vertices.add(new Position2D(position.getX() + width, position.getY() + height));
         vertices.add(new Position2D(position.getX(), position.getY() + height));
->>>>>>> ca4618b0015d9037dd967bd31962e414ae752ebf
         vertices.add(position);
         rectangle = new GeometryFactory().createPolygon(this.vertices.toArray(new Coordinate[vertices.size()]));
     }
 
     @Override
-<<<<<<< HEAD
-    public boolean intersectsLine(Position a, Position b) {
-=======
     public final boolean intersectsLine(final Position a, final Position b) {
->>>>>>> ca4618b0015d9037dd967bd31962e414ae752ebf
         List<Position> line = new ArrayList<>();
         line.add(a);
         line.add(b);
@@ -85,8 +60,12 @@ public class BoundariesImpl implements Boundaries {
 
     @Override
     public final boolean contains(final Position position) {
-        return RectangleContains.contains(rectangle,
-            new GeometryFactory().createPoint(new Coordinate(position.getX(), position.getY())));
+       if (checkPerimeter(position) ||  RectangleContains.contains(rectangle,
+       new GeometryFactory().createPoint(new Coordinate(position.getX(), position.getY())))) {
+            return true;
+       }
+       
+        return false;
     }
 
     @Override
@@ -102,5 +81,20 @@ public class BoundariesImpl implements Boundaries {
     @Override
     public final double getHeight() {
        return this.height;
+    }
+
+    /**
+     * @return true if poin is in the perimeter.
+     */    
+    private boolean checkPerimeter(final Position position) {
+        if(position.getX() >= this.vertices.get(0).getX() && position.getX() <= this.vertices.get(1).getX() &&
+        (position.getY() == this.vertices.get(0).getY() || position.getY() == this.vertices.get(2).getX())) {
+            return true;
+        } else if (position.getY() >= this.vertices.get(0).getY() && position.getY() <= this.vertices.get(2).getY() &&
+            (position.getX() == this.vertices.get(0).getX() || position.getX() == this.vertices.get(1).getX())) {
+            return true;
+        }
+         
+        return false;
     }
 }
