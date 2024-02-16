@@ -1,7 +1,6 @@
 package it.unibo.model.collisions.impl;
 
 import it.unibo.model.collisions.api.MapBoundaries;
-import it.unibo.model.physics.api.Position;
 import it.unibo.model.physics.impl.Position2D;
 
 public class MapBoundariesimpl extends BoundariesImpl implements MapBoundaries{

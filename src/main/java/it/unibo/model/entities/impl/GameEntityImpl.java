@@ -1,6 +1,7 @@
 package it.unibo.model.entities.impl;
 
 import java.util.Set;
+import java.util.stream.Collectors;
 import it.unibo.common.EntityType;
 import it.unibo.model.collisions.api.Boundaries;
 import it.unibo.model.collisions.api.Collision;
@@ -41,6 +42,14 @@ public abstract class GameEntityImpl implements GameEntity {
         return this.position;
     }
 
+    /**
+     * Sets the new position of the Game Entity.
+     * @param position the new position
+     */
+    protected final void setPosition(final Position position) {
+        this.position = position;
+    }
+
     @Override
     public final boolean isAlive() {
         return this.isAlive;
@@ -59,7 +68,10 @@ public abstract class GameEntityImpl implements GameEntity {
 
     @Override
     public final Set<Collision> getCollisions() {
-        return this.box.getCollisions(this.level.getGameEntities());
+        return this.box.getCollisions(this.level.getGameEntities()
+                .stream()
+                .filter(x -> !x.equals(this))
+                .collect(Collectors.toSet()));
     }
 
     @Override

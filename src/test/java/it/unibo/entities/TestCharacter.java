@@ -8,6 +8,8 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
+import it.unibo.model.collisions.api.MapBoundaries;
+import it.unibo.model.collisions.impl.MapBoundariesimpl;
 import it.unibo.model.entities.api.Character;
 import it.unibo.model.entities.api.GameEntity;
 import it.unibo.model.entities.api.MapElement;
@@ -38,6 +40,14 @@ public class TestCharacter {
 
     @Test
     void testCharacterEnemy() {
+        
+        /* 
+        EnemyImpl ENEMY = new SimpleEnemyImpl(new Position2D(0, 0),  level);
+        CollisionBox box = new CollisionBoxImpl(1, 1, ENEMY, null);
+        assertTrue(box.getBoundaries().contains(new Position2D(1, 0.5)));
+        */
+
+
         //Right collision.
         this.player = new CharacterImpl(new Position2D(0, 0), level);
         this.enemy = new SimpleEnemyImpl(new Position2D(1, 0), level);
@@ -48,20 +58,21 @@ public class TestCharacter {
         this.level.addGameEntity(map1);
         this.level.addGameEntity(map2);
         this.player.updateState();
-        assertTrue(this.player.isAlive());
-        //assertTrue(this.enemy.isAlive());
+        assertFalse(this.player.isAlive());
+        assertTrue(this.enemy.isAlive());
 
         //Down collision.
         this.level = new Lv();
-        this.player = new CharacterImpl(new Position2D(1, 0), level);
+        this.player = new CharacterImpl(new Position2D(1, 0.3), level);
         this.enemy = new SimpleEnemyImpl(new Position2D(1, 1), level);
         this.map1 = new MapElementImpl(new Position2D(1, 2), level);
         this.level.addGameEntity(player);
         this.level.addGameEntity(enemy);
         this.level.addGameEntity(map1);
         this.player.updateState();
-        assertTrue(this.player.isAlive());
-        //assertFalse(this.enemy.isAlive());
+        this.enemy.updateState();
+        assertTrue(this.player.isAlive());          //TODO: check this test
+        assertFalse(this.enemy.isAlive());
 
         this.level = new Lv();
         this.player = new CharacterImpl(new Position2D(1, 0), level);
@@ -90,9 +101,11 @@ public class TestCharacter {
 
     @Test
     void testCharacterTrap() throws InterruptedException {
-        this.player = new CharacterImpl(new Position2D(1, 1), level);
+
+        this.level = new Lv();
+        this.player = new CharacterImpl(new Position2D(2.2, 1.1), level);
         this.trap = new TrapImpl(new Position2D(2, 1), level);
-        this.map1 = new MapElementImpl(new Position2D(1, 2), level);
+        this.map1 = new MapElementImpl(new Position2D(3, 2), level);
         this.map2 = new MapElementImpl(new Position2D(2, 2), level);
         this.level.addGameEntity(this.player);
         this.level.addGameEntity(this.trap);
@@ -106,7 +119,8 @@ public class TestCharacter {
         this.player.updateState();
         assertFalse(this.player.isAlive());
         assertTrue(this.trap.isAlive());
-        Thread.sleep(TIMER);
+        assertTrue(this.trap.isLethal());
+        Thread.sleep(TIMER / 3);
         this.trap.updateState();
         assertFalse(this.trap.isAlive());
 
@@ -121,7 +135,7 @@ public class TestCharacter {
         this.level.addGameEntity(map2);
         this.trap.updateState();
         this.player.updateState();
-        assertFalse(this.trap.isAlive());
+        assertTrue(this.trap.isAlive());
         Thread.sleep(TIMER / 2);
         this.trap.updateState();
         this.player.updateState();
@@ -132,7 +146,7 @@ public class TestCharacter {
     private static final class Lv implements Level {
 
         private Set<GameEntity> st = new HashSet<>();
-
+        private Character ch;
         /*Lv(final Set<GameEntity> entities) {
             st = entities;
         }*/
@@ -144,6 +158,9 @@ public class TestCharacter {
 
         @Override
         public void addGameEntity(final GameEntity entity) {
+            if (entity instanceof Character) {
+                ch = (CharacterImpl) entity;
+            }
             this.st.add(entity);
         }
 
@@ -173,8 +190,12 @@ public class TestCharacter {
 
         @Override
         public GameEntity getCharacter() {
-            //Auto-generated method stub
-            throw new UnsupportedOperationException("Unimplemented method 'getCharacter'");
+            return ch;
+        }
+
+        @Override
+        public MapBoundaries getBoundaries() {
+            return new MapBoundariesimpl(50, 50);
         }
     }
 }

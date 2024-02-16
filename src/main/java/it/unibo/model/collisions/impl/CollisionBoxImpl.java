@@ -74,7 +74,20 @@ public class CollisionBoxImpl implements CollisionBox{
                 directions.add(direction.get(vertice));
             }
         }
-        if ((direction.get(0)==Direction.UP && directions.get(1)==Direction.DOWN)||(direction.get(0)==Direction.RIGHT && directions.get(1)==Direction.LEFT)){
+        /*
+         * Two entities are the same size and one of the coordinates is the same. 
+         */
+        if (directions.size() == 3) {
+            if (gameEntity.getPosition().getX() == other.getPosition().getX() && gameEntity.getPosition().getY() > other.getPosition().getY()) {
+                return new EntityCollisionImpl(other, Direction.UP);
+            }
+            if (gameEntity.getPosition().getY() == other.getPosition().getY() && gameEntity.getPosition().getX() > other.getPosition().getX()) {
+                return new EntityCollisionImpl(other, Direction.LEFT);
+            }
+            //Case right or down.
+            return new EntityCollisionImpl(other, directions.get(1));
+        }
+        if ((directions.get(0)==Direction.UP && directions.get(1)==Direction.DOWN)||(directions.get(0)==Direction.RIGHT && directions.get(1)==Direction.LEFT)){
             return new EntityCollisionImpl(other,oppositeEdge(directions,other));
         }
         else {
@@ -84,11 +97,19 @@ public class CollisionBoxImpl implements CollisionBox{
     }
 
     private Direction oppositeEdge(final List<Direction> directions, final GameEntity other) { 
-        if (gameEntity.getPosition().getX()>other.getPosition().getX()) {
-            return Direction.LEFT;
+        if (directions.get(0).equals(Direction.UP)) {
+            if (gameEntity.getPosition().getX() > other.getPosition().getX()) {
+                return Direction.LEFT;
+            } else {
+                return Direction.RIGHT;
+            }
         } else {
-            return Direction.RIGHT;
-        }
+            if (gameEntity.getPosition().getY() > other.getPosition().getY()) {
+                return Direction.UP;
+            } else {
+                return Direction.DOWN;
+            }
+        }  
     }
     
     private Direction adjacentEdge(final List<Direction> directions, final GameEntity other) { 
