@@ -43,4 +43,9 @@ public final class SimpleEntityImpl implements SimpleEntity {
         return this.y;
     }
 
+    @Override
+    public String toString() {
+        return "SimpleEntity[Type: " + this.type + ", X: " + this.x + ", Y: " + this.y + "]";
+    }
+
 }
