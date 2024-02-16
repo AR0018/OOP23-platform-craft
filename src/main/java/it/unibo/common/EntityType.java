@@ -8,31 +8,31 @@ public enum EntityType {
     /**
      * The Character controlled by the player.
      */
-    CHARACTER(1, 1),
+    CHARACTER(100, 100),
     /**
      * A trap in the game.
      */
-    TRAP(1, 1),
+    TRAP(100, 100),
     /**
      * Trap Explosion.
      */
-    EXPLOSION(1, 1),
+    EXPLOSION(100, 100),
     /**
      * A simple enemy.
      */
-    SIMPLE_ENEMY(1, 1),
+    SIMPLE_ENEMY(100, 100),
     /**
      * An enemy in the game that follows the player.
      */
-    ENEMY(1, 1),
+    ENEMY(100, 100),
     /**
      * A walkable element of the map.
      */
-    MAP_ELEMENT(1, 1),
+    MAP_ELEMENT(100, 100),
     /**
      * The ending location of the level.
      */
-    FINISH_LOCATION(1, 1);
+    FINISH_LOCATION(100, 100);
 
     private final double x;
     private final double y;

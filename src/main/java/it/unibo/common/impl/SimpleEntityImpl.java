@@ -20,9 +20,9 @@ public final class SimpleEntityImpl implements SimpleEntity {
      * @param y the position of this entity on the y axis (inside the Level)
      */
     public SimpleEntityImpl(
-        @JsonProperty("Type") final EntityType type,
-        @JsonProperty("X") final double x,
-        @JsonProperty("Y") final double y) {
+        @JsonProperty("type") final EntityType type,
+        @JsonProperty("x") final double x,
+        @JsonProperty("y") final double y) {
         this.type = type;
         this.x = x;
         this.y = y;
@@ -41,6 +41,11 @@ public final class SimpleEntityImpl implements SimpleEntity {
     @Override
     public double getY() {
         return this.y;
+    }
+
+    @Override
+    public String toString() {
+        return "SimpleEntity[Type: " + this.type + ", X: " + this.x + ", Y: " + this.y + "]";
     }
 
 }
