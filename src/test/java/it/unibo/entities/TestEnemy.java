@@ -14,6 +14,7 @@ import it.unibo.model.entities.api.GameEntity;
 import it.unibo.model.entities.api.MapElement;
 import it.unibo.model.entities.impl.CharacterImpl;
 import it.unibo.model.entities.impl.MapElementImpl;
+import it.unibo.model.collisions.impl.MapBoundariesimpl;
 import it.unibo.model.entities.impl.SimpleEnemyImpl;
 import it.unibo.model.entities.impl.StrongEnemyImpl;
 import it.unibo.model.level.api.GameState;
@@ -23,7 +24,6 @@ import it.unibo.model.physics.api.Position;
 import it.unibo.model.physics.api.SpeedLevels;
 import it.unibo.model.physics.impl.Position2D;
 import it.unibo.model.collisions.api.MapBoundaries;
-import it.unibo.model.collisions.impl.MapBoundariesimpl;
 import it.unibo.model.entities.api.Character;
 
 /**
