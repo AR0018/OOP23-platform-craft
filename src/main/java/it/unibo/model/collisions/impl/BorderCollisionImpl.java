@@ -23,7 +23,6 @@ public class BorderCollisionImpl implements BorderCollision {
       return this.direction;
    }
 
-   @Override
    public boolean equals(final Object obj) {
       if (this.getClass().equals(obj.getClass())) {
          BorderCollision other = (BorderCollision) obj;

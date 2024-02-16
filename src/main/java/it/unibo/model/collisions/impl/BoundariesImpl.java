@@ -13,16 +13,23 @@ import org.locationtech.jts.geom.Polygon;
 import org.locationtech.jts.operation.predicate.RectangleContains;
 import org.locationtech.jts.operation.predicate.RectangleIntersects;
 
+/**
+ * Implements the interface Boundaries,
+ * 
+ */
 public class BoundariesImpl implements Boundaries {
 
-
-    //TODO: bisogna fare in modo che contains. return true se il punto
-    //appartiene ad uno dei lati del rettangolo perchè JTS non lo fa
     private double height;
     private double width;
     private final Polygon rectangle;
     private final List<Position> vertices = new ArrayList<>();
 
+    /**
+     * Constructor of this class.
+     * @param height of the boundaries
+     * @param width of the boundaries
+     * @param position of the entity
+     */
     public BoundariesImpl(final double height, final double width, final Position position) {
         this.height = height;
         this.width = width;
