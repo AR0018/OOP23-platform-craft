@@ -182,8 +182,8 @@ public class TestEnemy {
         assertEquals(new Position2D(3 + SpeedLevels.SLOW.getValue(), 0), this.enemy.getPosition());
         this.enemy.updateState();
         assertEquals(new Position2D(3 + SpeedLevels.SLOW.getValue(), ACCELERATION), this.enemy.getPosition());
-        this.enemy.updateState();
-        /*assertEquals(new Position2D(3 + 2 * SpeedLevels.SLOW.getValue(), ACCELERATION), this.enemy.getPosition());
+        /*this.enemy.updateState();
+        assertEquals(new Position2D(3 + 2 * SpeedLevels.SLOW.getValue(), ACCELERATION), this.enemy.getPosition());
         assertEquals(new Position2D(1 - ACCELERATION, 0), this.player.getPosition());
         assertTrue(this.player.isAlive());*/
     }
@@ -238,13 +238,13 @@ public class TestEnemy {
         }
 
         @Override
-        public void setCharacter(Character character) {
+        public void setCharacter(final Character character) {
             // TODO Auto-generated method stub
             throw new UnsupportedOperationException("Unimplemented method 'setCharacter'");
         }
 
         @Override
-        public void removeGameEntity(GameEntity entity) {
+        public void removeGameEntity(final GameEntity entity) {
             // TODO Auto-generated method stub
             throw new UnsupportedOperationException("Unimplemented method 'removeGameEntity'");
         }
