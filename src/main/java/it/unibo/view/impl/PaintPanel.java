@@ -78,6 +78,7 @@ public class PaintPanel extends JPanel {
                             controller.getEditor().getCurrentEntities()
                         );
                     }
+                    canvas.repaint();
                 }
 
                 @Override
