@@ -9,6 +9,7 @@ import it.unibo.common.impl.SimpleEntityImpl;
 import it.unibo.model.engine.api.Engine;
 import it.unibo.model.level.api.Level;
 import it.unibo.model.physics.api.Direction;
+import it.unibo.model.level.api.GameState;
 
 /**
  * An implementation of Engine.
@@ -41,5 +42,10 @@ public class EngineImpl implements Engine {
             .stream()
             .map(e -> new SimpleEntityImpl(e.getType(), e.getPosition().getX(), e.getPosition().getY()))
             .collect(Collectors.toSet());
+    }
+
+    @Override
+    public GameState getGameState() {
+        return this.level.getGameState();
     }
 }

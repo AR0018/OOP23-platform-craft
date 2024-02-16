@@ -4,6 +4,7 @@ import java.util.Set;
 
 import it.unibo.common.SimpleEntity;
 import it.unibo.model.physics.api.Direction;
+import it.unibo.model.level.api.GameState;
 
 /**
  * Models an Engine used to update a Level during a game.
@@ -26,4 +27,9 @@ public interface Engine {
      */
     Set<SimpleEntity> getLevelEntities();
 
+    /**
+     * Returns the GameState of the current Level.
+     * @return the GameState of the current level
+     */
+    GameState getGameState();
 }

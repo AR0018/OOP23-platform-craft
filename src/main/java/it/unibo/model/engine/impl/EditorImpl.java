@@ -1,42 +1,35 @@
 package it.unibo.model.engine.impl;
 
-// import it.unibo.model.entities.api.FinishLocation;
 import it.unibo.model.entities.api.GameEntity;
-// import it.unibo.model.entities.api.MapElement;
+import it.unibo.model.entities.impl.GameEntityFactoryImpl;
 import it.unibo.model.entities.api.Character;
-// import it.unibo.model.entities.api.StartLocation;
-// import it.unibo.model.entities.impl.CharacterImpl;
-import it.unibo.model.level.api.GameState;
+import it.unibo.model.entities.api.FinishLocation;
 import it.unibo.model.level.api.Level;
 import it.unibo.model.level.impl.GameLevel;
-import it.unibo.model.level.impl.MapBoundaries;
-import it.unibo.model.physics.api.Direction;
+import it.unibo.model.level.impl.UnmodifiableLevel;
+import it.unibo.model.physics.impl.Position2D;
 import it.unibo.common.EntityType;
 import it.unibo.common.SimpleEntity;
 import it.unibo.common.impl.SimpleEntityImpl;
 import it.unibo.model.engine.api.Editor;
 import it.unibo.model.engine.api.Engine;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * An implementation of Editor.
  */
 public class EditorImpl implements Editor {
-
     /*
      * The width and height of the created Level.
      */
     private static final double WIDTH = 1600;
     private static final double HEIGHT = 900;
 
-    private Set<SimpleEntity> gameConfiguration;
-    private Set<GameEntity> gameEntities;
-    private Character character;
+    private Level level;
 
     private boolean hasCharacter = false;
     private boolean hasFinishLocation = false;
@@ -49,7 +42,24 @@ public class EditorImpl implements Editor {
      * @param entities the entities that this Editor will contain at the beginning
      */
     public EditorImpl(final Set<SimpleEntity> entities) {
-        this.gameConfiguration = Objects.requireNonNull(entities);
+        this.level = new GameLevel(WIDTH, HEIGHT);
+        if (isValid(Objects.requireNonNull(entities))) {
+            //Adds to the Level every entity in the configuration passed
+            entities.stream()
+                .map(e -> createFromSimpleEntity(e))
+                .forEach(e -> this.level.addGameEntity(e));
+            this.hasCharacter = true;
+            this.hasFinishLocation = true;
+        }
+    }
+
+    /*
+     * Checks if the configuration passed in input is valid.
+     * A configuration is valid if it has exactly one Character and one FinishLocation.
+     */
+    private boolean isValid(Set<SimpleEntity> entities) {
+        return entities.stream().filter(e -> e.getType().equals(EntityType.CHARACTER)).count() == 1
+            && entities.stream().filter(e -> e.getType().equals(EntityType.FINISH_LOCATION)).count() == 1;
     }
 
     /*
@@ -62,95 +72,88 @@ public class EditorImpl implements Editor {
     @Override
     public Optional<Engine> createLevel() {
         if (validLevel()) {
-            Level level = new GameLevel(this.gameEntities, this.character, WIDTH, HEIGHT);
-            return Optional.of(new EngineImpl(level));
+            return Optional.of(new EngineImpl(new UnmodifiableLevel(level)));
         }
         return Optional.empty();
     }
 
-    /*
-     * @Override
-     * public boolean addGameEntity(final SimpleEntity entity) {
-     * if(entity!=null){
-     * if(entity.getType()==EntityType.FINISH_LOCATION){
-     * this.hasFinishLocation=true;
-     * this.gameConfiguration.add(entity);
-     * }else if(entity.getType()==EntityType.START_LOCATION){
-     * this.hasStartLocation=true;
-     * this.gameConfiguration.add(entity);
-     * }else if(entity.getType()==EntityType.CHARACTER){
-     * this.hasCharacter=true;
-     * this.gameConfiguration.add(entity);
-     * this.characterEngine=entity;
-     * }
-     * gameConfiguration.add(entity);
-     * }
-     * if(gameConfiguration.contains(entity)){
-     * return true;
-     * }else{
-     * return false;
-     * }
-     * }
-     */
-
+    @Override
     public boolean addGameEntity(final SimpleEntity entity) {
         Objects.requireNonNull(entity);
-        if (entity.getType().equals(EntityType.FINISH_LOCATION)) {
-            if (this.gameConfiguration.stream().anyMatch(e -> e.getType().equals(EntityType.FINISH_LOCATION))) {
-                return false;
-            }
-        }
-        if (entity.getType().equals(EntityType.CHARACTER)) {
-            if (this.gameConfiguration.stream().anyMatch(e -> e.getType().equals(EntityType.CHARACTER))) {
-                return false;
-            }
-        }
-        gameConfiguration.add(entity);
-        if (gameConfiguration.contains(entity)) {
-            return true;
-        } else {
+        if (entity.getType().equals(EntityType.FINISH_LOCATION) && this.hasFinishLocation) {
             return false;
         }
+        if (entity.getType().equals(EntityType.CHARACTER) && this.hasCharacter) {
+            return false;
+        }
+        GameEntity gameEntity = createFromSimpleEntity(entity);
+        if(canBeAdded(gameEntity)) {
+            this.level.addGameEntity(gameEntity);
+            if (gameEntity instanceof FinishLocation) {
+                this.hasFinishLocation = true;
+            }
+            if (gameEntity instanceof Character) {
+                this.hasCharacter = true;
+                this.level.setCharacter((Character) gameEntity);
+            }
+            return true;
+        }
+        return false;
+    }
+
+    /*
+     * Tells if the input entity can be added to the Level.
+     */
+    private boolean canBeAdded(final GameEntity gameEntity) {
+        return gameEntity.getCollisions().size() == 0;
+    }
+
+    /*
+     * Creates a new GameEntity based on the input SimpleEntity.
+     */
+    private GameEntity createFromSimpleEntity(final SimpleEntity entity) {
+        return new GameEntityFactoryImpl()
+            .createGameEntity(
+                entity.getType(),
+                new Position2D(entity.getX(), entity.getY()),
+                new UnmodifiableLevel(this.level));
     }
 
     @Override
     public boolean removeGameEntity(final double x, final double y) {
-
         /**
          * Check if there is a game entity at the specified coordinates (x, y)
          * and remove the entity found.
          */
-        Optional<GameEntity> entityToRemove = gameConfiguration.stream()
-                .filter(entity -> entity.getPosition().getX() == x && entity.getPosition().getY() == y)
+        Optional<GameEntity> entityToRemove = this.level.getGameEntities().stream()
+                .filter(e -> e.getBoundaries().contains(new Position2D(x, y)))
                 .findFirst();
-
         if (entityToRemove.isPresent()) {
-            GameEntity removedEntity = entityToRemove.get();
-            gameConfiguration.remove(removedEntity);
+            this.level.removeGameEntity(entityToRemove.get());
+            if (entityToRemove.get() instanceof Character) {
+                this.hasCharacter = false;
+            }
+            if (entityToRemove.get() instanceof FinishLocation) {
+                this.hasFinishLocation = false;
+            }
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
-
-    /*
-     * private SimpleEntity converToSimpleEntity(GameEntity entity){
-     * if(entity!=null){
-     * this.simpleEntity.getX(entity.getPosition().getX());
-     * this.simpleEntity.getY(entity.getPosition().getY());
-     * this.simpleEntity.getType(entity.getType());
-     * }
-     * return simpleEntity;
-     * }
-     */
 
     @Override
     public Set<SimpleEntity> getLevelEntities() {
-        return Collections.unmodifiableSet(this.gameConfiguration);
+        /*
+         * Generates a set of SimpleEntity from the set of GameEntity in the current level
+         * and returns it.
+         */
+        return this.level.getGameEntities().stream()
+            .map(e -> new SimpleEntityImpl(e.getType(), e.getPosition().getX(), e.getPosition().getY()))
+            .collect(Collectors.toSet());
     }
 
     private void resetAll() {
-        this.gameConfiguration = new HashSet<>();
+        this.level = new GameLevel(WIDTH, HEIGHT);
     }
 
     @Override
