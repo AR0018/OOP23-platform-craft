@@ -30,8 +30,6 @@ import it.unibo.model.entities.api.Character;
  * Class for testing the behaviour of enemies.
  */
 
-
- //TODO: migliorare i test sia questo che test Character e aggiunger fisica ai nemici semplice
 public class TestEnemy {
 
     private static final double ACCELERATION = 0.1;
@@ -72,8 +70,10 @@ public class TestEnemy {
         this.pos = 1 + SpeedLevels.SLOW.getValue();
         assertEquals(new Position2D(this.pos, 0), this.enemy.getPosition());
         this.enemy.updateState();
-        this.pos = this.pos - SpeedLevels.SLOW.getValue();            //Viene invertita la direzione di marcia
-        assertEquals(new Position2D(this.pos, 0), this.enemy.getPosition());
+        this.player.updateState();
+        assertTrue(this.player.isAlive());
+        this.pos = this.pos - SpeedLevels.SLOW.getValue();            //Changes the movement direction due the 
+        assertEquals(new Position2D(this.pos, 0.1), this.enemy.getPosition());      //collision with the player
 
         this.level = new Lv();
         this.enemy = new StrongEnemyImpl(new Position2D(0, 0.1), this.level);
@@ -92,7 +92,7 @@ public class TestEnemy {
         this.level.addGameEntity(this.player);
         this.enemy.updateState();
         this.player.updateState();
-        pos = 0.1 + SpeedLevels.FAST.getValue();                //dipende se il nemico ha addAcceleratioOnX()
+        pos = 0.1 + SpeedLevels.FAST.getValue();                //The enemy doesn't have acceleration on x.
         assertEquals(new Position2D(this.pos, 0), this.enemy.getPosition());
         assertFalse(this.player.isAlive());
 
@@ -124,8 +124,8 @@ public class TestEnemy {
         this.player.move(Direction.LEFT);
         this.player.updateState();
         this.pos = this.pos - SpeedLevels.FAST.getValue();
-        assertEquals(new Position2D(pos, 0.1), this.enemy.getPosition());       //0.1 perchè cade
-        assertEquals(new Position2D(1.1, 0.1), this.player.getPosition());    //1.1 perchè cambia subito direzione
+        assertEquals(new Position2D(pos, 0.1), this.enemy.getPosition());       //0.1 because it falls
+        assertEquals(new Position2D(1.1, 0.1), this.player.getPosition());    //1.1 because I change instantly the direction
 
         this.level = new Lv();
         this.map = new MapElementImpl(new Position2D(2, 1), this.level);
@@ -144,7 +144,7 @@ public class TestEnemy {
         this.pos = 3.4;
         assertEquals(new Position2D(this.pos, 0), this.enemy.getPosition());
         this.enemy.updateState();
-        assertEquals(new Position2D(this.pos, 0), this.enemy.getPosition());
+        assertEquals(new Position2D(this.pos, ACCELERATION), this.enemy.getPosition());
         this.pos = 0.9;
         assertEquals(new Position2D(this.pos, 0), this.player.getPosition());
         assertTrue(this.player.isAlive());

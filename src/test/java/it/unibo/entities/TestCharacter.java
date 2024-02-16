@@ -1,5 +1,6 @@
 package it.unibo.entities;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -8,6 +9,7 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
+import it.unibo.common.EntityType;
 import it.unibo.model.collisions.api.MapBoundaries;
 import it.unibo.model.collisions.impl.MapBoundariesimpl;
 import it.unibo.model.entities.api.Character;
@@ -17,11 +19,13 @@ import it.unibo.model.entities.impl.CharacterImpl;
 import it.unibo.model.entities.impl.EnemyImpl;
 import it.unibo.model.entities.impl.MapElementImpl;
 import it.unibo.model.entities.impl.SimpleEnemyImpl;
+import it.unibo.model.entities.impl.StrongEnemyImpl;
 import it.unibo.model.entities.impl.TrapImpl;
 import it.unibo.model.level.api.GameState;
 import it.unibo.model.level.api.Level;
 import it.unibo.model.physics.api.Direction;
 import it.unibo.model.physics.api.Position;
+import it.unibo.model.physics.api.SpeedLevels;
 import it.unibo.model.physics.impl.Position2D;
 
 /**
@@ -36,81 +40,172 @@ public class TestCharacter {
     private MapElement map2;
     private EnemyImpl enemy;
     private TrapImpl trap;
+    private Position pos;
     private Level level = new Lv();
 
     @Test
-    void testCharacterEnemy() {
-        
-        /* 
-        EnemyImpl ENEMY = new SimpleEnemyImpl(new Position2D(0, 0),  level);
-        CollisionBox box = new CollisionBoxImpl(1, 1, ENEMY, null);
-        assertTrue(box.getBoundaries().contains(new Position2D(1, 0.5)));
-        */
+    void testCharacterSimpleEnemy() {
 
-
-        //Right collision.
-        this.player = new CharacterImpl(new Position2D(0, 0), level);
-        this.enemy = new SimpleEnemyImpl(new Position2D(1, 0), level);
-        this.map1 = new MapElementImpl(new Position2D(0, 1), level);
-        this.map2 = new MapElementImpl(new Position2D(1, 1), level);
-        this.level.addGameEntity(player);
-        this.level.addGameEntity(enemy);
-        this.level.addGameEntity(map1);
-        this.level.addGameEntity(map2);
+        /*
+         * The character instantly dies because the dimensions of
+         * its collision box are 1,1
+         */
+        this.player = new CharacterImpl(new Position2D(0, 0), this.level);
+        this.enemy = new SimpleEnemyImpl(new Position2D(1, 0), this.level);
+        this.map1 = new MapElementImpl(new Position2D(0, 1), this.level);
+        this.map2 = new MapElementImpl(new Position2D(1, 1), this.level);
+        this.level.addGameEntity(this.player);
+        this.level.addGameEntity(this.enemy);
+        this.level.addGameEntity(this.map1);
+        this.level.addGameEntity(this.map2);
         this.player.updateState();
         assertFalse(this.player.isAlive());
         assertTrue(this.enemy.isAlive());
 
-        //Down collision.
         this.level = new Lv();
-        this.player = new CharacterImpl(new Position2D(1, 0.3), level);
-        this.enemy = new SimpleEnemyImpl(new Position2D(1, 1), level);
-        this.map1 = new MapElementImpl(new Position2D(1, 2), level);
-        this.level.addGameEntity(player);
-        this.level.addGameEntity(enemy);
-        this.level.addGameEntity(map1);
+        this.player = new CharacterImpl(new Position2D(1, 0.3), this.level);
+        this.enemy = new SimpleEnemyImpl(new Position2D(1, 1), this.level);
+        this.map1 = new MapElementImpl(new Position2D(1, 2), this.level);
+        this.level.addGameEntity(this.player);
+        this.level.addGameEntity(this.enemy);
+        this.level.addGameEntity(this.map1);
         this.player.updateState();
         this.enemy.updateState();
-        assertTrue(this.player.isAlive());          //TODO: check this test
+        assertTrue(this.player.isAlive());
         assertFalse(this.enemy.isAlive());
 
         this.level = new Lv();
-        this.player = new CharacterImpl(new Position2D(1, 0), level);
-        this.enemy = new SimpleEnemyImpl(new Position2D(0, 0), level);
-        this.map1 = new MapElementImpl(new Position2D(0, 1), level);
-        this.map2 = new MapElementImpl(new Position2D(1, 1), level);
-        this.level.addGameEntity(player);
-        this.level.addGameEntity(enemy);
-        this.level.addGameEntity(map1);
-        this.level.addGameEntity(map2);
+        this.player = new CharacterImpl(new Position2D(2.5, 0), this.level);
+        this.enemy = new SimpleEnemyImpl(new Position2D(0, 0), this.level);
+        this.map1 = new MapElementImpl(new Position2D(1.3, 0), this.level);
+        this.level.addGameEntity(this.player);
+        this.level.addGameEntity(this.enemy);
+        this.level.addGameEntity(this.map1);
         this.player.updateState();
-        assertFalse(this.player.isAlive());
-        //assertTrue(this.enemy.isAlive());
+        assertTrue(this.player.isAlive());
+        assertTrue(this.enemy.isAlive());
 
-        this.level = new Lv();                                                  //TODO: migliorare
-        this.player = new CharacterImpl(new Position2D(0, 1), level);
-        this.enemy = new SimpleEnemyImpl(new Position2D(0, 0), level);
-        this.map1 = new MapElementImpl(new Position2D(0, 2), level);
-        this.level.addGameEntity(player);
-        this.level.addGameEntity(enemy);
-        this.level.addGameEntity(map1);
+        this.level = new Lv();
+        this.player = new CharacterImpl(new Position2D(0, 1), this.level);
+        this.enemy = new SimpleEnemyImpl(new Position2D(0, 0), this.level);
+        this.map1 = new MapElementImpl(new Position2D(0, 2), this.level);
+        this.level.addGameEntity(this.player);
+        this.level.addGameEntity(this.enemy);
+        this.level.addGameEntity(this.map1);
         this.player.updateState();
         assertFalse(this.player.isAlive());
-        //assertTrue(this.enemy.isAlive());
+        assertTrue(this.enemy.isAlive());
+
+        this.level = new Lv();
+        this.player = new CharacterImpl(new Position2D(0, 1), this.level);
+        this.enemy = new SimpleEnemyImpl(new Position2D(2, 0), this.level);
+        this.level.addGameEntity(this.player);
+        this.level.addGameEntity(this.enemy);
+        this.player.updateState();
+        this.enemy.updateState();
+        this.pos = new Position2D(2.3, 0);
+        assertTrue(this.player.isAlive());
+        assertEquals(this.pos, this.enemy.getPosition());
+        this.pos = new Position2D(0, 1);
+        assertEquals(this.pos, this.player.getPosition());          //Without movement direction
+        assertTrue(this.enemy.isAlive());
+        this.player.move(Direction.RIGHT);
+        this.player.updateState();
+        this.pos = new Position2D(0.1, 1.1);           //The Character has the accelerated physic 
+        assertEquals(this.pos, this.player.getPosition());
+    }
+
+    @Test
+    void testCharacterEnemy() {
+
+        /*
+         * The character instantly dies because the dimensions of
+         * its collision box are 1,1
+         */
+        this.level = new Lv();
+        this.player = new CharacterImpl(new Position2D(0, 0), this.level);
+        this.enemy = new StrongEnemyImpl(new Position2D(1, 0), this.level);
+        this.map1 = new MapElementImpl(new Position2D(0, 1), this.level);
+        this.map2 = new MapElementImpl(new Position2D(1, 1), this.level);
+        this.level.addGameEntity(this.player);
+        this.level.addGameEntity(this.enemy);
+        this.level.addGameEntity(this.map1);
+        this.level.addGameEntity(this.map2);
+        this.player.updateState();
+        assertFalse(this.player.isAlive());
+        assertTrue(this.enemy.isAlive());
+
+        this.level = new Lv();
+        this.player = new CharacterImpl(new Position2D(1, 0.3), this.level);
+        this.enemy = new StrongEnemyImpl(new Position2D(1.1, 1), this.level);
+        this.map1 = new MapElementImpl(new Position2D(1, 2), this.level);
+        this.level.addGameEntity(this.player);
+        this.level.addGameEntity(this.enemy);
+        this.level.addGameEntity(this.map1);
+        this.player.updateState();
+        this.enemy.updateState();
+        assertTrue(this.player.isAlive());
+        assertFalse(this.enemy.isAlive());
+
+        this.level = new Lv();
+        this.player = new CharacterImpl(new Position2D(2.5, 0), this.level);
+        this.enemy = new StrongEnemyImpl(new Position2D(0, 0), this.level);
+        this.level.addGameEntity(this.player);
+        this.level.addGameEntity(this.enemy);
+        this.player.updateState();
+        assertTrue(this.player.isAlive());
+        assertTrue(this.enemy.isAlive());
+        this.enemy.updateState();
+        this.enemy.updateState();
+        this.player.updateState();
+        assertFalse(this.player.isAlive());
+
+
+        this.level = new Lv();
+        this.player = new CharacterImpl(new Position2D(0, 1), this.level);
+        this.enemy = new StrongEnemyImpl(new Position2D(0, 0), this.level);
+        this.map1 = new MapElementImpl(new Position2D(0, 2), this.level);
+        this.level.addGameEntity(this.player);
+        this.level.addGameEntity(this.enemy);
+        this.level.addGameEntity(this.map1);
+        this.player.updateState();
+        assertFalse(this.player.isAlive());
+        assertTrue(this.enemy.isAlive());
+
+        this.level = new Lv();
+        this.player = new CharacterImpl(new Position2D(0, 1), this.level);
+        this.enemy = new StrongEnemyImpl(new Position2D(2.1, 0), this.level);
+        this.level.addGameEntity(this.player);
+        this.level.addGameEntity(this.enemy);
+        this.player.updateState();
+        this.enemy.updateState();
+        this.pos = new Position2D(1.1, 0);
+        assertTrue(this.player.isAlive());
+        assertEquals(this.pos, this.enemy.getPosition());
+        this.pos = new Position2D(0, 1);
+        assertEquals(this.pos, this.player.getPosition());          //Without movement direction
+        assertTrue(this.enemy.isAlive());
+        this.player.move(Direction.RIGHT);
+        this.player.updateState();
+        this.pos = new Position2D(0.1, 1.1);           //The Character has the accelerated physic 
+        assertEquals(this.pos, this.player.getPosition());
     }
 
     @Test
     void testCharacterTrap() throws InterruptedException {
 
+        /*
+         * The trap sees the player, starts the countdown and explode.
+         */
         this.level = new Lv();
-        this.player = new CharacterImpl(new Position2D(2.2, 1.1), level);
-        this.trap = new TrapImpl(new Position2D(2, 1), level);
-        this.map1 = new MapElementImpl(new Position2D(3, 2), level);
-        this.map2 = new MapElementImpl(new Position2D(2, 2), level);
+        this.player = new CharacterImpl(new Position2D(2.2, 1.1), this.level);
+        this.trap = new TrapImpl(new Position2D(2, 1), this.level);
+        this.map1 = new MapElementImpl(new Position2D(3, 2), this.level);
+        this.map2 = new MapElementImpl(new Position2D(2, 2), this.level);
         this.level.addGameEntity(this.player);
         this.level.addGameEntity(this.trap);
-        this.level.addGameEntity(map1);
-        this.level.addGameEntity(map2);
+        this.level.addGameEntity(this.map1);
+        this.level.addGameEntity(this.map2);
         this.trap.updateState();
         this.player.updateState();
         assertFalse(this.trap.isLethal());
@@ -118,21 +213,46 @@ public class TestCharacter {
         this.trap.updateState();
         this.player.updateState();
         assertFalse(this.player.isAlive());
+        assertEquals(EntityType.EXPLOSION, this.trap.getType());
         assertTrue(this.trap.isAlive());
         assertTrue(this.trap.isLethal());
         Thread.sleep(TIMER / 3);
         this.trap.updateState();
         assertFalse(this.trap.isAlive());
 
+        /*
+         * The trap doesn't see the player.
+         */
         this.level = new Lv();
-        this.player = new CharacterImpl(new Position2D(1, 1), level);
-        this.trap = new TrapImpl(new Position2D(2, 1), level);
-        this.map1 = new MapElementImpl(new Position2D(1, 2), level);
-        this.map2 = new MapElementImpl(new Position2D(2, 2), level);
+        this.player = new CharacterImpl(new Position2D(1, 1), this.level);
+        this.trap = new TrapImpl(new Position2D(2, 1), this.level);
+        this.map1 = new MapElementImpl(new Position2D(1, 2), this.level);
+        this.map2 = new MapElementImpl(new Position2D(2, 2), this.level);
         this.level.addGameEntity(this.player);
         this.level.addGameEntity(this.trap);
-        this.level.addGameEntity(map1);
-        this.level.addGameEntity(map2);
+        this.level.addGameEntity(this.map1);
+        this.level.addGameEntity(this.map2);
+        this.trap.updateState();
+        this.player.updateState();
+        assertTrue(this.trap.isAlive());
+        Thread.sleep(TIMER);
+        this.trap.updateState();
+        this.player.updateState();
+        assertTrue(this.player.isAlive());
+        assertTrue(this.trap.isAlive());
+
+        /*
+         * The trap sees the player but the value of TIMER is to low.
+         */
+        this.level = new Lv();
+        this.player = new CharacterImpl(new Position2D(1.6, 1), this.level);
+        this.trap = new TrapImpl(new Position2D(1, 1), this.level);
+        this.map1 = new MapElementImpl(new Position2D(1, 2), this.level);
+        this.map2 = new MapElementImpl(new Position2D(2, 2), this.level);
+        this.level.addGameEntity(this.player);
+        this.level.addGameEntity(this.trap);
+        this.level.addGameEntity(this.map1);
+        this.level.addGameEntity(this.map2);
         this.trap.updateState();
         this.player.updateState();
         assertTrue(this.trap.isAlive());
@@ -141,6 +261,20 @@ public class TestCharacter {
         this.player.updateState();
         assertTrue(this.player.isAlive());
         assertTrue(this.trap.isAlive());
+    }
+
+    @Test
+    public void testBorder() {
+
+        /*
+         * Check the collision with the bottom border.
+         */
+        this.level = new Lv();
+        this.player = new CharacterImpl(new Position2D(2.2, 49), this.level);
+        this.level.addGameEntity(this.player);
+        this.player.updateState();
+        assertFalse(this.player.isAlive());
+
     }
 
     private static final class Lv implements Level {
