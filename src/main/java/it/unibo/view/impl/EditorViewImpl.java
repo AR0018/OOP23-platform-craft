@@ -8,15 +8,17 @@ import it.unibo.view.api.EditorView;
  */
 public final class EditorViewImpl implements EditorView {
 
-    private final Editor editor;
+    private final EditorGUI editor;
 
     /**
      * Constructor of the EditorViewImpl.
      * @param controller the controller of the game
+     * @param width of the map level
+     * @param height of the map level
      */
-    public EditorViewImpl(final Controller controller) {
+    public EditorViewImpl(final Controller controller, final double width, final double height) {
         //this.controller = controller;
-        this.editor = new Editor(controller);
+        this.editor = new EditorGUI(controller, width, height);
     }
 
     @Override

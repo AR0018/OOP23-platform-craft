@@ -6,6 +6,7 @@ import it.unibo.model.collisions.api.Collision;
 import it.unibo.model.collisions.api.EntityCollision;
 import it.unibo.model.entities.api.Character;
 import it.unibo.model.entities.api.Enemy;
+import it.unibo.model.entities.api.MapElement;
 import it.unibo.model.level.api.Level;
 import it.unibo.model.physics.api.Direction;
 import it.unibo.model.physics.api.Position;
@@ -35,10 +36,10 @@ public abstract class EnemyImpl extends GameEntityImpl implements Enemy {
      * @param position the first position of the enemy
      * @param level is the level of the game
      * @param width the width of the enemy
-     * @param heigth the heigth of the enemy
+     * @param height the heigth of the enemy
      */
-    public EnemyImpl(final Position position, final Level level, final double width, final double heigth) {
-        super(position, level, width, heigth);
+    public EnemyImpl(final Position position, final Level level, final double width, final double height) {
+        super(position, level, width, height);
         setDirection(Direction.RIGHT);
     }
 
@@ -89,18 +90,54 @@ public abstract class EnemyImpl extends GameEntityImpl implements Enemy {
      */
     private void checkEnemyCollisions() {
         if (!getCollisions().isEmpty()) {
-            if (getCollisionBox().isCollidingWith(getLevel().getCharacter())) {
+            /*if (getCollisionBox().isCollidingWith(getLevel().getCharacter())) {
                 checkEnemyIsDead();
-            } else {
-                setDirection(getDirection().equals(Direction.RIGHT) ? Direction.LEFT : Direction.RIGHT);
+            } else {*/
+            //System.out.println("Collision: " + getCollisions().size()); 
+            checkEnemyCharacter();
+            checkEnemyBorder();
+            checkEnemyBlock();
+        }
+    }
+
+    /**
+     * Check if the enemy needs to change direction
+     * due to a collision with another enemy or a map element
+     * on right or left edge.
+     */
+    private void checkEnemyBlock() {
+        var blockEnemyCollision = getEntity(getCollisions())
+                .stream()
+                .filter(x -> x.getGameEntity() instanceof MapElement 
+                        || x.getGameEntity() instanceof Enemy)// instanceof MapElement || x instanceof Enemy)
+                .collect(Collectors.toSet());
+        if (blockEnemyCollision.stream()
+                .anyMatch(x -> x.getDirection().equals(Direction.RIGHT) 
+                || x.getDirection().equals(Direction.LEFT))) {
+            setDirection(getDirection().equals(Direction.RIGHT) ? Direction.LEFT : Direction.RIGHT);
+        }
+    }
+
+    /**
+     * Check if the enemy needs to die due to a collision
+     * with the down border.
+     */
+    private void checkEnemyBorder() {
+        var enemyBorder = getBorder(getCollisions())
+        .stream()
+        .collect(Collectors.toSet());
+        if (!enemyBorder.isEmpty()) {
+            if (enemyBorder.stream().anyMatch(x -> x.getDirection().equals(Direction.DOWN))) {
+                setAlive(false);
             }
         }
     }
+
     /**
-     * Check if the enemy died because of the player who collided with
+     * Check if the enemy dies due to the player who collided with
      * the head of the enemy.
      */
-    private void checkEnemyIsDead() {
+    private void checkEnemyCharacter() {
         /*var enemyCharacter = getCollisions().stream().filter(x -> x.getGameEntity() instanceof Character);
         if (enemyCharacter.anyMatch(x -> x.getDirection().equals(Direction.UP))) {
             setAlive(false);
@@ -111,16 +148,6 @@ public abstract class EnemyImpl extends GameEntityImpl implements Enemy {
                 .collect(Collectors.toSet());
         if (!enemyCharacter.isEmpty()) {
             if (enemyCharacter.stream().anyMatch(x -> x.getDirection().equals(Direction.UP))) {
-                setAlive(false);
-            }
-        }
-
-        //Border
-        var enemyBorder = getBorder(getCollisions())
-                .stream()
-                .collect(Collectors.toSet());
-        if (!enemyBorder.isEmpty()) {
-            if (enemyBorder.stream().anyMatch(x -> x.getDirection().equals(Direction.DOWN))) {
                 setAlive(false);
             }
         }

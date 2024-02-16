@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import it.unibo.common.SimpleEntity;
 import it.unibo.controller.api.Controller;
 import it.unibo.view.api.EditorView;
 import it.unibo.view.api.LevelView;
@@ -25,6 +26,8 @@ import it.unibo.view.api.LevelView;
 import javax.swing.JOptionPane;
 import javax.swing.JFileChooser;
 import javax.swing.BorderFactory;
+
+import java.util.Set;
 
 /**
  * Class to create the TitleScreen when the game starts.
@@ -48,8 +51,10 @@ public final class TitleScreen {
     /**
      * Constructor to build the gui of the TitleScreen.
      * @param controller the controller of the game
+     * @param width the width of the map level
+     * @param height the heigth of the map level
      */
-    public TitleScreen(final Controller controller) {
+    public TitleScreen(final Controller controller, final double width, final double height) {
 
         final int numberRow = 3;
         final int numberCol = 1;
@@ -59,8 +64,8 @@ public final class TitleScreen {
         final int panelTopDim = 150;
         final int panelVerticalGap = 20;
 
-        this.levelView = new LevelViewImpl(controller);
-        this.editorView = new EditorViewImpl(controller);                   //TODO: problema serializer
+        this.levelView = new LevelViewImpl(controller, width, height);
+        this.editorView = new EditorViewImpl(controller, width, height);                   //TODO: problema serializer
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frame.setSize(new Dimension(XDIM, YDIM));
         this.frame.setMinimumSize(new Dimension(XDIM, YDIM));
@@ -112,9 +117,10 @@ public final class TitleScreen {
                 file.setAcceptAllFileFilterUsed(false);
                 file.addChoosableFileFilter(new FileNameExtensionFilter("*.json", "json"));
                 if (file.showOpenDialog(frame) == JFileChooser.APPROVE_OPTION) {
-                    controller.getRunner().loadLevel(file.getSelectedFile());
-                    frame.setVisible(false);
-                    levelView.show();
+                    if (controller.getRunner().loadLevel(file.getSelectedFile())) {
+                        frame.setVisible(false);
+                        levelView.show();
+                    }
                 }
             }
         });
@@ -175,5 +181,13 @@ public final class TitleScreen {
      */
     public void setVisible() {
         frame.setVisible(true);
+    }
+
+    /**
+     * Tells the LevelView to print the Entity
+     * @param entities set of Entity that have to be printed
+     */
+    public void render(final Set<SimpleEntity> entities) {
+        this.levelView.render(entities);
     }
 }
