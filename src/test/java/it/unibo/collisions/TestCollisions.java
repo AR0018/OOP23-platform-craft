@@ -38,20 +38,20 @@ public class TestCollisions {
   @Test
   public void testBuoundaries() {
     Position p = new Position2D(10, 10);
-    Position p1 = new Position2D(16, 5);
+    Position p1 = new Position2D(16, 9);
     List<Position> vertici = new ArrayList<>();
     vertici.add(p);
     vertici.add(new Position2D(16, 10));
-    vertici.add(new Position2D(16, 5));
-    vertici.add(new Position2D(10, 5));
+    vertici.add(new Position2D(16, 15));
+    vertici.add(new Position2D(10, 15));
     vertici.add(p);
 
     Boundaries boundaries = new BoundariesImpl(5, 6, p);
     Boundaries boundaries2 = new BoundariesImpl(2, 2, p1);
-    assertEquals(true, boundaries.contains(new Position2D(13, 8)));
+    assertEquals(true, boundaries.contains(new Position2D(13, 12)));
     assertEquals(true, boundaries2.intersects(boundaries));
     assertEquals(false, boundaries.intersectsLine(new Position2D(17, 10), new Position2D(19, 6)));
-    assertEquals(true, boundaries.contains(new Position2D(11, 9)));
+    assertEquals(true, boundaries.contains(new Position2D(11, 12)));
     assertEquals(vertici, boundaries.getVertices());
   }
 

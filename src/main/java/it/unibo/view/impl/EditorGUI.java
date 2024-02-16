@@ -193,15 +193,23 @@ public final class EditorGUI {
                     JOptionPane.showMessageDialog(frame, "The type of file is not .json",
                              "Error has occurred", JOptionPane.ERROR_MESSAGE);
                 }*/
-                JFileChooser file = new JFileChooser();
-                file.setAcceptAllFileFilterUsed(false);
-                file.addChoosableFileFilter(new FileNameExtensionFilter("*.json", "json"));
-                if (file.showSaveDialog(frame) == JFileChooser.APPROVE_OPTION) {
-                    if (file.getSelectedFile().getName().endsWith(".json")) {
-                        controller.getEditor().saveLevel(file.getSelectedFile());
-                    } else {
-                        JOptionPane.showMessageDialog(frame, "The type of file is not .json",
-                             "Error has occurred", JOptionPane.ERROR_MESSAGE); 
+                if (!controller.getEditor().canBeSaved()) {
+                    JOptionPane.showMessageDialog(frame, "The type of file cannot be saved",
+                             "Error has occurred", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    JFileChooser file = new JFileChooser();
+                    file.setAcceptAllFileFilterUsed(false);
+                    file.addChoosableFileFilter(new FileNameExtensionFilter("*.json", "json"));
+                    if (file.showSaveDialog(frame) == JFileChooser.APPROVE_OPTION) {
+                        if (file.getSelectedFile().getName().endsWith(".json")) {
+                            if (!controller.getEditor().saveLevel(file.getSelectedFile())) {
+                                JOptionPane.showMessageDialog(frame, "An error during the saving",
+                             "Error has occurred", JOptionPane.ERROR_MESSAGE);
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(frame, "The type of file is not .json",
+                                    "Error has occurred", JOptionPane.ERROR_MESSAGE); 
+                        }
                     }
                 }
             }
