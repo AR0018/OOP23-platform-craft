@@ -44,7 +44,7 @@ public class PaintPanel extends JPanel {
         final double levelHeight,
         final int defWidth,
         final int defHeight,
-        final Optional<Editor> editor) {
+        final Optional<EditorGUI> editor) {
         this.levelHeight = levelHeight;
         this.levelWidth = levelWidth;
         this.canvas = new Canvas(levelWidth, levelHeight, defWidth, defHeight);

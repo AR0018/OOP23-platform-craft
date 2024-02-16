@@ -86,8 +86,8 @@ public final class CharacterImpl extends GameEntityImpl implements Character {
                     .filter(x -> x.getGameEntity() instanceof Enemy)
                     .collect(Collectors.toSet());
             if (!enemySetCollision.isEmpty()) {
-                if (!(enemySetCollision.size() == 1 && 
-                        enemySetCollision.stream().findFirst().get().getDirection().equals(Direction.DOWN))) {
+                if (!(enemySetCollision.size() == 1 
+                        && enemySetCollision.stream().findFirst().get().getDirection().equals(Direction.DOWN))) {
                             setAlive(false);
                 }
                 /*if (!enemySetCollision.stream().findFirst().get().getDirection().equals(Direction.DOWN)) {

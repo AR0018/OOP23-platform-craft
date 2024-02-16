@@ -48,8 +48,10 @@ public final class TitleScreen {
     /**
      * Constructor to build the gui of the TitleScreen.
      * @param controller the controller of the game
+     * @param width the width of the map level
+     * @param heigth the heigth of the map level
      */
-    public TitleScreen(final Controller controller) {
+    public TitleScreen(final Controller controller, final double width, final double heigth) {
 
         final int numberRow = 3;
         final int numberCol = 1;
@@ -59,8 +61,8 @@ public final class TitleScreen {
         final int panelTopDim = 150;
         final int panelVerticalGap = 20;
 
-        this.levelView = new LevelViewImpl(controller);
-        this.editorView = new EditorViewImpl(controller);                   //TODO: problema serializer
+        this.levelView = new LevelViewImpl(controller, width, heigth);
+        this.editorView = new EditorViewImpl(controller, width, heigth);                   //TODO: problema serializer
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frame.setSize(new Dimension(XDIM, YDIM));
         this.frame.setMinimumSize(new Dimension(XDIM, YDIM));

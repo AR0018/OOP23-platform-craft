@@ -25,6 +25,7 @@ public final class SimpleEnemyImpl extends EnemyImpl {              //TODO: aggi
         super(position, level, EntityType.SIMPLE_ENEMY.getWidth(), EntityType.SIMPLE_ENEMY.getHeigth());
         this.physics = this.builder.setGameEntity(this)
                 //.addAccelerationOnX()
+                .addFallingPhysics()
                 .setSpeedOnX(SpeedLevels.SLOW)
                 .create();
     }

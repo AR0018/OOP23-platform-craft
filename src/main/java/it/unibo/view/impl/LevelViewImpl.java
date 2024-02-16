@@ -13,15 +13,21 @@ public final class LevelViewImpl implements LevelView {
 
     private final LevelGUI levelGUI;
     private final Controller controller;
+    private final double width;
+    private final double heigth;
     //private final PaintPanel paintPanel;
 
     /**
      * Constructor of the LevelViewImpl.
      * @param controller the controller of the game
+     * @param width of the map level
+     * @param heigth of the map level
      */
-    public LevelViewImpl(final Controller controller) {
+    public LevelViewImpl(final Controller controller, final double width, final double heigth) {
         this.controller = controller;
-        this.levelGUI = new LevelGUI(controller);
+        this.width = width;
+        this.heigth = heigth;
+        this.levelGUI = new LevelGUI(controller, width, heigth);
     }
 
     @Override
@@ -47,12 +53,12 @@ public final class LevelViewImpl implements LevelView {
     @Override
     public void displayWin() {
         //hide();                 //new Win(controller).display();    display fa hide di LevelView
-        new WinView(controller, this);      //prendo il level view per poterlo chiudere insieme
+        new WinView(this.controller, this, this.width, this.heigth); //prendo il level view per poterlo chiudere insieme
     }
 
     @Override
     public void displayGameOver() {
         //hide();
-        new GameOverView(controller, this);
+        new GameOverView(this.controller, this, this.width, this.heigth);
     }
 }
