@@ -37,13 +37,17 @@ public final class RunnerAgent extends Thread {
 
     @Override
     public void run() {
+        //TODO: test System.out.println("Agent: entita' del mio engine: " + this.engine.getLevelEntities());
+        //TODO: test System.out.println("Agent: inizio loop");
         while (!isInterrupted() && !isOver()) {
             long time = System.nanoTime();
+            //TODO: test System.out.println("Agent: continuo loop"); 
             executeCommands();
             this.engine.updateLevel();
             this.view.render(engine.getLevelEntities());
             waitForNextFrame(System.nanoTime() - time);
         }
+        //TODO: test System.out.println("Agent: esco dal loop");
         finish();
     }
 
@@ -84,6 +88,7 @@ public final class RunnerAgent extends Thread {
      * The parameter is the time already elapsed since the beginning of the frame.
      */
     private void waitForNextFrame(final long elapsed) {
+        // TODO: test System.out.println("Agent: elapsed: " + TimeUnit.NANOSECONDS.toMillis(elapsed));
         long waitTime = INTERVAL - TimeUnit.NANOSECONDS.toMillis(elapsed);
         try {
             Thread.sleep(waitTime);
@@ -99,6 +104,7 @@ public final class RunnerAgent extends Thread {
      */
     protected void notifyCommand(final Command command) {
         try {
+            //TODO: test System.out.println("Agent: ricevo il comando");
             this.commands.put(Objects.requireNonNull(command));
         } catch (final InterruptedException e) {
             interrupt();

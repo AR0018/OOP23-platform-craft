@@ -37,11 +37,17 @@ public final class LevelRunnerImpl implements LevelRunner {
     @Override
     public void run() {
         if (this.hasLoaded) {
+            //TODO: test System.out.println("Runner: starto l'Agent");
             this.runner = Optional.of(new RunnerAgent(this.engine, this.view));
             this.runner.get().start();
         } else {
             throw new IllegalStateException("No level has been correctly loaded in this LevelRunner");
         }
+    }
+
+    @Override
+    public void stopLevel() {
+        this.runner.get().interrupt();
     }
 
     @Override
@@ -68,5 +74,4 @@ public final class LevelRunnerImpl implements LevelRunner {
             return false;
         }
     }
-
 }

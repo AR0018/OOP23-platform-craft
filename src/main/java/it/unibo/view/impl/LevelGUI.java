@@ -26,6 +26,7 @@ import javax.swing.JMenuBar;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JOptionPane;
 
+import java.util.Objects;
 import java.util.Optional;
 
 import it.unibo.common.SimpleEntity;
@@ -51,6 +52,7 @@ public final class LevelGUI {
     //private final JPanel panelView = new JPanel();
     private final PaintPanel panelView;
     private Font fontButton;
+    private Controller controller;
 
     /**
      * Constructor of the LevelGUI used to build the view of the level.
@@ -61,6 +63,7 @@ public final class LevelGUI {
     public LevelGUI(final Controller controller, final double width, final double height) {
 
         this.panelView = new PaintPanel(controller, WIDTH_FRAME, HEIGHT_FRAME, Optional.empty());
+        this.controller = Objects.requireNonNull(controller);
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frame.setSize(new Dimension(WIDTH_FRAME, HEIGHT_FRAME));
         this.frame.setMinimumSize(new Dimension(WIDTH_FRAME, HEIGHT_FRAME));
@@ -86,7 +89,9 @@ public final class LevelGUI {
             e.printStackTrace();
         }
 
-        this.panelView.addKeyListener(new KeyListener() {
+        //TODO: test System.out.println("GUI startata, aggiungo key listener");
+
+        this.frame.addKeyListener(new KeyListener() {
 
             @Override
             public void keyTyped(final KeyEvent e) {
@@ -96,21 +101,31 @@ public final class LevelGUI {
             public void keyPressed(final KeyEvent e) {
                 int inputReceived = e.getKeyCode();
 
-                switch (inputReceived) {
-                    case KeyEvent.VK_W, KeyEvent.VK_UP, KeyEvent.VK_SPACE:
-                        controller.getRunner().notifyCommand(Command.MOVE_UP);
-                        break;
-                    case KeyEvent.VK_A, KeyEvent.VK_LEFT:
-                        controller.getRunner().notifyCommand(Command.MOVE_LEFT);
-                        break;
-                    case KeyEvent.VK_S, KeyEvent.VK_DOWN:
-                        controller.getRunner().notifyCommand(Command.MOVE_DOWN);
-                        break;
-                    case KeyEvent.VK_D, KeyEvent.VK_RIGHT:
-                        controller.getRunner().notifyCommand(Command.MOVE_RIGHT);
-                        break;
-                    default:
-                        break;
+                if (frame.isVisible()) {
+                    switch (inputReceived) {
+                        case KeyEvent.VK_W, KeyEvent.VK_UP, KeyEvent.VK_SPACE:
+                            System.out.println("Tasto su1");             //TODO: test
+                            controller.getRunner().notifyCommand(Command.MOVE_UP);
+                            System.out.println("Tasto su2");             //TODO: test
+                            break;
+                        case KeyEvent.VK_A, KeyEvent.VK_LEFT:
+                            System.out.println("Tasto sinistra1");             //TODO: test
+                            controller.getRunner().notifyCommand(Command.MOVE_LEFT);
+                            System.out.println("Tasto sinistra2");             //TODO: test
+                            break;
+                        case KeyEvent.VK_S, KeyEvent.VK_DOWN:
+                            System.out.println("Tasto destra1");             //TODO: test
+                            controller.getRunner().notifyCommand(Command.MOVE_DOWN);
+                            System.out.println("Tasto destra2");             //TODO: test
+                            break;
+                        case KeyEvent.VK_D, KeyEvent.VK_RIGHT:
+                            System.out.println("Tasto giu1");             //TODO: test
+                            controller.getRunner().notifyCommand(Command.MOVE_RIGHT);
+                            System.out.println("Tasto giu2");             //TODO: test
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
 
@@ -132,12 +147,14 @@ public final class LevelGUI {
                 if (JOptionPane.showConfirmDialog(frame, "Do you want to return to the Title Screen?",
                          "Quitting", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                     frame.setVisible(false);
+                    controller.getRunner().stopLevel();
                     new ViewImpl(controller, width, height).displayStart();
                 }
             }
         });
-        menuBar.add(menu);
+
         JComponent component = new JPanel(new BorderLayout());
+        menuBar.add(menu);
         component.setBorder(BorderFactory.createEmptyBorder(3, 3, 3, 3));
         component.setBackground(Color.GRAY);
         panelView.setBackground(Color.WHITE);
@@ -152,6 +169,7 @@ public final class LevelGUI {
      */
     public void show() {
         this.frame.setVisible(true);
+        this.controller.getRunner().run();
     }
 
     /**

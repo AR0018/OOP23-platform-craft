@@ -47,7 +47,12 @@ public final class EditorImpl implements Editor {
             //Adds to the Level every entity in the configuration passed
             entities.stream()
                 .map(e -> createFromSimpleEntity(e))
-                .forEach(e -> this.level.addGameEntity(e));
+                .forEach(e -> {
+                    this.level.addGameEntity(e);
+                    if (e instanceof Character) {
+                        this.level.setCharacter((Character) e);
+                    }
+                });
             this.hasCharacter = true;
             this.hasFinishLocation = true;
         }
@@ -72,6 +77,7 @@ public final class EditorImpl implements Editor {
     @Override
     public Optional<Engine> createLevel() {
         if (validLevel()) {
+            //TODO: test System.out.println("Editor: character del mio level: " + this.level.getCharacter());
             return Optional.of(new EngineImpl(new UnmodifiableLevel(level)));
         }
         return Optional.empty();

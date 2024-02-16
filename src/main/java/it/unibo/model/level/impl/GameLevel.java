@@ -115,6 +115,6 @@ public final class GameLevel implements Level {
 
     @Override
     public void setCharacter(final Character character) {
-        this.character = character;
+        this.character = Objects.requireNonNull(character);
     }
 }

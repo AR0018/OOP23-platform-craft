@@ -57,7 +57,7 @@ public final class LevelEditorImpl implements LevelEditor {
             this.editor = new EditorImpl(this.serializer.loadLevel(file));
             return true;
         } catch (IOException e) {
-            e.printStackTrace();    //TODO: test
+            //TODO: test e.printStackTrace();
             return false;
         }
     }

@@ -15,6 +15,11 @@ public interface LevelRunner {
     void run();
 
     /**
+     * Interrupts the running of the Level.
+     */
+    void stopLevel();
+
+    /**
      * Adds the command passed by input in a list of command that have to be processed.
      * @param command the type of command received
      * @throws IllegalStateException if loadLevel has never been called successfully,

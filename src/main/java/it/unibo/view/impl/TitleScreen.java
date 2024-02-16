@@ -120,6 +120,9 @@ public final class TitleScreen {
                     if (controller.getRunner().loadLevel(file.getSelectedFile())) {
                         frame.setVisible(false);
                         levelView.show();
+                    } else {
+                        JOptionPane.showMessageDialog(frame, "The selected file could not be loaded",
+                            "Loading error", JOptionPane.ERROR_MESSAGE);
                     }
                 }
             }
