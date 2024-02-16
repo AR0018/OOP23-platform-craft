@@ -31,12 +31,14 @@ public final class LevelEditorImpl implements LevelEditor {
 
     @Override
     public boolean addEntity(final SimpleEntity entity) {
-        return this.engine.addGameEntity(entity);
+        //return this.engine.addGameEntity(entity);
+        return false; //TODO: fix
     }
 
     @Override
     public boolean removeEntity(final double x, final double y) {
-        return this.engine.removeGameEntity(x, y);
+        //return this.engine.removeGameEntity(x, y);
+        return false; //TODO: fix
     }
 
     @Override
