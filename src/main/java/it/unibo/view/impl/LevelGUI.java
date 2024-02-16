@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -33,8 +34,8 @@ import it.unibo.controller.api.Controller;
  */
 public final class LevelGUI {
 
-    private static final int WIDTH_FRAME = 1280;
-    private static final int HEIGHT_FRAME = 960;
+    private static final int WIDTH_FRAME = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+    private static final int HEIGHT_FRAME = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
     private static final int MENUBAR_ORIZZONTAL_GAP = 20;
     private static final int MENUBAR_VERTICAL_GAP = 0;
     private static final int MENUBAR_TOP = 0;
@@ -44,7 +45,8 @@ public final class LevelGUI {
     private static final Dimension BUTTON_DIM = new Dimension(125, 35);
     private static final int THICKNESS = 4;
     private final JFrame frame = new JFrame();
-    private final JPanel panelView = new JPanel();              //TODO: sostituire con il PaintPanel
+    private final JPanel panelView = new JPanel();
+    //private final PaintPanel panelView;              //TODO: sostituire con il PaintPanel
     private Font fontButton;
 
     /**
@@ -52,6 +54,8 @@ public final class LevelGUI {
      * @param controller the controller of the game
      */
     public LevelGUI(final Controller controller) {
+
+        //this.panelView = new PaintPanel(controller, 16, 9, false, WIDTH_FRAME, HEIGHT_FRAME, null);
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frame.setSize(new Dimension(WIDTH_FRAME, HEIGHT_FRAME));
         this.frame.setMinimumSize(new Dimension(WIDTH_FRAME, HEIGHT_FRAME));

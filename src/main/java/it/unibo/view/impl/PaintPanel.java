@@ -26,7 +26,7 @@ public class PaintPanel extends JPanel {
     private final double levelHeight;
     private final Canvas canvas;
 
-    private Optional<EntityType> selected;
+    private transient Optional<EntityType> selected;
     private boolean remove;
 
     /**
@@ -34,19 +34,17 @@ public class PaintPanel extends JPanel {
      * @param controller the controller of the application
      * @param levelWidth the width of the level
      * @param levelHeight the heigth of the level
-     * @param mouseEnabled true if the inner Canvas must accept mouse clicks
      * @param defWidth the default width of the inner Canvas
      * @param defHeight the default height of the inner Canvas
-     * @param editor the parent frame
+     * @param editor the parent editor frame; if set to Optional.empty(), this Panel does not enable the mouse listener
      */
     public PaintPanel(
         final Controller controller,
         final double levelWidth,
         final double levelHeight,
-        final boolean mouseEnabled,
         final int defWidth,
         final int defHeight,
-        final Editor editor) {
+        final Optional<Editor> editor) {
         this.levelHeight = levelHeight;
         this.levelWidth = levelWidth;
         this.canvas = new Canvas(levelWidth, levelHeight, defWidth, defHeight);
@@ -60,7 +58,7 @@ public class PaintPanel extends JPanel {
                 resizeCanvas();
             }
         });
-        if (mouseEnabled) {
+        if (editor.isPresent()) {
             this.addMouseListener(new MouseListener() {
 
                 @Override
@@ -76,7 +74,7 @@ public class PaintPanel extends JPanel {
                                 convertToModelX(e.getX()),
                                 convertToModelY(e.getY())));
                         if (!success) {
-                            editor.youCannotAdd();
+                            editor.get().youCannotAdd();
                         }
                     }
                     if (success) {

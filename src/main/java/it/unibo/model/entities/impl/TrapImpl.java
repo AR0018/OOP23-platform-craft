@@ -49,6 +49,9 @@ public final class TrapImpl extends GameEntityImpl implements Trap {
 
     @Override
     public EntityType getType() {
+        if (this.state.equals(TrapState.DEAD)) {
+            return EntityType.EXPLOSION;
+        }
         return EntityType.TRAP;
     }
 
@@ -69,12 +72,12 @@ public final class TrapImpl extends GameEntityImpl implements Trap {
                 this.state = TrapState.ACTIVE;
             }
         }
-        if (this.state.equals(TrapState.ACTIVE) && checkTimer()) {
+        if (this.state.equals(TrapState.ACTIVE) && checkTimer(TIMER)) {
             time = System.currentTimeMillis();
             this.state = TrapState.DEAD;
             this.isLethal = true;
         }
-        if (checkTimer() && this.state.equals(TrapState.DEAD)) {
+        if (checkTimer(TIMER / 3) && this.state.equals(TrapState.DEAD)) {
             this.setAlive(false);
         }
     }
@@ -91,7 +94,7 @@ public final class TrapImpl extends GameEntityImpl implements Trap {
         return (Character) getLevel().getCharacter();
     }
 
-    private boolean checkTimer() {
-        return System.currentTimeMillis() - time >= TIMER;
+    private boolean checkTimer(final long timer) {
+        return System.currentTimeMillis() - time >= timer;
     }
 }

@@ -35,7 +35,6 @@ import it.unibo.controller.api.Controller;
 import javax.swing.JOptionPane;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
-import java.awt.Point;
 
 import java.awt.Toolkit;
 
@@ -63,12 +62,12 @@ public final class Editor {
     private static final int THICKNESS = 4;
     private static final int BUTTON_TEXT_SIZE = 20;
     private final JFrame frame = new JFrame();
-    private final JPanel panelView = new JPanel();              //TODO: sostituire con il PaintPanel
+    //private final JPanel panelView = new JPanel();
 
-    //private final PaintPanel panelView;
-    private Optional<EntityType> type = Optional.empty();
-    private Optional<Point> mousePosition = Optional.empty();
-    private boolean removeEntity = false;         //true == rimuovere
+    private final PaintPanel panelView;
+    //private Optional<EntityType> type = Optional.empty();
+    //private Optional<Point> mousePosition = Optional.empty();
+    //private boolean removeEntity = false;         //true == rimuovere
     private Font font;
     private Font fontButton;
 
@@ -78,7 +77,7 @@ public final class Editor {
      */
     public Editor(final Controller controller) {
 
-        //this.panelView = new PaintPanel(controller, 16, 9, WIDTH_FRAME, HEIGHT_FRAME, true, this);
+        this.panelView = new PaintPanel(controller, 16, 9, WIDTH_FRAME, HEIGHT_FRAME, Optional.of(this));
         //this.panelView.setPreferredSize(new Dimension(500, 500));
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frame.setSize(new Dimension(WIDTH_FRAME, HEIGHT_FRAME));     //1600, 900
@@ -258,9 +257,7 @@ public final class Editor {
             public void actionPerformed(final ActionEvent e) {
                 //removeEntity = true;
                 //type = Optional.empty();
-
-
-                //TODO: add->   panelView.setRemove();
+                panelView.setRemove();
             }
         });
         menuBar.add(menuButtons, BorderLayout.WEST);
@@ -299,13 +296,13 @@ public final class Editor {
 
 
         final JButton button1 = new JButton();
-        addImageToButton(button1, "SimpeEnemy", "src/main/resources/it/unibo/images/1 Pink_Monster/Pink_Monster.png");
+        addImageToButton(button1, "SimpeEnemy", "src/main/resources/it/unibo/images/Pink_Monster/Pink_Monster.png");
         addEntityFromButton(button1, EntityType.SIMPLE_ENEMY);
         box.add(button1);
 
 
         final JButton button2 = new JButton();
-        addImageToButton(button2, "Enemy", "src/main/resources/it/unibo/images/3 Dude_Monster/Dude_Monster.png");
+        addImageToButton(button2, "Enemy", "src/main/resources/it/unibo/images/Dude_Monster/Dude_Monster.png");
         addEntityFromButton(button2, EntityType.ENEMY);
         box.add(button2);
 
@@ -351,6 +348,7 @@ public final class Editor {
      */
     public void show() {
         this.frame.setVisible(true);
+        //this.panelView.render(Set.of(new SimpleEntityImpl(EntityType.CHARACTER, 3, 5), new SimpleEntityImpl(EntityType.TRAP, 6.7, 4.3)));
         this.frame.repaint();
         JOptionPane.showMessageDialog(frame, "If you want to add something, first press the button\n that represents"
                  + " the Game Entity you want to add" + "\nand then click on the central panel to add it.",
@@ -393,7 +391,7 @@ public final class Editor {
             public void actionPerformed(final ActionEvent e) {
                 //removeEntity = false;
                 //type = Optional.of(typeInput);
-                //TODO: add -> panelView.setSelectedEntity(typeInput);
+                panelView.setSelectedEntity(typeInput);
             }
         });
     }

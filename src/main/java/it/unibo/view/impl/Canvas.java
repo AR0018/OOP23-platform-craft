@@ -13,6 +13,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Panel that shows all the objects in the level.
@@ -20,15 +21,22 @@ import java.util.Set;
 public final class Canvas extends JPanel {
 
     private static final String ROOT = "./it/unibo/images/";
-    private static final String BACKGROUND = "Windows_XP.png"; //TODO: insert image
+    private static final String BACKGROUND = "XP.jpg"; //TODO: check if jpg works
     /*
      * Map that contains the associations between each entity type and its specified image.
      * To choose another image for the entities, modify the strings inside getSystemResource.
-     * TODO: complete this map with the wanted images
      */
-    private static final Map<EntityType, Image> TYPE_MAP = Map.of(
-        EntityType.CHARACTER, new ImageIcon(ClassLoader.getSystemResource(ROOT + "Owlet_Monster.png")).getImage()
+    private static final Map<EntityType, String> TYPE_MAP = Map.of(
+        EntityType.CHARACTER, ROOT + "Owlet_Monster.png",
+        EntityType.SIMPLE_ENEMY, ROOT + "Pink_Monster/Pink_Monster.png",
+        EntityType.ENEMY, ROOT + "Dude_Monster/Dude_Monster.png",
+        EntityType.FINISH_LOCATION, ROOT + "R.png",
+        EntityType.TRAP, ROOT + "piggy3.png",
+        EntityType.EXPLOSION, ROOT + "Explosion.png",
+        EntityType.MAP_ELEMENT, ROOT + "Block.png"
     );
+
+    private Map<EntityType, Image> imageMap;
 
     private final double levelWidth;
     private final double levelHeight;
@@ -50,6 +58,10 @@ public final class Canvas extends JPanel {
         this.levelWidth = levelWidth;
         this.background = new ImageIcon(ClassLoader.getSystemResource(ROOT + BACKGROUND)).getImage();
         this.displayed = new HashSet<>();
+        this.imageMap = TYPE_MAP.entrySet().stream()
+            .collect(Collectors.toMap(
+                e -> e.getKey(),
+                e -> new ImageIcon(ClassLoader.getSystemResource(e.getValue())).getImage()));
         this.setPreferredSize(new Dimension(defWidth, defHeight));
     }
 
@@ -60,7 +72,7 @@ public final class Canvas extends JPanel {
         this.displayed.stream()
             .forEach(
                 entity -> g.drawImage(
-                    TYPE_MAP.get(entity.getType()),
+                    imageMap.get(entity.getType()),
                     convertToPanelX(entity.getX()),
                     convertToPanelY(entity.getY()),
                     convertToPanelX(entity.getType().getWidth()),
