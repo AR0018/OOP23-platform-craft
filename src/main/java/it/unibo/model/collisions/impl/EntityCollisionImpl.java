@@ -32,12 +32,12 @@ public final class EntityCollisionImpl implements EntityCollision {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (obj == null || this.getClass() != obj.getClass()) {
             return false;
         }
         EntityCollision other = (EntityCollision) obj;
-        if(this.getDirection().equals(other.getDirection())
+        if (this.getDirection().equals(other.getDirection())
             && this.getGameEntity().equals(other.getGameEntity())) {
             return true;
         }
