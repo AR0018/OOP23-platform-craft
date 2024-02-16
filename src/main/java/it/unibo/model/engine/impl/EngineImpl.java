@@ -48,4 +48,8 @@ public class EngineImpl implements Engine {
     public GameState getGameState() {
         return this.level.getGameState();
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 879599ff2580276e79383a46ef5e6c674fc17bc1
