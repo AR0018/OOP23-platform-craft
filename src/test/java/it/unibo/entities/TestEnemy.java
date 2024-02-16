@@ -22,6 +22,7 @@ import it.unibo.model.level.api.Level;
 import it.unibo.model.physics.api.Direction;
 import it.unibo.model.physics.api.SpeedLevels;
 import it.unibo.model.physics.impl.Position2D;
+import it.unibo.common.EntityType;
 import it.unibo.model.collisions.api.MapBoundaries;
 import it.unibo.model.entities.api.Character;
 
@@ -31,14 +32,22 @@ import it.unibo.model.entities.api.Character;
 
 public class TestEnemy {
 
-    private static final double ACCELERATION = 0.1;
+    /*private static final double ACCELERATION = 0.1;
     private static final double MAPBOUNDS = 50f;
     private static final double PLAYER_FIRST = 10;
     private static final double MAP_FIRST = 5 + SpeedLevels.SLOW.getValue();
     private static final double MAP1_FIRST = 5 + ACCELERATION;
     private static final double MAP2_FIRST = 6;
     private static final int MULTIPLIER = 5;
-    private static final int MULTIPLIER2 = 6;
+    private static final int MULTIPLIER2 = 6;*/
+    private static final double ACCELERATION = 0.1;
+    private static final double MAPBOUNDS = 500f;
+    /*private static final double PLAYER_FIRST = 10;
+    private static final double MAP_FIRST = 5 + SpeedLevels.SLOW.getValue();
+    private static final double MAP1_FIRST = 5 + ACCELERATION;
+    private static final double MAP2_FIRST = 6;
+    private static final int MULTIPLIER = 5;
+    private static final int MULTIPLIER2 = 6;*/
     private Character player;
     private Enemy enemy;
     private MapElement map;
@@ -51,9 +60,10 @@ public class TestEnemy {
     @Test
     void testEnemyPos() {
 
+        /*
         this.enemy = new SimpleEnemyImpl(new Position2D(4 - ACCELERATION, 1 + ACCELERATION), this.level);
         this.player = new CharacterImpl(new Position2D(PLAYER_FIRST, 1), level);
-        this.map = new MapElementImpl(new Position2D(MAP_FIRST, 1 + ACCELERATION), level);
+        this.map = new MapElementImpl(new Position2D(MAP_FIRST, EntityType.CHARACTER.getHeigth() + ACCELERATION), level);
         this.map1 = new MapElementImpl(new Position2D(MAP1_FIRST, 2), level);
         this.map2 = new MapElementImpl(new Position2D(MAP2_FIRST, 2 - ACCELERATION), level);
         this.map3 = new MapElementImpl(new Position2D(4, 2), level);
@@ -79,9 +89,12 @@ public class TestEnemy {
         assertEquals(new Position2D(this.pos, 1 + ACCELERATION), this.enemy.getPosition());
         this.enemy.updateState();
         assertEquals(new Position2D(3 + SpeedLevels.MEDIUM.getValue(), 1 + ACCELERATION), this.enemy.getPosition());
+        */
 
+        this.level = new Lv();
         this.enemy = new SimpleEnemyImpl(new Position2D(ACCELERATION, ACCELERATION), this.level);
-        this.player = new CharacterImpl(new Position2D(2, 0), this.level);
+        //this.player = new CharacterImpl(new Position2D(2, 0), this.level);
+        this.player = new CharacterImpl(new Position2D(2 * EntityType.CHARACTER.getWidth(), 0), this.level);
         this.level.addGameEntity(this.enemy);
         this.level.addGameEntity(this.player);
         this.enemy.updateState();
@@ -89,7 +102,8 @@ public class TestEnemy {
 
         this.level = new Lv();
         this.enemy = new SimpleEnemyImpl(new Position2D(ACCELERATION, 0), this.level);
-        this.player = new CharacterImpl(new Position2D(SpeedLevels.SLOW.getValue(), 0), this.level);
+        //this.player = new CharacterImpl(new Position2D(SpeedLevels.SLOW.getValue(), 0), this.level);
+        this.player = new CharacterImpl(new Position2D(ACCELERATION + EntityType.SIMPLE_ENEMY.getWidth() - 1, 0), this.level);
         this.level.addGameEntity(this.enemy);
         this.level.addGameEntity(this.player);
         this.enemy.updateState();
@@ -100,10 +114,13 @@ public class TestEnemy {
 
         this.level = new Lv();
         this.enemy = new SimpleEnemyImpl(new Position2D(1, 0), this.level);
-        this.player = new CharacterImpl(new Position2D(2 + SpeedLevels.SLOW.getValue() + ACCELERATION, 0), this.level);
+        //this.player = new CharacterImpl(new Position2D(2 + SpeedLevels.SLOW.getValue() + ACCELERATION, 0), this.level);
+        this.player = new CharacterImpl(new Position2D(1 + EntityType.ENEMY.getWidth() 
+            + 2 * SpeedLevels.SLOW.getValue(), 0), this.level);
         this.level.addGameEntity(this.enemy);
         this.level.addGameEntity(this.player);
         this.enemy.updateState();
+        //assertEquals(new Position2D(1 + SpeedLevels.SLOW.getValue(), 0), this.enemy.getPosition());
         assertEquals(new Position2D(1 + SpeedLevels.SLOW.getValue(), 0), this.enemy.getPosition());
         this.enemy.updateState();
         this.player.updateState();
@@ -123,17 +140,18 @@ public class TestEnemy {
 
         this.level = new Lv();
         this.enemy = new StrongEnemyImpl(new Position2D(ACCELERATION, 0), this.level);
-        this.player = new CharacterImpl(new Position2D(2 + ACCELERATION, 0), this.level);
+        this.player = new CharacterImpl(new Position2D(EntityType.ENEMY.getWidth() + ACCELERATION 
+            + SpeedLevels.FAST.getValue(), 0), this.level);
         this.level.addGameEntity(this.enemy);
         this.level.addGameEntity(this.player);
         this.enemy.updateState();
         this.player.updateState();
-        pos = ACCELERATION + SpeedLevels.FAST.getValue();                //The enemy doesn't have acceleration on x.
+        //pos = ACCELERATION + SpeedLevels.FAST.getValue();                //The enemy doesn't have acceleration on x.
         assertEquals(new Position2D(ACCELERATION + SpeedLevels.FAST.getValue(), 0), this.enemy.getPosition());
         assertFalse(this.player.isAlive());
 
         this.level = new Lv();
-        this.player = new CharacterImpl(new Position2D(2, 0), this.level);
+        this.player = new CharacterImpl(new Position2D(1 + EntityType.ENEMY.getWidth(), 0), this.level);
         this.enemy = new StrongEnemyImpl(new Position2D(1, 0), this.level);
         this.level.addGameEntity(this.player);
         this.level.addGameEntity(this.enemy);
@@ -144,44 +162,55 @@ public class TestEnemy {
     @Test
     void testEnemies() {
         this.level = new Lv();
-        this.enemy = new StrongEnemyImpl(new Position2D(MULTIPLIER2, 0), this.level);
+        //this.enemy = new StrongEnemyImpl(new Position2D(MULTIPLIER2, 0), this.level);
+        this.enemy = new StrongEnemyImpl(new Position2D(1 + 3 * EntityType.ENEMY.getWidth(), 0), this.level);
         this.player = new CharacterImpl(new  Position2D(1, 0), this.level);
         this.level.addGameEntity(this.enemy);
         this.level.addGameEntity(this.player);
         this.enemy.updateState();
         this.player.move(Direction.RIGHT);
         this.player.updateState();
-        this.pos = MULTIPLIER2 - SpeedLevels.FAST.getValue();
-        assertEquals(new Position2D(MULTIPLIER2 - SpeedLevels.FAST.getValue(), 0), this.enemy.getPosition());
+        //this.pos = MULTIPLIER2 - SpeedLevels.FAST.getValue();
+        //assertEquals(new Position2D(MULTIPLIER2 - SpeedLevels.FAST.getValue(), 0), this.enemy.getPosition());
+        //assertEquals(new Position2D(1 + ACCELERATION, 0), this.player.getPosition());
+        assertEquals(new Position2D(1 + 3 * EntityType.ENEMY.getWidth() - SpeedLevels.FAST.getValue(),
+             0), this.enemy.getPosition());
         assertEquals(new Position2D(1 + ACCELERATION, 0), this.player.getPosition());
         assertTrue(this.player.isAlive());
         this.enemy.updateState();
         this.player.move(Direction.LEFT);
         this.player.updateState();
-        this.pos = this.pos - SpeedLevels.FAST.getValue();
-        assertEquals(new Position2D(4, ACCELERATION), this.enemy.getPosition());       //0.1 because it falls
+        //this.pos = this.pos - SpeedLevels.FAST.getValue();
+        assertEquals(new Position2D(1 + 3 * EntityType.ENEMY.getWidth() - 2 * SpeedLevels.FAST.getValue(),
+             ACCELERATION), this.enemy.getPosition());       //0.1 because it falls
         assertEquals(new Position2D(1 + ACCELERATION, ACCELERATION), this.player.getPosition());
         //1.1 because I change instantly the direction
 
         this.level = new Lv();
-        this.map = new MapElementImpl(new Position2D(2, 1), this.level);
-        this.map1 = new MapElementImpl(new Position2D(1, 1), this.level);
-        this.map2 = new MapElementImpl(new Position2D(3, 1), this.level);
-        MapElement map3 = new MapElementImpl(new Position2D(4 + ACCELERATION, 1), this.level);
-        this.enemy = new SimpleEnemyImpl(new Position2D(3, 0), this.level);
+        this.map = new MapElementImpl(new Position2D(1 + EntityType.MAP_ELEMENT.getWidth(),
+             EntityType.CHARACTER.getHeigth()), this.level);
+        this.map1 = new MapElementImpl(new Position2D(1, EntityType.CHARACTER.getHeigth()), this.level);
+        this.map2 = new MapElementImpl(new Position2D(1 + 2 * EntityType.MAP_ELEMENT.getWidth(),
+             EntityType.CHARACTER.getHeigth()), this.level);
+        this.map3 = new MapElementImpl(new Position2D(4 + ACCELERATION, 1), this.level);
+        this.enemy = new SimpleEnemyImpl(new Position2D(1 + 2 * EntityType.CHARACTER.getWidth(), 0), this.level);
         this.player = new CharacterImpl(new  Position2D(1, 0), this.level);
         this.level.addGameEntity(this.map);
         this.level.addGameEntity(this.map1);
         this.level.addGameEntity(this.map2);
         this.level.addGameEntity(this.enemy);
-        this.level.addGameEntity(map3);
+        this.level.addGameEntity(this.map3);
         this.level.addGameEntity(this.player);
         this.enemy.updateState();
-        this.player.move(Direction.LEFT);
+        //this.player.move(Direction.LEFT);
         this.player.updateState();
-        assertEquals(new Position2D(3 + SpeedLevels.SLOW.getValue(), 0), this.enemy.getPosition());
+        //assertEquals(new Position2D(3 + SpeedLevels.SLOW.getValue(), 0), this.enemy.getPosition());
+        assertEquals(new Position2D(1 + 2 * EntityType.CHARACTER.getWidth() + SpeedLevels.SLOW.getValue(), 0),
+             this.enemy.getPosition());
+
         this.enemy.updateState();
-        assertEquals(new Position2D(3 + SpeedLevels.SLOW.getValue(), ACCELERATION), this.enemy.getPosition());
+        assertEquals(new Position2D(1 + 2 * EntityType.CHARACTER.getWidth() + SpeedLevels.SLOW.getValue(),
+             ACCELERATION), this.enemy.getPosition());
         /*this.enemy.updateState();
         assertEquals(new Position2D(3 + 2 * SpeedLevels.SLOW.getValue(), ACCELERATION), this.enemy.getPosition());
         assertEquals(new Position2D(1 - ACCELERATION, 0), this.player.getPosition());

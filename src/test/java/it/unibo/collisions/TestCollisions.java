@@ -39,35 +39,43 @@ public class TestCollisions {
   public void testBuoundaries() {
     Position p = new Position2D(10, 10);
     Position p1 = new Position2D(16, 5);
+    Position p2 = new Position2D(0, 3);
+    List<Position> vertici1 = new ArrayList<>();
+    vertici1.add(p2);
+    vertici1.add(new Position2D(1, 3));
+    vertici1.add(new Position2D(1, 4));
+    vertici1.add(new Position2D(0, 4));
+    vertici1.add(p2);
     List<Position> vertici = new ArrayList<>();
     vertici.add(p);
     vertici.add(new Position2D(16, 10));
-    vertici.add(new Position2D(16, 5));
-    vertici.add(new Position2D(10, 5));
+    vertici.add(new Position2D(16, 15));
+    vertici.add(new Position2D(10, 15));
     vertici.add(p);
 
     Boundaries boundaries = new BoundariesImpl(5, 6, p);
-    Boundaries boundaries2 = new BoundariesImpl(2, 2, p1);
-    assertEquals(true, boundaries.contains(new Position2D(13, 8)));
+    Boundaries boundaries2 = new BoundariesImpl(11, 4, p1);
+    Boundaries boundaries3 = new BoundariesImpl(1, 1, p2);
+    assertEquals(true, boundaries.contains(new Position2D(16, 11))); 
     assertEquals(true, boundaries2.intersects(boundaries));
-    assertEquals(false, boundaries.intersectsLine(new Position2D(17, 10), new Position2D(19, 6)));
-    assertEquals(true, boundaries.contains(new Position2D(11, 9)));
+    assertEquals(true, boundaries3.intersectsLine(new Position2D(1, 1), new Position2D(1, 5)));
+    assertEquals(true, boundaries.contains(new Position2D(11, 11)));
     assertEquals(vertici, boundaries.getVertices());
   }
 
   @Test
   public void testCollisionsBox() {
     Level level = new LevelImpl();
-    GameEntity gameEntity = new SimpleEnemyImpl(new Position2D(1, 1), level);
+    GameEntity gameEntity = new SimpleEnemyImpl(new Position2D(1, 3), level);
     GameEntity otherEntity = new SimpleEnemyImpl(new Position2D(0, 3), level);
     CollisionBox box = new CollisionBoxImpl(2, 4, gameEntity, level.getBoundaries());
     assertEquals(true, box.isCollidingWith(otherEntity));
     Set<GameEntity> other = Set.of(new SimpleEnemyImpl(new Position2D(4, 5), level), otherEntity);
-    assertEquals(Set.of(new EntityCollisionImpl(otherEntity, Direction.DOWN)), box.getCollisions(other));
+    assertEquals(Set.of(new EntityCollisionImpl(otherEntity, Direction.LEFT)), box.getCollisions(other));
 
-    GameEntity gameEntity1 = new SimpleEnemyImpl(new Position2D(-1, 1), level);
+    GameEntity gameEntity1 = new SimpleEnemyImpl(new Position2D(-1, 3), level);
     GameEntity otherEntity1 = new SimpleEnemyImpl(new Position2D(0, 3), level);
-    CollisionBox box1 = new CollisionBoxImpl(2, 4, gameEntity1, level.getBoundaries());
+    CollisionBox box1 = new CollisionBoxImpl(1, 1, gameEntity1, level.getBoundaries());
     assertEquals(true, box1.isCollidingWith(otherEntity1));
     other = Set.of(new SimpleEnemyImpl(new Position2D(4, 5), level), otherEntity1);
     assertEquals(

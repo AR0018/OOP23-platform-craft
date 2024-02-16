@@ -60,8 +60,12 @@ public class BoundariesImpl implements Boundaries {
 
     @Override
     public final boolean contains(final Position position) {
-        return RectangleContains.contains(rectangle,
-            new GeometryFactory().createPoint(new Coordinate(position.getX(), position.getY())));
+       if (checkPerimeter(position) ||  RectangleContains.contains(rectangle,
+       new GeometryFactory().createPoint(new Coordinate(position.getX(), position.getY())))) {
+            return true;
+       }
+       
+        return false;
     }
 
     @Override
@@ -77,5 +81,20 @@ public class BoundariesImpl implements Boundaries {
     @Override
     public final double getHeight() {
        return this.height;
+    }
+
+    /**
+     * @return true if poin is in the perimeter.
+     */    
+    private boolean checkPerimeter(final Position position) {
+        if(position.getX() >= this.vertices.get(0).getX() && position.getX() <= this.vertices.get(1).getX() &&
+        (position.getY() == this.vertices.get(0).getY() || position.getY() == this.vertices.get(2).getX())) {
+            return true;
+        } else if (position.getY() >= this.vertices.get(0).getY() && position.getY() <= this.vertices.get(2).getY() &&
+            (position.getX() == this.vertices.get(0).getX() || position.getX() == this.vertices.get(1).getX())) {
+            return true;
+        }
+         
+        return false;
     }
 }
