@@ -20,7 +20,7 @@ public enum EntityType {
     /**
      * A simple enemy.
      */
-    SIMPLE_ENEMY(4, 3),
+    SIMPLE_ENEMY(1, 1),
     /**
      * An enemy in the game that follows the player.
      */

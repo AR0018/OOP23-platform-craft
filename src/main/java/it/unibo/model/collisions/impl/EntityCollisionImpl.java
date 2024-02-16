@@ -35,4 +35,9 @@ public class  EntityCollisionImpl implements EntityCollision{
         }
         return false;
     }
+
+    @Override
+    public String toString() {
+        return "EntityCollisionImpl[" + this.gameEntity + ", " + this.direction + "]";
+    }
 }
