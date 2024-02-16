@@ -14,7 +14,7 @@ import it.unibo.model.level.api.GameState;
 /**
  * An implementation of Engine.
  */
-public class EngineImpl implements Engine {
+public final class EngineImpl implements Engine {
 
     private final Level level;
 
@@ -32,7 +32,7 @@ public class EngineImpl implements Engine {
     }
 
     @Override
-    public void moveCharacter(Direction dir) {
+    public void moveCharacter(final Direction dir) {
         this.level.moveCharacter(dir);
     }
 

@@ -13,7 +13,7 @@ import it.unibo.model.physics.api.Direction;
  * This class is a Proxy to a Level, which allows reading operations
  * on the inner GameLevel, but disables modifications such as addGameEntity and removeGameEntity.
  */
-public class UnmodifiableLevel implements Level {
+public final class UnmodifiableLevel implements Level {
 
     private final Level level;
 
@@ -50,7 +50,7 @@ public class UnmodifiableLevel implements Level {
     }
 
     @Override
-    public void setCharacter(Character character) {
+    public void setCharacter(final Character character) {
         throw new UnsupportedOperationException("Modifying operations are disabled for this Level");
     }
 

@@ -15,6 +15,7 @@ import it.unibo.model.level.api.GameState;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * An implementation of Level.
@@ -37,6 +38,7 @@ public final class GameLevel implements Level {
         this.boundaries = new MapBoundariesimpl(height, width);
         this.gameState = GameState.RUNNING;
         this.levelConfiguration = new HashSet<>();
+        this.character = null;
     }
 
     @Override
@@ -113,7 +115,7 @@ public final class GameLevel implements Level {
     }
 
     @Override
-    public void setCharacter(Character character) {
+    public void setCharacter(final Character character) {
         this.character = character;
     }
 }

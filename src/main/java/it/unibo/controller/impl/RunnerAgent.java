@@ -20,7 +20,7 @@ public final class RunnerAgent extends Thread {
     private static final long INTERVAL = 20;
 
     private final BlockingQueue<Command> commands;
-    private final Engine engine;    //TODO: fix spotbugs "May expose internal representation by storing mutable object"
+    private final Engine engine;
     private final View view;
 
     /**
@@ -37,9 +37,6 @@ public final class RunnerAgent extends Thread {
 
     @Override
     public void run() {
-        /*if(!this.engine.levelCreated()) {
-            this.engine.createLevel();    //TODO: EXCEPTION if the configuration is invalid (this method returns false)
-        }*/
         while (!isInterrupted() && !isOver()) {
             long time = System.nanoTime();
             executeCommands();
@@ -109,4 +106,5 @@ public final class RunnerAgent extends Thread {
     }
 
     //protected void interruptRunning() : method to stop this thread, ending its execution
+    //TODO: decide whether to add
 }

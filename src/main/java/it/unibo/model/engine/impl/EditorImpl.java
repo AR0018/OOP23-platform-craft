@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 /**
  * An implementation of Editor.
  */
-public class EditorImpl implements Editor {
+public final class EditorImpl implements Editor {
     /*
      * The width and height of the created Level.
      */
@@ -57,7 +57,7 @@ public class EditorImpl implements Editor {
      * Checks if the configuration passed in input is valid.
      * A configuration is valid if it has exactly one Character and one FinishLocation.
      */
-    private boolean isValid(Set<SimpleEntity> entities) {
+    private boolean isValid(final Set<SimpleEntity> entities) {
         return entities.stream().filter(e -> e.getType().equals(EntityType.CHARACTER)).count() == 1
             && entities.stream().filter(e -> e.getType().equals(EntityType.FINISH_LOCATION)).count() == 1;
     }
@@ -87,7 +87,7 @@ public class EditorImpl implements Editor {
             return false;
         }
         GameEntity gameEntity = createFromSimpleEntity(entity);
-        if(canBeAdded(gameEntity)) {
+        if (canBeAdded(gameEntity)) {
             this.level.addGameEntity(gameEntity);
             if (gameEntity instanceof FinishLocation) {
                 this.hasFinishLocation = true;

@@ -46,7 +46,7 @@ public final class LevelEditorImpl implements LevelEditor {
         try {
             this.serializer.saveLevel(this.editor.getLevelEntities(), file);
             return true;
-        } catch (IOException e){
+        } catch (IOException e) {
             return false;
         }
     }
@@ -63,7 +63,7 @@ public final class LevelEditorImpl implements LevelEditor {
 
     @Override
     public boolean canBeSaved() {
-        return this.editor.createLevel().isEmpty() ? false : true;
+        return this.editor.createLevel().isEmpty();
     }
 
     @Override
