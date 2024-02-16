@@ -5,10 +5,6 @@ package it.unibo.model.level.api;
  */
 public enum GameState {
     /**
-     * the initial state of the var gameState.
-     */
-    STATE_UNKNOW,
-    /**
      * The game is still running.
      */
     RUNNING,
