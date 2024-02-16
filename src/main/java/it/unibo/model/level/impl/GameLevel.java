@@ -116,8 +116,4 @@ public final class GameLevel implements Level {
     public void setCharacter(Character character) {
         this.character = character;
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 879599ff2580276e79383a46ef5e6c674fc17bc1

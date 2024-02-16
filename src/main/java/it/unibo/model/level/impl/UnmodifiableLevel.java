@@ -68,8 +68,4 @@ public class UnmodifiableLevel implements Level {
     public MapBoundaries getBoundaries() {
         return this.level.getBoundaries();
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 879599ff2580276e79383a46ef5e6c674fc17bc1

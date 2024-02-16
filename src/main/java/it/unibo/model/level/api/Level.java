@@ -4,10 +4,6 @@ import java.util.Set;
 
 import it.unibo.model.collisions.api.MapBoundaries;
 import it.unibo.model.entities.api.Character;
-<<<<<<< HEAD
-=======
-import it.unibo.model.entities.api.FinishLocation;
->>>>>>> 879599ff2580276e79383a46ef5e6c674fc17bc1
 import it.unibo.model.entities.api.GameEntity;
 import it.unibo.model.physics.api.Direction;
 
