@@ -51,7 +51,7 @@ public final class CharacterImpl extends GameEntityImpl implements Character {
 
     @Override
     public void updateState() {
-        physic.calculateMovement();
+        this.setPosition(physic.calculateMovement());
         checkCollision();
     }
 
@@ -93,9 +93,13 @@ public final class CharacterImpl extends GameEntityImpl implements Character {
                     .filter(x -> x.getGameEntity() instanceof Enemy)
                     .collect(Collectors.toSet());
             if (!enemySetCollision.isEmpty()) {
-                if (!enemySetCollision.stream().findFirst().get().getDirection().equals(Direction.DOWN)) {
-                    setAlive(false);
+                if (!(enemySetCollision.size() == 1 && 
+                        enemySetCollision.stream().findFirst().get().getDirection().equals(Direction.DOWN))) {
+                            setAlive(false);
                 }
+                /*if (!enemySetCollision.stream().findFirst().get().getDirection().equals(Direction.DOWN)) {
+                    setAlive(false);
+                }*/
             }
     }
 

@@ -29,7 +29,7 @@ public final class StrongEnemyImpl extends EnemyImpl {
     public StrongEnemyImpl(final Position position, final Level level) {
         super(position, level, EntityType.ENEMY.getWidth(), EntityType.ENEMY.getHeigth());
         this.physics = this.builder.setGameEntity(this)
-                .addAccelerationOnX()
+                //.addAccelerationOnX()
                 .addFallingPhysics()
                 .setSpeedOnX(SpeedLevels.FAST)
                 .create();
@@ -50,10 +50,11 @@ public final class StrongEnemyImpl extends EnemyImpl {
             } else {
                 setDirection(Direction.LEFT);
             }
-        } else {
+        } /*else {
             this.physics.setMovement(getDirection());
-        }
-        this.physics.calculateMovement();
+        }*/
+        this.physics.setMovement(getDirection());
+        this.setPosition(this.physics.calculateMovement());
     }
 
     private boolean playerIsVisible(final Character character) {
@@ -61,15 +62,15 @@ public final class StrongEnemyImpl extends EnemyImpl {
 
         List<GameEntity> list = getLevel().getGameEntities()
                 .stream()
-                .filter(x -> x.getBoundaries().intersectsLine(getPosition(), charPos))
+                .filter(x -> x.getBoundaries().intersectsLine(this.getPosition(), charPos))
                 .filter(x -> !x.equals(this))
                 .filter(x -> !(x instanceof Character))
                 .toList();
 
         if (list.isEmpty()) {
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 
     private boolean playerInRange(final Character character) {

@@ -11,7 +11,7 @@ import it.unibo.model.physics.impl.PhysicsBuilderImpl;
 /**
  * Models the concept of SimpleEnemy extending from EnemyImpl.
  */
-public final class SimpleEnemyImpl extends EnemyImpl {
+public final class SimpleEnemyImpl extends EnemyImpl {              //TODO: aggiungere fisica
 
     private final Physics physics; 
     private PhysicsBuilder builder = new PhysicsBuilderImpl();
@@ -24,8 +24,9 @@ public final class SimpleEnemyImpl extends EnemyImpl {
     public SimpleEnemyImpl(final Position position, final Level level) {
         super(position, level, EntityType.SIMPLE_ENEMY.getWidth(), EntityType.SIMPLE_ENEMY.getHeigth());
         this.physics = this.builder.setGameEntity(this)
+                //.addAccelerationOnX()
                 .setSpeedOnX(SpeedLevels.SLOW)
-                .addAccelerationOnX().create();
+                .create();
     }
 
     /**
@@ -33,7 +34,7 @@ public final class SimpleEnemyImpl extends EnemyImpl {
      */
     protected void moveEnemy() {
         this.physics.setMovement(getDirection());
-        this.physics.calculateMovement();
+        this.setPosition(this.physics.calculateMovement());
     }
 
     @Override
