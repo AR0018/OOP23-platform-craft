@@ -52,8 +52,10 @@ public final class LevelGUI {
     /**
      * Constructor of the LevelGUI used to build the view of the level.
      * @param controller the controller of the game
+     * @param width of the map level
+     * @param heigth of the map level
      */
-    public LevelGUI(final Controller controller) {
+    public LevelGUI(final Controller controller, final double width, final double heigth) {
 
         //this.panelView = new PaintPanel(controller, 16, 9, false, WIDTH_FRAME, HEIGHT_FRAME, null);
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -127,7 +129,7 @@ public final class LevelGUI {
                 if (JOptionPane.showConfirmDialog(frame, "Do you want to return to the Title Screen?",
                          "Quitting", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                     frame.setVisible(false);
-                    new ViewImpl(controller).displayStart();
+                    new ViewImpl(controller, width, heigth).displayStart();
                 }
             }
         });
@@ -164,6 +166,10 @@ public final class LevelGUI {
         return this.frame.isVisible();
     }
 
+    /**
+     * Shows on the screen all the entities of the set.
+     * @param entities set of the entities
+     */
     public void render(final Set<SimpleEntity> entities) {
         //this.panelView.render(entities);
     }

@@ -47,7 +47,7 @@ import java.awt.Toolkit;
 /**
  * Class used to build the editor GUI.
  */
-public final class Editor {
+public final class EditorGUI {
 
     private static final int WIDTH_FRAME = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
     private static final int HEIGHT_FRAME = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
@@ -75,9 +75,9 @@ public final class Editor {
      * Constructor of the Editor class.
      * @param controller the controller of the game
      */
-    public Editor(final Controller controller) {
+    public EditorGUI(final Controller controller, final double width, final double heigth) {
 
-        this.panelView = new PaintPanel(controller, 16, 9, WIDTH_FRAME, HEIGHT_FRAME, Optional.of(this));
+        this.panelView = new PaintPanel(controller, width, heigth, WIDTH_FRAME, HEIGHT_FRAME, Optional.of(this));
         //this.panelView.setPreferredSize(new Dimension(500, 500));
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frame.setSize(new Dimension(WIDTH_FRAME, HEIGHT_FRAME));     //1600, 900
@@ -172,7 +172,7 @@ public final class Editor {
                 if (JOptionPane.showConfirmDialog(frame, "Do you want to return to the Title Screen",
                          "Quitting", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                     frame.setVisible(false);
-                    new ViewImpl(controller).displayStart();
+                    new ViewImpl(controller, width, heigth).displayStart();
                 }
             }
         });
@@ -348,7 +348,6 @@ public final class Editor {
      */
     public void show() {
         this.frame.setVisible(true);
-        //this.panelView.render(Set.of(new SimpleEntityImpl(EntityType.CHARACTER, 3, 5), new SimpleEntityImpl(EntityType.TRAP, 6.7, 4.3)));
         this.frame.repaint();
         JOptionPane.showMessageDialog(frame, "If you want to add something, first press the button\n that represents"
                  + " the Game Entity you want to add" + "\nand then click on the central panel to add it.",

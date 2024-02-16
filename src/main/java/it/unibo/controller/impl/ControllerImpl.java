@@ -12,6 +12,7 @@ import it.unibo.view.impl.ViewImpl;
 public final class ControllerImpl implements Controller {
 
     private final LevelEditor levelEditor;
+    //TODO: private final Editor editor;
     //private final LevelRunner levelRunner;
     private boolean startIsValid = true;    //true se si può invocare start, false no
 
@@ -21,6 +22,7 @@ public final class ControllerImpl implements Controller {
     public ControllerImpl() {   //final Engine engine nel costruttore?
         //this.engine = engine;
         this.levelEditor = new LevelEditorImpl();
+        //TODO: this.editor = new EditorImpl();
         //this.levelRunner = new LevelRunnerImpl();
         //this.entities = this.engine.getLevelEntities();
     }
@@ -28,7 +30,7 @@ public final class ControllerImpl implements Controller {
     @Override
     public void start() {
         if (this.startIsValid) {
-            new ViewImpl(this).displayStart();
+            //TODO: new ViewImpl(this).displayStart();
             this.startIsValid = false;
         } else {
             throw new IllegalStateException("The start method cannot be invoked anymore");
