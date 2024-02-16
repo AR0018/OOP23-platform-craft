@@ -21,6 +21,7 @@ import it.unibo.model.collisions.impl.BorderCollisionImpl;
 import it.unibo.model.collisions.impl.BoundariesImpl;
 import it.unibo.model.collisions.impl.CollisionBoxImpl;
 import it.unibo.model.collisions.impl.EntityCollisionImpl;
+import it.unibo.model.entities.api.Character;
 import it.unibo.model.entities.api.GameEntity;
 import it.unibo.model.entities.impl.GameEntityFactoryImpl;
 import it.unibo.model.entities.impl.SimpleEnemyImpl;
@@ -101,12 +102,6 @@ public class TestCollisions {
     }
 
     @Override
-    public void addFinishLocation(Position position) {
-      // TODO Auto-generated method stub
-      throw new UnsupportedOperationException("Unimplemented method 'addFinishLocation'");
-    }
-
-    @Override
     public GameState getGameState() {
       // TODO Auto-generated method stub
       throw new UnsupportedOperationException("Unimplemented method 'getGameState'");
@@ -123,6 +118,17 @@ public class TestCollisions {
       return new MapBoundariesimpl(50, 50);
     }
 
+    @Override
+    public void setCharacter(Character character) {
+      // TODO Auto-generated method stub
+      throw new UnsupportedOperationException("Unimplemented method 'setCharacter'");
+    }
+
+    @Override
+    public void removeGameEntity(GameEntity entity) {
+      // TODO Auto-generated method stub
+      throw new UnsupportedOperationException("Unimplemented method 'removeGameEntity'");
+    }
   }
 }
 

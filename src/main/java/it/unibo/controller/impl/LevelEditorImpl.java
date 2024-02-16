@@ -7,7 +7,6 @@ import java.util.Set;
 import it.unibo.common.SimpleEntity;
 import it.unibo.controller.api.LevelEditor;
 import it.unibo.controller.api.LevelSerializer;
-import it.unibo.model.engine.api.Engine;
 
 /**
  * Models the controller of the game's editor.

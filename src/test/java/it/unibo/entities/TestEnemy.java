@@ -20,7 +20,6 @@ import it.unibo.model.entities.impl.StrongEnemyImpl;
 import it.unibo.model.level.api.GameState;
 import it.unibo.model.level.api.Level;
 import it.unibo.model.physics.api.Direction;
-import it.unibo.model.physics.api.Position;
 import it.unibo.model.physics.api.SpeedLevels;
 import it.unibo.model.physics.impl.Position2D;
 import it.unibo.model.collisions.api.MapBoundaries;
@@ -223,12 +222,6 @@ public class TestEnemy {
         }
 
         @Override
-        public void addFinishLocation(final Position position) {
-            //Auto-generated method stub
-            throw new UnsupportedOperationException("Unimplemented method 'addFinishLocation'");
-        }
-
-        @Override
         public GameState getGameState() {
             //Auto-generated method stub
             throw new UnsupportedOperationException("Unimplemented method 'getGameState'");
@@ -242,6 +235,18 @@ public class TestEnemy {
         @Override
         public MapBoundaries getBoundaries() {
             return new MapBoundariesimpl(MAPBOUNDS, MAPBOUNDS);
+        }
+
+        @Override
+        public void setCharacter(Character character) {
+            // TODO Auto-generated method stub
+            throw new UnsupportedOperationException("Unimplemented method 'setCharacter'");
+        }
+
+        @Override
+        public void removeGameEntity(GameEntity entity) {
+            // TODO Auto-generated method stub
+            throw new UnsupportedOperationException("Unimplemented method 'removeGameEntity'");
         }
     }
 }

@@ -42,6 +42,7 @@ public final class CharacterImpl extends GameEntityImpl implements Character {
                 .create();
     }
 
+
     @Override
     public void updateState() {
         this.setPosition(physic.calculateMovement());
