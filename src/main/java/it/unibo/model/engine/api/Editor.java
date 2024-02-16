@@ -1,11 +1,9 @@
 package it.unibo.model.engine.api;
 
+import java.util.Optional;
 import java.util.Set;
 
 import it.unibo.common.SimpleEntity;
-import it.unibo.model.entities.api.GameEntity;
-import it.unibo.model.level.api.GameState;
-import it.unibo.model.physics.api.Direction;
 
 /**
  * Models the Engine of the game, whose role is to configure a Level
@@ -19,12 +17,11 @@ public interface Editor {
      * Creates a runnable Level based on the current configuration.
      * The Level is created only if the configuration is valid.
      * 
-     * A valid configuration must include a starting point for the player
-     * and a finish location.
-     * @return true if the configuration is valid and the Level can be created, 
-     *      false otherwise
+     * A valid configuration must include a starting point for the player and a finish location.
+     * @return an Optional containing the Engine if the Level has been created,
+     * an empty Optional if the Level cannot be created
      */
-    Editor createLevel();
+    Optional<Engine> createLevel();
 
     /**
      * Adds an entity to the configuration of the Level.
@@ -41,23 +38,24 @@ public interface Editor {
      */
     boolean removeGameEntity(double x, double y);
 
-   
     /**
-     * reset the level configuration;
-     * @param configuration
+     * Resets the level configuration, creating a new one from scratch.
      */
     void clearAll();
 
-    
-
     /**
-     * @return the state of the game in the current Level
-     */
-    GameState getGameState();
-
-    /**
-     * All the entities that appear in the game are memorized inside a Set.
-     * @return the set that contains all the entities should display by the view
+     * Returns all the entities in the current Level configuration.
+     * @return the set that contains all the entities in the current configuration
      */
     Set<SimpleEntity> getLevelEntities();
+
+    /**
+     * @return the width of the Level created by this Editor
+     */
+    double getLevelWidth();
+
+    /**
+     * @return the height of the Level created by this Editor
+     */
+    double getLevelHeight();
 }

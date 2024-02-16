@@ -1,12 +1,10 @@
 package it.unibo.model.level.api;
 
-import java.util.List;
 import java.util.Set;
 
 import it.unibo.model.entities.api.GameEntity;
 import it.unibo.model.level.impl.MapBoundaries;
 import it.unibo.model.physics.api.Direction;
-import it.unibo.model.physics.api.Position;
 
 /**
  * Models the concept of a Level in the game.

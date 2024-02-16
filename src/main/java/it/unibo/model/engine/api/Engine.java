@@ -5,11 +5,11 @@ import java.util.Set;
 import it.unibo.common.SimpleEntity;
 import it.unibo.model.physics.api.Direction;
 
-
+/**
+ * Models an Engine used to update a Level during a game.
+ */
 public interface Engine {
-
-    
- /**
+    /**
      * Updates the current Level.
      */
     void updateLevel();
@@ -20,9 +20,9 @@ public interface Engine {
      */
     void moveCharacter(Direction dir);
 
-     /**
+    /**
      * All the entities that appear in the game are memorized inside a Set.
-     * @return the set that contains all the entities should display by the view
+     * @return the set that contains all the entities that are currently in the level
      */
     Set<SimpleEntity> getLevelEntities();
 

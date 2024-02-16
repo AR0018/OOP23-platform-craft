@@ -3,6 +3,7 @@ package it.unibo.model.level.impl;
 import java.util.Set;
 
 import it.unibo.common.EntityType;
+import it.unibo.model.collisions.api.EntityCollision;
 import it.unibo.model.engine.impl.EngineImpl;
 import it.unibo.model.entities.api.FinishLocation;
 import it.unibo.model.entities.api.GameEntity;
@@ -13,78 +14,69 @@ import it.unibo.model.level.api.Level;
 import it.unibo.model.level.api.GameState;
 import it.unibo.model.level.impl.MapBoundaries;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
+import java.util.Objects;
 
-
-public class GameLevel implements Level {
+/**
+ * An implementation of Level.
+ */
+public final class GameLevel implements Level {
 
     private Set<GameEntity> levelConfiguration; // set of GameEntity contains all game entity
-    private Set<GameEntity> enemyEntities; // set of enemy
-    private Set<GameEntity> trapEntities; //set of trap
-    private GameEntity finishLocation; // Save the finish location
-    private Character characterEntity; // save the Charachter
-    private GameEntity startLocation;// save the Start Location
-    private GameState gameState = GameState.STATE_UNKNOW; // save the game state
-    private MapBoundaries boundaries = new MapBoundaries();
+    private Character character; // save the Charachter
+    private GameState gameState; // save the game state
+    private MapBoundaries boundaries;
 
-    public GameLevel(Set<GameEntity> entities, Character character,FinishLocation finish) {
-
-        this.levelConfiguration = entities;
-        this.enemyEntities = new HashSet<>();
-        this.trapEntities = new HashSet<>();
-        this.finishLocation = finish;
-        this.characterEntity = character;  
-         
+    /**
+     * The constructor of this Level.
+     * @param entities the set of all the entities in the Level
+     * @param character the character in the Level
+     * @param width the width of the Level
+     * @param height the height of the Level
+     */
+    public GameLevel(final Set<GameEntity> entities, final Character character, final double width, final double height) {
+        this.levelConfiguration = Objects.requireNonNull(entities);
+        this.character = Objects.requireNonNull(character);
+        this.boundaries = new MapBoundariesimpl(height, width);
+        this.gameState = GameState.RUNNING;
     }
-
 
     @Override
     public Set<GameEntity> getGameEntities() {
-      return this.levelConfiguration;
+        return Collections.unmodifiableSet(this.levelConfiguration);
     }
-
-    
 
     @Override
     public void computeChanges() {
+        levelConfiguration.stream().forEach(GameEntity::updateState);
+        checkWin();
+        //If the character is dead, the player loses.
+        if (!character.isAlive()) {
+            this.gameState = GameState.GAMEOVER;
+        }
+        removeDeadEntities();
+    }
 
-        for (GameEntity gameEntity : levelConfiguration) {
-            gameEntity.updateState();
+    /*
+     * Checks if the win conditions are met.
+     * If the Character touches the finish location, the player wins.
+     */
+    private void checkWin() {
+        Set<EntityCollision> entityCollisions = new HashSet<>();
+        character.getCollisions()
+            .stream()
+            .filter(e -> e instanceof EntityCollision)
+            .forEach(e -> entityCollisions.add((EntityCollision) e));
+        if (entityCollisions.stream()
+            .map(coll -> coll.getGameEntity()).anyMatch(e -> e instanceof FinishLocation)) {
+            this.gameState = GameState.WIN;
         }
-        /**
-         * Check the Character position, if it's the same of the finishLocation
-         * gameState = WIN.
-         */
-        if(characterEntity.getCollisions().stream().filter(e->e instanceof EntityCollision)){
-                    this.gameState = GameState.WIN;
-        } 
-        /**
-         * Check the Character state
-         * isAlive() -> true -> gameState RUNNING;
-         * isAlive()-> false -> gamestate GAMEOVER;
-         */
-        if(characterEntity.isAlive()){
-            this.gameState=GameState.RUNNING;
-        }else{
-            this.gameState=GameState.GAMEOVER;
-        }
-        // Check if the charachter colliding with the low limit of the map.
-        if(characterEntity.getPosition().getY()==0){
-            this.gameState=GameState.GAMEOVER;
-        }
-        this.gameState=GameState.RUNNING;
     }
 
     @Override
-    public void moveCharacter(Direction dir) {
-        // check if the dir is null
-        if(dir!=null){
-            this.character.move(dir);
-        }else{
-            throw new UnsupportedOperationException("Invalid direction");
-        }
+    public void moveCharacter(final Direction dir) {
+        this.character.move(Objects.requireNonNull(dir));
     }
 
     @Override
@@ -95,55 +87,21 @@ public class GameLevel implements Level {
 
     @Override
     public GameEntity getCharacter() {
-        return this.characterEntity;
+        return this.character;
     }
 
-    /**
-     * Adds a finish location to the Level.
-     * If the Character touches this location, the game must end.
-     * @param position the position in which to put the finish location
+    /*
+     * Removes every dead entity in the level (isAlive == false).
      */
-    public void addFinishLocation(Position position) {
-        // Check if the finish location already exists at the specified position
-        boolean finishExists = levelConfiguration.stream()
-                .anyMatch(finishLocation -> finishLocation.getPosition().equals(position));
-    
-        // If the finish location doesn't already exist, add it
-        if (!finishExists) {
-              
-             levelConfiguration.add(finishLocation);
-        }
-    }
-
-    @Override
-    public void removeEnemyEntity(GameEntity entity) {
-       if(entity!=null && entity.getType()==EntityType.ENEMY){
-            for (GameEntity gameEntity : enemyEntities) {
-                if(gameEntity.getPosition().getX()==entity.getPosition().getX() &&  //check the enemy in the set.
-                     gameEntity.getPosition().getY()==entity.getPosition().getY()){
-                        this.enemyEntities.remove(entity);
-                        this.levelConfiguration.remove(entity); 
-                }
-            }
-        }
-    }
-
-    
-    private void removeEntity() {
+    private void removeDeadEntities() {
         Set<GameEntity> entitiesToCheck = new HashSet<>(levelConfiguration);
-        for (GameEntity gameEntity : entitiesToCheck) {
-            if(!gameEntity.isAlive()){
-                levelConfiguration.remove(gameEntity);
-            }
-        }
-        
+        entitiesToCheck.stream()
+            .filter(e -> !e.isAlive())
+            .forEach(e -> levelConfiguration.remove(e));
     }
 
     @Override
-    public MapBoundaries getlevelBoundaries() {
-        return boundaries;
-    }
-
-
-    
+    public MapBoundaries getBoundaries() {
+        return this.boundaries;
+    } 
 }
