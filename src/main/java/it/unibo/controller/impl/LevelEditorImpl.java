@@ -13,8 +13,8 @@ import it.unibo.model.engine.api.Engine;
  * Models the controller of the game's editor.
  */
 public final class LevelEditorImpl implements LevelEditor {
-    //TODO: tipo di oggetto da aggiungere
-    private Engine engine;
+    //TODO:
+    //private final Editor editor;
     private LevelSerializer serializer = new SerializerImpl();
 
     /**
@@ -22,33 +22,35 @@ public final class LevelEditorImpl implements LevelEditor {
      * It's empty.
      */
     public LevelEditorImpl() {
+        //this.editor = new EditorImpl(Set.of());
     }
 
     @Override
     public void reset() {
-        //TODO: this.engine = new Engine(); 
+        //TODO: this.editor.clearAll(); 
     }
 
     @Override
     public boolean addEntity(final SimpleEntity entity) {
-        //return this.engine.addGameEntity(entity);
+        //return this.editor.addGameEntity(entity);
         return false; //TODO: fix
     }
 
     @Override
     public boolean removeEntity(final double x, final double y) {
-        //return this.engine.removeGameEntity(x, y);
+        //return this.editor.removeGameEntity(x, y);
         return false; //TODO: fix
     }
 
     @Override
     public boolean saveLevel(final File file) {
-        try {
-            this.serializer.saveLevel(this.engine.getLevelEntities(), file);
+        /*try {
+            this.serializer.saveLevel(this.editor.getLevelEntities(), file);
             return true;
         } catch (IOException e){
             return false;
-        }
+        }*/
+        return false;
     }
 
     @Override
@@ -63,13 +65,25 @@ public final class LevelEditorImpl implements LevelEditor {
 
     @Override
     public boolean canBeSaved() {
-        //TODO: aspettare editor model
+        //TODO: return this.editor.createLevel().isEmpty() ? false : true;
         return false;
     }
 
     @Override
     public Set<SimpleEntity> getCurrentEntities() {
-        //return this.engine.getLevelEntities();            //TODO: engine
+        //return this.editor.getLevelEntities();
         return null;
+    }
+
+    @Override
+    public double getLevelWidth() {
+        //this.editor.getLevelWidth();
+        return 0;
+    }
+
+    @Override
+    public double getLevelHeight() {
+        //this.editor.getLevelHeight();
+        return 0;
     }
 }

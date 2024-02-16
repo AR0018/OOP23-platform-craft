@@ -64,20 +64,19 @@ public final class EditorGUI {
     private final JFrame frame = new JFrame();
     //private final JPanel panelView = new JPanel();
 
-    private final PaintPanel panelView;
-    //private Optional<EntityType> type = Optional.empty();
-    //private Optional<Point> mousePosition = Optional.empty();
-    //private boolean removeEntity = false;         //true == rimuovere
+    private /*final*/ PaintPanel panelView;
     private Font font;
     private Font fontButton;
 
     /**
      * Constructor of the Editor class.
      * @param controller the controller of the game
+     * @param width the width of the game level
+     * @param height the heigth of the game level
      */
-    public EditorGUI(final Controller controller, final double width, final double heigth) {
+    public EditorGUI(final Controller controller, final double width, final double height) {
 
-        this.panelView = new PaintPanel(controller, width, heigth, WIDTH_FRAME, HEIGHT_FRAME, Optional.of(this));
+        //this.panelView = new PaintPanel(controller, width, heigth, WIDTH_FRAME, HEIGHT_FRAME, Optional.of(this));
         //this.panelView.setPreferredSize(new Dimension(500, 500));
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frame.setSize(new Dimension(WIDTH_FRAME, HEIGHT_FRAME));     //1600, 900
@@ -172,7 +171,7 @@ public final class EditorGUI {
                 if (JOptionPane.showConfirmDialog(frame, "Do you want to return to the Title Screen",
                          "Quitting", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                     frame.setVisible(false);
-                    new ViewImpl(controller, width, heigth).displayStart();
+                    new ViewImpl(controller, width, height).displayStart();
                 }
             }
         });

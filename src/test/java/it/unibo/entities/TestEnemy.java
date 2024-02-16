@@ -34,11 +34,16 @@ public class TestEnemy {
 
     private static final double ACCELERATION = 0.1;
     private static final double MAPBOUNDS = 50f;
+    private static final double PLAYER_FIRST = 10;
+    private static final double MAP_FIRST = 5 + SpeedLevels.SLOW.getValue();
+    private static final double MAP1_FIRST = 5 + ACCELERATION;
+    private static final double MAP2_FIRST = 6;
     private Character player;
     private Enemy enemy;
     private MapElement map;
     private MapElement map1;
     private MapElement map2;
+    private MapElement map3;
     private Level level = new Lv();
     private double pos;
 
@@ -46,11 +51,11 @@ public class TestEnemy {
     void testEnemyPos() {
 
         this.enemy = new SimpleEnemyImpl(new Position2D(4 - ACCELERATION, 1 + ACCELERATION), this.level);
-        this.player = new CharacterImpl(new Position2D(10, 1), level);
-        this.map = new MapElementImpl(new Position2D(5 + SpeedLevels.SLOW.getValue(), 1 + ACCELERATION), level);
-        this.map1 = new MapElementImpl(new Position2D(5 + ACCELERATION, 2), level);
-        this.map2 = new MapElementImpl(new Position2D(6, 2 - ACCELERATION), level);
-        MapElement map3 = new MapElementImpl(new Position2D(4, 2), level);
+        this.player = new CharacterImpl(new Position2D(PLAYER_FIRST, 1), level);
+        this.map = new MapElementImpl(new Position2D(MAP_FIRST, 1 + ACCELERATION), level);
+        this.map1 = new MapElementImpl(new Position2D(MAP1_FIRST, 2), level);
+        this.map2 = new MapElementImpl(new Position2D(MAP2_FIRST, 2 - ACCELERATION), level);
+        this.map3 = new MapElementImpl(new Position2D(4, 2), level);
 
         this.level.addGameEntity(enemy);
         this.level.addGameEntity(player);
@@ -60,13 +65,17 @@ public class TestEnemy {
         this.level.addGameEntity(map3);
 
         this.enemy.updateState();
-        assertEquals(new Position2D(4 + 2 * ACCELERATION, 1 + ACCELERATION), this.enemy.getPosition());
+        this.pos = 4 + 2 * ACCELERATION;
+        assertEquals(new Position2D(this.pos, 1 + ACCELERATION), this.enemy.getPosition());
         this.enemy.updateState();
-        assertEquals(new Position2D(4 + 5 * ACCELERATION, 1 + ACCELERATION), this.enemy.getPosition());
+        this.pos = 4 + 5 * ACCELERATION;
+        assertEquals(new Position2D(this.pos, 1 + ACCELERATION), this.enemy.getPosition());
         this.enemy.updateState();
-        assertEquals(new Position2D(4 + 2 * ACCELERATION, 1 + ACCELERATION), this.enemy.getPosition());
+        this.pos = 4 + 2 * ACCELERATION;
+        assertEquals(new Position2D(this.pos, 1 + ACCELERATION), this.enemy.getPosition());
         this.enemy.updateState();
-        assertEquals(new Position2D(4 - ACCELERATION, 1 + ACCELERATION), this.enemy.getPosition());
+        this.pos = 4 - ACCELERATION;
+        assertEquals(new Position2D(this.pos, 1 + ACCELERATION), this.enemy.getPosition());
         this.enemy.updateState();
         assertEquals(new Position2D(3 + SpeedLevels.MEDIUM.getValue(), 1 + ACCELERATION), this.enemy.getPosition());
 
@@ -118,7 +127,7 @@ public class TestEnemy {
         this.level.addGameEntity(this.player);
         this.enemy.updateState();
         this.player.updateState();
-        pos = 0.1 + SpeedLevels.FAST.getValue();                //The enemy doesn't have acceleration on x.
+        pos = ACCELERATION + SpeedLevels.FAST.getValue();                //The enemy doesn't have acceleration on x.
         assertEquals(new Position2D(ACCELERATION + SpeedLevels.FAST.getValue(), 0), this.enemy.getPosition());
         assertFalse(this.player.isAlive());
 
@@ -157,7 +166,7 @@ public class TestEnemy {
         this.map = new MapElementImpl(new Position2D(2, 1), this.level);
         this.map1 = new MapElementImpl(new Position2D(1, 1), this.level);
         this.map2 = new MapElementImpl(new Position2D(3, 1), this.level);
-        MapElement map3 = new MapElementImpl(new Position2D(4.1, 1), this.level);
+        MapElement map3 = new MapElementImpl(new Position2D(4 + ACCELERATION, 1), this.level);
         this.enemy = new SimpleEnemyImpl(new Position2D(3, 0), this.level);
         this.player = new CharacterImpl(new  Position2D(1, 0), this.level);
         this.level.addGameEntity(this.map);

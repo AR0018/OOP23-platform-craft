@@ -12,6 +12,7 @@ import javax.swing.SwingUtilities;
 public final class ViewImpl implements View {
 
     private final Controller controller;
+    private final TitleScreen titleScreen;
     private final double width;
     private final double heigth;
 
@@ -19,17 +20,18 @@ public final class ViewImpl implements View {
      * Constructor of the ViewImpl.
      * @param controller the controller of the game
      * @param width the width of the map level
-     * @param heigth the heigth of the map level
+     * @param height the heigth of the map level
      */
-    public ViewImpl(final Controller controller, final double width, final double heigth) {
+    public ViewImpl(final Controller controller, final double width, final double height) {
         this.controller = controller;
         this.width = width;
-        this.heigth = heigth;
+        this.heigth = height;
+        this.titleScreen = new TitleScreen(controller, width, height);
     }
 
     @Override
     public void displayStart() {
-        new TitleScreen(this.controller, this.width, this.heigth).setVisible();
+        this.titleScreen.setVisible();
     }
 
     @Override
@@ -44,12 +46,6 @@ public final class ViewImpl implements View {
 
     @Override
     public void render(final Set<SimpleEntity> entities) {
-        SwingUtilities.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                new LevelViewImpl(controller, width, heigth).render(entities);
-            }
-        });
+        SwingUtilities.invokeLater(() -> titleScreen.render(entities));
     }
 }

@@ -14,11 +14,11 @@ public final class EditorViewImpl implements EditorView {
      * Constructor of the EditorViewImpl.
      * @param controller the controller of the game
      * @param width of the map level
-     * @param heigth of the map level
+     * @param height of the map level
      */
-    public EditorViewImpl(final Controller controller, final double width, final double heigth) {
+    public EditorViewImpl(final Controller controller, final double width, final double height) {
         //this.controller = controller;
-        this.editor = new EditorGUI(controller, width, heigth);
+        this.editor = new EditorGUI(controller, width, height);
     }
 
     @Override

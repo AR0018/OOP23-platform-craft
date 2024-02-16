@@ -279,6 +279,9 @@ public class TestCharacter {
 
     }
 
+    /**
+     * Implementation of the level.
+     */
     private static final class Lv implements Level {
 
         private Set<GameEntity> st = new HashSet<>();

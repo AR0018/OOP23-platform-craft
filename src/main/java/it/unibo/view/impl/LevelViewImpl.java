@@ -15,19 +15,18 @@ public final class LevelViewImpl implements LevelView {
     private final Controller controller;
     private final double width;
     private final double heigth;
-    //private final PaintPanel paintPanel;
 
     /**
      * Constructor of the LevelViewImpl.
      * @param controller the controller of the game
      * @param width of the map level
-     * @param heigth of the map level
+     * @param height of the map level
      */
-    public LevelViewImpl(final Controller controller, final double width, final double heigth) {
+    public LevelViewImpl(final Controller controller, final double width, final double height) {
         this.controller = controller;
         this.width = width;
-        this.heigth = heigth;
-        this.levelGUI = new LevelGUI(controller, width, heigth);
+        this.heigth = height;
+        this.levelGUI = new LevelGUI(controller, width, height);
     }
 
     @Override
@@ -47,7 +46,7 @@ public final class LevelViewImpl implements LevelView {
 
     @Override
     public void render(final Set<SimpleEntity> entities) {          //chiama paintPanel
-        //paintPanel.render();
+        this.levelGUI.render(entities);
     }
 
     @Override

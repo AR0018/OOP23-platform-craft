@@ -36,10 +36,10 @@ public abstract class EnemyImpl extends GameEntityImpl implements Enemy {
      * @param position the first position of the enemy
      * @param level is the level of the game
      * @param width the width of the enemy
-     * @param heigth the heigth of the enemy
+     * @param height the heigth of the enemy
      */
-    public EnemyImpl(final Position position, final Level level, final double width, final double heigth) {
-        super(position, level, width, heigth);
+    public EnemyImpl(final Position position, final Level level, final double width, final double height) {
+        super(position, level, width, height);
         setDirection(Direction.RIGHT);
     }
 
@@ -108,9 +108,12 @@ public abstract class EnemyImpl extends GameEntityImpl implements Enemy {
     private void checkEnemyBlock() {
         var blockEnemyCollision = getEntity(getCollisions())
                 .stream()
-                .filter(x -> x.getGameEntity() instanceof MapElement || x.getGameEntity() instanceof Enemy)// instanceof MapElement || x instanceof Enemy)
+                .filter(x -> x.getGameEntity() instanceof MapElement 
+                        || x.getGameEntity() instanceof Enemy)// instanceof MapElement || x instanceof Enemy)
                 .collect(Collectors.toSet());
-        if (blockEnemyCollision.stream().anyMatch(x -> x.getDirection().equals(Direction.RIGHT) || x.getDirection().equals(Direction.LEFT))) {
+        if (blockEnemyCollision.stream()
+                .anyMatch(x -> x.getDirection().equals(Direction.RIGHT) 
+                || x.getDirection().equals(Direction.LEFT))) {
             setDirection(getDirection().equals(Direction.RIGHT) ? Direction.LEFT : Direction.RIGHT);
         }
     }
