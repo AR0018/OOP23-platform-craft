@@ -2,17 +2,15 @@ package it.unibo.model.level.impl;
 
 import java.util.Set;
 
-import it.unibo.common.EntityType;
 import it.unibo.model.collisions.api.EntityCollision;
-import it.unibo.model.engine.impl.EngineImpl;
+import it.unibo.model.collisions.api.MapBoundaries;
+import it.unibo.model.collisions.impl.MapBoundariesimpl;
 import it.unibo.model.entities.api.FinishLocation;
 import it.unibo.model.entities.api.GameEntity;
 import it.unibo.model.entities.api.Character;
 import it.unibo.model.physics.api.Direction;
-import it.unibo.model.physics.api.Position;
 import it.unibo.model.level.api.Level;
 import it.unibo.model.level.api.GameState;
-import it.unibo.model.level.impl.MapBoundaries;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -30,16 +28,15 @@ public final class GameLevel implements Level {
 
     /**
      * The constructor of this Level.
-     * @param entities the set of all the entities in the Level
-     * @param character the character in the Level
+     * When created, this Level does not have any entities.
+     * New entities must be added by calling addGameEntity.
      * @param width the width of the Level
      * @param height the height of the Level
      */
-    public GameLevel(final Set<GameEntity> entities, final Character character, final double width, final double height) {
-        this.levelConfiguration = Objects.requireNonNull(entities);
-        this.character = Objects.requireNonNull(character);
+    public GameLevel(final double width, final double height) {
         this.boundaries = new MapBoundariesimpl(height, width);
         this.gameState = GameState.RUNNING;
+        this.levelConfiguration = new HashSet<>();
     }
 
     @Override
@@ -103,5 +100,20 @@ public final class GameLevel implements Level {
     @Override
     public MapBoundaries getBoundaries() {
         return this.boundaries;
-    } 
+    }
+
+    @Override
+    public void addGameEntity(final GameEntity entity) {
+        this.levelConfiguration.add(entity);
+    }
+
+    @Override
+    public void removeGameEntity(final GameEntity entity) {
+        this.levelConfiguration.remove(entity);
+    }
+
+    @Override
+    public void setCharacter(Character character) {
+        this.character = character;
+    }
 }

@@ -3,8 +3,8 @@ package it.unibo.model.level.api;
 import java.util.Set;
 
 import it.unibo.model.collisions.api.MapBoundaries;
+import it.unibo.model.entities.api.Character;
 import it.unibo.model.entities.api.GameEntity;
-import it.unibo.model.level.impl.MapBoundaries;
 import it.unibo.model.physics.api.Direction;
 
 /**
@@ -27,6 +27,25 @@ public interface Level {
      * @param dir the direction of movement
      */
     void moveCharacter(Direction dir);
+
+    /**
+     * Sets the Character of the level as the specified Character.
+     * @param character the character to be added
+     */
+    void setCharacter(Character character);
+
+    /**
+     * Adds a GameEntity to this Level.
+     * @param entity the entity to be added
+     */
+    void addGameEntity(GameEntity entity);
+
+    /**
+     * Removes the specified GameEntity from this Level.
+     * @param entity the entity to be removed
+     */
+    void removeGameEntity(GameEntity entity);
+
     /**
      * @return the current state of the game
      */

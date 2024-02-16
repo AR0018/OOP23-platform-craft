@@ -1,13 +1,7 @@
 package it.unibo.model.entities.impl;
 
-<<<<<<< HEAD
-import java.util.Set;
-
-import it.unibo.model.collisions.api.Boundaries;
-=======
 import it.unibo.common.EntityType;
 import it.unibo.model.collisions.api.BorderCollision;
->>>>>>> master
 import it.unibo.model.collisions.api.Collision;
 import it.unibo.model.collisions.api.EntityCollision;
 import it.unibo.model.entities.api.Character;
