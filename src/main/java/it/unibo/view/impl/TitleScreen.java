@@ -22,6 +22,7 @@ import it.unibo.common.SimpleEntity;
 import it.unibo.controller.api.Controller;
 import it.unibo.view.api.EditorView;
 import it.unibo.view.api.LevelView;
+import it.unibo.view.api.View;
 
 import javax.swing.JOptionPane;
 import javax.swing.JFileChooser;
@@ -53,8 +54,9 @@ public final class TitleScreen {
      * @param controller the controller of the game
      * @param width the width of the map level
      * @param height the heigth of the map level
+     * @param view main view of the level
      */
-    public TitleScreen(final Controller controller, final double width, final double height) {
+    public TitleScreen(final Controller controller, final double width, final double height, final View view) {
 
         final int numberRow = 3;
         final int numberCol = 1;
@@ -64,7 +66,7 @@ public final class TitleScreen {
         final int panelTopDim = 150;
         final int panelVerticalGap = 20;
 
-        this.levelView = new LevelViewImpl(controller, width, height);
+        this.levelView = new LevelViewImpl(controller, width, height, view);
         this.editorView = new EditorViewImpl(controller, width, height);
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frame.setSize(new Dimension(XDIM, YDIM));

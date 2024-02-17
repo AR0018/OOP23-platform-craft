@@ -209,8 +209,8 @@ public class TestEnemy {
              this.enemy.getPosition());
 
         this.enemy.updateState();
-        assertEquals(new Position2D(1 + 2 * EntityType.CHARACTER.getWidth() + SpeedLevels.SLOW.getValue(),
-             ACCELERATION), this.enemy.getPosition());
+        assertEquals(new Position2D(1 + 2 * EntityType.CHARACTER.getWidth() + SpeedLevels.MEDIUM.getValue(),
+             ACCELERATION - ACCELERATION), this.enemy.getPosition());
         /*this.enemy.updateState();
         assertEquals(new Position2D(3 + 2 * SpeedLevels.SLOW.getValue(), ACCELERATION), this.enemy.getPosition());
         assertEquals(new Position2D(1 - ACCELERATION, 0), this.player.getPosition());

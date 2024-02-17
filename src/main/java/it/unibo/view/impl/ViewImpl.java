@@ -26,7 +26,7 @@ public final class ViewImpl implements View {
         this.controller = controller;
         this.width = width;
         this.heigth = height;
-        this.titleScreen = new TitleScreen(controller, width, height);
+        this.titleScreen = new TitleScreen(controller, width, height, this);
     }
 
     @Override
@@ -36,12 +36,12 @@ public final class ViewImpl implements View {
 
     @Override
     public void displayWin() {
-        new LevelViewImpl(this.controller, this.width, this.heigth).displayWin();
+        new LevelViewImpl(this.controller, this.width, this.heigth, this).displayWin();
     }
 
     @Override
     public void displayGameOver() {
-        new LevelViewImpl(this.controller, this.width, this.heigth).displayGameOver();
+        new LevelViewImpl(this.controller, this.width, this.heigth, this).displayGameOver();
     }
 
     @Override

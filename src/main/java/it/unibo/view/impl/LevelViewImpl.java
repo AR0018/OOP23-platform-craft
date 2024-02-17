@@ -5,6 +5,7 @@ import java.util.Set;
 import it.unibo.common.SimpleEntity;
 import it.unibo.controller.api.Controller;
 import it.unibo.view.api.LevelView;
+import it.unibo.view.api.View;
 
 /**
  * Handles the building of the GUI's level.
@@ -21,12 +22,13 @@ public final class LevelViewImpl implements LevelView {
      * @param controller the controller of the game
      * @param width of the map level
      * @param height of the map level
+     * @param view main view of the level
      */
-    public LevelViewImpl(final Controller controller, final double width, final double height) {
+    public LevelViewImpl(final Controller controller, final double width, final double height, final View view) {
         this.controller = controller;
         this.width = width;
         this.heigth = height;
-        this.levelGUI = new LevelGUI(controller, width, height);
+        this.levelGUI = new LevelGUI(controller, width, height, view);
     }
 
     @Override
