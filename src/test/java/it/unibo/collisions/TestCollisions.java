@@ -31,8 +31,10 @@ import it.unibo.model.collisions.impl.MapBoundariesimpl;
  */
 public class TestCollisions {
 
+  private static final double MAP_DIM = 50;
+
   @Test
-  public void testBuoundaries() {
+  void testBuoundaries() {
     Position p = new Position2D(10, 10);
     Position p1 = new Position2D(16, 5);
     Position p2 = new Position2D(0, 3);
@@ -52,7 +54,7 @@ public class TestCollisions {
     Boundaries boundaries = new BoundariesImpl(5, 6, p);
     Boundaries boundaries2 = new BoundariesImpl(11, 4, p1);
     Boundaries boundaries3 = new BoundariesImpl(1, 1, p2);
-    assertEquals(true, boundaries.contains(new Position2D(16, 11))); 
+    assertEquals(true, boundaries.contains(new Position2D(16, 11)));
     assertEquals(true, boundaries2.intersects(boundaries));
     assertEquals(true, boundaries3.intersectsLine(new Position2D(1, 1), new Position2D(1, 5)));
     assertEquals(true, boundaries.contains(new Position2D(11, 11)));
@@ -60,7 +62,7 @@ public class TestCollisions {
   }
 
   @Test
-  public void testCollisionsBox() {
+  void testCollisionsBox() {
     Level level = new LevelImpl();
     GameEntity gameEntity = new SimpleEnemyImpl(new Position2D(1, 3), level);
     GameEntity otherEntity = new SimpleEnemyImpl(new Position2D(0, 3), level);
@@ -79,9 +81,9 @@ public class TestCollisions {
         box1.getCollisions(other));
   }
 
-  private static class LevelImpl implements Level {
+  private static final class LevelImpl implements Level {
 
-    Set<GameEntity> gameEntities = new HashSet<>();
+    private Set<GameEntity> gameEntities = new HashSet<>();
 
     @Override
     public Set<GameEntity> getGameEntities() {
@@ -89,7 +91,7 @@ public class TestCollisions {
     }
 
     @Override
-    public void addGameEntity(GameEntity entity) {
+    public void addGameEntity(final GameEntity entity) {
       gameEntities.add(entity);
 
     }
@@ -101,7 +103,7 @@ public class TestCollisions {
     }
 
     @Override
-    public void moveCharacter(Direction dir) {
+    public void moveCharacter(final Direction dir) {
       // TODO Auto-generated method stub
       throw new UnsupportedOperationException("Unimplemented method 'moveCharacter'");
     }
@@ -120,17 +122,17 @@ public class TestCollisions {
 
     @Override
     public MapBoundaries getBoundaries() {
-      return new MapBoundariesimpl(50, 50);
+      return new MapBoundariesimpl(MAP_DIM, MAP_DIM);
     }
 
     @Override
-    public void setCharacter(Character character) {
+    public void setCharacter(final Character character) {
       // TODO Auto-generated method stub
       throw new UnsupportedOperationException("Unimplemented method 'setCharacter'");
     }
 
     @Override
-    public void removeGameEntity(GameEntity entity) {
+    public void removeGameEntity(final GameEntity entity) {
       // TODO Auto-generated method stub
       throw new UnsupportedOperationException("Unimplemented method 'removeGameEntity'");
     }

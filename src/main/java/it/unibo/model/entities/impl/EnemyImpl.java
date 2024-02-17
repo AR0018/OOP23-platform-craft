@@ -107,14 +107,15 @@ public abstract class EnemyImpl extends GameEntityImpl implements Enemy {
      */
     private void checkEnemyBlock() {
         var blockEnemyCollision = getEntity(getCollisions())
-                .stream()
-                .filter(x -> x.getGameEntity() instanceof MapElement 
-                        || x.getGameEntity() instanceof Enemy)// instanceof MapElement || x instanceof Enemy)
+            .stream()
+            .filter(x -> x.getGameEntity() instanceof MapElement 
+                || x.getGameEntity() instanceof Enemy)// instanceof MapElement || x instanceof Enemy)
                 .collect(Collectors.toSet());
         if (blockEnemyCollision.stream()
-                .anyMatch(x -> x.getDirection().equals(Direction.RIGHT) 
+            .anyMatch(x -> x.getDirection().equals(Direction.RIGHT) 
                 || x.getDirection().equals(Direction.LEFT))) {
-            if (this instanceof StrongEnemyImpl && blockEnemyCollision.stream().anyMatch(x -> x.getDirection().equals(Direction.DOWN))) {                                          //TODO: da rimettere come prima?
+            if (this instanceof StrongEnemyImpl && blockEnemyCollision.stream()
+                .anyMatch(x -> x.getDirection().equals(Direction.DOWN))) {    //TODO: da rimettere come prima?
                 this.setDirection(Direction.UP);
             }
             if (blockEnemyCollision.stream().anyMatch(x -> x.getDirection().equals(Direction.LEFT))) {
