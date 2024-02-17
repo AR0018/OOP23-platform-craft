@@ -1,23 +1,26 @@
 package it.unibo.model.entities.impl;
 
 import it.unibo.common.EntityType;
+import it.unibo.model.collisions.api.Boundaries;
 import it.unibo.model.collisions.api.CollisionBox;
 import it.unibo.model.collisions.impl.CollisionBoxImpl;
 import it.unibo.model.entities.api.Character;
 import it.unibo.model.entities.api.Trap;
 import it.unibo.model.level.api.Level;
 import it.unibo.model.physics.api.Position;
+import it.unibo.model.physics.impl.Position2D;
 
 /**
  * Class to represent a trap that can damage the player.
  */
 public final class TrapImpl extends GameEntityImpl implements Trap {    //TODO: override boundaries explosion
 
-    private static final long TIMER = 2000;
-    private static final double VISIBLE_DISTANCE = 300f;
+    private static final long TIMER = 3000;
+    private static final double VISIBLE_DISTANCE = 150f;
     private boolean isLethal;
     private Long time = 0L;
     private TrapState state;
+    private CollisionBox trapCollisionBox;               //TODO: remove
 
     /**
     * Sets out the condition of the trap.
@@ -109,5 +112,24 @@ public final class TrapImpl extends GameEntityImpl implements Trap {    //TODO: 
 
     private boolean checkTimer(final long timer) {
         return System.currentTimeMillis() - time >= timer;
+    }
+
+    @Override
+    public CollisionBox getCollisionBox() {
+        // TODO Auto-generated method stub
+        if (this.state.equals(TrapState.DEAD)) {
+            CollisionBox box = new CollisionBoxImpl(EntityType.TRAP.getWidth() * 2,
+                EntityType.TRAP.getHeigth() * 2, this, getLevel().getBoundaries());
+            /*this.setPosition(new Position2D(getPosition().getX() - box.getBoundaries().getWidth() / 2,
+                getPosition().getY() - box.getBoundaries().getHeight() / 2));
+            */return box;
+        } else {
+            return super.getCollisionBox();
+        }
+    }
+
+    @Override
+    public Boundaries getBoundaries() {
+        return this.getCollisionBox().getBoundaries();
     }
 }

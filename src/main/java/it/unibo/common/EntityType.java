@@ -16,7 +16,7 @@ public enum EntityType {
     /**
      * Trap Explosion.
      */
-    EXPLOSION(100, 100),
+    EXPLOSION(300, 300),
     /**
      * A simple enemy.
      */

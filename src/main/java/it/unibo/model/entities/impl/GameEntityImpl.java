@@ -74,8 +74,13 @@ public abstract class GameEntityImpl implements GameEntity {
                 .collect(Collectors.toSet()));
     }
 
+    /**
+     * Defines the standard boundaries for a game entity.
+     * May be overriden to modify the size of the bound.
+     * @return the boundaries of the game entity
+     */
     @Override
-    public final Boundaries getBoundaries() {
+    public Boundaries getBoundaries() {
         return this.box.getBoundaries();
     }
 

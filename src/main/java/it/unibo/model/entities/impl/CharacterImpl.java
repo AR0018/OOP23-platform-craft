@@ -6,6 +6,7 @@ import it.unibo.model.collisions.api.Collision;
 import it.unibo.model.collisions.api.EntityCollision;
 import it.unibo.model.entities.api.Character;
 import it.unibo.model.entities.api.Enemy;
+import it.unibo.model.entities.api.MapElement;
 import it.unibo.model.level.api.Level;
 import it.unibo.model.physics.api.Direction;
 import it.unibo.model.physics.api.Physics;
@@ -25,7 +26,7 @@ import java.util.Objects;
  * where it cointains all the necessary to create the character.
  * Final because the class doesn't need to be extended
  */
-public final class CharacterImpl extends GameEntityImpl implements Character {
+public final class CharacterImpl extends GameEntityImpl implements Character {          //TODO: character fly
 
     private final Physics physic;
     private PhysicsBuilder physicsBuilder = new PhysicsBuilderImpl();
@@ -59,7 +60,21 @@ public final class CharacterImpl extends GameEntityImpl implements Character {
 
     @Override
     public void move(final Direction dir) {
-        physic.setMovement(Objects.requireNonNull(dir));
+        var downCollision = this.getEntity(getCollisions())
+            .stream()
+            .filter(x -> x.getGameEntity() instanceof MapElement)
+            .collect(Collectors.toSet());
+        moveDirection(downCollision, dir);
+    }
+
+    private void moveDirection(final Set<EntityCollision> downCollision, final Direction dir) {
+        if (dir.equals(Direction.UP)) {
+            if (downCollision.stream().anyMatch(x -> x.getDirection().equals(Direction.DOWN))) {
+                physic.setMovement(Objects.requireNonNull(dir));       
+            }
+        } else {
+            physic.setMovement(Objects.requireNonNull(dir));
+        }
     }
 
     private void checkCollision() {

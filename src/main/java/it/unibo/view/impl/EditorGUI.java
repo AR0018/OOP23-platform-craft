@@ -305,34 +305,34 @@ public final class EditorGUI {
         button.setVerticalAlignment(SwingConstants.TOP);
         button.setVerticalTextPosition(SwingConstants.BOTTOM);*/
         final JButton button = new JButton();
-        addImageToButton(button, "Character", "src/main/resources/it/unibo/images/Owlet_Monster.png");
+        addImageToButton(button, "Character", "it/unibo/images/Owlet_Monster.png");
         addEntityFromButton(button, EntityType.CHARACTER);
         box.add(button);
 
 
         final JButton button1 = new JButton();
-        addImageToButton(button1, "SimpeEnemy", "src/main/resources/it/unibo/images/Pink_Monster/Pink_Monster.png");
+        addImageToButton(button1, "SimpeEnemy", "it/unibo/images/Pink_Monster/Pink_Monster.png");
         addEntityFromButton(button1, EntityType.SIMPLE_ENEMY);
         box.add(button1);
 
 
         final JButton button2 = new JButton();
-        addImageToButton(button2, "Enemy", "src/main/resources/it/unibo/images/Dude_Monster/Dude_Monster.png");
+        addImageToButton(button2, "Enemy", "it/unibo/images/Dude_Monster/Dude_Monster.png");
         addEntityFromButton(button2, EntityType.ENEMY);
         box.add(button2);
 
         final JButton button3 = new JButton();
-        addImageToButton(button3, "End", "src/main/resources/it/unibo/images/R.png");
+        addImageToButton(button3, "End", "it/unibo/images/R.png");
         addEntityFromButton(button3, EntityType.FINISH_LOCATION);
         box.add(button3);
 
         final JButton button4 = new JButton();
-        addImageToButton(button4, "Trap", "src/main/resources/it/unibo/images/piggy3.png");
+        addImageToButton(button4, "Trap", "it/unibo/images/piggy3.png");
         addEntityFromButton(button4, EntityType.TRAP);
         box.add(button4);
 
         final JButton button5 = new JButton();
-        addImageToButton(button5, "MapElement", "src/main/resources/it/unibo/images/block.png");
+        addImageToButton(button5, "MapElement", "it/unibo/images/Block.png");
         addEntityFromButton(button5, EntityType.MAP_ELEMENT);
         //button5.setVerticalTextPosition(SwingConstants.TOP);          //Possono servire per mettere in alto il testo
         //button5.setVerticalAlignment(SwingConstants.TOP);
@@ -385,9 +385,9 @@ public final class EditorGUI {
     }
 
     private void addImageToButton(final JButton button, final String type, final String filePathName) {
-        final ImageIcon simpleEnemy = new ImageIcon(filePathName);
-        final ImageIcon imgEnemy = new ImageIcon(simpleEnemy.getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT));
-        final JLabel iconP1 = new JLabel(imgEnemy);
+        final ImageIcon simpleIcon = new ImageIcon(ClassLoader.getSystemResource(filePathName));//new ImageIcon(filePathName);
+        final ImageIcon imgIcon = new ImageIcon(simpleIcon.getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT));
+        final JLabel iconP1 = new JLabel(imgIcon);
         final int leftIconP1 = 15;
         iconP1.setBorder(BorderFactory.createEmptyBorder(0, leftIconP1, 0, 0));
         button.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.BLACK, 4, true),
@@ -405,6 +405,8 @@ public final class EditorGUI {
             public void actionPerformed(final ActionEvent e) {
                 //removeEntity = false;
                 //type = Optional.of(typeInput);
+                if (typeInput.equals(EntityType.MAP_ELEMENT)) {
+                }
                 panelView.setSelectedEntity(typeInput);
             }
         });
