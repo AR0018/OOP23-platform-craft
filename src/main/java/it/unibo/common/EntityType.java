@@ -20,11 +20,11 @@ public enum EntityType {
     /**
      * A simple enemy.
      */
-    SIMPLE_ENEMY(100, 100),
+    SIMPLE_ENEMY(80, 100),
     /**
      * An enemy in the game that follows the player.
      */
-    ENEMY(100, 100),
+    ENEMY(80, 100),
     /**
      * A walkable element of the map.
      */
