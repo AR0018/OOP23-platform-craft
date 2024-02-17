@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import it.unibo.controller.api.Controller;
-import it.unibo.view.api.LevelView;
 import it.unibo.view.api.View;
 
 import java.awt.Dimension;
@@ -24,9 +23,6 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.border.Border;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  * Models the GUI of the GameOver of the game.

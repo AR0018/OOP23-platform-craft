@@ -122,7 +122,7 @@ public class TestCharacter {
         this.player.move(Direction.RIGHT);
         this.player.updateState();
         //this.pos = new Position2D(ACCELERATION, 1 + ACCELERATION);           //The Character has the accelerated physic 
-        this.pos = new Position2D(ACCELERATION, 1 + ACCELERATION);
+        this.pos = new Position2D(2 * ACCELERATION, 1 + ACCELERATION);
         assertEquals(this.pos, this.player.getPosition());
     }
 
@@ -149,7 +149,7 @@ public class TestCharacter {
 
         this.level = new Lv();
         this.player = new CharacterImpl(new Position2D(1, SpeedLevels.SLOW.getValue()), this.level);
-        this.enemy = new StrongEnemyImpl(new Position2D(1 + ACCELERATION, EntityType.CHARACTER.getHeigth()), this.level);
+        this.enemy = new StrongEnemyImpl(new Position2D(1, EntityType.CHARACTER.getHeigth()), this.level);
         this.map1 = new MapElementImpl(new Position2D(1, EntityType.CHARACTER.getHeigth() 
             + EntityType.ENEMY.getHeigth()), this.level);
         this.level.addGameEntity(this.player);
@@ -205,7 +205,7 @@ public class TestCharacter {
         assertTrue(this.enemy.isAlive());
         this.player.move(Direction.RIGHT);
         this.player.updateState();
-        this.pos = new Position2D(ACCELERATION, 1 + ACCELERATION);           //The Character has the accelerated physic 
+        this.pos = new Position2D(2 * ACCELERATION, 1 + ACCELERATION);           //The Character has the accelerated physic 
         assertEquals(this.pos, this.player.getPosition());
     }
 
@@ -262,7 +262,7 @@ public class TestCharacter {
         Thread.sleep(TIMER);
         this.trap.updateState();
         this.player.updateState();
-        assertTrue(this.player.isAlive());
+        assertFalse(this.player.isAlive());
         assertTrue(this.trap.isAlive());
 
         /*

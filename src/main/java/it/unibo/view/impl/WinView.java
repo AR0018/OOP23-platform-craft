@@ -15,7 +15,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import it.unibo.controller.api.Controller;
-import it.unibo.view.api.LevelView;
 import it.unibo.view.api.View;
 
 import java.awt.Dimension;

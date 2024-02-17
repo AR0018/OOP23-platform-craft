@@ -331,17 +331,43 @@ public final class EditorGUI {
         addEntityFromButton(button4, EntityType.TRAP);
         box.add(button4);
 
+        final JPanel mapElementPanel = new JPanel(new GridLayout(2, 1));
+
         final JButton button5 = new JButton();
-<<<<<<< HEAD
-        addImageToButton(button5, "MapElement", "it/unibo/images/Block.png");
+        addImageToButton(button5, "Block", "it/unibo/images/Block.png");
         addEntityFromButton(button5, EntityType.MAP_ELEMENT);
-=======
-        addImageToButton(button5, "MapElement", "src/main/resources/it/unibo/images/block.png");
-        addEntityFromButton(button5, EntityType.LONG_MAP_ELEMENT);      //TODO: used to be EntityType.MAP_ELEMENT
->>>>>>> 76801bca8c7b195b122ae35f537b13aec3c8d214
+
+        final JButton button6 = new JButton();
+        addImageToButton(button6, "LongBlock", "it/unibo/images/LongBlock.png");
+        addEntityFromButton(button6, EntityType.LONG_MAP_ELEMENT);
+
+        mapElementPanel.add(button5);
+        mapElementPanel.add(button6);
+
+        box.add(mapElementPanel);
+        
+        /*button5.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JPanel littlePanel = new JPanel(new FlowLayout());
+                JButton block = new JButton("Block");
+                JButton longBlock = new JButton("LongBlock");
+
+                addEntityFromButton(block, EntityType.MAP_ELEMENT);
+                addEntityFromButton(longBlock, EntityType.LONG_MAP_ELEMENT);
+
+                littlePanel.add(block);
+                littlePanel.add(longBlock);
+                frame.add(littlePanel);
+            }
+            
+        });*/
         //button5.setVerticalTextPosition(SwingConstants.TOP);          //Possono servire per mettere in alto il testo
         //button5.setVerticalAlignment(SwingConstants.TOP);
-        box.add(button5);
+        
+        
+        //box.add(button5);
 
         JComponent component = new JPanel(new BorderLayout());
         component.setBackground(Color.GRAY);
@@ -410,8 +436,6 @@ public final class EditorGUI {
             public void actionPerformed(final ActionEvent e) {
                 //removeEntity = false;
                 //type = Optional.of(typeInput);
-                if (typeInput.equals(EntityType.MAP_ELEMENT)) {
-                }
                 panelView.setSelectedEntity(typeInput);
             }
         });

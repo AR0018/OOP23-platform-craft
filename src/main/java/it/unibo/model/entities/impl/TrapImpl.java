@@ -8,19 +8,17 @@ import it.unibo.model.entities.api.Character;
 import it.unibo.model.entities.api.Trap;
 import it.unibo.model.level.api.Level;
 import it.unibo.model.physics.api.Position;
-import it.unibo.model.physics.impl.Position2D;
 
 /**
  * Class to represent a trap that can damage the player.
  */
-public final class TrapImpl extends GameEntityImpl implements Trap {    //TODO: override boundaries explosion
+public final class TrapImpl extends GameEntityImpl implements Trap {
 
     private static final long TIMER = 3000;
     private static final double VISIBLE_DISTANCE = 150f;
     private boolean isLethal;
     private Long time = 0L;
     private TrapState state;
-    private CollisionBox trapCollisionBox;               //TODO: remove
 
     /**
     * Sets out the condition of the trap.
@@ -88,13 +86,13 @@ public final class TrapImpl extends GameEntityImpl implements Trap {    //TODO: 
         }
     }
 
-    private boolean checkPlayer(final Character character) {
+    /*private boolean checkPlayer(final Character character) {
         Position playerPosition = getLevel().getCharacter().getPosition();
         if (this.getBoundaries().contains(playerPosition)) {
             return true;
         }
         return false;
-    }
+    }*/
 
     private boolean playerInRange(final Character character) {
         Position charPos = getCharacter().getPosition();
