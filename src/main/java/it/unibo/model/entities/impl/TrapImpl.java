@@ -66,7 +66,7 @@ public final class TrapImpl extends GameEntityImpl implements Trap {
     }
 
     private void checkExplosion() {
-        if (checkPlayer(getCharacter())) {
+        if (playerInRange(getCharacter())) {
             if (this.isAlive() && this.state.equals(TrapState.INACTIVE)) {
                 time = System.currentTimeMillis();
                 this.state = TrapState.ACTIVE;
@@ -85,6 +85,16 @@ public final class TrapImpl extends GameEntityImpl implements Trap {
     private boolean checkPlayer(final Character character) {
         Position playerPosition = getLevel().getCharacter().getPosition();
         if (this.getBoundaries().contains(playerPosition)) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean playerInRange(final Character character) {
+        Position charPos = getCharacter().getPosition();
+        var distance = Math.sqrt(Math.pow(charPos.getX() - getPosition().getX(), 2) 
+                + Math.pow(charPos.getY() - getPosition().getY(), 2));
+        if (distance <= 20f) {
             return true;
         }
         return false;
