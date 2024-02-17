@@ -44,7 +44,7 @@ public final class TitleScreen {
     private static final int XDIM = 1200;
     private static final int YDIM = 1000;
     private final JFrame frame = new JFrame("Prova");
-    private final LevelView levelView;
+    private LevelView levelView;
     private EditorView editorView;
     private Font font;
     private Font fontButton;
@@ -121,6 +121,7 @@ public final class TitleScreen {
                 if (file.showOpenDialog(frame) == JFileChooser.APPROVE_OPTION) {
                     if (controller.getRunner().loadLevel(file.getSelectedFile())) {
                         frame.setVisible(false);
+                        levelView = new LevelViewImpl(controller, width, height, view);
                         levelView.show();
                     } else {
                         JOptionPane.showMessageDialog(frame, "The selected file could not be loaded",

@@ -61,6 +61,9 @@ public final class LevelGUI {
      * Set used to keep track of all the keys that are currently pressed.
      */
     private Set<Integer> activeKeys;
+    /*
+     * Action listener that processes pressed keys.
+     */
     private ActionListener keyProcesser = new ActionListener() {
 
         @Override
@@ -86,6 +89,9 @@ public final class LevelGUI {
                 });
         }
     };
+    /*
+     * Timer used to handle the key processing.
+     */
     private Timer timer;
 
     /**

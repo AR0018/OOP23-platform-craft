@@ -16,6 +16,7 @@ import java.awt.event.ActionListener;
 
 import it.unibo.controller.api.Controller;
 import it.unibo.view.api.LevelView;
+import it.unibo.view.api.View;
 
 import java.awt.Dimension;
 import java.awt.Color;
@@ -45,8 +46,10 @@ public final class WinView {
      * @param levelView the view of the running level
      * @param width of the map level
      * @param height of the map level
+     * @param view the main view of the game
      */
-    public WinView(final Controller controller, final LevelView levelView, final double width, final double height) {
+    public WinView(final Controller controller, final LevelView levelView,
+        final double width, final double height, final View view) {
 
         this.frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.frame.setResizable(false);
@@ -96,8 +99,7 @@ public final class WinView {
             public void actionPerformed(final ActionEvent e) {
                 frame.setVisible(false);
                 levelView.hide();
-                controller.getRunner().stopLevel();
-                new ViewImpl(controller, width, height).displayStart();
+                view.displayStart();
             }
         });
 
