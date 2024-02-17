@@ -101,19 +101,23 @@ public final class LevelGUI {
             @Override
             public void keyPressed(final KeyEvent e) {
                 int inputReceived = e.getKeyCode();
-
+                System.out.println(frame.isVisible());
                 if (frame.isVisible()) {
                     switch (inputReceived) {
                         case KeyEvent.VK_W, KeyEvent.VK_UP, KeyEvent.VK_SPACE:
+                            System.out.println("UP");
                             controller.getRunner().notifyCommand(Command.MOVE_UP);
                             break;
                         case KeyEvent.VK_A, KeyEvent.VK_LEFT:
+                            System.out.println("LEFT");
                             controller.getRunner().notifyCommand(Command.MOVE_LEFT);
                             break;
                         case KeyEvent.VK_S, KeyEvent.VK_DOWN:
+                            System.out.println("DOWN");
                             controller.getRunner().notifyCommand(Command.MOVE_DOWN);
                             break;
                         case KeyEvent.VK_D, KeyEvent.VK_RIGHT:
+                            System.out.println("RIGHt");
                             controller.getRunner().notifyCommand(Command.MOVE_RIGHT);
                             break;
                         default:
@@ -139,7 +143,7 @@ public final class LevelGUI {
             public void actionPerformed(final ActionEvent e) {
                 if (JOptionPane.showConfirmDialog(frame, "Do you want to return to the Title Screen?",
                          "Quitting", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                    frame.setVisible(false);
+                    hide();
                     controller.getRunner().stopLevel();
                     //new ViewImpl(controller, width, height).displayStart();
                     view.displayStart();
@@ -163,6 +167,7 @@ public final class LevelGUI {
      */
     public void show() {
         this.frame.setVisible(true);
+        System.out.println("LEVELGUI : " + this.frame.isFocusable());
         this.controller.getRunner().run();
     }
 

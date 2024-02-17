@@ -16,6 +16,7 @@ public final class LevelViewImpl implements LevelView {
     private final Controller controller;
     private final double width;
     private final double heigth;
+    private final View view;
 
     /**
      * Constructor of the LevelViewImpl.
@@ -28,6 +29,7 @@ public final class LevelViewImpl implements LevelView {
         this.controller = controller;
         this.width = width;
         this.heigth = height;
+        this.view = view;
         this.levelGUI = new LevelGUI(controller, width, height, view);
     }
 
@@ -53,13 +55,13 @@ public final class LevelViewImpl implements LevelView {
 
     @Override
     public void displayWin() {
-        //hide();                 //new Win(controller).display();    display fa hide di LevelView
-        new WinView(this.controller, this, this.width, this.heigth); //prendo il level view per poterlo chiudere insieme
+        hide();                 //new Win(controller).display();    display fa hide di LevelView
+        new WinView(this.controller, this, this.width, this.heigth, this.view); //prendo il level view per poterlo chiudere insieme
     }
 
     @Override
     public void displayGameOver() {
-        //hide();
-        new GameOverView(this.controller, this, this.width, this.heigth);
+        hide();
+        new GameOverView(this.controller, this, this.width, this.heigth, this.view);
     }
 }

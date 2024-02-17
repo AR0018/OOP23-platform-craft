@@ -7,6 +7,7 @@ import java.io.InputStream;
 
 import it.unibo.controller.api.Controller;
 import it.unibo.view.api.LevelView;
+import it.unibo.view.api.View;
 
 import java.awt.Dimension;
 import java.awt.Color;
@@ -52,7 +53,8 @@ public final class GameOverView {
      * @param width of the map level
      * @param height of the map level
      */
-    public GameOverView(final Controller controller, final LevelView levelView, final double width, final double height) {
+    public GameOverView(final Controller controller, final LevelView levelView,
+        final double width, final double height, final View view) {
 
         this.frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.frame.setResizable(false);
@@ -98,9 +100,10 @@ public final class GameOverView {
             @Override
             public void actionPerformed(final ActionEvent e) {
                 frame.setVisible(false);
+                //levelView.hide();
+                //controller.getRunner().stopLevel();
                 levelView.hide();
-                controller.getRunner().stopLevel();
-                new ViewImpl(controller, width, height).displayStart();
+                view.displayStart();
             }
         });
 

@@ -1,6 +1,8 @@
 package it.unibo.model.entities.impl;
 
 import it.unibo.common.EntityType;
+import it.unibo.model.collisions.api.CollisionBox;
+import it.unibo.model.collisions.impl.CollisionBoxImpl;
 import it.unibo.model.entities.api.Character;
 import it.unibo.model.entities.api.Trap;
 import it.unibo.model.level.api.Level;
@@ -9,9 +11,10 @@ import it.unibo.model.physics.api.Position;
 /**
  * Class to represent a trap that can damage the player.
  */
-public final class TrapImpl extends GameEntityImpl implements Trap {
+public final class TrapImpl extends GameEntityImpl implements Trap {    //TODO: override boundaries explosion
 
-    private static final long TIMER = 3000;
+    private static final long TIMER = 2000;
+    private static final double VISIBLE_DISTANCE = 300f;
     private boolean isLethal;
     private Long time = 0L;
     private TrapState state;
@@ -94,7 +97,7 @@ public final class TrapImpl extends GameEntityImpl implements Trap {
         Position charPos = getCharacter().getPosition();
         var distance = Math.sqrt(Math.pow(charPos.getX() - getPosition().getX(), 2) 
                 + Math.pow(charPos.getY() - getPosition().getY(), 2));
-        if (distance <= 20f) {
+        if (distance <= VISIBLE_DISTANCE) {
             return true;
         }
         return false;
