@@ -65,7 +65,7 @@ public class TestAcceleratedPhysics {
         }
         this.physics.setMovement(Direction.LEFT);   //Accelerates to the left, decreasing the velocity on x
         entity.updateState();
-        assertEquals(new Position2D((timesAccel - 1) * ACCELERATION + SpeedLevels.FAST.getValue(), 0), entity.getPosition()); //(2 * timesAccel - 1) * ACCELERATION
+        assertEquals(new Position2D((timesAccel - 1) * ACCELERATION + SpeedLevels.FAST.getValue(), 0), entity.getPosition());
         /*
          * Test maximum speed
          */
