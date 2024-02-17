@@ -47,7 +47,7 @@ public class AcceleratedPhysics extends LinearPhysics {
      */
     @Override
     public Position calculateMovement() {
-        Position pos = super.calculateMovement();
+        final Position pos = super.calculateMovement();
         if (!this.hasAccelerated && this.acceleratedX) {
             this.setVelocityX(0);
         }

@@ -36,16 +36,12 @@ public final class RunnerAgent extends Thread {
 
     @Override
     public void run() {
-        //TODO: test System.out.println("Agent: entita' del mio engine: " + this.engine.getLevelEntities());
-        //TODO: test System.out.println("Agent: inizio loop");
         while (!isInterrupted() && !isOver()) {
-            //TODO: test System.out.println("Agent: continuo loop"); 
             executeCommands();
             this.engine.updateLevel();
             this.view.render(engine.getLevelEntities());
             waitForNextFrame();
         }
-        //TODO: test System.out.println("Agent: esco dal loop");
         finish();
     }
 
@@ -70,7 +66,7 @@ public final class RunnerAgent extends Thread {
     }
 
     private void executeCommands() {
-        int numCommands = this.commands.size();
+        final int numCommands = this.commands.size();
         IntStream.range(0, numCommands)
             .forEach(i -> {
                 try {
@@ -100,13 +96,9 @@ public final class RunnerAgent extends Thread {
      */
     protected void notifyCommand(final Command command) {
         try {
-            //TODO: test System.out.println("Agent: ricevo il comando");
             this.commands.put(Objects.requireNonNull(command));
         } catch (final InterruptedException e) {
             interrupt();
         }
     }
-
-    //protected void interruptRunning() : method to stop this thread, ending its execution
-    //TODO: decide whether to add
 }

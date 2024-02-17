@@ -114,12 +114,11 @@ public class PaintPanel extends JPanel {
     }
 
     private void resizeCanvas() {
-        int cwidth = this.getWidth();
-        //System.out.println("Container initial width: "+ cwidth); TODO: remove comments in this method
-        int cheight = this.getHeight();
-        int pwidth = 0;
-        int pheight = 0;
-        int correctWidth = (int) (cheight * levelWidth / levelHeight);
+        final int cwidth = this.getWidth();
+        final int cheight = this.getHeight();
+        int pwidth;
+        int pheight;
+        final int correctWidth = (int) (cheight * levelWidth / levelHeight);
         if (cwidth <= correctWidth) {
             pwidth = cwidth;
             pheight = (int) (pwidth * levelHeight / levelWidth);
@@ -127,9 +126,6 @@ public class PaintPanel extends JPanel {
             pheight = cheight;
             pwidth = (int) (levelWidth * pheight / levelHeight);
         }
-        //System.out.println("Container dimension: "+ this.getSize());
-        //System.out.println("Panel dimension: " + canvas.getSize());
-
         this.canvas.setPreferredSize(new Dimension(pwidth, pheight));
     }
 

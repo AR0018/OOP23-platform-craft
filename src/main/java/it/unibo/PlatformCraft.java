@@ -12,7 +12,7 @@ import it.unibo.view.impl.LevelViewImpl;
  */
 public final class PlatformCraft {
 
-    private PlatformCraft() { };
+    private PlatformCraft() { }
 
     /**
      * Starts the application.

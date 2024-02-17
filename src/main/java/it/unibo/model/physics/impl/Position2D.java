@@ -26,16 +26,13 @@ public final class Position2D extends Coordinate implements Position {
      */
     @Override
     public boolean equals(final Object other) {
-        final double tolerance = 0.1;
-        boolean equal = false;
-        Position2D pos;
         if (other == null || this.getClass() != other.getClass()) {
             return false;
         }
-        pos = (Position2D) other;
-        equal = Math.max(this.x, pos.x) - Math.min(this.x, pos.x) < tolerance
-            && Math.max(this.y, pos.y) - Math.min(this.y, pos.y) < tolerance;
-        return equal;
+        final Position2D pos = (Position2D) other;
+        final double tolerance = 0.1;
+        return Math.max(this.x, pos.x) - Math.min(this.x, pos.x) < tolerance
+        && Math.max(this.y, pos.y) - Math.min(this.y, pos.y) < tolerance;
     }
 
     @Override

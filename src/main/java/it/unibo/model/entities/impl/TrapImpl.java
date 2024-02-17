@@ -114,13 +114,9 @@ public final class TrapImpl extends GameEntityImpl implements Trap {
 
     @Override
     public CollisionBox getCollisionBox() {
-        // TODO Auto-generated method stub
         if (this.state.equals(TrapState.DEAD)) {
             CollisionBox box = new CollisionBoxImpl(EntityType.TRAP.getWidth() * 2,
                 EntityType.TRAP.getHeigth() * 2, this, getLevel().getBoundaries());
-            /*this.setPosition(new Position2D(getPosition().getX() - box.getBoundaries().getWidth() / 2,
-                getPosition().getY() - box.getBoundaries().getHeight() / 2));
-            */
             return box;
         } else {
             return super.getCollisionBox();

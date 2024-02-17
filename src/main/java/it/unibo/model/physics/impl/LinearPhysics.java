@@ -18,10 +18,10 @@ public class LinearPhysics implements Physics {
 
     private final GameEntity entity;
     private Position velocity;
-    private SpeedLevels maxSpeedOnX;
-    private SpeedLevels maxSpeedOnY;
-    private boolean bouncingX;
-    private boolean bouncingY;
+    private final SpeedLevels maxSpeedOnX;
+    private final SpeedLevels maxSpeedOnY;
+    private final boolean bouncingX;
+    private final boolean bouncingY;
 
     /**
      * @param entity the GameEntity affected by this Physics
