@@ -17,7 +17,7 @@ import java.util.List;
  */
 public final class StrongEnemyImpl extends EnemyImpl {
 
-    private static final float VISIBLE_DISTANCE = (float) (EntityType.ENEMY.getWidth() * 3);
+    private static final float VISIBLE_DISTANCE = (float) (EntityType.ENEMY.getWidth() * 5);
     private final Physics physics;
     private PhysicsBuilder builder = new PhysicsBuilderImpl();
 

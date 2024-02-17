@@ -117,7 +117,7 @@ public final class GameOverView {
             public void actionPerformed(final ActionEvent e) {
                 frame.setVisible(false);
                 //levelView.hide();
-                controller.getRunner().restart();           //TODO: check
+                controller.getRunner().restart();
                 controller.getRunner().run();
                 /*JFileChooser file = new JFileChooser();
                 file.setAcceptAllFileFilterUsed(false);

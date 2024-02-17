@@ -120,7 +120,8 @@ public final class TrapImpl extends GameEntityImpl implements Trap {
                 EntityType.TRAP.getHeigth() * 2, this, getLevel().getBoundaries());
             /*this.setPosition(new Position2D(getPosition().getX() - box.getBoundaries().getWidth() / 2,
                 getPosition().getY() - box.getBoundaries().getHeight() / 2));
-            */return box;
+            */
+            return box;
         } else {
             return super.getCollisionBox();
         }

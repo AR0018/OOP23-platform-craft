@@ -228,7 +228,6 @@ public final class EditorGUI {
 
             @Override
             public void actionPerformed(final ActionEvent e) {
-                //JFileChooser file = new JFileChooser("src/main/resources/it/unibo");      //TODO: controllare se può andare
                 JFileChooser file = new JFileChooser();
                 file.setAcceptAllFileFilterUsed(false);
                 file.addChoosableFileFilter(new FileNameExtensionFilter("*.json", "json"));
@@ -345,7 +344,7 @@ public final class EditorGUI {
         mapElementPanel.add(button6);
 
         box.add(mapElementPanel);
-        
+
         /*button5.addActionListener(new ActionListener() {
 
             @Override
@@ -361,12 +360,10 @@ public final class EditorGUI {
                 littlePanel.add(longBlock);
                 frame.add(littlePanel);
             }
-            
+
         });*/
         //button5.setVerticalTextPosition(SwingConstants.TOP);          //Possono servire per mettere in alto il testo
         //button5.setVerticalAlignment(SwingConstants.TOP);
-        
-        
         //box.add(button5);
 
         JComponent component = new JPanel(new BorderLayout());
@@ -416,7 +413,7 @@ public final class EditorGUI {
     }
 
     private void addImageToButton(final JButton button, final String type, final String filePathName) {
-        final ImageIcon simpleIcon = new ImageIcon(ClassLoader.getSystemResource(filePathName));//new ImageIcon(filePathName);
+        final ImageIcon simpleIcon = new ImageIcon(ClassLoader.getSystemResource(filePathName));
         final ImageIcon imgIcon = new ImageIcon(simpleIcon.getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT));
         final JLabel iconP1 = new JLabel(imgIcon);
         final int leftIconP1 = 15;

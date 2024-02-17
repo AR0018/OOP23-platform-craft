@@ -26,7 +26,7 @@ import java.util.Objects;
  * where it cointains all the necessary to create the character.
  * Final because the class doesn't need to be extended
  */
-public final class CharacterImpl extends GameEntityImpl implements Character {          //TODO: character fly
+public final class CharacterImpl extends GameEntityImpl implements Character {
 
     private final Physics physic;
     private PhysicsBuilder physicsBuilder = new PhysicsBuilderImpl();
@@ -70,7 +70,7 @@ public final class CharacterImpl extends GameEntityImpl implements Character {  
     private void moveDirection(final Set<EntityCollision> downCollision, final Direction dir) {
         if (dir.equals(Direction.UP)) {
             if (downCollision.stream().anyMatch(x -> x.getDirection().equals(Direction.DOWN))) {
-                physic.setMovement(Objects.requireNonNull(dir));       
+                physic.setMovement(Objects.requireNonNull(dir));
             }
         } else {
             physic.setMovement(Objects.requireNonNull(dir));

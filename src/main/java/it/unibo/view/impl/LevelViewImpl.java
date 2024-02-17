@@ -50,19 +50,17 @@ public final class LevelViewImpl implements LevelView {
     }
 
     @Override
-    public void render(final Set<SimpleEntity> entities) {          //chiama paintPanel
+    public void render(final Set<SimpleEntity> entities) {
         this.levelGUI.render(entities);
     }
 
     @Override
     public void displayWin() {
-        //this.hide();                 //new Win(controller).display();    display fa hide di LevelView
-        new WinView(this.controller, this.levelGUI, this.width, this.heigth, this.view); //prendo il level view per poterlo chiudere insieme
+        new WinView(this.controller, this.levelGUI, this.width, this.heigth, this.view);
     }
 
     @Override
     public void displayGameOver() {
-        //this.hide();
         new GameOverView(this.controller, this.levelGUI, this.width, this.heigth, this.view);
     }
 }

@@ -145,6 +145,7 @@ public final class TitleScreen {
             public void actionPerformed(final ActionEvent e) {
                 frame.setVisible(false);
                 controller.getEditor().reset();
+                editorView = new EditorViewImpl(controller, width, height, view);
                 editorView.show();
             }
         });

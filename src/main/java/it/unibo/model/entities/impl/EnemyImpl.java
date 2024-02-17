@@ -7,6 +7,7 @@ import it.unibo.model.collisions.api.EntityCollision;
 import it.unibo.model.entities.api.Character;
 import it.unibo.model.entities.api.Enemy;
 import it.unibo.model.entities.api.MapElement;
+import it.unibo.model.entities.api.Trap;
 import it.unibo.model.level.api.Level;
 import it.unibo.model.physics.api.Direction;
 import it.unibo.model.physics.api.Position;
@@ -97,9 +98,21 @@ public abstract class EnemyImpl extends GameEntityImpl implements Enemy {
             checkEnemyCharacter();
             checkEnemyBorder();
             checkEnemyBlock();
+            checkEnemyTrap();
         }
     }
 
+    private void checkEnemyTrap() {
+        var trapEnemyCollsion = getEntity(getCollisions())
+            .stream()
+            .filter(x -> x.getGameEntity() instanceof Trap)
+            .collect(Collectors.toSet());
+        if (trapEnemyCollsion.stream().anyMatch(x -> x.getDirection().equals(Direction.LEFT))) {
+            this.setDirection(Direction.RIGHT);
+        } else {
+            this.setDirection(Direction.LEFT);
+        }
+    }
     /**
      * Check if the enemy needs to change direction
      * due to a collision with another enemy or a map element
@@ -114,10 +127,10 @@ public abstract class EnemyImpl extends GameEntityImpl implements Enemy {
         if (blockEnemyCollision.stream()
             .anyMatch(x -> x.getDirection().equals(Direction.RIGHT) 
                 || x.getDirection().equals(Direction.LEFT))) {
-            if (this instanceof StrongEnemyImpl && blockEnemyCollision.stream()
-                .anyMatch(x -> x.getDirection().equals(Direction.DOWN))) {    //TODO: da rimettere come prima?
+            /*if (this instanceof StrongEnemyImpl && blockEnemyCollision.stream()
+                .anyMatch(x -> x.getDirection().equals(Direction.DOWN))) {
                 this.setDirection(Direction.UP);
-            }
+            }*/
             if (blockEnemyCollision.stream().anyMatch(x -> x.getDirection().equals(Direction.LEFT))) {
                 this.setDirection(Direction.RIGHT);
             }

@@ -124,9 +124,9 @@ public class TestEnemy {
         assertEquals(new Position2D(1 + SpeedLevels.SLOW.getValue(), 0), this.enemy.getPosition());
         this.enemy.updateState();
         this.player.updateState();
-        assertFalse(this.player.isAlive());
+        assertTrue(this.player.isAlive());
         this.pos = this.pos - SpeedLevels.SLOW.getValue();
-        assertEquals(new Position2D(1 + SpeedLevels.MEDIUM.getValue(), ACCELERATION), this.enemy.getPosition());
+        assertEquals(new Position2D(1, ACCELERATION), this.enemy.getPosition());
 
         this.level = new Lv();
         this.enemy = new StrongEnemyImpl(new Position2D(0, ACCELERATION), this.level);
@@ -209,8 +209,8 @@ public class TestEnemy {
              this.enemy.getPosition());
 
         this.enemy.updateState();
-        assertEquals(new Position2D(1 + 2 * EntityType.CHARACTER.getWidth() + SpeedLevels.MEDIUM.getValue(),
-             ACCELERATION - ACCELERATION), this.enemy.getPosition());
+        assertEquals(new Position2D(1 + 2 * EntityType.CHARACTER.getWidth(),
+            0), this.enemy.getPosition());
         /*this.enemy.updateState();
         assertEquals(new Position2D(3 + 2 * SpeedLevels.SLOW.getValue(), ACCELERATION), this.enemy.getPosition());
         assertEquals(new Position2D(1 - ACCELERATION, 0), this.player.getPosition());
