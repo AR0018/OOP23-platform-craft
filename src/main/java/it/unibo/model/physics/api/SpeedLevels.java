@@ -12,15 +12,15 @@ public enum SpeedLevels {
     /**
      * Fast movement speed.
      */
-    FAST(1),
+    FAST(5),
     /**
      * Medium movement speed.
      */
-    MEDIUM(0.6),
+    MEDIUM(3),
     /**
      * Slow movement speed.
      */
-    SLOW(0.3);
+    SLOW(1.5);
 
     private double value;
 
