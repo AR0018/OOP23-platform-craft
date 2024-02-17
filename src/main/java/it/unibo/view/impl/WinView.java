@@ -96,6 +96,7 @@ public final class WinView {
             public void actionPerformed(final ActionEvent e) {
                 frame.setVisible(false);
                 levelView.hide();
+                controller.getRunner().stopLevel();
                 new ViewImpl(controller, width, height).displayStart();
             }
         });

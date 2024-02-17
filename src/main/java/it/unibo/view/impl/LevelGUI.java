@@ -92,8 +92,6 @@ public final class LevelGUI {
             e.printStackTrace();
         }
 
-        //TODO: test System.out.println("GUI startata, aggiungo key listener");
-
         this.frame.addKeyListener(new KeyListener() {
 
             @Override
@@ -107,24 +105,16 @@ public final class LevelGUI {
                 if (frame.isVisible()) {
                     switch (inputReceived) {
                         case KeyEvent.VK_W, KeyEvent.VK_UP, KeyEvent.VK_SPACE:
-                            System.out.println("Tasto su1");             //TODO: test
                             controller.getRunner().notifyCommand(Command.MOVE_UP);
-                            System.out.println("Tasto su2");             //TODO: test
                             break;
                         case KeyEvent.VK_A, KeyEvent.VK_LEFT:
-                            System.out.println("Tasto sinistra1");             //TODO: test
                             controller.getRunner().notifyCommand(Command.MOVE_LEFT);
-                            System.out.println("Tasto sinistra2");             //TODO: test
                             break;
                         case KeyEvent.VK_S, KeyEvent.VK_DOWN:
-                            System.out.println("Tasto destra1");             //TODO: test
                             controller.getRunner().notifyCommand(Command.MOVE_DOWN);
-                            System.out.println("Tasto destra2");             //TODO: test
                             break;
                         case KeyEvent.VK_D, KeyEvent.VK_RIGHT:
-                            System.out.println("Tasto giu1");             //TODO: test
                             controller.getRunner().notifyCommand(Command.MOVE_RIGHT);
-                            System.out.println("Tasto giu2");             //TODO: test
                             break;
                         default:
                             break;
