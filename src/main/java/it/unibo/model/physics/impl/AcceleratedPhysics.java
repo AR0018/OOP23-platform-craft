@@ -10,7 +10,8 @@ import it.unibo.model.physics.api.SpeedLevels;
  */
 public class AcceleratedPhysics extends LinearPhysics {
 
-    private static final double ACCELERATION = 0.1;
+    private static final double ACCELERATION = 0.2; // Acceleration on X.
+    private static final double GRAVITY = 0.1;  // Downwards acceleration on Y.
     private final boolean falling;
     private final boolean acceleratedX;
     private boolean hasAccelerated;
@@ -50,8 +51,8 @@ public class AcceleratedPhysics extends LinearPhysics {
         if (!this.hasAccelerated && this.acceleratedX) {
             this.setVelocityX(0);
         }
-        if (this.falling) {     //TODO: add speed cap
-            super.setVelocityY(super.getVelocity().getY() + ACCELERATION);
+        if (this.falling) {
+            super.setVelocityY(super.getVelocity().getY() + GRAVITY);
         }
         this.hasAccelerated = false;
         return pos;

@@ -8,19 +8,19 @@ public enum SpeedLevels {
     /**
      * Character movement speed.
      */
-    CHARACTER_SPEED(10),
+    CHARACTER_SPEED(5),
     /**
      * Fast movement speed.
      */
-    FAST(0.05),
+    FAST(1),
     /**
      * Medium movement speed.
      */
-    MEDIUM(0.02),
+    MEDIUM(0.6),
     /**
      * Slow movement speed.
      */
-    SLOW(0.01);
+    SLOW(0.3);
 
     private double value;
 
