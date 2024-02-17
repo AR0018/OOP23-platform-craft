@@ -203,6 +203,7 @@ public final class LevelGUI {
      * Hides the GUI of the level.
      */
     public void hide() {
+        System.out.println("HIDE");
         this.frame.setVisible(false);
         this.timer.stop();
     }

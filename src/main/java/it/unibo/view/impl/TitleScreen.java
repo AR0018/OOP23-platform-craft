@@ -28,6 +28,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JFileChooser;
 import javax.swing.BorderFactory;
 
+import java.util.Objects;
+
 import java.util.Set;
 
 /**
@@ -195,5 +197,14 @@ public final class TitleScreen {
      */
     public void render(final Set<SimpleEntity> entities) {
         this.levelView.render(entities);
+    }
+
+    /**
+     * Returns the level view of this TitleScreen.
+     * @return the level view of the TitleScreem
+     * @throws NullPointerException if the level view is null
+     */
+    public LevelView getLevelView() {
+        return Objects.requireNonNull(this.levelView);
     }
 }

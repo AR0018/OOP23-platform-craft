@@ -31,6 +31,7 @@ public final class LevelViewImpl implements LevelView {
         this.heigth = height;
         this.view = view;
         this.levelGUI = new LevelGUI(controller, width, height, view);
+        System.out.println(this.levelGUI);
     }
 
     @Override
@@ -61,7 +62,7 @@ public final class LevelViewImpl implements LevelView {
 
     @Override
     public void displayGameOver() {
-        this.hide();
+        //this.hide();
         new GameOverView(this.controller, this.levelGUI, this.width, this.heigth, this.view);
     }
 }
