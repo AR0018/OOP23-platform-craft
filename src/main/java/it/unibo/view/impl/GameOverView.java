@@ -23,6 +23,9 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.border.Border;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  * Models the GUI of the GameOver of the game.
@@ -111,7 +114,17 @@ public final class GameOverView {
             public void actionPerformed(final ActionEvent e) {
                 frame.setVisible(false);
                 levelView.hide();
-                controller.getRunner().run();
+                controller.getRunner().run();           //TODO: check
+                /*JFileChooser file = new JFileChooser();
+                file.setAcceptAllFileFilterUsed(false);
+                file.addChoosableFileFilter(new FileNameExtensionFilter("*.json", "json"));
+                if (file.showOpenDialog(frame) == JFileChooser.APPROVE_OPTION) {
+                    if (!controller.getEditor().loadLevel(file.getSelectedFile())) {
+                        JOptionPane.showMessageDialog(frame, "The level could not be loaded",
+                            "Loading error", JOptionPane.ERROR_MESSAGE);
+                    }
+                    levelView.render(controller.getEditor().getCurrentEntities());
+                }*/
             }
         });
 

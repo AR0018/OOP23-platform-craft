@@ -16,7 +16,7 @@ import it.unibo.view.api.View;
 /**
  * Implementation of a LevelRunner.
  */
-public final class LevelRunnerImpl implements LevelRunner {
+public final class LevelRunnerImpl implements LevelRunner {     //TODO: aggiunti metodo restart che ristabilisce la configurazione iniziale dell'engine.
     //private Engine engine;
     private final View view;
     private Optional<RunnerAgent> runner;

@@ -11,6 +11,7 @@ import it.unibo.model.physics.api.Direction;
 import it.unibo.model.physics.api.Physics;
 import it.unibo.model.physics.api.PhysicsBuilder;
 import it.unibo.model.physics.api.Position;
+import it.unibo.model.physics.api.SpeedLevels;
 import it.unibo.model.physics.impl.PhysicsBuilderImpl;
 import it.unibo.model.entities.api.Trap;
 
@@ -37,6 +38,8 @@ public final class CharacterImpl extends GameEntityImpl implements Character {
         super(position, level, EntityType.CHARACTER.getWidth(), EntityType.CHARACTER.getHeigth());
         this.physic = this.physicsBuilder
                 .setGameEntity(this)
+                .setSpeedOnX(SpeedLevels.CHARACTER_SPEED)
+                .setSpeedOnY(SpeedLevels.CHARACTER_SPEED)
                 .addAccelerationOnX()
                 .addFallingPhysics()
                 .create();

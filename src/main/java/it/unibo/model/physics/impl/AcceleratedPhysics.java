@@ -50,7 +50,7 @@ public class AcceleratedPhysics extends LinearPhysics {
         if (!this.hasAccelerated && this.acceleratedX) {
             this.setVelocityX(0);
         }
-        if (this.falling) {
+        if (this.falling) {     //TODO: add speed cap
             super.setVelocityY(super.getVelocity().getY() + ACCELERATION);
         }
         this.hasAccelerated = false;

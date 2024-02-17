@@ -88,13 +88,14 @@ public final class RunnerAgent extends Thread {
      * The parameter is the time already elapsed since the beginning of the frame.
      */
     private void waitForNextFrame(final long elapsed) {
-        // TODO: test System.out.println("Agent: elapsed: " + TimeUnit.NANOSECONDS.toMillis(elapsed));
-        long waitTime = INTERVAL - TimeUnit.NANOSECONDS.toMillis(elapsed);
+        System.out.println("Agent: elapsed: " + TimeUnit.NANOSECONDS.toMillis(elapsed));
+        //TODO: test
+        /*long waitTime = INTERVAL - TimeUnit.NANOSECONDS.toMillis(elapsed);
         try {
             Thread.sleep(waitTime);
         } catch (final InterruptedException e) {
             interrupt();
-        }
+        }*/
     }
 
     /**

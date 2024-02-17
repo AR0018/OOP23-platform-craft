@@ -4,18 +4,23 @@ package it.unibo.model.physics.api;
  * Defines the possible configurations for the movement speed of an object.
  */
 public enum SpeedLevels {
+    
+    /**
+     * Character movement speed.
+     */
+    CHARACTER_SPEED(10),
     /**
      * Fast movement speed.
      */
-    FAST(1),
+    FAST(0.05),
     /**
      * Medium movement speed.
      */
-    MEDIUM(0.6),
+    MEDIUM(0.02),
     /**
      * Slow movement speed.
      */
-    SLOW(0.3);
+    SLOW(0.01);
 
     private double value;
 

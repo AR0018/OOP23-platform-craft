@@ -32,6 +32,7 @@ import java.util.Optional;
 import it.unibo.common.SimpleEntity;
 import it.unibo.controller.api.Command;
 import it.unibo.controller.api.Controller;
+import it.unibo.view.api.View;
 
 /**
  * Models the GUI of the running level.
@@ -59,8 +60,9 @@ public final class LevelGUI {
      * @param controller the controller of the game
      * @param width of the map level
      * @param height of the map level
+     * @param view main view of the level
      */
-    public LevelGUI(final Controller controller, final double width, final double height) {
+    public LevelGUI(final Controller controller, final double width, final double height, final View view) {
 
         this.panelView = new PaintPanel(controller, WIDTH_FRAME, HEIGHT_FRAME, Optional.empty());
         this.controller = Objects.requireNonNull(controller);
@@ -68,6 +70,7 @@ public final class LevelGUI {
         this.frame.setSize(new Dimension(WIDTH_FRAME, HEIGHT_FRAME));
         this.frame.setMinimumSize(new Dimension(WIDTH_FRAME, HEIGHT_FRAME));
         this.frame.setLocationRelativeTo(null);
+        this.frame.setFocusable(true);
 
         final JMenuBar menuBar = new JMenuBar();
         menuBar.setBackground(Color.GRAY);
@@ -148,7 +151,8 @@ public final class LevelGUI {
                          "Quitting", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                     frame.setVisible(false);
                     controller.getRunner().stopLevel();
-                    new ViewImpl(controller, width, height).displayStart();
+                    //new ViewImpl(controller, width, height).displayStart();
+                    view.displayStart();
                 }
             }
         });

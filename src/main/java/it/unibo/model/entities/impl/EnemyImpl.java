@@ -114,10 +114,14 @@ public abstract class EnemyImpl extends GameEntityImpl implements Enemy {
         if (blockEnemyCollision.stream()
                 .anyMatch(x -> x.getDirection().equals(Direction.RIGHT) 
                 || x.getDirection().equals(Direction.LEFT))) {
-            if (this instanceof StrongEnemyImpl) {                                          //TODO: da rimettere come prima?
-                setDirection(Direction.UP);
-            } else {
-                setDirection(getDirection().equals(Direction.RIGHT) ? Direction.LEFT : Direction.RIGHT);
+            if (this instanceof StrongEnemyImpl && blockEnemyCollision.stream().anyMatch(x -> x.getDirection().equals(Direction.DOWN))) {                                          //TODO: da rimettere come prima?
+                this.setDirection(Direction.UP);
+            }
+            if (blockEnemyCollision.stream().anyMatch(x -> x.getDirection().equals(Direction.LEFT))) {
+                this.setDirection(Direction.RIGHT);
+            }
+            if (blockEnemyCollision.stream().anyMatch(x -> x.getDirection().equals(Direction.RIGHT))) {
+                this.setDirection(Direction.LEFT);
             }
         }
     }
@@ -133,6 +137,12 @@ public abstract class EnemyImpl extends GameEntityImpl implements Enemy {
         if (!enemyBorder.isEmpty()) {
             if (enemyBorder.stream().anyMatch(x -> x.getDirection().equals(Direction.DOWN))) {
                 setAlive(false);
+            }
+            if (enemyBorder.stream().anyMatch(x -> x.getDirection().equals(Direction.LEFT))) {
+                this.setDirection(Direction.RIGHT);
+            }
+            if (enemyBorder.stream().anyMatch(x -> x.getDirection().equals(Direction.RIGHT))) {
+                this.setDirection(Direction.LEFT);
             }
         }
     }
