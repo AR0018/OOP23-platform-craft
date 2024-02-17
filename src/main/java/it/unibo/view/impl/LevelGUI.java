@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -26,6 +27,7 @@ import javax.swing.JMenuBar;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JOptionPane;
 
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -49,11 +51,48 @@ public final class LevelGUI {
     private static final int MENUBAR_RIGHT = 10;
     private static final Dimension BUTTON_DIM = new Dimension(125, 35);
     private static final int THICKNESS = 4;
+    private static final int DELAY = 5;
     private final JFrame frame = new JFrame();
     //private final JPanel panelView = new JPanel();
     private final PaintPanel panelView;
     private Font fontButton;
     private Controller controller;
+    /*
+     * Set used to keep track of all the keys that are currently pressed.
+     */
+    private Set<Integer> activeKeys;
+    /*
+     * Action listener that processes pressed keys.
+     */
+    private ActionListener keyProcesser = new ActionListener() {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            activeKeys.stream()
+                .forEach(key -> {
+                    switch (key) {
+                        case KeyEvent.VK_W, KeyEvent.VK_UP, KeyEvent.VK_SPACE:
+                            controller.getRunner().notifyCommand(Command.MOVE_UP);
+                            break;
+                        case KeyEvent.VK_A, KeyEvent.VK_LEFT:
+                            controller.getRunner().notifyCommand(Command.MOVE_LEFT);
+                            break;
+                        case KeyEvent.VK_S, KeyEvent.VK_DOWN:
+                            controller.getRunner().notifyCommand(Command.MOVE_DOWN);
+                            break;
+                        case KeyEvent.VK_D, KeyEvent.VK_RIGHT:
+                            controller.getRunner().notifyCommand(Command.MOVE_RIGHT);
+                            break;
+                        default:
+                            break;
+                    }
+                });
+        }
+    };
+    /*
+     * Timer used to handle the key processing.
+     */
+    private Timer timer;
 
     /**
      * Constructor of the LevelGUI used to build the view of the level.
@@ -66,6 +105,8 @@ public final class LevelGUI {
 
         this.panelView = new PaintPanel(controller, WIDTH_FRAME, HEIGHT_FRAME, Optional.empty());
         this.controller = Objects.requireNonNull(controller);
+        this.activeKeys = new HashSet<>();
+        this.timer = new Timer(DELAY, keyProcesser);
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frame.setSize(new Dimension(WIDTH_FRAME, HEIGHT_FRAME));
         this.frame.setMinimumSize(new Dimension(WIDTH_FRAME, HEIGHT_FRAME));
@@ -100,34 +141,21 @@ public final class LevelGUI {
 
             @Override
             public void keyPressed(final KeyEvent e) {
-                int inputReceived = e.getKeyCode();
-                System.out.println(frame.isVisible());
                 if (frame.isVisible()) {
-                    switch (inputReceived) {
-                        case KeyEvent.VK_W, KeyEvent.VK_UP, KeyEvent.VK_SPACE:
-                            System.out.println("UP");
-                            controller.getRunner().notifyCommand(Command.MOVE_UP);
-                            break;
-                        case KeyEvent.VK_A, KeyEvent.VK_LEFT:
-                            System.out.println("LEFT");
-                            controller.getRunner().notifyCommand(Command.MOVE_LEFT);
-                            break;
-                        case KeyEvent.VK_S, KeyEvent.VK_DOWN:
-                            System.out.println("DOWN");
-                            controller.getRunner().notifyCommand(Command.MOVE_DOWN);
-                            break;
-                        case KeyEvent.VK_D, KeyEvent.VK_RIGHT:
-                            System.out.println("RIGHt");
-                            controller.getRunner().notifyCommand(Command.MOVE_RIGHT);
-                            break;
-                        default:
-                            break;
+                    int inputReceived = e.getKeyCode();
+                    if (!activeKeys.contains(inputReceived)) {
+                        activeKeys.add(inputReceived);
                     }
                 }
             }
 
             @Override
             public void keyReleased(final KeyEvent e) {
+                if (frame.isVisible()) {
+                    if (activeKeys.contains(e.getKeyCode())) {
+                        activeKeys.remove(e.getKeyCode());
+                    }
+                }
             }
         });
 
@@ -167,7 +195,8 @@ public final class LevelGUI {
      */
     public void show() {
         this.frame.setVisible(true);
-        this.controller.getRunner().run();
+        this.controller.getRunner().run();        
+        this.timer.start();
     }
 
     /**
@@ -175,6 +204,7 @@ public final class LevelGUI {
      */
     public void hide() {
         this.frame.setVisible(false);
+        this.timer.stop();
     }
 
     /**
