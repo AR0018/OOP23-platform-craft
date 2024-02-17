@@ -98,11 +98,10 @@ public abstract class EnemyImpl extends GameEntityImpl implements Enemy {
             checkEnemyCharacter();
             checkEnemyBorder();
             checkEnemyBlock();
-            checkEnemyTrap();
         }
     }
 
-    private void checkEnemyTrap() {
+    /*private void checkEnemyTrap() {
         var trapEnemyCollsion = getEntity(getCollisions())
             .stream()
             .filter(x -> x.getGameEntity() instanceof Trap)
@@ -112,7 +111,7 @@ public abstract class EnemyImpl extends GameEntityImpl implements Enemy {
         } else {
             this.setDirection(Direction.LEFT);
         }
-    }
+    }*/
     /**
      * Check if the enemy needs to change direction
      * due to a collision with another enemy or a map element
