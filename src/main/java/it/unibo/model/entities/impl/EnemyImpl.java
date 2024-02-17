@@ -7,7 +7,6 @@ import it.unibo.model.collisions.api.EntityCollision;
 import it.unibo.model.entities.api.Character;
 import it.unibo.model.entities.api.Enemy;
 import it.unibo.model.entities.api.MapElement;
-import it.unibo.model.entities.api.Trap;
 import it.unibo.model.level.api.Level;
 import it.unibo.model.physics.api.Direction;
 import it.unibo.model.physics.api.Position;
