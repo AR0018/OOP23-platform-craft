@@ -36,12 +36,9 @@ public final class EntityCollisionImpl implements EntityCollision {
         if (obj == null || this.getClass() != obj.getClass()) {
             return false;
         }
-        EntityCollision other = (EntityCollision) obj;
-        if (this.getDirection().equals(other.getDirection())
-            && this.getGameEntity().equals(other.getGameEntity())) {
-            return true;
-        }
-        return false;
+        final EntityCollision other = (EntityCollision) obj;
+        return this.getDirection().equals(other.getDirection())
+        && this.getGameEntity().equals(other.getGameEntity());
     }
 
     @Override

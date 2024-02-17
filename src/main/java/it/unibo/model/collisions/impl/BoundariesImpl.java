@@ -18,8 +18,8 @@ import org.locationtech.jts.operation.predicate.RectangleIntersects;
  * Implementation of the boundaries of an object.
  */
 public class BoundariesImpl implements Boundaries {
-    private double height;
-    private double width;
+    private final double height;
+    private final double width;
     private final Polygon rectangle;
     private final List<Position> vertices = new ArrayList<>();
 
@@ -41,28 +41,25 @@ public class BoundariesImpl implements Boundaries {
 
     @Override
     public final boolean intersectsLine(final Position a, final Position b) {
-        List<Position> line = new ArrayList<>();
+        final List<Position> line = new ArrayList<>();
         line.add(a);
         line.add(b);
         line.add(a);
-        Polygon lineRectangle = new GeometryFactory().createPolygon(line.toArray(new Coordinate[line.size()]));
+        final Polygon lineRectangle = new GeometryFactory().createPolygon(line.toArray(new Coordinate[0]));
         return RectangleIntersects.intersects(this.rectangle, lineRectangle);
     }
 
     @Override
     public final boolean intersects(final Boundaries other) {
-        Polygon otherRectangle = new GeometryFactory()
+        final Polygon otherRectangle = new GeometryFactory()
                 .createPolygon(other.getVertices().toArray(new Coordinate[vertices.size()]));
         return RectangleIntersects.intersects(this.rectangle, otherRectangle);
     }
 
     @Override
     public final boolean contains(final Position position) {
-        if (checkPerimeter(position) || RectangleContains.contains(rectangle,
-                new GeometryFactory().createPoint(new Coordinate(position.getX(), position.getY())))) {
-            return true;
-        }
-        return false;
+        return checkPerimeter(position) || RectangleContains.contains(rectangle,
+            new GeometryFactory().createPoint(new Coordinate(position.getX(), position.getY())));
     }
 
     @Override

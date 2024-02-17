@@ -27,11 +27,8 @@ public final class BorderCollisionImpl implements BorderCollision {
         if (obj == null || this.getClass() != obj.getClass()) {
             return false;
         }
-        BorderCollision other = (BorderCollision) obj;
-        if (this.getDirection().equals(other.getDirection())) {
-            return true;
-        }
-        return false;
+        final BorderCollision other = (BorderCollision) obj;
+        return this.getDirection().equals(other.getDirection());
     }
 
     @Override

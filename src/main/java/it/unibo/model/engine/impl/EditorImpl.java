@@ -56,8 +56,6 @@ public final class EditorImpl implements Editor {
             this.hasCharacter = true;
             this.hasFinishLocation = true;
         }
-        this.hasCharacter = false;
-        this.hasFinishLocation = false;
     }
 
     /*

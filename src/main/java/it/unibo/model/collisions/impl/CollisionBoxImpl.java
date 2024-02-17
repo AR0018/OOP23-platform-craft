@@ -21,10 +21,10 @@ import it.unibo.model.physics.impl.Position2D;
 public final class CollisionBoxImpl implements CollisionBox {
 
     private static final List<Direction> DIRECTIONS = List.of(Direction.UP, Direction.RIGHT, Direction.DOWN, Direction.LEFT);
-    private GameEntity gameEntity;
-    private double width;
-    private double height;
-    private MapBoundaries mapBoundaries; 
+    private final GameEntity gameEntity;
+    private final double width;
+    private final double height;
+    private final MapBoundaries mapBoundaries; 
 
     /**
      * @param width the width of this collision box
@@ -45,8 +45,8 @@ public final class CollisionBoxImpl implements CollisionBox {
 
     @Override
     public Set<Collision> getCollisions(final Set<GameEntity> entities) {
-        Set<Collision> collisions = new HashSet<>();
-        for (GameEntity entity : entities) {
+        final Set<Collision> collisions = new HashSet<>();
+        for (final GameEntity entity : entities) {
             if (this.isCollidingWith(entity)) {
                 collisions.add(checkEntityCollision(entity));
             }
@@ -66,8 +66,8 @@ public final class CollisionBoxImpl implements CollisionBox {
     }
 
     private Set<BorderCollision> checkBorderCollisions() {
-        Set<BorderCollision> borderCollisions = new HashSet<>();
-        List<Position> vertices = mapBoundaries.getVertices();
+        final Set<BorderCollision> borderCollisions = new HashSet<>();
+        final List<Position> vertices = mapBoundaries.getVertices();
         for (int vertice = 0; vertice < vertices.size() - 1; vertice++) {
             if (gameEntity.getBoundaries().intersectsLine(vertices.get(vertice), vertices.get(vertice + 1))) {
                 borderCollisions.add(new BorderCollisionImpl(DIRECTIONS.get(vertice))); 
@@ -77,8 +77,8 @@ public final class CollisionBoxImpl implements CollisionBox {
     }
 
     private Collision checkEntityCollision(final GameEntity other) {
-        List<Direction> directions = new ArrayList<>(); 
-        List<Position> vertices = gameEntity.getBoundaries().getVertices();
+        final List<Direction> directions = new ArrayList<>(); 
+        final List<Position> vertices = gameEntity.getBoundaries().getVertices();
         for (int vertice = 0; vertice < vertices.size() - 1; vertice++) {
             if (other.getBoundaries().intersectsLine(vertices.get(vertice), vertices.get(vertice + 1))) {
                 directions.add(DIRECTIONS.get(vertice));
@@ -99,10 +99,10 @@ public final class CollisionBoxImpl implements CollisionBox {
             //Case right or down.
             return new EntityCollisionImpl(other, directions.get(1));
         }
-        if ((directions.get(0) == Direction.UP
-            && directions.get(1) == Direction.DOWN)
-            || (directions.get(0) == Direction.RIGHT
-            && directions.get(1) == Direction.LEFT)) {
+        if (directions.get(0) == Direction.UP
+            && directions.get(1) == Direction.DOWN
+            || directions.get(0) == Direction.RIGHT
+            && directions.get(1) == Direction.LEFT) {
             return new EntityCollisionImpl(other, oppositeEdge(directions, other));
         } else {
             return new EntityCollisionImpl(other, adjacentEdge(directions, other));

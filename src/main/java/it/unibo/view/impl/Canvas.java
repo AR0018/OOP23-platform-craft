@@ -37,7 +37,7 @@ public final class Canvas extends JPanel {
         EntityType.LONG_MAP_ELEMENT, ROOT + "LongBlock.png"
     );
 
-    private Map<EntityType, Image> imageMap;
+    private final Map<EntityType, Image> imageMap;
 
     private final double levelWidth;
     private final double levelHeight;

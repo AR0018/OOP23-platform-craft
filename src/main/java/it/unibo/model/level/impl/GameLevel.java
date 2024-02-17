@@ -37,7 +37,7 @@ public final class GameLevel implements Level {
         this.boundaries = new MapBoundariesimpl(height, width);
         this.gameState = GameState.RUNNING;
         this.levelConfiguration = new HashSet<>();
-        this.character = null;  //TODO: think of a proper initialization
+        this.character = null;
     }
 
     @Override
