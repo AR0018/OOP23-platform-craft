@@ -42,7 +42,6 @@ public final class LevelRunnerImpl implements LevelRunner {
     @Override
     public void run() {
         if (this.hasLoaded) {
-            //TODO: test System.out.println("Runner: starto l'Agent");
             this.runner = Optional.of(new RunnerAgent(this.engine, this.view));
             this.runner.get().start();
         } else {
@@ -67,8 +66,8 @@ public final class LevelRunnerImpl implements LevelRunner {
     @Override
     public boolean loadLevel(final File file) {
         try {
-            Set<SimpleEntity> levelEntities = new SerializerImpl().loadLevel(file);
-            Optional<Engine> created = new EditorImpl(levelEntities).createLevel();
+            final Set<SimpleEntity> levelEntities = new SerializerImpl().loadLevel(file);
+            final Optional<Engine> created = new EditorImpl(levelEntities).createLevel();
             if (created.isPresent()) {
                 this.engine = created.get();
                 /*
@@ -87,8 +86,8 @@ public final class LevelRunnerImpl implements LevelRunner {
     @Override
     public void restart() {
         if (this.hasLoaded) {
-            Optional<Engine> created = new EditorImpl(entityBuffer).createLevel();
-            if (created.isPresent()) {  //TODO: probably remove (if the configuration was valid in the beginning, it still is)
+            final Optional<Engine> created = new EditorImpl(entityBuffer).createLevel();
+            if (created.isPresent()) {
                 this.engine = created.get();
             } else {
                 throw new IllegalStateException("Failed to reload the level");

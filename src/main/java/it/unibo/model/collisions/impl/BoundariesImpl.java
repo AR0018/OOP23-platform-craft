@@ -18,9 +18,6 @@ import org.locationtech.jts.operation.predicate.RectangleIntersects;
  * Implementation of the boundaries of an object.
  */
 public class BoundariesImpl implements Boundaries {
-
-    // TODO: bisogna fare in modo che contains. return true se il punto
-    // appartiene ad uno dei lati del rettangolo perchè JTS non lo fa
     private double height;
     private double width;
     private final Polygon rectangle;

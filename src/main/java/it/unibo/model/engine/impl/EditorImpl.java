@@ -31,8 +31,8 @@ public final class EditorImpl implements Editor {
 
     private Level level;
 
-    private boolean hasCharacter = false;
-    private boolean hasFinishLocation = false;
+    private boolean hasCharacter;
+    private boolean hasFinishLocation;
 
     /**
      * Constructs an Editor with the given input configuration.
@@ -56,6 +56,8 @@ public final class EditorImpl implements Editor {
             this.hasCharacter = true;
             this.hasFinishLocation = true;
         }
+        this.hasCharacter = false;
+        this.hasFinishLocation = false;
     }
 
     /*
@@ -77,8 +79,6 @@ public final class EditorImpl implements Editor {
     @Override
     public Optional<Engine> createLevel() {
         if (validLevel()) {
-            System.out.println("Livello valido. Creo"); //TODO: test
-            //TODO: test System.out.println("Editor: character del mio level: " + this.level.getCharacter());
             return Optional.of(new EngineImpl(new UnmodifiableLevel(level)));
         }
         return Optional.empty();
@@ -93,20 +93,16 @@ public final class EditorImpl implements Editor {
         if (entity.getType().equals(EntityType.CHARACTER) && this.hasCharacter) {
             return false;
         }
-        GameEntity gameEntity = createFromSimpleEntity(entity);
+        final GameEntity gameEntity = createFromSimpleEntity(entity);
         if (canBeAdded(gameEntity)) {
             this.level.addGameEntity(gameEntity);
             if (gameEntity instanceof FinishLocation) {
                 this.hasFinishLocation = true;
-                System.out.println("Aggiunto FinishLocation"); //TODO: test
             }
             if (gameEntity instanceof Character) {
                 this.hasCharacter = true;
                 this.level.setCharacter((Character) gameEntity);
-                System.out.println("Aggiunto Character"); //TODO: test
             }
-            System.out.println("Aggiunto. Entita: " + this.level.getGameEntities());    //TODO: test
-            System.out.println("Valido: " + this.validLevel()); //TODO:test
             return true;
         }
         return false;
@@ -136,7 +132,7 @@ public final class EditorImpl implements Editor {
          * Check if there is a game entity at the specified coordinates (x, y)
          * and remove the entity found.
          */
-        Optional<GameEntity> entityToRemove = this.level.getGameEntities().stream()
+        final Optional<GameEntity> entityToRemove = this.level.getGameEntities().stream()
                 .filter(e -> e.getBoundaries().contains(new Position2D(x, y)))
                 .findFirst();
         if (entityToRemove.isPresent()) {

@@ -24,7 +24,7 @@ public final class SerializerImpl implements LevelSerializer {
 
     @Override
     public Set<SimpleEntity> loadLevel(final File file) throws IOException {
-        Set<SimpleEntity> entities = new HashSet<>();
+        final Set<SimpleEntity> entities = new HashSet<>();
         new ObjectMapper().readValue(file, new TypeReference<Set<SimpleEntityImpl>>() { })
             .stream().forEach(e -> entities.add(e));
         return entities;

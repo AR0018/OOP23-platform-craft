@@ -21,10 +21,10 @@ import java.util.Objects;
  */
 public final class GameLevel implements Level {
 
-    private Set<GameEntity> levelConfiguration; // set of GameEntity contains all game entity
+    private final Set<GameEntity> levelConfiguration; // set of GameEntity contains all game entity
     private Character character; // save the Charachter
     private GameState gameState; // save the game state
-    private MapBoundaries boundaries;
+    private final MapBoundaries boundaries;
 
     /**
      * The constructor of this Level.
@@ -61,7 +61,7 @@ public final class GameLevel implements Level {
      * If the Character touches the finish location, the player wins.
      */
     private void checkWin() {
-        Set<EntityCollision> entityCollisions = new HashSet<>();
+        final Set<EntityCollision> entityCollisions = new HashSet<>();
         character.getCollisions()
             .stream()
             .filter(e -> e instanceof EntityCollision)
@@ -92,7 +92,7 @@ public final class GameLevel implements Level {
      * Removes every dead entity in the level (isAlive == false).
      */
     private void removeDeadEntities() {
-        Set<GameEntity> entitiesToCheck = new HashSet<>(levelConfiguration);
+        final Set<GameEntity> entitiesToCheck = new HashSet<>(levelConfiguration);
         entitiesToCheck.stream()
             .filter(e -> !e.isAlive())
             .forEach(e -> levelConfiguration.remove(e));
