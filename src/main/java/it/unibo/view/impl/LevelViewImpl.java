@@ -55,13 +55,13 @@ public final class LevelViewImpl implements LevelView {
 
     @Override
     public void displayWin() {
-        hide();                 //new Win(controller).display();    display fa hide di LevelView
-        new WinView(this.controller, this, this.width, this.heigth, this.view); //prendo il level view per poterlo chiudere insieme
+        //this.hide();                 //new Win(controller).display();    display fa hide di LevelView
+        new WinView(this.controller, this.levelGUI, this.width, this.heigth, this.view); //prendo il level view per poterlo chiudere insieme
     }
 
     @Override
     public void displayGameOver() {
-        hide();
-        new GameOverView(this.controller, this, this.width, this.heigth, this.view);
+        this.hide();
+        new GameOverView(this.controller, this.levelGUI, this.width, this.heigth, this.view);
     }
 }

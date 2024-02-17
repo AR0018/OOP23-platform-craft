@@ -31,6 +31,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import it.unibo.common.EntityType;
 import it.unibo.controller.api.Controller;
+import it.unibo.view.api.View;
 
 import javax.swing.JOptionPane;
 import javax.swing.JFileChooser;
@@ -73,8 +74,9 @@ public final class EditorGUI {
      * @param controller the controller of the game
      * @param width the width of the game level
      * @param height the heigth of the game level
+     * @param view the main view of the game
      */
-    public EditorGUI(final Controller controller, final double width, final double height) {
+    public EditorGUI(final Controller controller, final double width, final double height, final View view) {
 
         this.panelView = new PaintPanel(controller, WIDTH_FRAME, HEIGHT_FRAME, Optional.of(this));
         //this.panelView.setPreferredSize(new Dimension(500, 500));
@@ -171,7 +173,8 @@ public final class EditorGUI {
                 if (JOptionPane.showConfirmDialog(frame, "Do you want to return to the Title Screen",
                          "Quitting", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                     frame.setVisible(false);
-                    new ViewImpl(controller, width, height).displayStart();
+                    //new ViewImpl(controller, width, height).displayStart();
+                    view.displayStart();
                 }
             }
         });

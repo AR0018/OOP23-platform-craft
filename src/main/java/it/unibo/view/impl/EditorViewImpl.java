@@ -2,6 +2,7 @@ package it.unibo.view.impl;
 
 import it.unibo.controller.api.Controller;
 import it.unibo.view.api.EditorView;
+import it.unibo.view.api.View;
 
 /**
  * Models the GUI of the game's Editor.
@@ -16,9 +17,9 @@ public final class EditorViewImpl implements EditorView {
      * @param width of the map level
      * @param height of the map level
      */
-    public EditorViewImpl(final Controller controller, final double width, final double height) {
+    public EditorViewImpl(final Controller controller, final double width, final double height, final View view) {
         //this.controller = controller;
-        this.editor = new EditorGUI(controller, width, height);
+        this.editor = new EditorGUI(controller, width, height, view);
     }
 
     @Override

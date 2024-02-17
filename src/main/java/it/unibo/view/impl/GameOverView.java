@@ -49,11 +49,12 @@ public final class GameOverView {
     /**
      * Constructor of the GameOverView.
      * @param controller controller of the game
-     * @param levelView the GUI of the running level
+     * @param levelGUI the GUI of the running level
      * @param width of the map level
      * @param height of the map level
+     * @param view the main view
      */
-    public GameOverView(final Controller controller, final LevelView levelView,
+    public GameOverView(final Controller controller, final LevelGUI levelGUI,
         final double width, final double height, final View view) {
 
         this.frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -99,10 +100,12 @@ public final class GameOverView {
 
             @Override
             public void actionPerformed(final ActionEvent e) {
-                frame.setVisible(false);
+                //frame.setVisible(false);
                 //levelView.hide();
                 //controller.getRunner().stopLevel();
-                levelView.hide();
+                //levelView.hide();
+                frame.setVisible(false);
+                levelGUI.hide();
                 view.displayStart();
             }
         });

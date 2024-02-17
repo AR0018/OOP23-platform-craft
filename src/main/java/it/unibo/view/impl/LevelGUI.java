@@ -167,7 +167,6 @@ public final class LevelGUI {
      */
     public void show() {
         this.frame.setVisible(true);
-        System.out.println("LEVELGUI : " + this.frame.isFocusable());
         this.controller.getRunner().run();
     }
 
