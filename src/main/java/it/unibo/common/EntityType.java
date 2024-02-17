@@ -30,7 +30,7 @@ public enum EntityType {
      */
     MAP_ELEMENT(100, 100),
     /**
-     * A longer element of the map
+     * A longer element of the map.
      */
     LONG_MAP_ELEMENT(300, 100),
     /**

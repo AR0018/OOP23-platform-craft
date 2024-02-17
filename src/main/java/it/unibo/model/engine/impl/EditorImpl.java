@@ -79,9 +79,7 @@ public final class EditorImpl implements Editor {
         if (validLevel()) {
             System.out.println("Livello valido. Creo"); //TODO: test
             //TODO: test System.out.println("Editor: character del mio level: " + this.level.getCharacter());
-            Optional<Engine> prova = Optional.of(new EngineImpl(new UnmodifiableLevel(level)));
-            System.out.println("Opzionale creato: "+ prova);
-            return prova;
+            return Optional.of(new EngineImpl(new UnmodifiableLevel(level)));
         }
         return Optional.empty();
     }
