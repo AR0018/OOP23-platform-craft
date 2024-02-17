@@ -1,6 +1,7 @@
 package it.unibo.model.collisions.impl;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import it.unibo.model.collisions.api.Boundaries;
@@ -69,7 +70,7 @@ public class BoundariesImpl implements Boundaries {
 
     @Override
     public final List<Position> getVertices() {
-        return this.vertices;
+        return Collections.unmodifiableList(this.vertices);
     }
 
     @Override

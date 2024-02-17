@@ -4,12 +4,24 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.common.SimpleEntity;
 import it.unibo.common.impl.SimpleEntityImpl;
 import it.unibo.model.engine.api.Engine;
 import it.unibo.model.level.api.Level;
 import it.unibo.model.physics.api.Direction;
 import it.unibo.model.level.api.GameState;
+
+    /**
+     * Spotbugs suppression.
+     */
+    @SuppressFBWarnings(
+        value = {
+            "EI_EXPOSE_REP2"
+        },
+        justification = "A normal Level stored by this object would be externally mutable, "
+            + "however, this class actually stores an instance of UnmodifiableLevel, which disables writing operations."
+    )
 
 /**
  * An implementation of Engine.

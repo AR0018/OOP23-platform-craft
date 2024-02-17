@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.common.SimpleEntity;
 import it.unibo.controller.api.Controller;
 import it.unibo.view.api.EditorView;
@@ -158,6 +159,14 @@ public final class TitleScreen {
         quit.setBackground(FOREGROUND);
         quit.setForeground(BUTTON_BACK);
         quit.addActionListener(new ActionListener() {
+
+            @SuppressFBWarnings(
+                value = {
+                    "DM_EXIT"
+                },
+                justification = "This code calls System.exit(), exiting the program. "
+                    + "It is exactly what we want in this case."
+            )
 
             @Override
             public void actionPerformed(final ActionEvent e) {

@@ -2,6 +2,8 @@ package it.unibo.model.entities.impl;
 
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.common.EntityType;
 import it.unibo.model.collisions.api.Boundaries;
 import it.unibo.model.collisions.api.Collision;
@@ -10,6 +12,17 @@ import it.unibo.model.collisions.impl.CollisionBoxImpl;
 import it.unibo.model.entities.api.GameEntity;
 import it.unibo.model.level.api.Level;
 import it.unibo.model.physics.api.Position;
+
+/**
+* Spotbugs suppression.
+*/
+@SuppressFBWarnings(
+    value = {
+        "EI_EXPOSE_REP2"
+    },
+    justification = "A normal Level stored by this object would be externally mutable, "
+        + "however, this class actually stores an instance of UnmodifiableLevel, which disables writing operations."
+)
 
 /**
  * Class used to accumulate the same code of the GameEntities.

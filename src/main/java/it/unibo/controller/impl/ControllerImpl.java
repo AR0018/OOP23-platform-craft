@@ -1,5 +1,6 @@
 package it.unibo.controller.impl;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.controller.api.Controller;
 import it.unibo.controller.api.LevelEditor;
 import it.unibo.controller.api.LevelRunner;
@@ -42,6 +43,16 @@ public final class ControllerImpl implements Controller {
     public LevelRunner getRunner() {
         return this.levelRunner;
     }
+
+    @SuppressFBWarnings(
+        value = {
+            "EI_EXPOSE_REP"
+        },
+        justification = "By design, we want other parts of the application to be able to see the distinction "
+            + "between the two parts of the Controller: the one designed to run the Level, and the one designed "
+            + "to run the Level editor, and access each part separately. This way, a class that is trying to use "
+            + "the services provided by the LevelEditor will access directly to it by using its reference."
+    )
 
     @Override
     public LevelEditor getEditor() {
