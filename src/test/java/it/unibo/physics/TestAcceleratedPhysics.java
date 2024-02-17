@@ -23,7 +23,11 @@ import it.unibo.model.physics.impl.Position2D;
 public class TestAcceleratedPhysics {
 
     private Physics physics;
-    private static final double ACCELERATION = 0.1; //Value may change
+    /*
+     * Before testing, make sure this values are the same as the ones in Physics.
+     */
+    private static final double ACCELERATION = 0.2; //Value may change
+    private static final double GRAVITY = 0.1; //Value may change
 
     @Test
     void testAcceleratedMovement() {
@@ -56,12 +60,12 @@ public class TestAcceleratedPhysics {
         //The physics should have decelerated to 0, so it shouldn't have moved
         assertEquals(new Position2D(timesAccel * ACCELERATION, 0), entity.getPosition());
         //Sets the speed to 6 * ACCELERATION
-        for (int i = 0; i < timesAccel; i++) {
+        for (int i = 0; i < (int) (SpeedLevels.FAST.getValue() / ACCELERATION) + 1; i++) {
             this.physics.setMovement(Direction.RIGHT);
         }
         this.physics.setMovement(Direction.LEFT);   //Accelerates to the left, decreasing the velocity on x
         entity.updateState();
-        assertEquals(new Position2D((2 * timesAccel - 1) * ACCELERATION, 0), entity.getPosition());
+        assertEquals(new Position2D((timesAccel - 1) * ACCELERATION + SpeedLevels.FAST.getValue(), 0), entity.getPosition()); //(2 * timesAccel - 1) * ACCELERATION
         /*
          * Test maximum speed
          */
@@ -72,7 +76,7 @@ public class TestAcceleratedPhysics {
         }
         entity.updateState();
         assertEquals(
-            new Position2D(((2 * timesAccel - 1) * ACCELERATION) - SpeedLevels.FAST.getValue(), 0),
+            new Position2D((timesAccel - 1) * ACCELERATION, 0),
             entity.getPosition());
         /*
          * Test deceleration in the opposite direction
@@ -100,10 +104,10 @@ public class TestAcceleratedPhysics {
         entity.updateState();
         assertEquals(new Position2D(0, 0), entity.getPosition());
         entity.updateState();
-        assertEquals(new Position2D(0, ACCELERATION), entity.getPosition());
+        assertEquals(new Position2D(0, GRAVITY), entity.getPosition());
         physics.setMovement(Direction.RIGHT); //Sets linear movement to the right
         entity.updateState();
-        assertEquals(new Position2D(SpeedLevels.FAST.getValue(), 3 * ACCELERATION), entity.getPosition());
+        assertEquals(new Position2D(SpeedLevels.FAST.getValue(), 3 * GRAVITY), entity.getPosition());
         entity.position = new Position2D(0, 0);
         this.physics.stopOnX();
         this.physics.stopOnY();
@@ -111,7 +115,7 @@ public class TestAcceleratedPhysics {
         entity.updateState();
         assertEquals(new Position2D(0, -SpeedLevels.FAST.getValue()), entity.getPosition());
         entity.updateState();
-        assertEquals(new Position2D(0, -(2 * SpeedLevels.FAST.getValue() - ACCELERATION)), entity.getPosition());
+        assertEquals(new Position2D(0, -(2 * SpeedLevels.FAST.getValue() - GRAVITY)), entity.getPosition());
     }
 
     @Test

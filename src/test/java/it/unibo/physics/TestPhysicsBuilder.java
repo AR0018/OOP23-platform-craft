@@ -26,7 +26,8 @@ import it.unibo.model.physics.impl.Position2D;
  */
 public class TestPhysicsBuilder {
 
-    private static final double ACCELERATION = 0.1; //Value may change
+    private static final double ACCELERATION = 0.2; //Value may change
+    private static final double GRAVITY = 0.1; //Value may change
 
     @Test
     void testCorrectBehaviour() {
@@ -67,7 +68,7 @@ public class TestPhysicsBuilder {
             .create();
         accelerated.setMovement(Direction.RIGHT);
         assertEquals(new Position2D(SpeedLevels.MEDIUM.getValue(), 0), accelerated.calculateMovement());
-        assertEquals(new Position2D(SpeedLevels.MEDIUM.getValue(), ACCELERATION), accelerated.calculateMovement());
+        assertEquals(new Position2D(SpeedLevels.MEDIUM.getValue(), GRAVITY), accelerated.calculateMovement());
          /*
          * Test accelerated movement with falling and acceleration on X.
          */
@@ -81,7 +82,7 @@ public class TestPhysicsBuilder {
         entity.position = accelerated.calculateMovement();
         assertEquals(new Position2D(ACCELERATION, 0), entity.position);
         accelerated.stopOnX();
-        assertEquals(new Position2D(ACCELERATION, ACCELERATION), accelerated.calculateMovement());
+        assertEquals(new Position2D(ACCELERATION, GRAVITY), accelerated.calculateMovement());
     }
 
     @Test
