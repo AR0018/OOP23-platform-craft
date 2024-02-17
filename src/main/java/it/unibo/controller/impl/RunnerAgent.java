@@ -3,7 +3,6 @@ package it.unibo.controller.impl;
 import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
 
 import it.unibo.controller.api.Command;
@@ -40,12 +39,11 @@ public final class RunnerAgent extends Thread {
         //TODO: test System.out.println("Agent: entita' del mio engine: " + this.engine.getLevelEntities());
         //TODO: test System.out.println("Agent: inizio loop");
         while (!isInterrupted() && !isOver()) {
-            long time = System.nanoTime();
             //TODO: test System.out.println("Agent: continuo loop"); 
             executeCommands();
             this.engine.updateLevel();
             this.view.render(engine.getLevelEntities());
-            waitForNextFrame(System.nanoTime() - time);
+            waitForNextFrame();
         }
         //TODO: test System.out.println("Agent: esco dal loop");
         finish();
@@ -85,12 +83,9 @@ public final class RunnerAgent extends Thread {
 
     /*
      * Puts this thread in a sleep until the next frame needs to start.
-     * The parameter is the time already elapsed since the beginning of the frame.
+     * The sleep time in milliseconds is specified in constant INTERVAL.
      */
-    private void waitForNextFrame(final long elapsed) {
-        //System.out.println("Agent: elapsed: " + TimeUnit.NANOSECONDS.toMillis(elapsed));
-        //TODO: test
-        //long waitTime = INTERVAL - TimeUnit.NANOSECONDS.toMillis(elapsed); TODO: causes negative value
+    private void waitForNextFrame() {
         try {
             Thread.sleep(INTERVAL);
         } catch (final InterruptedException e) {
