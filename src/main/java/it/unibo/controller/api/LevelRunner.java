@@ -33,4 +33,11 @@ public interface LevelRunner {
      * @return true if the level has been loaded, false if there has been an error when loading the file
      */
     boolean loadLevel(File file);
+
+    /**
+     * Restarts the level, restoring the loading configuration.
+     * @throws IllegalStateException if loadLevel has never been called successfully,
+     *  so if a level has never been correctly loaded in this Runner
+     */
+    void restart();
 }

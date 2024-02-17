@@ -2,6 +2,7 @@ package it.unibo.controller.impl;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
@@ -16,11 +17,14 @@ import it.unibo.view.api.View;
 /**
  * Implementation of a LevelRunner.
  */
-public final class LevelRunnerImpl implements LevelRunner {     //TODO: aggiunti metodo restart che ristabilisce la configurazione iniziale dell'engine.
-    //private Engine engine;
+public final class LevelRunnerImpl implements LevelRunner {
     private final View view;
     private Optional<RunnerAgent> runner;
     private Engine engine;
+    /*
+     * A buffer used to store the initial configuration of the level to be played.
+     */
+    private Set<SimpleEntity> entityBuffer;
     //True if a level has been correctly loaded, false otherwise.
     private boolean hasLoaded;
 
@@ -32,6 +36,7 @@ public final class LevelRunnerImpl implements LevelRunner {     //TODO: aggiunti
         this.view = view;
         this.hasLoaded = false;
         this.runner = Optional.empty();
+        this.entityBuffer = new HashSet<>();
     }
 
     @Override
@@ -66,12 +71,30 @@ public final class LevelRunnerImpl implements LevelRunner {     //TODO: aggiunti
             Optional<Engine> created = new EditorImpl(levelEntities).createLevel();
             if (created.isPresent()) {
                 this.engine = created.get();
+                /*
+                 * Saves the current configuration for the restart.
+                 */
+                this.entityBuffer = engine.getLevelEntities();
                 this.hasLoaded = true;
                 return true;
             }
             return false;
         } catch (final IOException e) {
             return false;
+        }
+    }
+
+    @Override
+    public void restart() {
+        if (this.hasLoaded) {
+            Optional<Engine> created = new EditorImpl(entityBuffer).createLevel();
+            if (created.isPresent()) {  //TODO: probably remove (if the configuration was valid in the beginning, it still is)
+                this.engine = created.get();
+            } else {
+                throw new IllegalStateException("Failed to reload the level");
+            }
+        } else {
+            throw new IllegalStateException("Cannot invoke this method since no level has been loaded");
         }
     }
 }

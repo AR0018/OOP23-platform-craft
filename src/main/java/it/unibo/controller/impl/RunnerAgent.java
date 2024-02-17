@@ -17,7 +17,7 @@ import it.unibo.view.api.View;
 public final class RunnerAgent extends Thread {
 
     //The amount of time (in milliseconds) to wait between a frame and another
-    private static final long INTERVAL = 20;
+    private static final long INTERVAL = 20L;
 
     private final BlockingQueue<Command> commands;
     private final Engine engine;
@@ -90,12 +90,12 @@ public final class RunnerAgent extends Thread {
     private void waitForNextFrame(final long elapsed) {
         System.out.println("Agent: elapsed: " + TimeUnit.NANOSECONDS.toMillis(elapsed));
         //TODO: test
-        /*long waitTime = INTERVAL - TimeUnit.NANOSECONDS.toMillis(elapsed);
+        //long waitTime = INTERVAL - TimeUnit.NANOSECONDS.toMillis(elapsed); TODO: causes negative value
         try {
-            Thread.sleep(waitTime);
+            Thread.sleep(INTERVAL);
         } catch (final InterruptedException e) {
             interrupt();
-        }*/
+        }
     }
 
     /**
