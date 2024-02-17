@@ -114,7 +114,11 @@ public abstract class EnemyImpl extends GameEntityImpl implements Enemy {
         if (blockEnemyCollision.stream()
                 .anyMatch(x -> x.getDirection().equals(Direction.RIGHT) 
                 || x.getDirection().equals(Direction.LEFT))) {
-            setDirection(getDirection().equals(Direction.RIGHT) ? Direction.LEFT : Direction.RIGHT);
+            if (this instanceof StrongEnemyImpl) {                                          //TODO: da rimettere come prima?
+                setDirection(Direction.UP);
+            } else {
+                setDirection(getDirection().equals(Direction.RIGHT) ? Direction.LEFT : Direction.RIGHT);
+            }
         }
     }
 

@@ -11,9 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import it.unibo.model.physics.api.Direction;
 import it.unibo.model.physics.api.Position;
-import it.unibo.common.EntityType;
 import it.unibo.model.collisions.api.Boundaries;
-import it.unibo.model.collisions.api.Collision;
 import it.unibo.model.collisions.api.CollisionBox;
 import it.unibo.model.collisions.api.MapBoundaries;
 import it.unibo.model.collisions.impl.BorderCollisionImpl;
@@ -22,13 +20,11 @@ import it.unibo.model.collisions.impl.CollisionBoxImpl;
 import it.unibo.model.collisions.impl.EntityCollisionImpl;
 import it.unibo.model.entities.api.Character;
 import it.unibo.model.entities.api.GameEntity;
-import it.unibo.model.entities.impl.GameEntityFactoryImpl;
 import it.unibo.model.entities.impl.SimpleEnemyImpl;
 import it.unibo.model.level.api.GameState;
 import it.unibo.model.level.api.Level;
 import it.unibo.model.physics.impl.Position2D;
 import it.unibo.model.collisions.impl.MapBoundariesimpl;
-import it.unibo.model.collisions.api.MapBoundaries;
 
 /**
  * Class for testing the Collisions.
