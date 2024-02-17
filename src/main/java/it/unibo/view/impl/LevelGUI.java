@@ -67,7 +67,7 @@ public final class LevelGUI {
     private ActionListener keyProcesser = new ActionListener() {
 
         @Override
-        public void actionPerformed(ActionEvent e) {
+        public void actionPerformed(final ActionEvent e) {
             activeKeys.stream()
                 .forEach(key -> {
                     switch (key) {
@@ -195,7 +195,7 @@ public final class LevelGUI {
      */
     public void show() {
         this.frame.setVisible(true);
-        this.controller.getRunner().run();        
+        this.controller.getRunner().run();
         this.timer.start();
     }
 

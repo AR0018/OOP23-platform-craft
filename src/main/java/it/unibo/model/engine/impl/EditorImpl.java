@@ -77,6 +77,7 @@ public final class EditorImpl implements Editor {
     @Override
     public Optional<Engine> createLevel() {
         if (validLevel()) {
+            System.out.println("Livello valido. Creo"); //TODO: test
             //TODO: test System.out.println("Editor: character del mio level: " + this.level.getCharacter());
             return Optional.of(new EngineImpl(new UnmodifiableLevel(level)));
         }
@@ -97,11 +98,15 @@ public final class EditorImpl implements Editor {
             this.level.addGameEntity(gameEntity);
             if (gameEntity instanceof FinishLocation) {
                 this.hasFinishLocation = true;
+                System.out.println("Aggiunto FinishLocation"); //TODO: test
             }
             if (gameEntity instanceof Character) {
                 this.hasCharacter = true;
                 this.level.setCharacter((Character) gameEntity);
+                System.out.println("Aggiunto Character"); //TODO: test
             }
+            System.out.println("Aggiunto. Entita: " + this.level.getGameEntities());    //TODO: test
+            System.out.println("Valido: " + this.validLevel()); //TODO:test
             return true;
         }
         return false;

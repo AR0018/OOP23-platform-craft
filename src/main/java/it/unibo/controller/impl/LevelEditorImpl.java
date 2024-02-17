@@ -64,7 +64,7 @@ public final class LevelEditorImpl implements LevelEditor {
 
     @Override
     public boolean canBeSaved() {
-        return this.editor.createLevel().isEmpty();
+        return !this.editor.createLevel().isEmpty();
     }
 
     @Override

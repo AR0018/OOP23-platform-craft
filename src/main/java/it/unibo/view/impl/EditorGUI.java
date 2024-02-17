@@ -332,8 +332,13 @@ public final class EditorGUI {
         box.add(button4);
 
         final JButton button5 = new JButton();
+<<<<<<< HEAD
         addImageToButton(button5, "MapElement", "it/unibo/images/Block.png");
         addEntityFromButton(button5, EntityType.MAP_ELEMENT);
+=======
+        addImageToButton(button5, "MapElement", "src/main/resources/it/unibo/images/block.png");
+        addEntityFromButton(button5, EntityType.LONG_MAP_ELEMENT);      //TODO: used to be EntityType.MAP_ELEMENT
+>>>>>>> 76801bca8c7b195b122ae35f537b13aec3c8d214
         //button5.setVerticalTextPosition(SwingConstants.TOP);          //Possono servire per mettere in alto il testo
         //button5.setVerticalAlignment(SwingConstants.TOP);
         box.add(button5);
