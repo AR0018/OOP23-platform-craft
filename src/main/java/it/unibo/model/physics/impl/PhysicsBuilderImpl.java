@@ -35,19 +35,19 @@ public final class PhysicsBuilderImpl implements PhysicsBuilder {
     }
 
     @Override
-    public PhysicsBuilder setGameEntity(final GameEntity entity) {
+    public PhysicsBuilder addGameEntity(final GameEntity entity) {
         this.entity = Optional.of(Objects.requireNonNull(entity));
         return this;
     }
 
     @Override
-    public PhysicsBuilder setSpeedOnX(final SpeedLevels speed) {
+    public PhysicsBuilder addSpeedOnX(final SpeedLevels speed) {
         this.speedX = Objects.requireNonNull(speed);
         return this;
     }
 
     @Override
-    public PhysicsBuilder setSpeedOnY(final SpeedLevels speed) {
+    public PhysicsBuilder addSpeedOnY(final SpeedLevels speed) {
         this.speedY = Objects.requireNonNull(speed);
         return this;
     }

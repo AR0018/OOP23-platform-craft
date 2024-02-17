@@ -55,7 +55,7 @@ public final class WinView {
         this.frame.setResizable(false);
         this.frame.setSize(FRAME_DIMENSION);
         this.frame.setLocationRelativeTo(null);
-        
+
         this.addingFont();
         /*try {
             final float fontLabelDim = 130f;

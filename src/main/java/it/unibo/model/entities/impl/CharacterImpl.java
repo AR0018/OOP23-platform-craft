@@ -38,9 +38,9 @@ public final class CharacterImpl extends GameEntityImpl implements Character {
     public CharacterImpl(final Position position, final Level level) {
         super(position, level, EntityType.CHARACTER.getWidth(), EntityType.CHARACTER.getHeigth());
         this.physic = this.physicsBuilder
-                .setGameEntity(this)
-                .setSpeedOnX(SpeedLevels.CHARACTER_SPEED)
-                .setSpeedOnY(SpeedLevels.CHARACTER_SPEED)
+                .addGameEntity(this)
+                .addSpeedOnX(SpeedLevels.CHARACTER_SPEED)
+                .addSpeedOnY(SpeedLevels.CHARACTER_SPEED)
                 .addAccelerationOnX()
                 .addFallingPhysics()
                 .create();
@@ -104,12 +104,22 @@ public final class CharacterImpl extends GameEntityImpl implements Character {
                     .stream()
                     .filter(x -> x.getGameEntity() instanceof Enemy)
                     .collect(Collectors.toSet());
-            if (!enemySetCollision.isEmpty()) {             //TODO: migliorare
+            /*if (!enemySetCollision.isEmpty()) {             //TODO: migliorare
                 if (!(enemySetCollision.size() == 1 
                         && enemySetCollision.stream().findFirst().get().getDirection().equals(Direction.DOWN))) {
                             setAlive(false);
                 }
-            }
+            }*/
+        /*if (!enemySetCollision.isEmpty() && !(enemySetCollision.size() == 1 
+                    && enemySetCollision.stream().findFirst().get().getDirection().equals(Direction.DOWN))) {  //TODO: controllare
+                        setAlive(false);
+        }*/
+        if (!enemySetCollision.isEmpty() 
+            && !enemySetCollision.stream()
+            .findFirst().get()
+            .getDirection().equals(Direction.DOWN)) {  //TODO: controllare
+                        setAlive(false);
+        }
     }
 
     private void checkBorderCollision() {

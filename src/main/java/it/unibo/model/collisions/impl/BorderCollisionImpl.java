@@ -1,5 +1,7 @@
 package it.unibo.model.collisions.impl;
 
+import java.util.Objects;
+
 import it.unibo.model.collisions.api.BorderCollision;
 import it.unibo.model.physics.api.Direction;
 
@@ -32,7 +34,7 @@ public final class BorderCollisionImpl implements BorderCollision {
     }
 
     @Override
-    public int hashCode() {             //TODO: controllare se serve
-        return super.hashCode();
+    public int hashCode() {
+        return Objects.hash(direction);
     }
 }

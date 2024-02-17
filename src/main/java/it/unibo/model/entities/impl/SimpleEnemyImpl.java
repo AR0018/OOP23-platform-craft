@@ -23,10 +23,10 @@ public final class SimpleEnemyImpl extends EnemyImpl {
      */
     public SimpleEnemyImpl(final Position position, final Level level) {
         super(position, level, EntityType.SIMPLE_ENEMY.getWidth(), EntityType.SIMPLE_ENEMY.getHeigth());
-        this.physics = this.builder.setGameEntity(this)
+        this.physics = this.builder.addGameEntity(this)
                 //.addAccelerationOnX()
                 .addFallingPhysics()
-                .setSpeedOnX(SpeedLevels.SLOW)
+                .addSpeedOnX(SpeedLevels.SLOW)
                 .create();
     }
 

@@ -1,5 +1,7 @@
 package it.unibo.model.physics.impl;
 
+import java.util.Objects;
+
 import org.locationtech.jts.geom.Coordinate;
 
 import it.unibo.model.physics.api.Position;
@@ -37,7 +39,7 @@ public final class Position2D extends Coordinate implements Position {
 
     @Override
     public int hashCode() {
-        return super.hashCode();
+        return Objects.hash(serialVersionUID);
     }
 
 }

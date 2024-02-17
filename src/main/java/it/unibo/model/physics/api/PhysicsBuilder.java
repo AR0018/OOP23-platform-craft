@@ -16,7 +16,7 @@ public interface PhysicsBuilder {
      * @param entity the GameEntity
      * @throws NullPointerException if entity is null
      */
-    PhysicsBuilder setGameEntity(GameEntity entity);
+    PhysicsBuilder addGameEntity(GameEntity entity);
 
     /**
      * Sets the speed of movement on the X axis to the desired configuration.
@@ -25,7 +25,7 @@ public interface PhysicsBuilder {
      * @return this builder, for method chaining
      * @throws NullPointerException if speed is null
      */
-    PhysicsBuilder setSpeedOnX(SpeedLevels speed);
+    PhysicsBuilder addSpeedOnX(SpeedLevels speed);
 
     /**
      * Sets the speed of movement on the Y axis to the desired configuration.
@@ -34,7 +34,7 @@ public interface PhysicsBuilder {
      * @return this builder, for method chaining
      * @throws NullPointerException if speed is null
      */
-    PhysicsBuilder setSpeedOnY(SpeedLevels speed);
+    PhysicsBuilder addSpeedOnY(SpeedLevels speed);
 
     /**
      * Sets the Physics so that the collisions on the x axis are handled by

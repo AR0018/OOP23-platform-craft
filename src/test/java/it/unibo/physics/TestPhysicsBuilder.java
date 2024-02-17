@@ -34,7 +34,7 @@ class TestPhysicsBuilder {
         /*
          * Test linear movement with default speed.
          */
-        Physics linear = new PhysicsBuilderImpl().setGameEntity(new Entity(new Position2D(0, 0))).create();
+        Physics linear = new PhysicsBuilderImpl().addGameEntity(new Entity(new Position2D(0, 0))).create();
         linear.setMovement(Direction.RIGHT);
         linear.setMovement(Direction.DOWN);
         assertEquals(new Position2D(SpeedLevels.MEDIUM.getValue(), SpeedLevels.MEDIUM.getValue()), linear.calculateMovement());
@@ -42,9 +42,9 @@ class TestPhysicsBuilder {
          * Test linear movement with modified speed.
          */
         linear = new PhysicsBuilderImpl()
-            .setGameEntity(new Entity(new Position2D(0, 0)))
-            .setSpeedOnX(SpeedLevels.FAST)
-            .setSpeedOnY(SpeedLevels.SLOW)
+            .addGameEntity(new Entity(new Position2D(0, 0)))
+            .addSpeedOnX(SpeedLevels.FAST)
+            .addSpeedOnY(SpeedLevels.SLOW)
             .create();
         linear.setMovement(Direction.RIGHT);
         linear.setMovement(Direction.DOWN);
@@ -53,7 +53,7 @@ class TestPhysicsBuilder {
          * Test accelerated movement without falling.
          */
         Physics accelerated = new PhysicsBuilderImpl()
-            .setGameEntity(new Entity(new Position2D(0, 0)))
+            .addGameEntity(new Entity(new Position2D(0, 0)))
             .addAccelerationOnX()
             .create();
         accelerated.setMovement(Direction.RIGHT);
@@ -63,7 +63,7 @@ class TestPhysicsBuilder {
          * Test accelerated movement with falling, but no acceleration on X.
          */
         accelerated = new PhysicsBuilderImpl()
-            .setGameEntity(new Entity(new Position2D(0, 0)))
+            .addGameEntity(new Entity(new Position2D(0, 0)))
             .addFallingPhysics()
             .create();
         accelerated.setMovement(Direction.RIGHT);
@@ -74,7 +74,7 @@ class TestPhysicsBuilder {
          */
         final Entity entity = new Entity(new Position2D(0, 0));
         accelerated = new PhysicsBuilderImpl()
-            .setGameEntity(entity)
+            .addGameEntity(entity)
             .addAccelerationOnX()
             .addFallingPhysics()
             .create();
@@ -91,7 +91,7 @@ class TestPhysicsBuilder {
          * Test stopping on x and y
          */
         Physics physics = new PhysicsBuilderImpl()
-            .setGameEntity(new EntityWithCollisions(new Position2D(0, 0)))
+            .addGameEntity(new EntityWithCollisions(new Position2D(0, 0)))
             .create();
         physics.setMovement(Direction.RIGHT);
         physics.setMovement(Direction.UP);
@@ -100,7 +100,7 @@ class TestPhysicsBuilder {
          * Test bouncing on x and y
          */
         physics = new PhysicsBuilderImpl()
-            .setGameEntity(new EntityWithCollisions(new Position2D(0, 0)))
+            .addGameEntity(new EntityWithCollisions(new Position2D(0, 0)))
             .addBouncingOnX()
             .addBouncingOnY()
             .create();
@@ -111,18 +111,18 @@ class TestPhysicsBuilder {
 
     @Test
     void testIntantiation() {
-        final Physics linear = new PhysicsBuilderImpl().setGameEntity(new Entity()).create();
+        final Physics linear = new PhysicsBuilderImpl().addGameEntity(new Entity()).create();
         assertTrue(linear instanceof LinearPhysics);
-        final Physics accelerated = new PhysicsBuilderImpl().setGameEntity(new Entity()).addAccelerationOnX().create();
+        final Physics accelerated = new PhysicsBuilderImpl().addGameEntity(new Entity()).addAccelerationOnX().create();
         assertTrue(accelerated instanceof AcceleratedPhysics);
     }
 
     @Test
     void testExceptions() {
         assertThrows(IllegalStateException.class, () -> new PhysicsBuilderImpl().create());
-        assertThrows(NullPointerException.class, () -> new PhysicsBuilderImpl().setGameEntity(null));
-        assertThrows(NullPointerException.class, () -> new PhysicsBuilderImpl().setSpeedOnX(null));
-        assertThrows(NullPointerException.class, () -> new PhysicsBuilderImpl().setSpeedOnX(null));
+        assertThrows(NullPointerException.class, () -> new PhysicsBuilderImpl().addGameEntity(null));
+        assertThrows(NullPointerException.class, () -> new PhysicsBuilderImpl().addSpeedOnX(null));
+        assertThrows(NullPointerException.class, () -> new PhysicsBuilderImpl().addSpeedOnX(null));
     }
 
     private static final class Entity implements GameEntity {

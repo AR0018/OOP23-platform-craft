@@ -153,10 +153,13 @@ public final class LevelGUI {
 
             @Override
             public void keyReleased(final KeyEvent e) {
-                if (frame.isVisible()) {
+                /*if (frame.isVisible()) {                      //TODO: riportare come prima?
                     if (activeKeys.contains(e.getKeyCode())) {
                         activeKeys.remove(e.getKeyCode());
                     }
+                }*/
+                if (frame.isVisible() && activeKeys.contains(e.getKeyCode())) {
+                    activeKeys.remove(e.getKeyCode());
                 }
             }
         });

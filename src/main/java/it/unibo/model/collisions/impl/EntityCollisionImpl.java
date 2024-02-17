@@ -1,5 +1,7 @@
 package it.unibo.model.collisions.impl;
 
+import java.util.Objects;
+
 import it.unibo.model.collisions.api.EntityCollision;
 import it.unibo.model.entities.api.GameEntity;
 import it.unibo.model.physics.api.Direction;
@@ -47,7 +49,7 @@ public final class EntityCollisionImpl implements EntityCollision {
     }
 
     @Override
-    public int hashCode() {         //TODO: controllare se serve
-        return super.hashCode();
+    public int hashCode() {
+        return Objects.hash(gameEntity, direction);
     }
 }
