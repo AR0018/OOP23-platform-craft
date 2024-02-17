@@ -24,7 +24,7 @@ import it.unibo.model.physics.impl.Position2D;
 /**
  * Test class for PhysicsBuilder.
  */
-public class TestPhysicsBuilder {
+class TestPhysicsBuilder {
 
     private static final double ACCELERATION = 0.2; //Value may change
     private static final double GRAVITY = 0.1; //Value may change
@@ -72,7 +72,7 @@ public class TestPhysicsBuilder {
          /*
          * Test accelerated movement with falling and acceleration on X.
          */
-        Entity entity = new Entity(new Position2D(0, 0));
+        final Entity entity = new Entity(new Position2D(0, 0));
         accelerated = new PhysicsBuilderImpl()
             .setGameEntity(entity)
             .addAccelerationOnX()
@@ -216,7 +216,7 @@ public class TestPhysicsBuilder {
 
     private static final class Coll implements Collision {
 
-        private Direction dir;
+        private final Direction dir;
 
         private Coll(final Direction dir) {
             this.dir = dir;

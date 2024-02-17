@@ -32,7 +32,7 @@ import it.unibo.model.physics.impl.Position2D;
  * Class for testing the behaviour of the character.
  */
 
-public class TestCharacter {
+class TestCharacter {
 
     private static final long TIMER = 3000;
     private static final double ACCELERATION = 0.1;
@@ -41,7 +41,6 @@ public class TestCharacter {
     private MapElement map1;
     private MapElement map2;
     private EnemyImpl enemy;
-    private TrapImpl trap;
     private Position pos;
     private Level level = new Lv();
 
@@ -221,71 +220,71 @@ public class TestCharacter {
         //this.map1 = new MapElementImpl(new Position2D(3, 2), this.level);
         //this.map2 = new MapElementImpl(new Position2D(2, 2), this.level);
         this.player = new CharacterImpl(new Position2D(2 + 2 * ACCELERATION, 1 + ACCELERATION), this.level);
-        this.trap = new TrapImpl(new Position2D(2, 1), this.level);
+        TrapImpl trap = new TrapImpl(new Position2D(2, 1), this.level);
         this.map1 = new MapElementImpl(new Position2D(2 + EntityType.MAP_ELEMENT.getWidth(),
             EntityType.TRAP.getHeigth()), this.level);
         this.map2 = new MapElementImpl(new Position2D(2, EntityType.CHARACTER.getHeigth()), this.level);
         this.level.addGameEntity(this.player);
-        this.level.addGameEntity(this.trap);
+        this.level.addGameEntity(trap);
         this.level.addGameEntity(this.map1);
         this.level.addGameEntity(this.map2);
-        this.trap.updateState();
+        trap.updateState();
         this.player.updateState();
-        assertFalse(this.trap.isLethal());
+        assertFalse(trap.isLethal());
         Thread.sleep(TIMER);
-        this.trap.updateState();
+        trap.updateState();
         this.player.updateState();
         assertFalse(this.player.isAlive());
-        assertEquals(EntityType.EXPLOSION, this.trap.getType());
-        assertTrue(this.trap.isAlive());
-        assertTrue(this.trap.isLethal());
+        assertEquals(EntityType.EXPLOSION, trap.getType());
+        assertTrue(trap.isAlive());
+        assertTrue(trap.isLethal());
         Thread.sleep(TIMER / 3);
-        this.trap.updateState();
-        assertFalse(this.trap.isAlive());
+        trap.updateState();
+        assertFalse(trap.isAlive());
 
         /*
          * The trap doesn't see the player.
          */
         this.level = new Lv();
         this.player = new CharacterImpl(new Position2D(1, 1), this.level);
-        this.trap = new TrapImpl(new Position2D(2, 1), this.level);
+        trap = new TrapImpl(new Position2D(2, 1), this.level);
         this.map1 = new MapElementImpl(new Position2D(1, EntityType.CHARACTER.getHeigth()), this.level);
         this.map2 = new MapElementImpl(new Position2D(1 + EntityType.MAP_ELEMENT.getWidth(),
             EntityType.TRAP.getHeigth()), this.level);
         this.level.addGameEntity(this.player);
-        this.level.addGameEntity(this.trap);
+        this.level.addGameEntity(trap);
         this.level.addGameEntity(this.map1);
         this.level.addGameEntity(this.map2);
-        this.trap.updateState();
+        trap.updateState();
         this.player.updateState();
-        assertTrue(this.trap.isAlive());
+        assertTrue(trap.isAlive());
         Thread.sleep(TIMER);
-        this.trap.updateState();
+        trap.updateState();
         this.player.updateState();
         assertFalse(this.player.isAlive());
-        assertTrue(this.trap.isAlive());
+        assertTrue(trap.isAlive());
 
         /*
          * The trap sees the player but the value of TIMER is to low.
          */
         this.level = new Lv();
         this.player = new CharacterImpl(new Position2D(1 + SpeedLevels.MEDIUM.getValue(), 1), this.level);
-        this.trap = new TrapImpl(new Position2D(1, 1), this.level);
+        trap = new TrapImpl(new Position2D(1, 1), this.level);
         this.map1 = new MapElementImpl(new Position2D(1, EntityType.TRAP.getHeigth()), this.level);
         this.map2 = new MapElementImpl(new Position2D(1 + EntityType.MAP_ELEMENT.getWidth(),
             EntityType.CHARACTER.getHeigth()), this.level);
         this.level.addGameEntity(this.player);
-        this.level.addGameEntity(this.trap);
+        this.level.addGameEntity(trap);
         this.level.addGameEntity(this.map1);
         this.level.addGameEntity(this.map2);
-        this.trap.updateState();
+        trap.updateState();
         this.player.updateState();
-        assertTrue(this.trap.isAlive());
+        assertTrue(trap.isAlive());
         Thread.sleep(TIMER / 2);
-        this.trap.updateState();
+        trap.updateState();
         this.player.updateState();
         assertTrue(this.player.isAlive());
-        assertTrue(this.trap.isAlive());
+        assertTrue(trap.isAlive());
     }
 
     @Test
@@ -307,7 +306,7 @@ public class TestCharacter {
      */
     private static final class Lv implements Level {
 
-        private Set<GameEntity> st = new HashSet<>();
+        private final Set<GameEntity> st = new HashSet<>();
         private Character ch;
         /*Lv(final Set<GameEntity> entities) {
             st = entities;

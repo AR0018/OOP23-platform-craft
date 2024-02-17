@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
 
 import it.unibo.model.physics.api.Direction;
@@ -30,7 +32,7 @@ import it.unibo.model.collisions.impl.MapBoundariesimpl;
 /**
  * Class for testing the Collisions.
  */
-public class TestCollisions {
+class TestCollisions {
 
   private static final double MAP_DIM = 50;
 
@@ -43,10 +45,10 @@ public class TestCollisions {
     final double x2 = 0;
     final double y2 = 3;
     final double y3 = 15;
-    Position p = new Position2D(x, y);
-    Position p1 = new Position2D(x1, y1);
-    Position p2 = new Position2D(x2, y2);
-    List<Position> vertici = new ArrayList<>();
+    final Position p = new Position2D(x, y);
+    final Position p1 = new Position2D(x1, y1);
+    final Position p2 = new Position2D(x2, y2);
+    final List<Position> vertici = new ArrayList<>();
     vertici.add(p);
     vertici.add(new Position2D(x1, y)); //(x1, y)
     vertici.add(new Position2D(x1, y3));  //(x1, y3)
@@ -59,9 +61,9 @@ public class TestCollisions {
     final double w2 = 4;
     final double h3 = 1;
     final double w3 = 1;
-    Boundaries boundaries = new BoundariesImpl(h1, w1, p);
-    Boundaries boundaries2 = new BoundariesImpl(h2, w2, p1);
-    Boundaries boundaries3 = new BoundariesImpl(h3, w3, p2);
+    final Boundaries boundaries = new BoundariesImpl(h1, w1, p);
+    final Boundaries boundaries2 = new BoundariesImpl(h2, w2, p1);
+    final Boundaries boundaries3 = new BoundariesImpl(h3, w3, p2);
     final double x4 = 16;
     final double y4 = 11;
     final double x5 = 1;
@@ -70,20 +72,20 @@ public class TestCollisions {
     final double y6 = 5;
     final double x7 = 11;
     final double y7 = 11;
-    assertEquals(true, boundaries.contains(new Position2D(x4, y4)));
-    assertEquals(true, boundaries2.intersects(boundaries));
-    assertEquals(true, boundaries3.intersectsLine(new Position2D(x5, y5), new Position2D(x6, y6)));
-    assertEquals(true, boundaries.contains(new Position2D(x7, y7)));
+    assertTrue(boundaries.contains(new Position2D(x4, y4)));
+    assertTrue(boundaries2.intersects(boundaries));
+    assertTrue(boundaries3.intersectsLine(new Position2D(x5, y5), new Position2D(x6, y6)));
+    assertTrue(boundaries.contains(new Position2D(x7, y7)));
     assertEquals(vertici, boundaries.getVertices());
   }
 
   @Test
   void testCollisionsBox() {
-    Level level = new LevelImpl();
-    GameEntity gameEntity = new SimpleEnemyImpl(new Position2D(1, 3), level);
-    GameEntity otherEntity = new SimpleEnemyImpl(new Position2D(0, 3), level);
-    CollisionBox box = new CollisionBoxImpl(2, 4, gameEntity, level.getBoundaries());
-    assertEquals(true, box.isCollidingWith(otherEntity));
+    final Level level = new LevelImpl();
+    final GameEntity gameEntity = new SimpleEnemyImpl(new Position2D(1, 3), level);
+    final GameEntity otherEntity = new SimpleEnemyImpl(new Position2D(0, 3), level);
+    final CollisionBox box = new CollisionBoxImpl(2, 4, gameEntity, level.getBoundaries());
+    assertTrue(box.isCollidingWith(otherEntity));
     final double x = 4;
     final double y = 5;
     Set<GameEntity> other = Set.of(new SimpleEnemyImpl(new Position2D(x, y), level), otherEntity);
@@ -94,10 +96,10 @@ public class TestCollisions {
     final double y1 = 3;
     final double x2 = 0;
     final double y2 = 3;
-    GameEntity gameEntity1 = new SimpleEnemyImpl(new Position2D(x1, y1), level);
-    GameEntity otherEntity1 = new SimpleEnemyImpl(new Position2D(x2, y2), level);
-    CollisionBox box1 = new CollisionBoxImpl(1, 1, gameEntity1, level.getBoundaries());
-    assertEquals(true, box1.isCollidingWith(otherEntity1));
+    final GameEntity gameEntity1 = new SimpleEnemyImpl(new Position2D(x1, y1), level);
+    final GameEntity otherEntity1 = new SimpleEnemyImpl(new Position2D(x2, y2), level);
+    final CollisionBox box1 = new CollisionBoxImpl(1, 1, gameEntity1, level.getBoundaries());
+    assertTrue(box1.isCollidingWith(otherEntity1));
     final double x3 = 4;
     final double y3 = 5;
     other = Set.of(new SimpleEnemyImpl(new Position2D(x3, y3), level), otherEntity1);
@@ -108,7 +110,7 @@ public class TestCollisions {
 
   private static final class LevelImpl implements Level {
 
-    private Set<GameEntity> gameEntities = new HashSet<>();
+    private final Set<GameEntity> gameEntities = new HashSet<>();
 
     @Override
     public Set<GameEntity> getGameEntities() {

@@ -30,24 +30,12 @@ import it.unibo.model.entities.api.Character;
  * Class for testing the behaviour of enemies.
  */
 
-public class TestEnemy {
+class TestEnemy {
 
-    /*private static final double ACCELERATION = 0.1;
-    private static final double MAPBOUNDS = 50f;
-    private static final double PLAYER_FIRST = 10;
-    private static final double MAP_FIRST = 5 + SpeedLevels.SLOW.getValue();
-    private static final double MAP1_FIRST = 5 + ACCELERATION;
-    private static final double MAP2_FIRST = 6;
-    private static final int MULTIPLIER = 5;
-    private static final int MULTIPLIER2 = 6;*/
     private static final double ACCELERATION = 0.1;
     private static final double MAPBOUNDS = 500f;
     private Character player;
     private Enemy enemy;
-    private MapElement map;
-    private MapElement map1;
-    private MapElement map2;
-    private MapElement map3;
     private Level level = new Lv();
 
     @Test
@@ -122,6 +110,11 @@ public class TestEnemy {
 
     @Test
     void testEnemies() {
+
+        MapElement map;
+        MapElement map1;
+        MapElement map2;
+        MapElement map3;
         this.level = new Lv();
         //this.enemy = new StrongEnemyImpl(new Position2D(MULTIPLIER2, 0), this.level);
         this.enemy = new StrongEnemyImpl(new Position2D(1 + 3 * EntityType.ENEMY.getWidth(), 0), this.level);
@@ -148,19 +141,19 @@ public class TestEnemy {
         //1.1 because I change instantly the direction
 
         this.level = new Lv();
-        this.map = new MapElementImpl(new Position2D(1 + EntityType.MAP_ELEMENT.getWidth(),
+        map = new MapElementImpl(new Position2D(1 + EntityType.MAP_ELEMENT.getWidth(),
              EntityType.CHARACTER.getHeigth()), this.level);
-        this.map1 = new MapElementImpl(new Position2D(1, EntityType.CHARACTER.getHeigth()), this.level);
-        this.map2 = new MapElementImpl(new Position2D(1 + 2 * EntityType.MAP_ELEMENT.getWidth(),
+        map1 = new MapElementImpl(new Position2D(1, EntityType.CHARACTER.getHeigth()), this.level);
+        map2 = new MapElementImpl(new Position2D(1 + 2 * EntityType.MAP_ELEMENT.getWidth(),
              EntityType.CHARACTER.getHeigth()), this.level);
-        this.map3 = new MapElementImpl(new Position2D(4 + ACCELERATION, 1), this.level);
+        map3 = new MapElementImpl(new Position2D(4 + ACCELERATION, 1), this.level);
         this.enemy = new SimpleEnemyImpl(new Position2D(1 + 2 * EntityType.CHARACTER.getWidth(), 0), this.level);
         this.player = new CharacterImpl(new  Position2D(1, 0), this.level);
-        this.level.addGameEntity(this.map);
-        this.level.addGameEntity(this.map1);
-        this.level.addGameEntity(this.map2);
+        this.level.addGameEntity(map);
+        this.level.addGameEntity(map1);
+        this.level.addGameEntity(map2);
         this.level.addGameEntity(this.enemy);
-        this.level.addGameEntity(this.map3);
+        this.level.addGameEntity(map3);
         this.level.addGameEntity(this.player);
         this.enemy.updateState();
         //this.player.move(Direction.LEFT);
@@ -180,7 +173,7 @@ public class TestEnemy {
 
     private static final class Lv implements Level {
 
-        private Set<GameEntity> st = new HashSet<>();
+        private final Set<GameEntity> st = new HashSet<>();
         private Character ch;
         /*Lv(final Set<GameEntity> entities) {
             st = entities;

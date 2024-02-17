@@ -19,7 +19,7 @@ import it.unibo.model.physics.impl.Position2D;
 /**
  * Test class for linear physics.
  */
-public class TestLinearPhysics {
+class TestLinearPhysics {
 
     private Physics linear;
     //private Physics accelerated;
@@ -113,7 +113,7 @@ public class TestLinearPhysics {
 
     @Test
     void testCollisionsBouncing() {
-        EntityWithCollisions entity = new EntityWithCollisions(new Position2D(0, 0));
+        final EntityWithCollisions entity = new EntityWithCollisions(new Position2D(0, 0));
         this.linear = new LinearPhysics(entity, SpeedLevels.FAST, SpeedLevels.FAST, true, true);
         linear.setMovement(Direction.RIGHT);
         entity.updateState();
@@ -221,7 +221,7 @@ public class TestLinearPhysics {
 
     private static final class Coll implements Collision {
 
-        private Direction dir;
+        private final Direction dir;
 
         private Coll(final Direction dir) {
             this.dir = dir;

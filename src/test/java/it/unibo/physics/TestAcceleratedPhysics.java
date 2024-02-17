@@ -20,7 +20,7 @@ import it.unibo.model.physics.impl.Position2D;
 /**
  * Test class for accelerated physics.
  */
-public class TestAcceleratedPhysics {
+class TestAcceleratedPhysics {
 
     private Physics physics;
     /*
@@ -31,7 +31,7 @@ public class TestAcceleratedPhysics {
 
     @Test
     void testAcceleratedMovement() {
-        EntityNoCollisions entity = new EntityNoCollisions(new Position2D(0, 0));
+        final EntityNoCollisions entity = new EntityNoCollisions(new Position2D(0, 0));
         this.physics = new AcceleratedPhysics(entity, SpeedLevels.FAST, SpeedLevels.FAST, false, false, true, false);
         /**
          * Test acceleration
@@ -99,7 +99,7 @@ public class TestAcceleratedPhysics {
 
     @Test
     void testMovementWithFalling() {
-        EntityNoCollisions entity = new EntityNoCollisions(new Position2D(0, 0));
+        final EntityNoCollisions entity = new EntityNoCollisions(new Position2D(0, 0));
         this.physics = new AcceleratedPhysics(entity, SpeedLevels.FAST, SpeedLevels.FAST, false, false, false, true);
         entity.updateState();
         assertEquals(new Position2D(0, 0), entity.getPosition());
@@ -120,7 +120,7 @@ public class TestAcceleratedPhysics {
 
     @Test
     void testWithCollisions() {
-        EntityWithCollisions entity = new EntityWithCollisions(new Position2D(0, 0));
+        final EntityWithCollisions entity = new EntityWithCollisions(new Position2D(0, 0));
         this.physics = new AcceleratedPhysics(entity, SpeedLevels.FAST, SpeedLevels.FAST, false, false, true, true);
         this.physics.setMovement(Direction.RIGHT);
         entity.updateState();
@@ -230,7 +230,7 @@ public class TestAcceleratedPhysics {
 
     private static final class Coll implements Collision {
 
-        private Direction dir;
+        private final Direction dir;
 
         private Coll(final Direction dir) {
             this.dir = dir;
