@@ -30,6 +30,10 @@ public enum EntityType {
      */
     MAP_ELEMENT(100, 100),
     /**
+     * A longer element of the map
+     */
+    LONG_MAP_ELEMENT(300, 100),
+    /**
      * The ending location of the level.
      */
     FINISH_LOCATION(100, 100);

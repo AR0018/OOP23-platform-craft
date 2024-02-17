@@ -14,7 +14,7 @@ import it.unibo.common.EntityType;
 import it.unibo.common.SimpleEntity;
 import it.unibo.common.impl.SimpleEntityImpl;
 import it.unibo.controller.api.LevelSerializer;
-import it.unibo.controller.impl.SerializerImpl;
+import it.unibo.controller.impl.SerializerImpl; TODO: remove
 
 public class TestSerializer {
 

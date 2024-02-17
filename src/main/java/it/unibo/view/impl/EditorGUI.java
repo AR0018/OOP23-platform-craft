@@ -333,7 +333,7 @@ public final class EditorGUI {
 
         final JButton button5 = new JButton();
         addImageToButton(button5, "MapElement", "src/main/resources/it/unibo/images/block.png");
-        addEntityFromButton(button5, EntityType.MAP_ELEMENT);
+        addEntityFromButton(button5, EntityType.LONG_MAP_ELEMENT);      //TODO: used to be EntityType.MAP_ELEMENT
         //button5.setVerticalTextPosition(SwingConstants.TOP);          //Possono servire per mettere in alto il testo
         //button5.setVerticalAlignment(SwingConstants.TOP);
         box.add(button5);
@@ -385,7 +385,7 @@ public final class EditorGUI {
     }
 
     private void addImageToButton(final JButton button, final String type, final String filePathName) {
-        final ImageIcon simpleEnemy = new ImageIcon(filePathName);
+        final ImageIcon simpleEnemy = new ImageIcon(filePathName); //TODO: new ImageIcon(ClassLoader.getSystemResource(filePathName));
         final ImageIcon imgEnemy = new ImageIcon(simpleEnemy.getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT));
         final JLabel iconP1 = new JLabel(imgEnemy);
         final int leftIconP1 = 15;

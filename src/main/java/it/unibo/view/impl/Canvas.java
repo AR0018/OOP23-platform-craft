@@ -26,14 +26,15 @@ public final class Canvas extends JPanel {
      * Map that contains the associations between each entity type and its specified image.
      * To choose another image for the entities, modify the strings inside getSystemResource.
      */
-    private static final Map<EntityType, String> TYPE_MAP = Map.of ( //TODO: CUT IMAGES BETTER
+    private static final Map<EntityType, String> TYPE_MAP = Map.of (
         EntityType.CHARACTER, ROOT + "Owlet_Monster.png",
         EntityType.SIMPLE_ENEMY, ROOT + "Pink_Monster/Pink_Monster.png",
         EntityType.ENEMY, ROOT + "Dude_Monster/Dude_Monster.png",
         EntityType.FINISH_LOCATION, ROOT + "R.png",
         EntityType.TRAP, ROOT + "piggy3.png",
         EntityType.EXPLOSION, ROOT + "Explosion.png",
-        EntityType.MAP_ELEMENT, ROOT + "Block.png"
+        EntityType.MAP_ELEMENT, ROOT + "Block.png",
+        EntityType.LONG_MAP_ELEMENT, ROOT + "LongBlock.png"
     );
 
     private Map<EntityType, Image> imageMap;

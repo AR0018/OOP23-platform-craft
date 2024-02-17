@@ -25,6 +25,8 @@ public final class GameEntityFactoryImpl implements GameEntityFactory {
                 return new TrapImpl(position, level);
             case MAP_ELEMENT:
                 return new MapElementImpl(position, level);
+            case LONG_MAP_ELEMENT:
+                return new LongMapElement(position, level);
             case FINISH_LOCATION:
                 return new FinishLocationImpl(position, level);
             default:
