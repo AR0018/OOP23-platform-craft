@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.logging.Logger;
 
 import it.unibo.controller.api.Controller;
 import it.unibo.view.api.View;
@@ -46,19 +47,17 @@ public final class GameOverView {
      * Constructor of the GameOverView.
      * @param controller controller of the game
      * @param levelGUI the GUI of the running level
-     * @param width of the map level
-     * @param height of the map level
      * @param view the main view
      */
-    public GameOverView(final Controller controller, final LevelGUI levelGUI,
-        final double width, final double height, final View view) {
+    public GameOverView(final Controller controller, final LevelGUI levelGUI, final View view) {
 
         this.frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.frame.setResizable(false);
         this.frame.setSize(FRAME_DIMENSION);
         this.frame.setLocationRelativeTo(null);
 
-        try {
+        this.addingFont();
+        /*try {
             final float fontLabelDim = 120f;
             final float fontButtonDim = 80f;
 
@@ -77,8 +76,9 @@ public final class GameOverView {
             fontStyle.close();
 
         } catch (FontFormatException | IOException e) {
-            e.printStackTrace();
-        }
+            //e.printStackTrace();              //TODO: usare logger?
+            Logger.getLogger(GameOverView.class.getName()).severe(e.getMessage());
+        }*/
 
         label.setHorizontalAlignment(SwingConstants.CENTER);
         //label.setFont(new Font("Dialog", Font.BOLD, SIZE_LABEL_TEXT));
@@ -150,5 +150,30 @@ public final class GameOverView {
         panel.setBackground(Color.BLACK);
         frame.getContentPane().add(panel);
         this.frame.setVisible(true);
+    }
+
+    private void addingFont() {
+        try {
+            final float fontLabelDim = 120f;
+            final float fontButtonDim = 80f;
+
+            //File fontStyle = new File("src\\main\\resources\\it\\unibo\\fonts\\ProtestStrike-Regular.ttf");
+            InputStream fontStyle = ClassLoader.getSystemResourceAsStream("./it/unibo/fonts/ProtestStrike-Regular.ttf");
+            this.font = Font.createFont(Font.TRUETYPE_FONT, fontStyle)
+                    .deriveFont(fontLabelDim)
+                    .deriveFont(Font.BOLD);
+            //fontStyle = new File("src\\main\\resources\\it\\unibo\\fonts\\Bungee-Regular.ttf");
+            fontStyle = ClassLoader.getSystemResourceAsStream("./it/unibo/fonts/Bungee-Regular.ttf");
+            this.fontButton = Font.createFont(Font.TRUETYPE_FONT, fontStyle)
+                    .deriveFont(fontButtonDim)
+                    .deriveFont(Font.CENTER_BASELINE)
+                    .deriveFont(Font.PLAIN);
+
+            fontStyle.close();
+
+        } catch (FontFormatException | IOException e) {
+            //e.printStackTrace();              //TODO: usare logger?
+            Logger.getLogger(GameOverView.class.getName()).severe(e.getMessage());
+        }
     }
 }

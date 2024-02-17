@@ -14,7 +14,7 @@ import it.unibo.model.physics.impl.PhysicsBuilderImpl;
 public final class SimpleEnemyImpl extends EnemyImpl {
 
     private final Physics physics; 
-    private PhysicsBuilder builder = new PhysicsBuilderImpl();
+    private final PhysicsBuilder builder = new PhysicsBuilderImpl();
 
     /**
      * Constructor for simpleEnemy.
@@ -33,6 +33,7 @@ public final class SimpleEnemyImpl extends EnemyImpl {
     /**
      * Carrise out checks on the enemy's movement.
      */
+    @Override
     protected void moveEnemy() {
         this.physics.setMovement(getDirection());
         this.setPosition(this.physics.calculateMovement());

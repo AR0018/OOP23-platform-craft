@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Set;
+import java.util.logging.Logger;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -44,10 +45,10 @@ public final class LevelGUI {
     private static final int WIDTH_FRAME = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
     private static final int HEIGHT_FRAME = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
     private static final int MENUBAR_ORIZZONTAL_GAP = 20;
-    private static final int MENUBAR_VERTICAL_GAP = 0;
-    private static final int MENUBAR_TOP = 0;
+    //private static final int MENUBAR_VERTICAL_GAP = 0;
+    //private static final int MENUBAR_TOP = 0;
     private static final int MENUBAR_LEFT = 9;
-    private static final int MENUBAR_BOTTOM = 0;
+    //private static final int MENUBAR_BOTTOM = 0;
     private static final int MENUBAR_RIGHT = 10;
     private static final Dimension BUTTON_DIM = new Dimension(125, 35);
     private static final int THICKNESS = 4;
@@ -55,16 +56,16 @@ public final class LevelGUI {
     private final JFrame frame = new JFrame();
     //private final JPanel panelView = new JPanel();
     private final PaintPanel panelView;
+    private final Controller controller;
     private Font fontButton;
-    private Controller controller;
     /*
      * Set used to keep track of all the keys that are currently pressed.
      */
-    private Set<Integer> activeKeys;
+    private final Set<Integer> activeKeys;
     /*
      * Action listener that processes pressed keys.
      */
-    private ActionListener keyProcesser = new ActionListener() {
+    private final ActionListener keyProcesser = new ActionListener() {
 
         @Override
         public void actionPerformed(final ActionEvent e) {
@@ -92,7 +93,7 @@ public final class LevelGUI {
     /*
      * Timer used to handle the key processing.
      */
-    private Timer timer;
+    private final Timer timer;
 
     /**
      * Constructor of the LevelGUI used to build the view of the level.
@@ -103,7 +104,7 @@ public final class LevelGUI {
      */
     public LevelGUI(final Controller controller, final double width, final double height, final View view) {
 
-        this.panelView = new PaintPanel(controller, WIDTH_FRAME, HEIGHT_FRAME, Optional.empty());
+        this.panelView = new PaintPanel(controller, WIDTH_FRAME, HEIGHT_FRAME, Optional.empty()); //TODO: servono width e height?
         this.controller = Objects.requireNonNull(controller);
         this.activeKeys = new HashSet<>();
         this.timer = new Timer(DELAY, keyProcesser);
@@ -115,13 +116,14 @@ public final class LevelGUI {
 
         final JMenuBar menuBar = new JMenuBar();
         menuBar.setBackground(Color.GRAY);
-        menuBar.setLayout(new BorderLayout(MENUBAR_ORIZZONTAL_GAP, MENUBAR_VERTICAL_GAP));
-        menuBar.setBorder(new EmptyBorder(MENUBAR_TOP, MENUBAR_LEFT, MENUBAR_BOTTOM, MENUBAR_RIGHT));
+        menuBar.setLayout(new BorderLayout(MENUBAR_ORIZZONTAL_GAP, 0));      //TODO: MENUBAR_V
+        menuBar.setBorder(new EmptyBorder(0, MENUBAR_LEFT, 0, MENUBAR_RIGHT));       //TODO: MENUBAR_T, BOttom
 
-        try {
+        this.addingFont();
+        /*try {
             final float fontButtonDim = 25f;
 
-            InputStream fontStyle = ClassLoader.getSystemResourceAsStream("./it/unibo/fonts/Bungee-Regular.ttf");
+            final InputStream fontStyle = ClassLoader.getSystemResourceAsStream("./it/unibo/fonts/Bungee-Regular.ttf");
             fontButton = Font.createFont(Font.TRUETYPE_FONT, fontStyle)
                     .deriveFont(fontButtonDim)
                     .deriveFont(Font.CENTER_BASELINE)
@@ -130,8 +132,8 @@ public final class LevelGUI {
             fontStyle.close();
 
         } catch (FontFormatException | IOException e) {
-            e.printStackTrace();
-        }
+            //e.printStackTrace();      //TODO: usare logger?
+        }*/
 
         this.frame.addKeyListener(new KeyListener() {
 
@@ -142,7 +144,7 @@ public final class LevelGUI {
             @Override
             public void keyPressed(final KeyEvent e) {
                 if (frame.isVisible()) {
-                    int inputReceived = e.getKeyCode();
+                    final int inputReceived = e.getKeyCode();
                     if (!activeKeys.contains(inputReceived)) {
                         activeKeys.add(inputReceived);
                     }
@@ -179,7 +181,7 @@ public final class LevelGUI {
             }
         });
 
-        JComponent component = new JPanel(new BorderLayout());
+        final JComponent component = new JPanel(new BorderLayout());
         menuBar.add(menu);
         component.setBorder(BorderFactory.createEmptyBorder(3, 3, 3, 3));
         component.setBackground(Color.GRAY);
@@ -203,7 +205,6 @@ public final class LevelGUI {
      * Hides the GUI of the level.
      */
     public void hide() {
-        System.out.println("HIDE");
         this.frame.setVisible(false);
         this.timer.stop();
     }
@@ -222,5 +223,23 @@ public final class LevelGUI {
      */
     public void render(final Set<SimpleEntity> entities) {
         this.panelView.render(entities);
+    }
+
+    private void addingFont() {
+        try {
+            final float fontButtonDim = 25f;
+
+            final InputStream fontStyle = ClassLoader.getSystemResourceAsStream("./it/unibo/fonts/Bungee-Regular.ttf");
+            fontButton = Font.createFont(Font.TRUETYPE_FONT, fontStyle)
+                    .deriveFont(fontButtonDim)
+                    .deriveFont(Font.CENTER_BASELINE)
+                    .deriveFont(Font.PLAIN);
+
+            fontStyle.close();
+
+        } catch (FontFormatException | IOException e) {
+            //e.printStackTrace();      //TODO: usare logger?
+            Logger.getLogger(LevelGUI.class.getName()).severe(e.getMessage());
+        }
     }
 }

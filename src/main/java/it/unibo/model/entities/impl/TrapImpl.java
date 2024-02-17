@@ -70,11 +70,15 @@ public final class TrapImpl extends GameEntityImpl implements Trap {
     }
 
     private void checkExplosion() {
-        if (playerInRange(getCharacter())) {
+        /*if (playerInRange((Character) getLevel().getCharacter())) {
             if (this.isAlive() && this.state.equals(TrapState.INACTIVE)) {
                 time = System.currentTimeMillis();
                 this.state = TrapState.ACTIVE;
             }
+        }*/
+        if (playerInRange() && this.isAlive() && this.state.equals(TrapState.INACTIVE)) {
+                time = System.currentTimeMillis();
+                this.state = TrapState.ACTIVE;
         }
         if (this.state.equals(TrapState.ACTIVE) && checkTimer(TIMER)) {
             time = System.currentTimeMillis();
@@ -94,19 +98,16 @@ public final class TrapImpl extends GameEntityImpl implements Trap {
         return false;
     }*/
 
-    private boolean playerInRange(final Character character) {
-        Position charPos = getCharacter().getPosition();
-        var distance = Math.sqrt(Math.pow(charPos.getX() - getPosition().getX(), 2) 
+    private boolean playerInRange() {
+        final Position charPos = ((Character) getLevel().getCharacter()).getPosition();
+        final var distance = Math.sqrt(Math.pow(charPos.getX() - getPosition().getX(), 2) 
                 + Math.pow(charPos.getY() - getPosition().getY(), 2));
-        if (distance <= VISIBLE_DISTANCE) {
-            return true;
-        }
-        return false;
+        return distance <= VISIBLE_DISTANCE;
     }
 
-    private Character getCharacter() {
+    /*private Character getCharacter() {
         return (Character) getLevel().getCharacter();
-    }
+    }*/
 
     private boolean checkTimer(final long timer) {
         return System.currentTimeMillis() - time >= timer;
@@ -115,9 +116,8 @@ public final class TrapImpl extends GameEntityImpl implements Trap {
     @Override
     public CollisionBox getCollisionBox() {
         if (this.state.equals(TrapState.DEAD)) {
-            CollisionBox box = new CollisionBoxImpl(EntityType.TRAP.getWidth() * 2,
+            return new CollisionBoxImpl(EntityType.TRAP.getWidth() * 2,
                 EntityType.TRAP.getHeigth() * 2, this, getLevel().getBoundaries());
-            return box;
         } else {
             return super.getCollisionBox();
         }

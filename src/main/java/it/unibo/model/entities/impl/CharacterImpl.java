@@ -2,7 +2,6 @@ package it.unibo.model.entities.impl;
 
 import it.unibo.common.EntityType;
 import it.unibo.model.collisions.api.BorderCollision;
-import it.unibo.model.collisions.api.Collision;
 import it.unibo.model.collisions.api.EntityCollision;
 import it.unibo.model.entities.api.Character;
 import it.unibo.model.entities.api.Enemy;
@@ -27,9 +26,10 @@ import java.util.Objects;
  * Final because the class doesn't need to be extended
  */
 public final class CharacterImpl extends GameEntityImpl implements Character {
+    //TODO: controllare bene collisione con nemico up
 
     private final Physics physic;
-    private PhysicsBuilder physicsBuilder = new PhysicsBuilderImpl();
+    private final PhysicsBuilder physicsBuilder = new PhysicsBuilderImpl();
     /**
      * It is the constructor of the class to initialize the character itself.
      * @param position the initial coordinate of the character
@@ -60,7 +60,7 @@ public final class CharacterImpl extends GameEntityImpl implements Character {
 
     @Override
     public void move(final Direction dir) {
-        var downCollision = this.getEntity(getCollisions())
+        final var downCollision = this.getEntity()
             .stream()
             .filter(x -> x.getGameEntity() instanceof MapElement)
             .collect(Collectors.toSet());
@@ -86,12 +86,12 @@ public final class CharacterImpl extends GameEntityImpl implements Character {
     }
 
     private void checkTrapCollision() {
-        var trapCollisions = getEntity(getCollisions())
+        final var trapCollisions = getEntity()
                     .stream()
                     .filter(x -> x.getGameEntity() instanceof Trap)
                     .collect(Collectors.toSet());
             if (!trapCollisions.isEmpty()) {
-                var trap = (Trap) trapCollisions.stream().findFirst().get().getGameEntity();
+                final var trap = (Trap) trapCollisions.stream().findFirst().get().getGameEntity();
                 if (trap.isLethal()) {
                     setAlive(false);
                 }
@@ -100,34 +100,35 @@ public final class CharacterImpl extends GameEntityImpl implements Character {
 
 
     private void checkEnemyCollision() {
-        var enemySetCollision = getEntity(getCollisions())
+        final var enemySetCollision = getEntity()
                     .stream()
                     .filter(x -> x.getGameEntity() instanceof Enemy)
                     .collect(Collectors.toSet());
-            if (!enemySetCollision.isEmpty()) {
+            if (!enemySetCollision.isEmpty()) {             //TODO: migliorare
                 if (!(enemySetCollision.size() == 1 
                         && enemySetCollision.stream().findFirst().get().getDirection().equals(Direction.DOWN))) {
                             setAlive(false);
                 }
-                /*if (!enemySetCollision.stream().findFirst().get().getDirection().equals(Direction.DOWN)) {
-                    setAlive(false);
-                }*/
             }
     }
 
     private void checkBorderCollision() {
-        var borderSetCollision = getBorder(getCollisions())
+        final var borderSetCollision = getBorder()
                 .stream()
                 .collect(Collectors.toSet());
-        if (!borderSetCollision.isEmpty()) {
+        /*if (!borderSetCollision.isEmpty()) {
             if (borderSetCollision.stream().anyMatch(x -> x.getDirection().equals(Direction.DOWN))) {
                 setAlive(false);
             }
+        }*/
+        if (!borderSetCollision.isEmpty() && borderSetCollision
+            .stream().anyMatch(x -> x.getDirection().equals(Direction.DOWN))) {
+                setAlive(false);
         }
     }
 
-    private Set<BorderCollision> getBorder(final Set<Collision> collisions) {
-        Set<BorderCollision> borderCollision = new HashSet<>();
+    private Set<BorderCollision> getBorder() {
+        final Set<BorderCollision> borderCollision = new HashSet<>();
         getCollisions()
                 .stream()
                 .filter(x -> x instanceof BorderCollision)
@@ -135,8 +136,8 @@ public final class CharacterImpl extends GameEntityImpl implements Character {
         return borderCollision;
     }
 
-    private Set<EntityCollision> getEntity(final Set<Collision> collision) {
-        Set<EntityCollision> entityCollision = new HashSet<>();
+    private Set<EntityCollision> getEntity() {
+        final Set<EntityCollision> entityCollision = new HashSet<>();
         getCollisions()
                 .stream()
                 .filter(x -> x instanceof EntityCollision)

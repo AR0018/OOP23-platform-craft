@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -78,7 +79,7 @@ public final class EditorGUI {
      */
     public EditorGUI(final Controller controller, final double width, final double height, final View view) {
 
-        this.panelView = new PaintPanel(controller, WIDTH_FRAME, HEIGHT_FRAME, Optional.of(this));
+        this.panelView = new PaintPanel(controller, WIDTH_FRAME, HEIGHT_FRAME, Optional.of(this)); //TODO: servono width e height?
         //this.panelView.setPreferredSize(new Dimension(500, 500));
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frame.setSize(new Dimension(WIDTH_FRAME, HEIGHT_FRAME));     //1600, 900
@@ -93,8 +94,9 @@ public final class EditorGUI {
 
         final JPanel menuButtons = new JPanel(new GridBagLayout());
 
+        this.addingFont();
         //System.out.println(panelView.getSize());
-        try {
+        /*try {
             final float fontLabelDim = 30f;
             final float fontButtonDim = 25f;
 
@@ -113,8 +115,9 @@ public final class EditorGUI {
             fontStyle.close();
 
         } catch (FontFormatException | IOException e) {
-            e.printStackTrace();
-        }
+            //e.printStackTrace();              //TODO: usare un logger?
+            Logger.getLogger(EditorGUI.class.getName()).severe(e.getMessage());
+        }*/
 
         final JButton menu = new JButton("Quit");
         menu.setFont(fontButton);
@@ -134,37 +137,6 @@ public final class EditorGUI {
 
         menuButtons.add(menu);
         menuButtons.add(Box.createHorizontalStrut(10));
-
-        /*panelView.addMouseListener(new MouseListener() {
-
-            @Override
-            public void mouseClicked(final MouseEvent e) {
-                mousePosition = Optional.of(e.getPoint());
-                if (removeEntity) {
-                    System.out.println("Removed at Pos:" + mousePosition.get().x 
-                        + " boolean return " + panelView.removeEntity(mousePosition.get().x, mousePosition.get().y));
-                } else {
-                    System.out.println("Added at Pos:" + mousePosition.get().x 
-                        + " boolean return " + panelView.addEntity(type.get(), mousePosition.get().x, mousePosition.get().y));
-                }
-            }
-
-            @Override
-            public void mousePressed(final MouseEvent e) {
-            }
-
-            @Override
-            public void mouseReleased(final MouseEvent e) {
-            }
-
-            @Override
-            public void mouseEntered(final MouseEvent e) {
-            }
-
-            @Override
-            public void mouseExited(final MouseEvent e) {
-            }
-        });*/
 
         menu.addActionListener(new ActionListener() {
 
@@ -188,19 +160,11 @@ public final class EditorGUI {
 
             @Override
             public void actionPerformed(final ActionEvent e) {
-                /*String name = JOptionPane.showInputDialog(frame, "Write the filename", "Saving", JOptionPane.PLAIN_MESSAGE);
-                if (name.contains(".json")) {
-                    File file = new File(name);
-                    controller.getEditor().saveLevel(file);
-                } else {
-                    JOptionPane.showMessageDialog(frame, "The type of file is not .json",
-                             "Error has occurred", JOptionPane.ERROR_MESSAGE);
-                }*/
                 if (!controller.getEditor().canBeSaved()) {
                     JOptionPane.showMessageDialog(frame, "The type of file cannot be saved",
                              "Error has occurred", JOptionPane.ERROR_MESSAGE);
                 } else {
-                    JFileChooser file = new JFileChooser();
+                    final JFileChooser file = new JFileChooser();
                     file.setAcceptAllFileFilterUsed(false);
                     file.addChoosableFileFilter(new FileNameExtensionFilter("*.json", "json"));
                     if (file.showSaveDialog(frame) == JFileChooser.APPROVE_OPTION) {
@@ -228,7 +192,7 @@ public final class EditorGUI {
 
             @Override
             public void actionPerformed(final ActionEvent e) {
-                JFileChooser file = new JFileChooser();
+                final JFileChooser file = new JFileChooser();
                 file.setAcceptAllFileFilterUsed(false);
                 file.addChoosableFileFilter(new FileNameExtensionFilter("*.json", "json"));
                 if (file.showOpenDialog(frame) == JFileChooser.APPROVE_OPTION) {
@@ -366,7 +330,7 @@ public final class EditorGUI {
         //button5.setVerticalAlignment(SwingConstants.TOP);
         //box.add(button5);
 
-        JComponent component = new JPanel(new BorderLayout());
+        final JComponent component = new JPanel(new BorderLayout());
         component.setBackground(Color.GRAY);
         component.setBorder(new EmptyBorder(10, 10, 10, 10));
 
@@ -436,6 +400,31 @@ public final class EditorGUI {
                 panelView.setSelectedEntity(typeInput);
             }
         });
+    }
+
+    private void addingFont() {
+        try {
+            final float fontLabelDim = 30f;
+            final float fontButtonDim = 25f;
+
+            //File fontStyle = new File("src\\main\\resources\\it\\unibo\\fonts\\ProtestStrike-Regular.ttf");
+            InputStream fontStyle = ClassLoader.getSystemResourceAsStream("./it/unibo/fonts/ProtestStrike-Regular.ttf");
+            this.font = Font.createFont(Font.TRUETYPE_FONT, fontStyle)
+                    .deriveFont(fontLabelDim)
+                    .deriveFont(Font.BOLD);
+            //fontStyle = new File("src\\main\\resources\\it\\unibo\\fonts\\Bungee-Regular.ttf");
+            fontStyle = ClassLoader.getSystemResourceAsStream("./it/unibo/fonts/Bungee-Regular.ttf");
+            this.fontButton = Font.createFont(Font.TRUETYPE_FONT, fontStyle)
+                    .deriveFont(fontButtonDim)
+                    .deriveFont(Font.CENTER_BASELINE)
+                    .deriveFont(Font.PLAIN);
+
+            fontStyle.close();
+
+        } catch (FontFormatException | IOException e) {
+            //e.printStackTrace();              //TODO: usare un logger?
+            Logger.getLogger(EditorGUI.class.getName()).severe(e.getMessage());
+        }
     }
 }
 

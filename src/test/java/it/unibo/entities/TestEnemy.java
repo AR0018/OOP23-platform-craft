@@ -171,6 +171,7 @@ class TestEnemy {
         assertTrue(this.player.isAlive());*/
     }
 
+    //CPD-OFF
     private static final class Lv implements Level {
 
         private final Set<GameEntity> st = new HashSet<>();
@@ -232,4 +233,5 @@ class TestEnemy {
             throw new UnsupportedOperationException("Unimplemented method 'removeGameEntity'");
         }
     }
+    //CPD-ON
 }

@@ -32,7 +32,7 @@ public final class BorderCollisionImpl implements BorderCollision {
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode() {             //TODO: controllare se serve
         return super.hashCode();
     }
 }

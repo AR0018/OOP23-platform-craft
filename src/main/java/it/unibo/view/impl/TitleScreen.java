@@ -32,6 +32,7 @@ import javax.swing.BorderFactory;
 import java.util.Objects;
 
 import java.util.Set;
+import java.util.logging.Logger;
 
 /**
  * Class to create the TitleScreen when the game starts.
@@ -83,7 +84,8 @@ public final class TitleScreen {
 
         final JLabel label = new JLabel(TITLE);
 
-        try {
+        this.addingFont();
+        /*try {
             final float fontLabelDim = TITLE_SIZE + 60;
             final float fontButtonDim = 50f;
 
@@ -102,7 +104,7 @@ public final class TitleScreen {
             fontStyle.close();
         } catch (FontFormatException | IOException e) {
             e.printStackTrace();
-        }
+        }*/
 
         label.setFont(font);
         label.setForeground(FOREGROUND);
@@ -118,7 +120,7 @@ public final class TitleScreen {
 
             @Override
             public void actionPerformed(final ActionEvent e) {
-                JFileChooser file = new JFileChooser();
+                final JFileChooser file = new JFileChooser();
                 file.setAcceptAllFileFilterUsed(false);
                 file.addChoosableFileFilter(new FileNameExtensionFilter("*.json", "json"));
                 if (file.showOpenDialog(frame) == JFileChooser.APPROVE_OPTION) {
@@ -170,7 +172,7 @@ public final class TitleScreen {
 
             @Override
             public void actionPerformed(final ActionEvent e) {
-                if (JOptionPane.showConfirmDialog(frame, "Do you want to quit",
+                if (JOptionPane.showConfirmDialog(frame, "Do you want to quit?",
                          "Quitting", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                     System.exit(0);
                 }
@@ -181,7 +183,7 @@ public final class TitleScreen {
         final int left = 200;
         final int right = 200;
 
-        JPanel titlePanel = new JPanel();
+        final JPanel titlePanel = new JPanel();
         titlePanel.setBackground(BUTTON_BACK);
         titlePanel.add(label);
         titlePanel.add(panel);
@@ -216,5 +218,29 @@ public final class TitleScreen {
      */
     public LevelView getLevelView() {
         return Objects.requireNonNull(this.levelView);
+    }
+
+    private void addingFont() {
+        try {
+            final float fontLabelDim = TITLE_SIZE + 60;
+            final float fontButtonDim = 50f;
+
+            //File fontStyle = new File("src\\main\\resources\\it\\unibo\\fonts\\ProtestStrike-Regular.ttf");
+            InputStream fontStyle = ClassLoader.getSystemResourceAsStream("./it/unibo/fonts/ProtestStrike-Regular.ttf");
+            this.font = Font.createFont(Font.TRUETYPE_FONT, fontStyle)
+                    .deriveFont(fontLabelDim)
+                    .deriveFont(Font.BOLD);
+            //fontStyle = new File("src\\main\\resources\\it\\unibo\\fonts\\Bungee-Regular.ttf");
+            fontStyle = ClassLoader.getSystemResourceAsStream("./it/unibo/fonts/Bungee-Regular.ttf");
+            this.fontButton = Font.createFont(Font.TRUETYPE_FONT, fontStyle)
+                    .deriveFont(fontButtonDim)
+                    .deriveFont(Font.CENTER_BASELINE)
+                    .deriveFont(Font.PLAIN);
+
+            fontStyle.close();
+        } catch (FontFormatException | IOException e) {
+            //e.printStackTrace();      //TODO: usare logger?
+            Logger.getLogger(TitleScreen.class.getName()).severe(e.getMessage());
+        }
     }
 }

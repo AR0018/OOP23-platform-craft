@@ -2,7 +2,6 @@ package it.unibo.model.entities.impl;
 
 import it.unibo.common.EntityType;
 import it.unibo.model.collisions.api.BorderCollision;
-import it.unibo.model.collisions.api.Collision;
 import it.unibo.model.collisions.api.EntityCollision;
 import it.unibo.model.entities.api.Character;
 import it.unibo.model.entities.api.Enemy;
@@ -12,16 +11,9 @@ import it.unibo.model.physics.api.Direction;
 import it.unibo.model.physics.api.Position;
 
 import java.util.Set;
-import java.util.HashSet;
+//import java.util.HashSet;
 import java.util.stream.Collectors;
 
-//Si valuta l'ereditarietà piuttosto che il pattern Decorator
-//perchè si dovrebbe riscrivere un gran numero di metodi ogni volta
-//mentre così si mantengono dei metodi gia predisposti comuni e se
-//ne mettono alcuni astratti come move che verrà poi usata da updateState
-//così modifico i parametri passati al costruttore mentre con il decorator 
-//dovrei passare l'intefaccia enemy e quindi per modificare i campi sarebbero necesari
-//dei metodi aggiuntivi 
 /**
  * Models the concept of an enemy with all its characteristics.
  */
@@ -40,7 +32,7 @@ public abstract class EnemyImpl extends GameEntityImpl implements Enemy {
      */
     public EnemyImpl(final Position position, final Level level, final double width, final double height) {
         super(position, level, width, height);
-        setDirection(Direction.RIGHT);
+        this.setDirection(Direction.RIGHT);
     }
 
     /**
@@ -55,7 +47,7 @@ public abstract class EnemyImpl extends GameEntityImpl implements Enemy {
      * Sets the right direction of the enemy.
      * @param direction the direction
      */
-    protected void setDirection(final Direction direction) {
+    protected final void setDirection(final Direction direction) {
         this.direction = direction;
     }
 
@@ -63,6 +55,7 @@ public abstract class EnemyImpl extends GameEntityImpl implements Enemy {
      * Return the type of the enemy.
      * @return the type of the enemy
      */
+    @Override
     public abstract EntityType getType();
 
     @Override
@@ -70,15 +63,6 @@ public abstract class EnemyImpl extends GameEntityImpl implements Enemy {
         moveEnemy();
         checkEnemyCollisions();
     }
-
-    /**
-     * Update the correct movement of the enemy checking 
-     * collisions or the presence of the player.
-     */
-    /*public abstract void updateState() {
-        this.physics.calculateMovement();
-        checkEnemyCollisions();
-    }*/
 
     /**
      * This method lets the enemy moves in the right direction.
@@ -90,45 +74,25 @@ public abstract class EnemyImpl extends GameEntityImpl implements Enemy {
      */
     private void checkEnemyCollisions() {
         if (!getCollisions().isEmpty()) {
-            /*if (getCollisionBox().isCollidingWith(getLevel().getCharacter())) {
-                checkEnemyIsDead();
-            } else {*/
-            //System.out.println("Collision: " + getCollisions().size()); 
             checkEnemyCharacter();
             checkEnemyBorder();
             checkEnemyBlock();
         }
     }
-
-    /*private void checkEnemyTrap() {
-        var trapEnemyCollsion = getEntity(getCollisions())
-            .stream()
-            .filter(x -> x.getGameEntity() instanceof Trap)
-            .collect(Collectors.toSet());
-        if (trapEnemyCollsion.stream().anyMatch(x -> x.getDirection().equals(Direction.LEFT))) {
-            this.setDirection(Direction.RIGHT);
-        } else {
-            this.setDirection(Direction.LEFT);
-        }
-    }*/
     /**
      * Check if the enemy needs to change direction
      * due to a collision with another enemy or a map element
      * on right or left edge.
      */
     private void checkEnemyBlock() {
-        var blockEnemyCollision = getEntity(getCollisions())
+        final var blockEnemyCollision = getX(EntityCollision.class)
             .stream()
             .filter(x -> x.getGameEntity() instanceof MapElement 
-                || x.getGameEntity() instanceof Enemy)// instanceof MapElement || x instanceof Enemy)
+                || x.getGameEntity() instanceof Enemy)
                 .collect(Collectors.toSet());
         if (blockEnemyCollision.stream()
             .anyMatch(x -> x.getDirection().equals(Direction.RIGHT) 
                 || x.getDirection().equals(Direction.LEFT))) {
-            /*if (this instanceof StrongEnemyImpl && blockEnemyCollision.stream()
-                .anyMatch(x -> x.getDirection().equals(Direction.DOWN))) {
-                this.setDirection(Direction.UP);
-            }*/
             if (blockEnemyCollision.stream().anyMatch(x -> x.getDirection().equals(Direction.LEFT))) {
                 this.setDirection(Direction.RIGHT);
             }
@@ -137,13 +101,30 @@ public abstract class EnemyImpl extends GameEntityImpl implements Enemy {
             }
         }
     }
+    /*private void checkEnemyBlock() {          //TODO: originale
+        var blockEnemyCollision = getEntity(getCollisions())
+            .stream()
+            .filter(x -> x.getGameEntity() instanceof MapElement 
+                || x.getGameEntity() instanceof Enemy)
+                .collect(Collectors.toSet());
+        if (blockEnemyCollision.stream()
+            .anyMatch(x -> x.getDirection().equals(Direction.RIGHT) 
+                || x.getDirection().equals(Direction.LEFT))) {
+            if (blockEnemyCollision.stream().anyMatch(x -> x.getDirection().equals(Direction.LEFT))) {
+                this.setDirection(Direction.RIGHT);
+            }
+            if (blockEnemyCollision.stream().anyMatch(x -> x.getDirection().equals(Direction.RIGHT))) {
+                this.setDirection(Direction.LEFT);
+            }
+        }
+    }*/
 
     /**
      * Check if the enemy needs to die due to a collision
      * with the down border.
      */
     private void checkEnemyBorder() {
-        var enemyBorder = getBorder(getCollisions())
+        final var enemyBorder = getX(BorderCollision.class)
         .stream()
         .collect(Collectors.toSet());
         if (!enemyBorder.isEmpty()) {
@@ -158,16 +139,38 @@ public abstract class EnemyImpl extends GameEntityImpl implements Enemy {
             }
         }
     }
+    /*private void checkEnemyBorder() {             //TODO: originale
+        var enemyBorder = getBorder(getCollisions())
+        .stream()
+        .collect(Collectors.toSet());
+        if (!enemyBorder.isEmpty()) {
+            if (enemyBorder.stream().anyMatch(x -> x.getDirection().equals(Direction.DOWN))) {
+                setAlive(false);
+            }
+            if (enemyBorder.stream().anyMatch(x -> x.getDirection().equals(Direction.LEFT))) {
+                this.setDirection(Direction.RIGHT);
+            }
+            if (enemyBorder.stream().anyMatch(x -> x.getDirection().equals(Direction.RIGHT))) {
+                this.setDirection(Direction.LEFT);
+            }
+        }
+    }*/
 
+    private void checkEnemyCharacter() {
+        final var enemyCharacter = getX(EntityCollision.class)
+                .stream()
+                .filter(x -> x.getGameEntity() instanceof Character)
+                .collect(Collectors.toSet());
+        if (!enemyCharacter.isEmpty() && enemyCharacter
+            .stream().anyMatch(x -> x.getDirection().equals(Direction.UP))) {
+                setAlive(false);
+        }
+    }
     /**
      * Check if the enemy dies due to the player who collided with
      * the head of the enemy.
      */
-    private void checkEnemyCharacter() {
-        /*var enemyCharacter = getCollisions().stream().filter(x -> x.getGameEntity() instanceof Character);
-        if (enemyCharacter.anyMatch(x -> x.getDirection().equals(Direction.UP))) {
-            setAlive(false);
-        }*/
+    /*private void checkEnemyCharacter() {                  //TODO: originale
         var enemyCharacter = getEntity(getCollisions())
                 .stream()
                 .filter(x -> x.getGameEntity() instanceof Character)
@@ -179,7 +182,7 @@ public abstract class EnemyImpl extends GameEntityImpl implements Enemy {
         }
     }
 
-    private Set<BorderCollision> getBorder(final Set<Collision> collisions) {
+    private Set<BorderCollision> getBorder(final Set<Collision> collisions) {         //TODO: originale
         Set<BorderCollision> borderCollision = new HashSet<>();
         getCollisions()
                 .stream()
@@ -188,12 +191,21 @@ public abstract class EnemyImpl extends GameEntityImpl implements Enemy {
         return borderCollision;
     }
 
-    private Set<EntityCollision> getEntity(final Set<Collision> collision) {
+    private Set<EntityCollision> getEntity(final Set<Collision> collision) {          //TODO: originale
         Set<EntityCollision> entityCollision = new HashSet<>();
         getCollisions()
                 .stream()
                 .filter(x -> x instanceof EntityCollision)
                 .forEach(x -> entityCollision.add((EntityCollision) x));
         return entityCollision;
+    }*/
+
+
+    @SuppressWarnings("unchecked")              //TODO: controllare se puo funzionare
+    private <X> Set<X> getX(final Class<X> clsClass) {
+            return (Set<X>) getCollisions()
+                    .stream()
+                    .filter(clsClass::isInstance)
+                    .collect(Collectors.toSet());
     }
 }

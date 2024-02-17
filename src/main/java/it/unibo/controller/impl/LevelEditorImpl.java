@@ -16,7 +16,7 @@ import it.unibo.model.engine.impl.EditorImpl;
 public final class LevelEditorImpl implements LevelEditor {
 
     private Editor editor;
-    private LevelSerializer serializer = new SerializerImpl();
+    private final LevelSerializer serializer;
 
     /**
      * Constructor of the LevelEditorImpl.
@@ -24,6 +24,7 @@ public final class LevelEditorImpl implements LevelEditor {
      */
     public LevelEditorImpl() {
         this.editor = new EditorImpl(Set.of());
+        this.serializer = new SerializerImpl();
     }
 
     @Override
@@ -57,7 +58,6 @@ public final class LevelEditorImpl implements LevelEditor {
             this.editor = new EditorImpl(this.serializer.loadLevel(file));
             return true;
         } catch (IOException e) {
-            e.printStackTrace();
             return false;
         }
     }

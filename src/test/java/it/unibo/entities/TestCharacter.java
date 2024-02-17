@@ -56,6 +56,8 @@ class TestCharacter {
         this.map1 = new MapElementImpl(new Position2D(0, EntityType.CHARACTER.getHeigth()), this.level);
         this.map2 = new MapElementImpl(new Position2D(EntityType.CHARACTER.getWidth(),
             EntityType.SIMPLE_ENEMY.getHeigth()), this.level);
+
+        //CPD-OFF
         this.level.addGameEntity(this.player);
         this.level.addGameEntity(this.enemy);
         this.level.addGameEntity(this.map1);
@@ -68,6 +70,9 @@ class TestCharacter {
         this.player = new CharacterImpl(new Position2D(1, SpeedLevels.SLOW.getValue()), this.level);
         this.enemy = new SimpleEnemyImpl(new Position2D(1, EntityType.CHARACTER.getHeigth()), this.level);
         this.map1 = new MapElementImpl(new Position2D(1, EntityType.SIMPLE_ENEMY.getHeigth()), this.level);
+        //CPD-ON
+
+
         this.level.addGameEntity(this.player);
         this.level.addGameEntity(this.enemy);
         this.level.addGameEntity(this.map1);
@@ -97,12 +102,16 @@ class TestCharacter {
         this.enemy = new SimpleEnemyImpl(new Position2D(0, 0), this.level);
         this.map1 = new MapElementImpl(new Position2D(0, EntityType.SIMPLE_ENEMY.getHeigth() 
             + EntityType.CHARACTER.getHeigth()), this.level);
+
+        //CPD-OFF
         this.level.addGameEntity(this.player);
         this.level.addGameEntity(this.enemy);
         this.level.addGameEntity(this.map1);
         this.player.updateState();
         assertFalse(this.player.isAlive());
         assertTrue(this.enemy.isAlive());
+        //CPD-ON
+
 
         this.level = new Lv();
         this.player = new CharacterImpl(new Position2D(0, 1), this.level);
@@ -112,6 +121,8 @@ class TestCharacter {
         this.player.updateState();
         this.enemy.updateState();
         //this.pos = new Position2D(2 + SpeedLevels.SLOW.getValue(), 0);
+
+        //CPD-OFF
         this.pos = new Position2D(2 * EntityType.CHARACTER.getWidth() + SpeedLevels.SLOW.getValue(), 0);
         assertTrue(this.player.isAlive());
         assertEquals(this.pos, this.enemy.getPosition());
@@ -123,6 +134,7 @@ class TestCharacter {
         //this.pos = new Position2D(ACCELERATION, 1 + ACCELERATION);           //The Character has the accelerated physic 
         this.pos = new Position2D(2 * ACCELERATION, 1 + ACCELERATION);
         assertEquals(this.pos, this.player.getPosition());
+        //CPD-ON
     }
 
     @Test
@@ -174,7 +186,7 @@ class TestCharacter {
         this.player.updateState();
         assertFalse(this.player.isAlive());
 
-
+        //CPD-OFF
         this.level = new Lv();
         this.player = new CharacterImpl(new Position2D(0, EntityType.ENEMY.getHeigth()), this.level);
         this.enemy = new StrongEnemyImpl(new Position2D(0, 0), this.level);
@@ -186,6 +198,7 @@ class TestCharacter {
         this.player.updateState();
         assertFalse(this.player.isAlive());
         assertTrue(this.enemy.isAlive());
+        //CPD-ON
 
         this.level = new Lv();
         this.player = new CharacterImpl(new Position2D(0, 1), this.level);
@@ -193,6 +206,8 @@ class TestCharacter {
         this.enemy = new StrongEnemyImpl(new Position2D(2 * EntityType.CHARACTER.getWidth() + ACCELERATION, 0), this.level);
         this.level.addGameEntity(this.player);
         this.level.addGameEntity(this.enemy);
+
+        //CPD-OFF
         this.player.updateState();
         this.enemy.updateState();
         //this.pos = new Position2D(1 + ACCELERATION, 0);
@@ -206,6 +221,7 @@ class TestCharacter {
         this.player.updateState();
         this.pos = new Position2D(2 * ACCELERATION, 1 + ACCELERATION);           //The Character has the accelerated physic 
         assertEquals(this.pos, this.player.getPosition());
+        //CPD-ON
     }
 
     @Test
@@ -289,7 +305,6 @@ class TestCharacter {
 
     @Test
     void testBorder() {
-
         /*
          * Check the collision with the bottom border.
          */
@@ -298,12 +313,12 @@ class TestCharacter {
         this.level.addGameEntity(this.player);
         this.player.updateState();
         assertFalse(this.player.isAlive());
-
     }
 
     /**
      * Implementation of the level.
      */
+    //CPD-OFF
     private static final class Lv implements Level {
 
         private final Set<GameEntity> st = new HashSet<>();
@@ -365,4 +380,5 @@ class TestCharacter {
             throw new UnsupportedOperationException("Unimplemented method 'removeGameEntity'");
         }
     }
+    //CPD-ON
 }

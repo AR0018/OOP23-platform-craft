@@ -30,7 +30,7 @@ import it.unibo.model.physics.api.Position;
 public abstract class GameEntityImpl implements GameEntity {
 
     private final Level level;
-    private CollisionBox box;
+    private final CollisionBox box;
     private Position position;
     private boolean isAlive;
 
@@ -71,12 +71,14 @@ public abstract class GameEntityImpl implements GameEntity {
     /**
      * Update the state (movement) of the GameEntity.
      */
+    @Override
     public abstract void updateState();
 
     /**
      * Return the type of the GameEntity.
      * @return an EntityType
      */
+    @Override
     public abstract EntityType getType();
 
     @Override

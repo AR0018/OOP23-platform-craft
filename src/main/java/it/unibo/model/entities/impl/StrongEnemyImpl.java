@@ -19,7 +19,7 @@ public final class StrongEnemyImpl extends EnemyImpl {
 
     private static final float VISIBLE_DISTANCE = (float) (EntityType.ENEMY.getWidth() * 5);
     private final Physics physics;
-    private PhysicsBuilder builder = new PhysicsBuilderImpl();
+    private final PhysicsBuilder builder = new PhysicsBuilderImpl();
 
     /**
      * Constructor of the StrongEnemy.
@@ -43,8 +43,9 @@ public final class StrongEnemyImpl extends EnemyImpl {
     /**
      * Checks if during the movement the has encountered the player.
      */
+    @Override
     protected void moveEnemy() {
-        if (playerIsVisible(getCharacter()) && playerInRange(getCharacter())) {
+        if (playerIsVisible(getCharacter()) && playerInRange()) {
             if (getCharacter().getPosition().getX() > getPosition().getX()) {
                 setDirection(Direction.RIGHT);
             } else {
@@ -58,29 +59,22 @@ public final class StrongEnemyImpl extends EnemyImpl {
     }
 
     private boolean playerIsVisible(final Character character) {
-        Position charPos = character.getPosition();
+        final Position charPos = character.getPosition();
 
-        List<GameEntity> list = getLevel().getGameEntities()
+        final List<GameEntity> list = getLevel().getGameEntities()
                 .stream()
                 .filter(x -> x.getBoundaries().intersectsLine(this.getPosition(), charPos))
                 .filter(x -> !x.equals(this))
                 .filter(x -> !(x instanceof Character))
                 .toList();
-
-        if (list.isEmpty()) {
-            return true;
-        }
-        return false;
+        return list.isEmpty();
     }
 
-    private boolean playerInRange(final Character character) {
-        Position charPos = getCharacter().getPosition();
-        var distance = Math.sqrt(Math.pow(charPos.getX() - getPosition().getX(), 2) 
+    private boolean playerInRange() {
+        final Position charPos = getCharacter().getPosition();
+        final var distance = Math.sqrt(Math.pow(charPos.getX() - getPosition().getX(), 2) 
                 + Math.pow(charPos.getY() - getPosition().getY(), 2));
-        if (distance <= VISIBLE_DISTANCE) {
-            return true;
-        }
-        return false;
+        return distance <= VISIBLE_DISTANCE;
     }
 
     private Character getCharacter() {

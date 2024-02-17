@@ -47,7 +47,7 @@ public final class EntityCollisionImpl implements EntityCollision {
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode() {         //TODO: controllare se serve
         return super.hashCode();
     }
 }

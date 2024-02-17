@@ -2,6 +2,7 @@ package it.unibo.view.impl;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.logging.Logger;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -54,8 +55,9 @@ public final class WinView {
         this.frame.setResizable(false);
         this.frame.setSize(FRAME_DIMENSION);
         this.frame.setLocationRelativeTo(null);
-
-        try {
+        
+        this.addingFont();
+        /*try {
             final float fontLabelDim = 130f;
             final float fontButtonDim = 70f;
 
@@ -75,7 +77,7 @@ public final class WinView {
 
         } catch (FontFormatException | IOException e) {
             e.printStackTrace();
-        }
+        }*/
 
         label
         .setText("YOU WON!!");
@@ -112,5 +114,30 @@ public final class WinView {
         panel.setBackground(Color.BLACK);
         frame.getContentPane().add(panel);
         this.frame.setVisible(true);
+    }
+
+    private void addingFont() {
+        try {
+            final float fontLabelDim = 130f;
+            final float fontButtonDim = 70f;
+
+            //File fontStyle = new File("src\\main\\resources\\it\\unibo\\fonts\\ProtestStrike-Regular.ttf");
+            InputStream fontStyle = ClassLoader.getSystemResourceAsStream("./it/unibo/fonts/ProtestStrike-Regular.ttf");
+            this.font = Font.createFont(Font.TRUETYPE_FONT, fontStyle)
+                    .deriveFont(fontLabelDim)
+                    .deriveFont(Font.BOLD);
+            //fontStyle = new File("src\\main\\resources\\it\\unibo\\fonts\\Bungee-Regular.ttf");
+            fontStyle = ClassLoader.getSystemResourceAsStream("./it/unibo/fonts/Bungee-Regular.ttf");
+            this.fontButton = Font.createFont(Font.TRUETYPE_FONT, fontStyle)
+                    .deriveFont(fontButtonDim)
+                    .deriveFont(Font.CENTER_BASELINE)
+                    .deriveFont(Font.PLAIN);
+
+            fontStyle.close();
+
+        } catch (FontFormatException | IOException e) {
+            //e.printStackTrace();        //TODO: usare logger?
+            Logger.getLogger(WinView.class.getName()).severe(e.getMessage());
+        }
     }
 }
