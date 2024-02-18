@@ -45,16 +45,12 @@ public final class LevelGUI {
     private static final int WIDTH_FRAME = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
     private static final int HEIGHT_FRAME = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
     private static final int MENUBAR_ORIZZONTAL_GAP = 20;
-    //private static final int MENUBAR_VERTICAL_GAP = 0;
-    //private static final int MENUBAR_TOP = 0;
     private static final int MENUBAR_LEFT = 9;
-    //private static final int MENUBAR_BOTTOM = 0;
     private static final int MENUBAR_RIGHT = 10;
     private static final Dimension BUTTON_DIM = new Dimension(125, 35);
     private static final int THICKNESS = 4;
     private static final int DELAY = 5;
     private final JFrame frame = new JFrame();
-    //private final JPanel panelView = new JPanel();
     private final PaintPanel panelView;
     private final Controller controller;
     private Font fontButton;
@@ -102,7 +98,7 @@ public final class LevelGUI {
      */
     public LevelGUI(final Controller controller, final View view) {
 
-        this.panelView = new PaintPanel(controller, WIDTH_FRAME, HEIGHT_FRAME, Optional.empty()); //TODO: servono width e height?
+        this.panelView = new PaintPanel(controller, WIDTH_FRAME, HEIGHT_FRAME, Optional.empty());
         this.controller = Objects.requireNonNull(controller);
         this.activeKeys = new HashSet<>();
         this.timer = new Timer(DELAY, keyProcesser);
@@ -114,24 +110,10 @@ public final class LevelGUI {
 
         final JMenuBar menuBar = new JMenuBar();
         menuBar.setBackground(Color.GRAY);
-        menuBar.setLayout(new BorderLayout(MENUBAR_ORIZZONTAL_GAP, 0));      //TODO: MENUBAR_V
-        menuBar.setBorder(new EmptyBorder(0, MENUBAR_LEFT, 0, MENUBAR_RIGHT));       //TODO: MENUBAR_T, BOttom
+        menuBar.setLayout(new BorderLayout(MENUBAR_ORIZZONTAL_GAP, 0));
+        menuBar.setBorder(new EmptyBorder(0, MENUBAR_LEFT, 0, MENUBAR_RIGHT));
 
         this.addingFont();
-        /*try {
-            final float fontButtonDim = 25f;
-
-            final InputStream fontStyle = ClassLoader.getSystemResourceAsStream("./it/unibo/fonts/Bungee-Regular.ttf");
-            fontButton = Font.createFont(Font.TRUETYPE_FONT, fontStyle)
-                    .deriveFont(fontButtonDim)
-                    .deriveFont(Font.CENTER_BASELINE)
-                    .deriveFont(Font.PLAIN);
-
-            fontStyle.close();
-
-        } catch (FontFormatException | IOException e) {
-            //e.printStackTrace();      //TODO: usare logger?
-        }*/
 
         this.frame.addKeyListener(new KeyListener() {
 
@@ -151,11 +133,6 @@ public final class LevelGUI {
 
             @Override
             public void keyReleased(final KeyEvent e) {
-                /*if (frame.isVisible()) {                      //TODO: riportare come prima?
-                    if (activeKeys.contains(e.getKeyCode())) {
-                        activeKeys.remove(e.getKeyCode());
-                    }
-                }*/
                 if (frame.isVisible() && activeKeys.contains(e.getKeyCode())) {
                     activeKeys.remove(e.getKeyCode());
                 }
@@ -176,7 +153,6 @@ public final class LevelGUI {
                          "Quitting", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                     hide();
                     controller.getRunner().stopLevel();
-                    //new ViewImpl(controller, width, height).displayStart();
                     view.displayStart();
                 }
             }
@@ -230,7 +206,7 @@ public final class LevelGUI {
         try {
             final float fontButtonDim = 25f;
 
-            final InputStream fontStyle = ClassLoader.getSystemResourceAsStream("./it/unibo/fonts/Bungee-Regular.ttf");
+            final InputStream fontStyle = ClassLoader.getSystemResourceAsStream("it/unibo/fonts/Bungee-Regular.ttf");
             fontButton = Font.createFont(Font.TRUETYPE_FONT, fontStyle)
                     .deriveFont(fontButtonDim)
                     .deriveFont(Font.CENTER_BASELINE)
@@ -239,7 +215,6 @@ public final class LevelGUI {
             fontStyle.close();
 
         } catch (FontFormatException | IOException e) {
-            //e.printStackTrace();      //TODO: usare logger?
             Logger.getLogger(LevelGUI.class.getName()).severe(e.getMessage());
         }
     }

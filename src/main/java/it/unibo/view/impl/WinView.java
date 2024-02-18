@@ -52,39 +52,16 @@ public final class WinView {
         this.frame.setLocationRelativeTo(null);
 
         this.addingFont();
-        /*try {
-            final float fontLabelDim = 130f;
-            final float fontButtonDim = 70f;
-
-            //File fontStyle = new File("src\\main\\resources\\it\\unibo\\fonts\\ProtestStrike-Regular.ttf");
-            InputStream fontStyle = ClassLoader.getSystemResourceAsStream("./it/unibo/fonts/ProtestStrike-Regular.ttf");
-            font = Font.createFont(Font.TRUETYPE_FONT, fontStyle)
-                    .deriveFont(fontLabelDim)
-                    .deriveFont(Font.BOLD);
-            //fontStyle = new File("src\\main\\resources\\it\\unibo\\fonts\\Bungee-Regular.ttf");
-            fontStyle = ClassLoader.getSystemResourceAsStream("./it/unibo/fonts/Bungee-Regular.ttf");
-            fontButton = Font.createFont(Font.TRUETYPE_FONT, fontStyle)
-                    .deriveFont(fontButtonDim)
-                    .deriveFont(Font.CENTER_BASELINE)
-                    .deriveFont(Font.PLAIN);
-
-            fontStyle.close();
-
-        } catch (FontFormatException | IOException e) {
-            e.printStackTrace();
-        }*/
 
         label
         .setText("YOU WON!!");
         label.setHorizontalAlignment(SwingConstants.CENTER);
-        //label.setFont(new Font("Dialog", Font.BOLD, SIZE_LABEL_TEXT));
         label.setFont(font);
         label.setForeground(Color.WHITE);
         label.setBackground(Color.BLACK);
         label.setOpaque(false);
 
         button.setText("HOME");
-        //button.setFont(new Font("Dialog", Font.BOLD, SIZE_BUTTON_TEXT));
         button.setFont(fontButton);
         button.setForeground(Color.BLACK);
         button.setBackground(Color.WHITE);
@@ -116,13 +93,11 @@ public final class WinView {
             final float fontLabelDim = 130f;
             final float fontButtonDim = 70f;
 
-            //File fontStyle = new File("src\\main\\resources\\it\\unibo\\fonts\\ProtestStrike-Regular.ttf");
-            InputStream fontStyle = ClassLoader.getSystemResourceAsStream("./it/unibo/fonts/ProtestStrike-Regular.ttf");
+            InputStream fontStyle = ClassLoader.getSystemResourceAsStream("it/unibo/fonts/ProtestStrike-Regular.ttf");
             this.font = Font.createFont(Font.TRUETYPE_FONT, fontStyle)
                     .deriveFont(fontLabelDim)
                     .deriveFont(Font.BOLD);
-            //fontStyle = new File("src\\main\\resources\\it\\unibo\\fonts\\Bungee-Regular.ttf");
-            fontStyle = ClassLoader.getSystemResourceAsStream("./it/unibo/fonts/Bungee-Regular.ttf");
+            fontStyle = ClassLoader.getSystemResourceAsStream("it/unibo/fonts/Bungee-Regular.ttf");
             this.fontButton = Font.createFont(Font.TRUETYPE_FONT, fontStyle)
                     .deriveFont(fontButtonDim)
                     .deriveFont(Font.CENTER_BASELINE)
@@ -131,7 +106,6 @@ public final class WinView {
             fontStyle.close();
 
         } catch (FontFormatException | IOException e) {
-            //e.printStackTrace();        //TODO: usare logger?
             Logger.getLogger(WinView.class.getName()).severe(e.getMessage());
         }
     }

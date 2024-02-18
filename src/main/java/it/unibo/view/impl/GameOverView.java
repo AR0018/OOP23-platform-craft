@@ -57,37 +57,13 @@ public final class GameOverView {
         this.frame.setLocationRelativeTo(null);
 
         this.addingFont();
-        /*try {
-            final float fontLabelDim = 120f;
-            final float fontButtonDim = 80f;
-
-            //File fontStyle = new File("src\\main\\resources\\it\\unibo\\fonts\\ProtestStrike-Regular.ttf");
-            InputStream fontStyle = ClassLoader.getSystemResourceAsStream("./it/unibo/fonts/ProtestStrike-Regular.ttf");
-            font = Font.createFont(Font.TRUETYPE_FONT, fontStyle)
-                    .deriveFont(fontLabelDim)
-                    .deriveFont(Font.BOLD);
-            //fontStyle = new File("src\\main\\resources\\it\\unibo\\fonts\\Bungee-Regular.ttf");
-            fontStyle = ClassLoader.getSystemResourceAsStream("./it/unibo/fonts/Bungee-Regular.ttf");
-            fontButton = Font.createFont(Font.TRUETYPE_FONT, fontStyle)
-                    .deriveFont(fontButtonDim)
-                    .deriveFont(Font.CENTER_BASELINE)
-                    .deriveFont(Font.PLAIN);
-
-            fontStyle.close();
-
-        } catch (FontFormatException | IOException e) {
-            //e.printStackTrace();              //TODO: usare logger?
-            Logger.getLogger(GameOverView.class.getName()).severe(e.getMessage());
-        }*/
 
         label.setHorizontalAlignment(SwingConstants.CENTER);
-        //label.setFont(new Font("Dialog", Font.BOLD, SIZE_LABEL_TEXT));
         label.setFont(font);
         label.setForeground(Color.WHITE);
         label.setBackground(Color.BLACK);
         label.setOpaque(false);
 
-        //home.setFont(new Font("Dialog", Font.BOLD, SIZE_BUTTON_TEXT));
         home.setFont(fontButton);
         home.setForeground(Color.BLACK);
         home.setBackground(Color.WHITE);
@@ -96,17 +72,12 @@ public final class GameOverView {
 
             @Override
             public void actionPerformed(final ActionEvent e) {
-                //frame.setVisible(false);
-                //levelView.hide();
-                //controller.getRunner().stopLevel();
-                //levelView.hide();
                 frame.setVisible(false);
                 levelGUI.hide();
                 view.displayStart();
             }
         });
 
-        //retry.setFont(new Font("Dialog", Font.BOLD, SIZE_BUTTON_TEXT));
         retry.setFont(fontButton);
         retry.setForeground(Color.BLACK);
         retry.setBackground(Color.WHITE);
@@ -116,19 +87,8 @@ public final class GameOverView {
             @Override
             public void actionPerformed(final ActionEvent e) {
                 frame.setVisible(false);
-                //levelView.hide();
                 controller.getRunner().restart();
                 controller.getRunner().run();
-                /*JFileChooser file = new JFileChooser();
-                file.setAcceptAllFileFilterUsed(false);
-                file.addChoosableFileFilter(new FileNameExtensionFilter("*.json", "json"));
-                if (file.showOpenDialog(frame) == JFileChooser.APPROVE_OPTION) {
-                    if (!controller.getEditor().loadLevel(file.getSelectedFile())) {
-                        JOptionPane.showMessageDialog(frame, "The level could not be loaded",
-                            "Loading error", JOptionPane.ERROR_MESSAGE);
-                    }
-                    levelView.render(controller.getEditor().getCurrentEntities());
-                }*/
             }
         });
 
@@ -138,7 +98,6 @@ public final class GameOverView {
         final int width1 = 20;
         final int verticalStrut = 40;
         panel.add(label);
-        //panel.add(separator);
         panel.add(Box.createVerticalStrut(verticalStrut));
         buttonPanel.add(home);
         final int buttonPanelWidthStrut = width1 + 30;
@@ -157,13 +116,11 @@ public final class GameOverView {
             final float fontLabelDim = 120f;
             final float fontButtonDim = 80f;
 
-            //File fontStyle = new File("src\\main\\resources\\it\\unibo\\fonts\\ProtestStrike-Regular.ttf");
-            InputStream fontStyle = ClassLoader.getSystemResourceAsStream("./it/unibo/fonts/ProtestStrike-Regular.ttf");
+            InputStream fontStyle = ClassLoader.getSystemResourceAsStream("it/unibo/fonts/ProtestStrike-Regular.ttf");
             this.font = Font.createFont(Font.TRUETYPE_FONT, fontStyle)
                     .deriveFont(fontLabelDim)
                     .deriveFont(Font.BOLD);
-            //fontStyle = new File("src\\main\\resources\\it\\unibo\\fonts\\Bungee-Regular.ttf");
-            fontStyle = ClassLoader.getSystemResourceAsStream("./it/unibo/fonts/Bungee-Regular.ttf");
+            fontStyle = ClassLoader.getSystemResourceAsStream("it/unibo/fonts/Bungee-Regular.ttf");
             this.fontButton = Font.createFont(Font.TRUETYPE_FONT, fontStyle)
                     .deriveFont(fontButtonDim)
                     .deriveFont(Font.CENTER_BASELINE)
@@ -172,7 +129,6 @@ public final class GameOverView {
             fontStyle.close();
 
         } catch (FontFormatException | IOException e) {
-            //e.printStackTrace();              //TODO: usare logger?
             Logger.getLogger(GameOverView.class.getName()).severe(e.getMessage());
         }
     }

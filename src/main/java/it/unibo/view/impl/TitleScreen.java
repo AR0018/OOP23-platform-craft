@@ -40,7 +40,6 @@ import java.util.logging.Logger;
 public final class TitleScreen {
 
     private static final String TITLE = "PlatformCraft";
-    //private static final Color BACKGROUND = new Color(100, 120, 10);    //Sfondo comune
     private static final Color BUTTON_BACK = new Color(0, 0, 0);
     private static final Color FOREGROUND = new Color(255, 255, 255);
     private static final float TITLE_SIZE = 80f;
@@ -83,26 +82,6 @@ public final class TitleScreen {
         final JLabel label = new JLabel(TITLE);
 
         this.addingFont();
-        /*try {
-            final float fontLabelDim = TITLE_SIZE + 60;
-            final float fontButtonDim = 50f;
-
-            //File fontStyle = new File("src\\main\\resources\\it\\unibo\\fonts\\ProtestStrike-Regular.ttf");
-            InputStream fontStyle = ClassLoader.getSystemResourceAsStream("./it/unibo/fonts/ProtestStrike-Regular.ttf");
-            font = Font.createFont(Font.TRUETYPE_FONT, fontStyle)
-                    .deriveFont(fontLabelDim)
-                    .deriveFont(Font.BOLD);
-            //fontStyle = new File("src\\main\\resources\\it\\unibo\\fonts\\Bungee-Regular.ttf");
-            fontStyle = ClassLoader.getSystemResourceAsStream("./it/unibo/fonts/Bungee-Regular.ttf");
-            fontButton = Font.createFont(Font.TRUETYPE_FONT, fontStyle)
-                    .deriveFont(fontButtonDim)
-                    .deriveFont(Font.CENTER_BASELINE)
-                    .deriveFont(Font.PLAIN);
-
-            fontStyle.close();
-        } catch (FontFormatException | IOException e) {
-            e.printStackTrace();
-        }*/
 
         label.setFont(font);
         label.setForeground(FOREGROUND);
@@ -223,13 +202,11 @@ public final class TitleScreen {
             final float fontLabelDim = TITLE_SIZE + 60;
             final float fontButtonDim = 50f;
 
-            //File fontStyle = new File("src\\main\\resources\\it\\unibo\\fonts\\ProtestStrike-Regular.ttf");
-            InputStream fontStyle = ClassLoader.getSystemResourceAsStream("./it/unibo/fonts/ProtestStrike-Regular.ttf");
+            InputStream fontStyle = ClassLoader.getSystemResourceAsStream("it/unibo/fonts/ProtestStrike-Regular.ttf");
             this.font = Font.createFont(Font.TRUETYPE_FONT, fontStyle)
                     .deriveFont(fontLabelDim)
                     .deriveFont(Font.BOLD);
-            //fontStyle = new File("src\\main\\resources\\it\\unibo\\fonts\\Bungee-Regular.ttf");
-            fontStyle = ClassLoader.getSystemResourceAsStream("./it/unibo/fonts/Bungee-Regular.ttf");
+            fontStyle = ClassLoader.getSystemResourceAsStream("it/unibo/fonts/Bungee-Regular.ttf");
             this.fontButton = Font.createFont(Font.TRUETYPE_FONT, fontStyle)
                     .deriveFont(fontButtonDim)
                     .deriveFont(Font.CENTER_BASELINE)
@@ -237,7 +214,6 @@ public final class TitleScreen {
 
             fontStyle.close();
         } catch (FontFormatException | IOException e) {
-            //e.printStackTrace();      //TODO: usare logger?
             Logger.getLogger(TitleScreen.class.getName()).severe(e.getMessage());
         }
     }

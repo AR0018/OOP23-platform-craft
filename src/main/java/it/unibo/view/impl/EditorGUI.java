@@ -64,7 +64,6 @@ public final class EditorGUI {
     private static final int THICKNESS = 4;
     private static final int BUTTON_TEXT_SIZE = 20;
     private final JFrame frame = new JFrame();
-    //private final JPanel panelView = new JPanel();
 
     private final PaintPanel panelView;
     private Font font;
@@ -77,10 +76,9 @@ public final class EditorGUI {
      */
     public EditorGUI(final Controller controller, final View view) {
 
-        this.panelView = new PaintPanel(controller, WIDTH_FRAME, HEIGHT_FRAME, Optional.of(this)); //TODO: servono width e height?
-        //this.panelView.setPreferredSize(new Dimension(500, 500));
+        this.panelView = new PaintPanel(controller, WIDTH_FRAME, HEIGHT_FRAME, Optional.of(this));
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.frame.setSize(new Dimension(WIDTH_FRAME, HEIGHT_FRAME));     //1600, 900
+        this.frame.setSize(new Dimension(WIDTH_FRAME, HEIGHT_FRAME));
 
         this.frame.setMinimumSize(new Dimension(WIDTH_FRAME / 3, HEIGHT_FRAME / 3));
         this.frame.setLocationRelativeTo(null);
@@ -93,29 +91,6 @@ public final class EditorGUI {
         final JPanel menuButtons = new JPanel(new GridBagLayout());
 
         this.addingFont();
-        //System.out.println(panelView.getSize());
-        /*try {
-            final float fontLabelDim = 30f;
-            final float fontButtonDim = 25f;
-
-            //File fontStyle = new File("src\\main\\resources\\it\\unibo\\fonts\\ProtestStrike-Regular.ttf");
-            InputStream fontStyle = ClassLoader.getSystemResourceAsStream("./it/unibo/fonts/ProtestStrike-Regular.ttf");
-            font = Font.createFont(Font.TRUETYPE_FONT, fontStyle)
-                    .deriveFont(fontLabelDim)
-                    .deriveFont(Font.BOLD);
-            //fontStyle = new File("src\\main\\resources\\it\\unibo\\fonts\\Bungee-Regular.ttf");
-            fontStyle = ClassLoader.getSystemResourceAsStream("./it/unibo/fonts/Bungee-Regular.ttf");
-            fontButton = Font.createFont(Font.TRUETYPE_FONT, fontStyle)
-                    .deriveFont(fontButtonDim)
-                    .deriveFont(Font.CENTER_BASELINE)
-                    .deriveFont(Font.PLAIN);
-
-            fontStyle.close();
-
-        } catch (FontFormatException | IOException e) {
-            //e.printStackTrace();              //TODO: usare un logger?
-            Logger.getLogger(EditorGUI.class.getName()).severe(e.getMessage());
-        }*/
 
         final JButton menu = new JButton("Quit");
         menu.setFont(fontButton);
@@ -143,7 +118,6 @@ public final class EditorGUI {
                 if (JOptionPane.showConfirmDialog(frame, "Do you want to return to the Title Screen",
                          "Quitting", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                     frame.setVisible(false);
-                    //new ViewImpl(controller, width, height).displayStart();
                     view.displayStart();
                 }
             }
@@ -231,8 +205,6 @@ public final class EditorGUI {
 
             @Override
             public void actionPerformed(final ActionEvent e) {
-                //removeEntity = true;
-                //type = Optional.empty();
                 panelView.setRemove();
             }
         });
@@ -244,27 +216,6 @@ public final class EditorGUI {
         box.setBackground(Color.GRAY);
         box.setLayout(new GridLayout(3, 2, 10, 10));
 
-        /*final ImageIcon character = new ImageIcon("src/main/resources/it/unibo/images/Owlet_Monster.png");
-        final ImageIcon imgCharacter = new ImageIcon(character.getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT));
-        final JButton button = new JButton();
-        button.setLayout(new BoxLayout(button, BoxLayout.Y_AXIS));
-
-        final JLabel textP = new JLabel("Character"); //SwingConstants.
-        textP.setFont(new Font("Verdana", Font.BOLD, BUTTON_TEXT_SIZE));    TODO: remove
-        textP.setForeground(Color.WHITE);
-
-        final JLabel iconP = new JLabel(imgCharacter);
-        final int topIconP = 20;
-        final int leftIconP = 10;
-        iconP.setBorder(BorderFactory.createEmptyBorder(topIconP, leftIconP, 0, 0));
-
-        button.add(textP);
-        iconP.setOpaque(false);
-        button.add(iconP);
-        button.setBackground(Color.BLACK);
-        button.setForeground(Color.WHITE);
-        button.setVerticalAlignment(SwingConstants.TOP);
-        button.setVerticalTextPosition(SwingConstants.BOTTOM);*/
         final JButton button = new JButton();
         addImageToButton(button, "Character", "it/unibo/images/Owlet_Monster.png");
         addEntityFromButton(button, EntityType.CHARACTER);
@@ -307,27 +258,6 @@ public final class EditorGUI {
 
         box.add(mapElementPanel);
 
-        /*button5.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JPanel littlePanel = new JPanel(new FlowLayout());
-                JButton block = new JButton("Block");
-                JButton longBlock = new JButton("LongBlock");
-
-                addEntityFromButton(block, EntityType.MAP_ELEMENT);
-                addEntityFromButton(longBlock, EntityType.LONG_MAP_ELEMENT);    TODO: remove
-
-                littlePanel.add(block);
-                littlePanel.add(longBlock);
-                frame.add(littlePanel);
-            }
-
-        });*/
-        //button5.setVerticalTextPosition(SwingConstants.TOP);          //Possono servire per mettere in alto il testo
-        //button5.setVerticalAlignment(SwingConstants.TOP);
-        //box.add(button5);
-
         final JComponent component = new JPanel(new BorderLayout());
         component.setBackground(Color.GRAY);
         component.setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -335,7 +265,6 @@ public final class EditorGUI {
         component.add(box, BorderLayout.EAST);
         panelView.setBorder(BorderFactory.createLineBorder(Color.BLACK, THICKNESS));
         component.add(panelView, BorderLayout.CENTER);
-        //this.frame.setContentPane(component);
         this.frame.add(component);
         this.frame.setJMenuBar(menuBar);
     }
@@ -393,8 +322,6 @@ public final class EditorGUI {
 
             @Override
             public void actionPerformed(final ActionEvent e) {
-                //removeEntity = false;
-                //type = Optional.of(typeInput);
                 panelView.setSelectedEntity(typeInput);
             }
         });
@@ -405,13 +332,11 @@ public final class EditorGUI {
             final float fontLabelDim = 30f;
             final float fontButtonDim = 25f;
 
-            //File fontStyle = new File("src\\main\\resources\\it\\unibo\\fonts\\ProtestStrike-Regular.ttf");
-            InputStream fontStyle = ClassLoader.getSystemResourceAsStream("./it/unibo/fonts/ProtestStrike-Regular.ttf");
+            InputStream fontStyle = ClassLoader.getSystemResourceAsStream("it/unibo/fonts/ProtestStrike-Regular.ttf");
             this.font = Font.createFont(Font.TRUETYPE_FONT, fontStyle)
                     .deriveFont(fontLabelDim)
                     .deriveFont(Font.BOLD);
-            //fontStyle = new File("src\\main\\resources\\it\\unibo\\fonts\\Bungee-Regular.ttf");
-            fontStyle = ClassLoader.getSystemResourceAsStream("./it/unibo/fonts/Bungee-Regular.ttf");
+            fontStyle = ClassLoader.getSystemResourceAsStream("it/unibo/fonts/Bungee-Regular.ttf");
             this.fontButton = Font.createFont(Font.TRUETYPE_FONT, fontStyle)
                     .deriveFont(fontButtonDim)
                     .deriveFont(Font.CENTER_BASELINE)
@@ -420,7 +345,6 @@ public final class EditorGUI {
             fontStyle.close();
 
         } catch (FontFormatException | IOException e) {
-            //e.printStackTrace();              //TODO: usare un logger?
             Logger.getLogger(EditorGUI.class.getName()).severe(e.getMessage());
         }
     }

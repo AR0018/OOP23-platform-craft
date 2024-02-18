@@ -11,10 +11,7 @@ import javax.swing.SwingUtilities;
  */
 public final class ViewImpl implements View {
 
-    //private final Controller controller;
     private final TitleScreen titleScreen;
-    //private final double width;
-    //private final double heigth;
 
     /**
      * Constructor of the ViewImpl.

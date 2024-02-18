@@ -26,7 +26,6 @@ import java.util.Objects;
  * Final because the class doesn't need to be extended
  */
 public final class CharacterImpl extends GameEntityImpl implements Character {
-    //TODO: controllare bene collisione con nemico up
 
     private final Physics physic;
     private final PhysicsBuilder physicsBuilder = new PhysicsBuilderImpl();
@@ -104,20 +103,11 @@ public final class CharacterImpl extends GameEntityImpl implements Character {
                     .stream()
                     .filter(x -> x.getGameEntity() instanceof Enemy)
                     .collect(Collectors.toSet());
-            /*if (!enemySetCollision.isEmpty()) {             //TODO: migliorare
-                if (!(enemySetCollision.size() == 1 
-                        && enemySetCollision.stream().findFirst().get().getDirection().equals(Direction.DOWN))) {
-                            setAlive(false);
-                }
-            }*/
-        /*if (!enemySetCollision.isEmpty() && !(enemySetCollision.size() == 1 
-                    && enemySetCollision.stream().findFirst().get().getDirection().equals(Direction.DOWN))) {  //TODO: controllare
-                        setAlive(false);
-        }*/
+
         if (!enemySetCollision.isEmpty() 
             && !enemySetCollision.stream()
             .findFirst().get()
-            .getDirection().equals(Direction.DOWN)) {  //TODO: controllare
+            .getDirection().equals(Direction.DOWN)) {
                         setAlive(false);
         }
     }
@@ -126,11 +116,7 @@ public final class CharacterImpl extends GameEntityImpl implements Character {
         final var borderSetCollision = getBorder()
                 .stream()
                 .collect(Collectors.toSet());
-        /*if (!borderSetCollision.isEmpty()) {
-            if (borderSetCollision.stream().anyMatch(x -> x.getDirection().equals(Direction.DOWN))) {
-                setAlive(false);
-            }
-        }*/
+
         if (!borderSetCollision.isEmpty() && borderSetCollision
             .stream().anyMatch(x -> x.getDirection().equals(Direction.DOWN))) {
                 setAlive(false);

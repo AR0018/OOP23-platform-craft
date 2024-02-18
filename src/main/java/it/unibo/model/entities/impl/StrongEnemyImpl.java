@@ -29,7 +29,6 @@ public final class StrongEnemyImpl extends EnemyImpl {
     public StrongEnemyImpl(final Position position, final Level level) {
         super(position, level, EntityType.ENEMY.getWidth(), EntityType.ENEMY.getHeigth());
         this.physics = this.builder.addGameEntity(this)
-                //.addAccelerationOnX()
                 .addFallingPhysics()
                 .addSpeedOnX(SpeedLevels.FAST)
                 .create();
@@ -51,9 +50,7 @@ public final class StrongEnemyImpl extends EnemyImpl {
             } else {
                 setDirection(Direction.LEFT);
             }
-        } /*else {
-            this.physics.setMovement(getDirection());
-        }*/
+        }
         this.physics.setMovement(getDirection());
         this.setPosition(this.physics.calculateMovement());
     }

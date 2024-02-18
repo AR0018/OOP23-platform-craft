@@ -17,7 +17,6 @@ public final class EditorViewImpl implements EditorView {
      * @param view the main view of the game
      */
     public EditorViewImpl(final Controller controller, final View view) {
-        //this.controller = controller;
         this.editor = new EditorGUI(controller, view);
     }
 

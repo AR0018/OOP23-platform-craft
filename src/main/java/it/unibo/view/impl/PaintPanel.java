@@ -47,7 +47,6 @@ public class PaintPanel extends JPanel { //NOPMD suppressed since this class is 
         this.add(canvas);
         this.selected = Optional.empty();
         this.remove = false;
-        //Component listener that modifies the size of the canvas if this panel is resized.
         this.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(final ComponentEvent e) {
