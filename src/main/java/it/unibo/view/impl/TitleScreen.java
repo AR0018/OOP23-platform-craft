@@ -2,6 +2,7 @@ package it.unibo.view.impl;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.GridLayout;
@@ -47,8 +48,8 @@ public final class TitleScreen {
     private static final Color FOREGROUND = new Color(255, 255, 255);
     private static final float TITLE_SIZE = 80f;
     private static final Dimension BUTTON_SIZE = new Dimension(60, 50); 
-    private static final int XDIM = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 1.5);
-    private static final int YDIM = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 1.1);
+    private static final int XDIM = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 1.2);
+    private static final int YDIM = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 1.2);
     private final JFrame frame = new JFrame("Prova");
     private final Controller controller;
     private final View view;
@@ -87,10 +88,11 @@ public final class TitleScreen {
         panel.setBorder(new EmptyBorder(panelTopDim, zero, zero, zero));
         panel.setBackground(BUTTON_BACK);
 
-        final JLabel label = new JLabel(TITLE);
+        final JLabel label = new JLabel(TITLE, JLabel.CENTER);
 
         this.addingFont();
 
+        label.setLayout(new FlowLayout());
         label.setFont(font);
         label.setForeground(FOREGROUND);
 
@@ -162,10 +164,10 @@ public final class TitleScreen {
         final int left = 200;
         final int right = 200;
 
-        final JPanel titlePanel = new JPanel();
+        final JPanel titlePanel = new JPanel(new BorderLayout());
         titlePanel.setBackground(BUTTON_BACK);
-        titlePanel.add(label);
-        titlePanel.add(panel);
+        titlePanel.add(label, BorderLayout.NORTH);
+        titlePanel.add(panel, BorderLayout.CENTER);
         titlePanel.setBorder(new EmptyBorder(new Insets(top, left, zero, right)));
 
         panel.add(play);
