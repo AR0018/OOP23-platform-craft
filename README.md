@@ -53,6 +53,10 @@ The first time the application starts, it installs in the home directory of the 
 folder named PlatformCraft containing a demo level.
 This level can be loaded, played and edited.
 
+**Commands**
+During the running game, inside the game section, the player can move the character in each direction by pressing the WASD 
+and the arrows keys to choose where to move it Also, by the space bar, the character jumps 
+(same behaviour by pressing W and the up arrows). 
 ## Resources
 
 - Character and enemy images: https://free-game-assets.itch.io/free-tiny-hero-sprites-pixel-art
