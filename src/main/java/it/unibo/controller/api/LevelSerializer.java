@@ -28,4 +28,11 @@ public interface LevelSerializer {
      */
     Set<SimpleEntity> loadLevel(File file) throws IOException;
 
+    /**
+     * Loads the demo level in a directory in the user home.
+     * If the directory with the level already exists, does nothing.
+     * @throws IOException in case of an error with the format of the file or in case writing fails
+     */
+    void loadDemoLevel() throws IOException;
+
 }

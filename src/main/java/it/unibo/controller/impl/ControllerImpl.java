@@ -1,5 +1,8 @@
 package it.unibo.controller.impl;
 
+import java.io.IOException;
+import java.util.logging.Logger;
+
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.controller.api.Controller;
 import it.unibo.controller.api.LevelEditor;
@@ -32,6 +35,11 @@ public final class ControllerImpl implements Controller {
         if (this.startIsValid) {
             this.view.displayStart();
             this.startIsValid = false;
+            try {
+                new SerializerImpl().loadDemoLevel();
+            } catch (final IOException e) {
+                Logger.getLogger(ControllerImpl.class.getName()).severe("Failed to install demo level directory");
+            }
         } else {
             throw new IllegalStateException("The start method cannot be invoked anymore");
         }
