@@ -41,12 +41,6 @@ import javax.swing.JLabel;
 import java.awt.Toolkit;
 import java.io.File;
 
-//Link che mi aiutato
-//https://stackoverflow.com/questions/13040747/resize-components-on-frame-resize-java
-//https://docs.oracle.com/javase/tutorial/displayCode.html?code=https://
-//  docs.oracle.com/javase/tutorial/uiswing/examples/components/FileChooserDemo2Project/src/components/Utils.java
-
-//https://stackoverflow.com/questions/4801386/how-do-i-add-an-image-to-a-jbutton
 /**
  * Class used to build the editor GUI.
  */
