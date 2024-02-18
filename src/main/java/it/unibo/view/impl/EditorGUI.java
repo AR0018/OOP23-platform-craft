@@ -39,6 +39,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 
 import java.awt.Toolkit;
+import java.io.File;
 
 //Link che mi aiutato
 //https://stackoverflow.com/questions/13040747/resize-components-on-frame-resize-java
@@ -64,7 +65,7 @@ public final class EditorGUI {
     private static final int THICKNESS = 4;
     private static final int BUTTON_TEXT_SIZE = 20;
     private final JFrame frame = new JFrame();
-
+    private final Controller controller;
     private final PaintPanel panelView;
     private Font font;
     private Font fontButton;
@@ -76,6 +77,7 @@ public final class EditorGUI {
      */
     public EditorGUI(final Controller controller, final View view) {
 
+        this.controller = controller;
         this.panelView = new PaintPanel(controller, WIDTH_FRAME, HEIGHT_FRAME, Optional.of(this));
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frame.setSize(new Dimension(WIDTH_FRAME, HEIGHT_FRAME));
@@ -168,11 +170,7 @@ public final class EditorGUI {
                 file.setAcceptAllFileFilterUsed(false);
                 file.addChoosableFileFilter(new FileNameExtensionFilter("*.json", "json"));
                 if (file.showOpenDialog(frame) == JFileChooser.APPROVE_OPTION) {
-                    if (!controller.getEditor().loadLevel(file.getSelectedFile())) {
-                        JOptionPane.showMessageDialog(frame, "The level could not be loaded",
-                            "Loading error", JOptionPane.ERROR_MESSAGE);
-                    }
-                    panelView.render(controller.getEditor().getCurrentEntities());
+                    loadLevel(file.getSelectedFile());
                 }
             }
         });
@@ -301,6 +299,14 @@ public final class EditorGUI {
      */
     public boolean isShown() {
         return this.frame.isVisible();
+    }
+
+    private void loadLevel(final File file) {
+        if (!this.controller.getEditor().loadLevel(file)) {
+            JOptionPane.showMessageDialog(frame, "The level could not be loaded",
+                "Loading error", JOptionPane.ERROR_MESSAGE);
+        }
+        panelView.render(this.controller.getEditor().getCurrentEntities());
     }
 
     private void addImageToButton(final JButton button, final String type, final String filePathName) {

@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -34,6 +35,8 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.logging.Logger;
 
+import java.io.File;
+
 /**
  * Class to create the TitleScreen when the game starts.
  */
@@ -44,9 +47,11 @@ public final class TitleScreen {
     private static final Color FOREGROUND = new Color(255, 255, 255);
     private static final float TITLE_SIZE = 80f;
     private static final Dimension BUTTON_SIZE = new Dimension(60, 50); 
-    private static final int XDIM = 1200;
-    private static final int YDIM = 1000;
+    private static final int XDIM = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 1.5);       //1200
+    private static final int YDIM = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 1.1);       //1000
     private final JFrame frame = new JFrame("Prova");
+    private final Controller controller;
+    private final View view;
     private LevelView levelView;
     private EditorView editorView;
     private Font font;
@@ -58,6 +63,9 @@ public final class TitleScreen {
      * @param view main view of the level
      */
     public TitleScreen(final Controller controller, final View view) {
+
+        this.controller = controller;
+        this.view = view;
 
         final int numberRow = 3;
         final int numberCol = 1;
@@ -101,17 +109,11 @@ public final class TitleScreen {
                 file.setAcceptAllFileFilterUsed(false);
                 file.addChoosableFileFilter(new FileNameExtensionFilter("*.json", "json"));
                 if (file.showOpenDialog(frame) == JFileChooser.APPROVE_OPTION) {
-                    if (controller.getRunner().loadLevel(file.getSelectedFile())) {
-                        frame.setVisible(false);
-                        levelView = new LevelViewImpl(controller, view);
-                        levelView.show();
-                    } else {
-                        JOptionPane.showMessageDialog(frame, "The selected file could not be loaded",
-                            "Loading error", JOptionPane.ERROR_MESSAGE);
-                    }
+                    startLevel(file.getSelectedFile());
                 }
             }
         });
+
         final JButton editor = new JButton("Editor");
         editor.setPreferredSize(BUTTON_SIZE);
         editor.setFont(fontButton);
@@ -195,6 +197,17 @@ public final class TitleScreen {
      */
     public LevelView getLevelView() {
         return Objects.requireNonNull(this.levelView);
+    }
+
+    private void startLevel(final File file) {
+        if (this.controller.getRunner().loadLevel(file)) {
+            this.frame.setVisible(false);
+            levelView = new LevelViewImpl(this.controller, this.view);
+            levelView.show();
+        } else {
+            JOptionPane.showMessageDialog(this.frame, "The selected file could not be loaded",
+                "Loading error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     private void addingFont() {
