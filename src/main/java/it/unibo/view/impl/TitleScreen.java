@@ -47,8 +47,8 @@ public final class TitleScreen {
     private static final Color FOREGROUND = new Color(255, 255, 255);
     private static final float TITLE_SIZE = 80f;
     private static final Dimension BUTTON_SIZE = new Dimension(60, 50); 
-    private static final int XDIM = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 1.5);       //1200
-    private static final int YDIM = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 1.1);       //1000
+    private static final int XDIM = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 1.5);
+    private static final int YDIM = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 1.1);
     private final JFrame frame = new JFrame("Prova");
     private final Controller controller;
     private final View view;

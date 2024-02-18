@@ -202,6 +202,13 @@ public final class LevelGUI {
         this.panelView.render(entities);
     }
 
+    /**
+     * Resets the input of this LevelGUI, deleting information about currently active keys.
+     */
+    public void resetInput() {
+        this.activeKeys.clear();
+    }
+
     private void addingFont() {
         try {
             final float fontButtonDim = 25f;

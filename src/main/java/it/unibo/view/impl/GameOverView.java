@@ -87,6 +87,7 @@ public final class GameOverView {
             @Override
             public void actionPerformed(final ActionEvent e) {
                 frame.setVisible(false);
+                levelGUI.resetInput();
                 controller.getRunner().restart();
                 controller.getRunner().run();
             }
