@@ -6,7 +6,6 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.GridLayout;
-import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -84,12 +83,15 @@ public final class TitleScreen {
         this.frame.pack();
 
         final JPanel panel = new JPanel(new GridLayout(numberRow, numberCol, zero, panelVerticalGap));
+        final int bottom = 100;
+        final int left = 200;
+        final int right = 200;
+
         panel.setPreferredSize(new Dimension(panelWidthPreferred, panelHeightPreferred));
-        panel.setBorder(new EmptyBorder(panelTopDim, zero, zero, zero));
+        panel.setBorder(new EmptyBorder(panelTopDim, left, bottom, right));
         panel.setBackground(BUTTON_BACK);
 
         final JLabel label = new JLabel(TITLE, JLabel.CENTER);
-
         this.addingFont();
 
         label.setLayout(new FlowLayout());
@@ -160,15 +162,11 @@ public final class TitleScreen {
             }
         });
 
-        final int top = 100;
-        final int left = 200;
-        final int right = 200;
-
         final JPanel titlePanel = new JPanel(new BorderLayout());
         titlePanel.setBackground(BUTTON_BACK);
         titlePanel.add(label, BorderLayout.NORTH);
         titlePanel.add(panel, BorderLayout.CENTER);
-        titlePanel.setBorder(new EmptyBorder(new Insets(top, left, zero, right)));
+        //titlePanel.setBorder(new EmptyBorder(new Insets(top, left, zero, right)));
 
         panel.add(play);
         panel.add(editor);

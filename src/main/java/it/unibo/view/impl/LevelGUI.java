@@ -104,7 +104,7 @@ public final class LevelGUI {
         this.timer = new Timer(DELAY, keyProcesser);
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frame.setSize(new Dimension(WIDTH_FRAME, HEIGHT_FRAME));
-        this.frame.setMinimumSize(new Dimension(WIDTH_FRAME, HEIGHT_FRAME));
+        this.frame.setMinimumSize(new Dimension(WIDTH_FRAME / 3, HEIGHT_FRAME / 3));
         this.frame.setLocationRelativeTo(null);
         this.frame.setFocusable(true);
 
