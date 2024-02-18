@@ -49,8 +49,15 @@ The "RESET" button deletes all the objects in the editor screen.
 
 **Demo level**
 
-A demo level is available inside the application jar at the folder: "it/unibo/level/"
-The name of the level is "demo_level.json".
-To play this level, copy it in a folder outside the jar and open it from the application.
-MUST BE MODIFIED
+The first time the application starts, it installs in the home directory of the user a
+folder named PlatformCraft containing a demo level.
+This level can be loaded, played and edited.
 
+## Resources
+
+- Character and enemy images: https://free-game-assets.itch.io/free-tiny-hero-sprites-pixel-art
+- Map elements images: https://ma9ici4n.itch.io/grass-tileset-pixel-art
+- Piggy image: https://caz-creates-games.itch.io/piggy
+- Explosion image: https://pimen.itch.io/fire-spell-effect-02
+- Protest Strike font: https://fonts.google.com/specimen/Protest+Strike?classification=Display&subset=latin&noto.script=Latn
+- Bungee font: https://fonts.google.com/specimen/Bungee?preview.text=QUIT&classification=Display&subset=latin&noto.script=Latn
