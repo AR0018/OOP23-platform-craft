@@ -20,7 +20,7 @@ import it.unibo.controller.api.Controller;
  * This Panel acts as the container of Canvas, modifying its size
  * so that the aspect ratio of the level remains the same.
  */
-public class PaintPanel extends JPanel {
+public class PaintPanel extends JPanel { //NOPMD suppressed since this class is not meant for serialization
 
     private final double levelWidth;
     private final double levelHeight;

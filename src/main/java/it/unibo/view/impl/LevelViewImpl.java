@@ -14,23 +14,17 @@ public final class LevelViewImpl implements LevelView {
 
     private final LevelGUI levelGUI;
     private final Controller controller;
-    private final double width;
-    private final double heigth;
     private final View view;
 
     /**
      * Constructor of the LevelViewImpl.
      * @param controller the controller of the game
-     * @param width of the map level
-     * @param height of the map level
      * @param view main view of the level
      */
-    public LevelViewImpl(final Controller controller, final double width, final double height, final View view) {
+    public LevelViewImpl(final Controller controller, final View view) {
         this.controller = controller;
-        this.width = width;
-        this.heigth = height;
         this.view = view;
-        this.levelGUI = new LevelGUI(controller, width, height, view);
+        this.levelGUI = new LevelGUI(controller, view);
     }
 
     @Override
@@ -55,7 +49,7 @@ public final class LevelViewImpl implements LevelView {
 
     @Override
     public void displayWin() {
-        new WinView(this.controller, this.levelGUI, this.width, this.heigth, this.view);
+        new WinView(this.levelGUI, this.view);
     }
 
     @Override

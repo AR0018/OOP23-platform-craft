@@ -98,11 +98,9 @@ public final class LevelGUI {
     /**
      * Constructor of the LevelGUI used to build the view of the level.
      * @param controller the controller of the game
-     * @param width of the map level
-     * @param height of the map level
      * @param view main view of the level
      */
-    public LevelGUI(final Controller controller, final double width, final double height, final View view) {
+    public LevelGUI(final Controller controller, final View view) {
 
         this.panelView = new PaintPanel(controller, WIDTH_FRAME, HEIGHT_FRAME, Optional.empty()); //TODO: servono width e height?
         this.controller = Objects.requireNonNull(controller);

@@ -73,11 +73,9 @@ public final class EditorGUI {
     /**
      * Constructor of the Editor class.
      * @param controller the controller of the game
-     * @param width the width of the game level
-     * @param height the heigth of the game level
      * @param view the main view of the game
      */
-    public EditorGUI(final Controller controller, final double width, final double height, final View view) {
+    public EditorGUI(final Controller controller, final View view) {
 
         this.panelView = new PaintPanel(controller, WIDTH_FRAME, HEIGHT_FRAME, Optional.of(this)); //TODO: servono width e height?
         //this.panelView.setPreferredSize(new Dimension(500, 500));
@@ -252,7 +250,7 @@ public final class EditorGUI {
         button.setLayout(new BoxLayout(button, BoxLayout.Y_AXIS));
 
         final JLabel textP = new JLabel("Character"); //SwingConstants.
-        textP.setFont(new Font("Verdana", Font.BOLD, BUTTON_TEXT_SIZE));
+        textP.setFont(new Font("Verdana", Font.BOLD, BUTTON_TEXT_SIZE));    TODO: remove
         textP.setForeground(Color.WHITE);
 
         final JLabel iconP = new JLabel(imgCharacter);
@@ -318,7 +316,7 @@ public final class EditorGUI {
                 JButton longBlock = new JButton("LongBlock");
 
                 addEntityFromButton(block, EntityType.MAP_ELEMENT);
-                addEntityFromButton(longBlock, EntityType.LONG_MAP_ELEMENT);
+                addEntityFromButton(longBlock, EntityType.LONG_MAP_ELEMENT);    TODO: remove
 
                 littlePanel.add(block);
                 littlePanel.add(longBlock);

@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 /**
  * Panel that shows all the objects in the level.
  */
-public final class Canvas extends JPanel {
+public final class Canvas extends JPanel {  //NOPMD suppressed since this class is not meant for serialization
 
     private static final String ROOT = "it/unibo/images/";
     private static final String BACKGROUND = "XP.jpg";

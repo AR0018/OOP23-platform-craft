@@ -15,7 +15,6 @@ import javax.swing.border.Border;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import it.unibo.controller.api.Controller;
 import it.unibo.view.api.View;
 
 import java.awt.Dimension;
@@ -42,14 +41,10 @@ public final class WinView {
 
     /**
      * Constructor of the WinView.
-     * @param controller controller of the game
      * @param levelGUI the view of the running level
-     * @param width of the map level
-     * @param height of the map level
      * @param view the main view of the game
      */
-    public WinView(final Controller controller, final LevelGUI levelGUI,
-        final double width, final double height, final View view) {
+    public WinView(final LevelGUI levelGUI, final View view) {
 
         this.frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.frame.setResizable(false);

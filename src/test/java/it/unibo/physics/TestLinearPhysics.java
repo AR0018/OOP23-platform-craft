@@ -143,7 +143,6 @@ class TestLinearPhysics {
 
             @Override
             public boolean isAlive() {
-                // TODO Auto-generated method stub
                 throw new UnsupportedOperationException("Unimplemented method 'isAlive'");
             }
 
@@ -154,7 +153,6 @@ class TestLinearPhysics {
 
             @Override
             public EntityType getType() {
-                // TODO Auto-generated method stub
                 throw new UnsupportedOperationException("Unimplemented method 'getType'");
             }
 
@@ -165,7 +163,6 @@ class TestLinearPhysics {
 
             @Override
             public Boundaries getBoundaries() {
-                // TODO Auto-generated method stub
                 throw new UnsupportedOperationException("Unimplemented method 'getBoundaries'");
             }
     }
@@ -188,7 +185,6 @@ class TestLinearPhysics {
 
             @Override
             public boolean isAlive() {
-                // TODO Auto-generated method stub
                 throw new UnsupportedOperationException("Unimplemented method 'isAlive'");
             }
 
@@ -200,7 +196,6 @@ class TestLinearPhysics {
 
             @Override
             public EntityType getType() {
-                // TODO Auto-generated method stub
                 throw new UnsupportedOperationException("Unimplemented method 'getType'");
             }
 
@@ -214,7 +209,6 @@ class TestLinearPhysics {
 
             @Override
             public Boundaries getBoundaries() {
-                // TODO Auto-generated method stub
                 throw new UnsupportedOperationException("Unimplemented method 'getBoundaries'");
             }
     }

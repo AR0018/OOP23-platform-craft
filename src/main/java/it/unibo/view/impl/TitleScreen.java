@@ -56,11 +56,9 @@ public final class TitleScreen {
     /**
      * Constructor to build the gui of the TitleScreen.
      * @param controller the controller of the game
-     * @param width the width of the map level
-     * @param height the heigth of the map level
      * @param view main view of the level
      */
-    public TitleScreen(final Controller controller, final double width, final double height, final View view) {
+    public TitleScreen(final Controller controller, final View view) {
 
         final int numberRow = 3;
         final int numberCol = 1;
@@ -70,8 +68,8 @@ public final class TitleScreen {
         final int panelTopDim = 150;
         final int panelVerticalGap = 20;
 
-        this.levelView = new LevelViewImpl(controller, width, height, view);
-        this.editorView = new EditorViewImpl(controller, width, height, view);
+        this.levelView = new LevelViewImpl(controller, view);
+        this.editorView = new EditorViewImpl(controller, view);
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frame.setSize(new Dimension(XDIM, YDIM));
         this.frame.setMinimumSize(new Dimension(XDIM, YDIM));
@@ -126,7 +124,7 @@ public final class TitleScreen {
                 if (file.showOpenDialog(frame) == JFileChooser.APPROVE_OPTION) {
                     if (controller.getRunner().loadLevel(file.getSelectedFile())) {
                         frame.setVisible(false);
-                        levelView = new LevelViewImpl(controller, width, height, view);
+                        levelView = new LevelViewImpl(controller, view);
                         levelView.show();
                     } else {
                         JOptionPane.showMessageDialog(frame, "The selected file could not be loaded",
@@ -148,7 +146,7 @@ public final class TitleScreen {
             public void actionPerformed(final ActionEvent e) {
                 frame.setVisible(false);
                 controller.getEditor().reset();
-                editorView = new EditorViewImpl(controller, width, height, view);
+                editorView = new EditorViewImpl(controller, view);
                 editorView.show();
             }
         });

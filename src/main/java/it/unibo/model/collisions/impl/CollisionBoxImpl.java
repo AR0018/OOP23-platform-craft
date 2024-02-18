@@ -99,6 +99,9 @@ public final class CollisionBoxImpl implements CollisionBox {
             //Case right or down.
             return new EntityCollisionImpl(other, directions.get(1));
         }
+        if (directions.size() == 1) {
+            return new EntityCollisionImpl(other, directions.get(0));
+        }
         if (directions.get(0) == Direction.UP
             && directions.get(1) == Direction.DOWN
             || directions.get(0) == Direction.RIGHT

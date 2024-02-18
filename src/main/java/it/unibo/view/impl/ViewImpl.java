@@ -19,11 +19,9 @@ public final class ViewImpl implements View {
     /**
      * Constructor of the ViewImpl.
      * @param controller the controller of the game
-     * @param width the width of the map level
-     * @param height the heigth of the map level
      */
-    public ViewImpl(final Controller controller, final double width, final double height) {
-        this.titleScreen = new TitleScreen(controller, width, height, this);
+    public ViewImpl(final Controller controller) {
+        this.titleScreen = new TitleScreen(controller, this);
     }
 
     @Override

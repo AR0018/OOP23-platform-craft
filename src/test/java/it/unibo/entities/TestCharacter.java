@@ -370,13 +370,11 @@ class TestCharacter {
 
         @Override
         public void setCharacter(final Character character) {
-            // TODO Auto-generated method stub
             throw new UnsupportedOperationException("Unimplemented method 'setCharacter'");
         }
 
         @Override
         public void removeGameEntity(final GameEntity entity) {
-            // TODO Auto-generated method stub
             throw new UnsupportedOperationException("Unimplemented method 'removeGameEntity'");
         }
     }

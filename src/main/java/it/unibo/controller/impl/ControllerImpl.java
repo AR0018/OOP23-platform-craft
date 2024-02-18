@@ -23,9 +23,7 @@ public final class ControllerImpl implements Controller {
      */
     public ControllerImpl() {
         this.levelEditor = new LevelEditorImpl();
-        this.view = new ViewImpl(this, 
-                this.levelEditor.getLevelWidth(), 
-                this.levelEditor.getLevelHeight());
+        this.view = new ViewImpl(this);
         this.levelRunner = new LevelRunnerImpl(this.view);
     }
 

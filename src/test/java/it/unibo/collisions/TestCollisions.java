@@ -50,9 +50,9 @@ class TestCollisions {
     final Position p2 = new Position2D(x2, y2);
     final List<Position> vertici = new ArrayList<>();
     vertici.add(p);
-    vertici.add(new Position2D(x1, y)); //(x1, y)
-    vertici.add(new Position2D(x1, y3));  //(x1, y3)
-    vertici.add(new Position2D(x, y3)); //(x, y3)
+    vertici.add(new Position2D(x1, y));
+    vertici.add(new Position2D(x1, y3));
+    vertici.add(new Position2D(x, y3));
     vertici.add(p);
 
     final double h1 = 5;
@@ -125,25 +125,21 @@ class TestCollisions {
 
     @Override
     public void computeChanges() {
-      // TODO Auto-generated method stub
       throw new UnsupportedOperationException("Unimplemented method 'computeChanges'");
     }
 
     @Override
     public void moveCharacter(final Direction dir) {
-      // TODO Auto-generated method stub
       throw new UnsupportedOperationException("Unimplemented method 'moveCharacter'");
     }
 
     @Override
     public GameState getGameState() {
-      // TODO Auto-generated method stub
       throw new UnsupportedOperationException("Unimplemented method 'getGameState'");
     }
 
     @Override
     public GameEntity getCharacter() {
-      // TODO Auto-generated method stub
       throw new UnsupportedOperationException("Unimplemented method 'getCharacter'");
     }
 
@@ -154,13 +150,11 @@ class TestCollisions {
 
     @Override
     public void setCharacter(final Character character) {
-      // TODO Auto-generated method stub
       throw new UnsupportedOperationException("Unimplemented method 'setCharacter'");
     }
 
     @Override
     public void removeGameEntity(final GameEntity entity) {
-      // TODO Auto-generated method stub
       throw new UnsupportedOperationException("Unimplemented method 'removeGameEntity'");
     }
   }
